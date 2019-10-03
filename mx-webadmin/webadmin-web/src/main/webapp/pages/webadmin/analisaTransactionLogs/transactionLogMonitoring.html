@@ -1,0 +1,196 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html jwcid="@Shell" title="message:webapp.title">
+<head>
+<script type="text/javascript" src="scripts/jquery-1.8.3.min.js"></script>
+<script type="text/javascript"
+	src="scripts/jquery-ui-1.9.2.custom.min.js"></script>
+<script type="text/javascript" src="scripts/mayora/tools.js"></script>
+
+<link rel="stylesheet"
+	href="styles/style-Kominfo/jquery-ui-1.10.0.custom.css" type="text/css" />
+<script>
+	$(document).ready(function() {
+
+// 		$("#rawmsgLink").on('click', function() {
+// 			console.log("link raw");
+// 			$("#LogDetail").dialog('open');
+
+// 		});
+
+// 		$("#LogDetail").dialog({
+// 			modal : true,
+// 			buttons : {
+// 				Ok : function() {
+// 					$(this).dialog("close");
+// 				}
+// 			}
+// 		});
+
+	});
+</script>
+</head>
+<body jwcid="@Body">
+	<div id="outer" style="height: 80%">
+
+		<form jwcid="myForm@Form" delegate="ognl:beans.delegate"
+			clientValidationEnabled="ognl:true">
+
+			<!-- 			<div id="title"> -->
+			<!-- 				<span key="masterMaintenance.ipsfr.license.title"></span> -->
+			<span jwcid="notFirstLoad@Hidden" value="ognl:notFirstLoad"></span>
+			<!-- 			</div> -->
+
+			<div id="title">
+				<span key="analisaTxLog.title"></span>
+			</div>
+			<table width="90%" class="uniform">
+
+				<tr>
+					<td><label>Klien ID</label></td>
+
+					<td><input jwcid="@TextField" type="text" value="ognl:klienID"
+						size="30" /></td>
+				</tr>
+				<tr>
+					<td><label>No Invoice</label></td>
+
+					<td><input jwcid="@TextField" type="text"
+						value="ognl:invoiceNo" size="30" /></td>
+				</tr>
+				<tr jwcid="@Any" class="ognl:evenOddTable.next">
+					<td class="short"><label class="short"
+						displayName="message:common.label.startDate">Start Date</label></td>
+					<td><span jwcid="startDate@TimestampPicker"
+						value="ognl:startDate"></span></td>
+				</tr>
+				<tr jwcid="@Any" class="ognl:evenOddTable.next">
+					<td class="short"><label class="short"
+						displayName="message:common.label.endDate">End Date</label></td>
+					<td><span jwcid="endDate@TimestampPicker" value="ognl:endDate"></span>
+					</td>
+				</tr>
+				<tr>
+					<td><label>Tipe Transaksi</label></td>
+
+					<td><select jwcid="@PropertySelection"
+						model="ognl:getTransactionTypeModel()"
+						value="ognl:transactionType" id="transactionType">
+					</select></td>
+				</tr>
+				<tr>
+					<td><label>Endpoint</label></td>
+
+					<td><select jwcid="endpoint@PropertySelection"
+						model="ognl:getEndpointModel()" value="ognl:endpoint">
+					</select></td>
+				</tr>
+				<tr>
+					<td><label>Respon</label></td>
+
+					<td><select jwcid="@PropertySelection"
+						model="ognl:getResponseCodeModel()" value="ognl:responseCode"
+						id="responseCode">
+					</select></td>
+				</tr>
+
+				<tr>
+					<td><input name="BTN_SEARCH" type="button" class="btn"
+						id="BTN_SEARCH" jwcid="@Submit" action="listener:doSearch"
+						onclick="this.form.onsubmit=null" value="message:button.search" /></td>
+				</tr>
+
+
+			</table>
+
+			<!-- Transaction Log  Result -->
+			<span jwcid="@If" condition="ognl:transactionList!=null">
+				<div id="box" style="width: 90%">
+					<table width="99%" jwcid="@contrib:TableView" pageSize="10"
+						source="ognl:transactionLog"
+						columns="!Klien Id, !Nama Klien, !No. Invoice,  !Tipe Transaksi, !Nama Transaksi, !Respon PG(masuk),!Respon PG(keluar), !Waktu Transaksi, !Raw Message">
+						<tr>
+							<td align="right"><br /> <span jwcid="@TablePages" /></td>
+						</tr>
+						<tr>
+							<td>
+								<table border="0" class="data" width="99%">
+									<tr>
+										<th>Klien Id</th>
+										<th>Nama Klien</th>
+										<th>No. Invoice</th>
+										<th>Nama Transaksi</th>
+										<th>Respon PG (masuk)</th>
+										<th>Respon PG (keluar)</th>
+										<th>Waktu Transaksi</th>
+										<th>Raw Message</th>
+									</tr>
+									<tr jwcid="@contrib:TableRows" row="ognl:tableRow"
+										class="ognl:beans.evenOdd.next">
+										<td width="5%" align="left"><span jwcid="@Insert"
+											value="ognl:tableRow.klienID"></span></td>
+										<td width="30%" align="center"><span jwcid="@Insert"
+											value="ognl:tableRow.clientName"></span></td>
+										<td width="10%" align="center"><span jwcid="@Insert"
+											value="ognl:tableRow.invoiceNo"></span></td>
+
+										<td width="10%" align="center"><span jwcid="@Insert"
+											value="ognl:tableRow.trxDesc"></span></td>
+										<td width="10%" align="center"><span jwcid="@Insert"
+											value="ognl:tableRow.mxRc"></span></td>
+										<td width="10%" align="center"><span jwcid="@Insert"
+											value="ognl:tableRow.channelRc"></span></td>
+										<td width="10%" align="center"><span jwcid="@Insert"
+											value="ognl:tableRow.trxTime"></span></td>
+										<td width="5%" align="right"><a href=""
+											jwcid="@DirectLink" listener="listener:logDetail"
+											parameters="ognl:tableRow.raw" id="rawmsgLink">
+												View </a></td>
+
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+
+
+<!-- 					<div id="LogDetail" title="Detail"> -->
+<!-- 						<table width="90%"> -->
+
+<!-- 							<tr> -->
+<!-- 								<td><label>companyCode</label></td> -->
+
+<!-- 								<td><input jwcid="@Insert" value="ognl:rawCompanyCode" /></td> -->
+<!-- 							</tr> -->
+<!-- 							<tr> -->
+<!-- 								<td><label>No Invoice</label></td> -->
+
+<!-- 								<td><span jwcid="@Insert" value="ognl:rawInvoiceNo" /></td> -->
+<!-- 							</tr> -->
+
+
+
+<!-- 						</table> -->
+
+<!-- 					</div> -->
+
+				</div>
+			</span>
+
+
+
+
+
+
+
+			<!-- 			<span jwcid="errorShadow@TextField" autocomplete="off" -->
+			<!-- 				value="ognl:errorValue" style="display: none"></span> <span -->
+			<!-- 				jwcid="@If" condition="ognl:delegate.hasErrors"> <script> -->
+			<!-- // 					alert('<span jwcid="@Delegator" delegate="ognl:delegate.firstError">Error Message</span>');  -->
+			<!--  				</script> -->
+			<!-- 			</span> -->
+
+		</form>
+	</div>
+</body>
+</html>

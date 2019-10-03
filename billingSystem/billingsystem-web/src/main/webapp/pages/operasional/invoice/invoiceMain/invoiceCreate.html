@@ -1,0 +1,166 @@
+<html jwcid="@Shell" title="message:webapp.title">
+<head>
+	<script type="text/javascript" src="scripts/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="scripts/jquery-ui-1.9.2.custom.min.js" ></script>
+	<script type="text/javascript" src="scripts/mayora/textAutoComplete.js" ></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			#$("#dayDateYear").datepicker({ format: 'dd/MM/yyyy', showOn: 'button' });
+			#$("#dayDateYear_0").datepicker({ format: 'dd/MM/yyyy', showOn: 'button' });
+		});
+	</script>
+	
+	<link rel="stylesheet" type="text/css" href="styles/mayora/jquery-ui.css" />
+	
+</head>
+<body jwcid="@Body">
+<div id="outer">
+
+	<form  jwcid="createInvoiceForm@Form" delegate="ognl:beans.delegate" clientValidationEnabled="ognl:true">
+		
+		
+		<div id="title">
+	    	<span key="operational.invoice.create.title"></span>
+	    	<!--<span jwcid="notFirstLoad@Hidden" value="ognl:notFirstLoad"></span>-->
+	   	</div>
+		<br/>
+	    <span jwcid="@ValidationErrorTop" delegate="ognl:beans.delegate" ></span>
+	    
+	    <table class="uniform">
+	    	<tr>
+				<td><label class="medium"><span key="masterMaintenance.ipsfr.license.service.title"></span></label></td>
+				<td>
+					<input 	jwcid="service@PropertySelection" model="ognl:serviceSelectionModel" value="ognl:serviceId"/>
+				</td>
+			</tr>
+			<tr>
+				<td><label class="medium"><span key="masterMaintenance.ipsfr.license.subService.title"></span></label></td>
+				<td>
+					<input 	jwcid="subService@PropertySelection" model="ognl:subServiceSelectionModel" value="ognl:subServiceId"/>
+				</td>
+			</tr>
+	
+	    	<tr>
+				<td><label class="medium"><span key="masterMaintenance.ipsfr.license.methodBHP.title"></span></label></td>
+				<td>
+					<input 	jwcid="metodeBhp@PropertySelection" model="ognl:metodeBhpSelectionModel" value="ognl:metodeBhp"/>
+				</td>
+			</tr>
+	    	<tr>
+				<td><label class="medium"><span key="masterMaintenance.ipsfr.license.clientName.title"></span></label></td>
+				<td>
+					<input 	jwcid="clientName@TextField" autocomplete="off" value="ognl:clientName" size="30"/>
+				</td>
+			</tr>
+	    	<tr>
+				<td><label class="medium"><span key="license.licenseNo.title"></span></label></td>
+				<td>
+					<input 	jwcid="apRefNumber@TextField" autocomplete="off" value="ognl:apRefNumber" size="30"/>
+				</td>
+			</tr>
+			<tr>
+				<td><label class="medium"><span key="field.invoice.number"></span></label></td>
+				<td>
+					<input 	jwcid="invoiceNumber@TextField" autocomplete="off" value="ognl:invoiceNumber" size="30"/>
+				</td>
+			</tr>
+			<tr jwcid="@Any" class="ognl:evenOddTable.next">
+				<td class="short"></td>
+				<td>
+					<input class="btn" type="submit" id="searchButton" 
+						jwcid="searchButton@Submit" 
+						value="message:button.invoice.search" action="listener:search"/>
+					&nbsp;
+					
+					<input class="btn" type="submit" id="createButton" 
+						jwcid="createButton@Submit" 
+						value="message:button.invoice.create" action="listener:create"/>
+				</td>
+			</tr>
+			<tr height="10px"><td colspan="2"></td></tr>
+	    </table>
+	    
+	    <span jwcid="@If" condition="ognl:invoiceList!=null">
+		
+   			<span jwcid="@contrib:TableView" pageSize="10" source="ognl:invoiceList"
+   				columns="!Nomor, !SKM, !License Id, !Tahun, !Tanggal SKM, !Periode IPFR, !Frekuensi, !Total Pembayaran, !Tipe Pembayaran">
+			<table width="99%">
+    
+	     	<tr>
+				<td align="right">
+					<br/><span jwcid="@TablePages"></span>
+				</td>
+			</tr>
+			<tr>
+				<td>
+	<!--/**
+	 *     <li>row number 		: [0]</li>
+	 *     <li>license number	: [1]</li>
+	 *     <li>license id		: [2]</li>
+	 *     <li>year				: [3]</li>
+	 *     <li>license date		: [4]</li>
+	 *     <li>license begin	: [5]</li>
+	 *     <li>license end		: [6]</li>
+	 *     <li>transmit min		: [7]</li>
+	 *     <li>transmit max		: [8]</li>
+	 *     <li>receive min		: [9]</li>
+	 *     <li>receive max 		: [10]</li>
+	 *     <li>total amount		: [11]</li>
+	 *     <li>payment type		: [12]</li>
+	 *     <li>invoice no		: [13]</li>
+	 *     <li>invoice status	: [14]</li>
+	 */-->
+
+					<table width="100%" border="0" class="data">
+					<tr>
+						<th><span key="table.no">No.</span></th>
+						<th><span key="table.skm.no">No. SKM</span></th>
+						<th><span key="table.license.id">License ID</span></th>
+						<th><span key="table.invoice.id">Invoice ID</span></th>
+						<th><span key="table.year.to">Tahun</span></th>
+						<th><span key="table.skm.date">Tanggal SKM</span></th>
+						<th><span key="table.ipsfr.start">Mulai IPFR</span></th>
+						<th><span key="table.ipsfr.end">Selesai IPFR</span></th>
+						<th><span key="table.freq.transmit.min">Frekuensi Transmit Min</span></th>
+						<th><span key="table.freq.transmit.max">Frekuensi Transmit Max</span></th>
+						<th><span key="table.freq.receive.min">Frekuensi Receive Min</span></th>
+						<th><span key="table.freq.receive.max">Frekuensi Receive Max</span></th>
+						<th><span key="table.payment.amount">Total Pembayaran</span></th>
+						<th><span key="table.payment.type">Tipe Pembayaran</span></th>
+						<th><span key="table.invoice.status">Status</span></th>
+					</tr>
+					<tr jwcid="@contrib:TableRows" row="ognl:row" class="ognl:beans.evenOdd.next">
+						<td width="5%">		<span jwcid="@Insert" value="ognl:row[0]"></span> </td>
+						<td width="10%">	<span jwcid="@Insert" value="ognl:row[1]"></span> </td>
+						<td width="5%">		<span jwcid="@Insert" value="ognl:row[2]"></span> </td>
+						<td width="10%">	<span jwcid="@Insert" value="ognl:row[13]"></span> </td>
+						<td width="5%"> 	<span jwcid="@Insert" value="ognl:row[3]"></span> </td>
+						<td width="10%"> 	<span jwcid="@Insert" value="ognl:row[4]"></span> </td>
+						<td width="10%"> 	<span jwcid="@Insert" value="ognl:row[5]"></span> </td>
+						<td width="10%"> 	<span jwcid="@Insert" value="ognl:row[6]"></span> </td>
+						<td width="5%"> 	<span jwcid="@Insert" value="ognl:row[7]"></span> </td>
+						<td width="5%"> 	<span jwcid="@Insert" value="ognl:row[8]"></span> </td>
+						<td width="5%"> 	<span jwcid="@Insert" value="ognl:row[9]"></span> </td>
+						<td width="5%"> 	<span jwcid="@Insert" value="ognl:row[10]"></span> </td>
+						<td width="5%"> 	<span jwcid="@Insert" value="ognl:row[11]"></span> </td>
+						<td width="10%"> 	<span jwcid="@Insert" value="ognl:row[12]"></span> </td>
+						<td width="5%"> 	<span jwcid="@Insert" value="ognl:row[14]"></span> </td>
+					</tr>
+					</table>
+		
+				</td>
+			</tr>
+    		</table>
+    		</span>
+  
+    	</span>
+    	
+    	<span jwcid="errorShadow@TextField" autocomplete="off" value="ognl:errorValue" style="display:none"></span>
+		<span jwcid="@If" condition="ognl:delegate.hasErrors">    
+			<script>alert('<span jwcid="@Delegator" delegate="ognl:delegate.firstError">Error Message</span>');</script>
+		</span>
+	
+	</form>
+</div>
+</body>
+</html>

@@ -1,0 +1,169 @@
+<html jwcid="@Shell" title="message:webapp.title">
+<head>
+	<script type="text/javascript" src="scripts/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="scripts/jquery-ui-1.9.2.custom.min.js" ></script>
+	<script type="text/javascript" src="scripts/mayora/textAutoComplete.js" ></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			#$("#dayDateYear").datepicker({ format: 'dd/MM/yyyy', showOn: 'button' });
+			#$("#dayDateYear_0").datepicker({ format: 'dd/MM/yyyy', showOn: 'button' });
+		});
+</script>
+	
+	<link rel="stylesheet" type="text/css" href="styles/mayora/jquery-ui.css" />
+	<STYLE TYPE="text/css" media="all">
+	.ui-autocomplete {
+	    position: absolute;
+	    cursor: default;
+	    height: 200px;
+	    overflow-y: scroll;
+	    overflow-x: hidden;}
+	</STYLE>
+</head>
+<body jwcid="@Body">
+<div id="outer">
+	<form  jwcid="createInvoiceForm@Form" delegate="ognl:beans.delegate" clientValidationEnabled="ognl:true">
+		<div id="title">
+	    	<span key="operational.invoice.create.title"></span>
+	   	</div>
+		<br/>
+	    <span jwcid="@ValidationErrorTop" delegate="ognl:beans.delegate" />
+	    
+	    <table class="uniform">
+	    	<tr>
+	    		<td class="short">
+	    			<label class="short" displayName="message:common.label.service">Services</label>
+	    		</td>
+	    		<td>
+<!-- 	    			<span key="common.label.service.land.mobile"></span> -->
+					<select style="width: 11em; min-width: 300px; min-height: 200px;" 
+	    				jwcid="service@ListBoxPropertySelectionModel"
+	    				model="ognl:serviceSelectionModel" 
+	    				selectedList="ognl:selectedService">
+	    			</select>
+	    		</td>
+	    	</tr>
+	    	<tr>
+	    		<td class="short">
+	    			<label class="short" displayName="message:common.label.sub.service"></label>
+	    		</td>
+	    		<td>
+	    			<select style="width: 11em; min-width: 300px; min-height: 200px;" 
+	    				jwcid="subService@ListBoxPropertySelectionModel"
+	    				model="ognl:subServiceSelectionModel" 
+	    				selectedList="ognl:selectedSubService">
+	    			</select>
+	    		</td>
+	    	</tr>
+	    	<tr>
+	    		<td class="short">
+	    			<label class="short" displayName="message:common.label.metode.bhp"></label>
+	    		</td>
+	    		<td>
+	    			<select style="width: 11em; min-width: 300px; min-height: 200px;" 
+	    				jwcid="metodeBhp@ListBoxPropertySelectionModel"
+	    				model="ognl:metodeBhpSelectionModel" 
+	    				selectedList="ognl:selectedMetodeBhp">
+	    			</select>
+	    		</td>
+	    	</tr>
+	    	<tr>
+	    		<td class="short">
+	    			<label class="short" displayName="message:common.label.client.name"></label>
+	    		</td>
+	    		<td>
+	    			<select style="width: 11em; min-width: 300px; min-height: 200px;" 
+	    				jwcid="clientName@ListBoxPropertySelectionModel"
+	    				model="ognl:clientNameSelectionModel" 
+	    				selectedList="ognl:selectedClientName">
+	    			</select>
+	    		</td>
+	    	</tr>
+	    	<tr>
+	    		<td class="short">
+	    			<label class="short" displayName="common.label.skm.number"></label>
+	    		</td>
+	    		<td>
+	    			<input type="text" jwcid="skmNumber@TextField" id="skmNumber"
+	    			 value="ognl:skmNumber"
+	    			 displayName="message:common.label.skm.number" />
+	    		</td>
+	    	</tr>
+	    	<tr>
+	    		<td class="short">
+	    			<label class="short" displayName="common.label.license.id"></label>
+	    		</td>
+	    		<td>
+	    			<input type="text" jwcid="licenseId@TextField" id="licenseId"
+	    			 value="ognl:licenseId"
+	    			 displayName="message:common.label.license.id" />
+	    		</td>
+	    	</tr>
+			<tr jwcid="@Any" class="ognl:evenOddTable.next">
+				<td class="short"></td>
+				<td>
+					<input class="btn" type="submit" id="searchButton" 
+						jwcid="searchButton@Submit" 
+						value="message:button.search" action="listener:search"/>
+				</td>
+			</tr>
+			<tr height="10px"><td colspan="2"></td></tr>
+	    </table>
+	    
+	    <table width="99%" id="tableView" jwcid="tableView@contrib:TableView" 
+    		source="ognl:tableModel" 
+    		columns="!Nomor, !SKM, !License Id, !Tahun, !Tanggal SKM, !Periode IPFR, !Frekuensi, !Total Pembayaran, !Tipe Pembayaran">
+    
+	     	<tr>
+				<td align="right">
+					<br/><span jwcid="@TablePages"></span>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div id="conttable">
+					<table width="1000px" border="0" class="data">
+					<tr>
+						<th><span key="table.no">No.</span></th>
+						<th><span key="table.skm.no">No. SKM</span></th>
+						<th><span key="table.license.id">License ID</span></th>
+						<th><span key="table.year.to">Tahun</span></th>
+						<th><span key="table.skm.date">Tanggal SKM</span></th>
+						<th><span key="table.ipsfr.start">Mulai IPFR</span></th>
+						<th><span key="table.ipsfr.end">Selesai IPFR</span></th>
+						<th><span key="table.freq.transmit.min">Frekuensi Transmit Min</span></th>
+						<th><span key="table.freq.transmit.max">Frekuensi Transmit Max</span></th>
+						<th><span key="table.freq.receive.min">Frekuensi Receive Min</span></th>
+						<th><span key="table.freq.receive.max">Frekuensi Receive Max</span></th>
+						<th><span key="table.payment.amount">Total Pembayaran</span></th>
+						<th><span key="table.payment.type">Tipe Pembayaran</span></th>
+						<th>&nbsp;</th>
+					</tr>
+					<tr jwcid="@contrib:TableRows" row="ognl:tableRow" class="ognl:beans.evenOdd.next">
+						<td width="20px">	<span jwcid="@Insert" value="ognl:tableRow.number"></span> </td>
+						<td width="180px">	<span jwcid="@Insert" value="ognl:tableRow.skmNumber"></span> </td>
+						<td width="100px"> 	<span jwcid="@Insert" value="ognl:tableRow.year"/> </td>
+						<td width="100px"> 	<span jwcid="@InsertTimeStamp" value="ognl:tableRow.licenceDate"/> </td>
+						<td width="75px"> 	<span jwcid="@InsertTimeStamp" value="ognl:tableRow.licenceBegin"/> </td>
+						<td width="75px"> 	<span jwcid="@InsertTimeStamp" value="ognl:tableRow.licenceEnd"/> </td>
+						<td width="75px"> 	<span jwcid="@Insert" value="ognl:tableRow.transmitMin"/> </td>
+						<td width="75px"> 	<span jwcid="@Insert" value="ognl:tableRow.transmitMax"/> </td>
+						<td width="75px"> 	<span jwcid="@Insert" value="ognl:tableRow.receiveMin"/> </td>
+						<td width="75px"> 	<span jwcid="@Insert" value="ognl:tableRow.receiveMax"/> </td>
+						<td width="150px"> 	<span jwcid="@InsertMoney" value="ognl:tableRow.bhpTotal"/> </td>
+						<td width="100px"> 	<span jwcid="@Insert" value="ognl:tableRow.bhpPaymentType"/> </td>
+						<td width="100px">
+							<a jwcid="@LinkSubmit" listener="ognl:listeners.create" parameters="ognl:{}">
+								<span key="table.create"></span>
+							</a>
+						</td>
+					</tr>
+					</table>
+					</div>
+				</td>
+			</tr>
+    	</table>
+	</form>
+</div>
+</body>
+</html>

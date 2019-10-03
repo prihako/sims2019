@@ -1,0 +1,51 @@
+<html jwcid="@Shell" title="message:parameter.title">
+<body jwcid="@Body">
+<div id="outer">
+<span jwcid="@ValidationErrorTop" delegate="ognl:beans.delegate" />
+<form  jwcid="mainForm@Form" delegate="ognl:beans.delegate" clientValidationEnabled="ognl:true">
+<div id="box">
+<div class="title">
+	<span jwcid="@If" condition="ognl:mode eq 'add'" renderTag="false">
+    	<span key="crudparameter.title.confirm.add" style="text-transform: capitalize; font-size: 18px;" />
+	</span><span jwcid="@If" condition="ognl:mode eq 'edit'" renderTag="false">
+    	<span key="crudparameter.title.confirm.edit" style="text-transform: capitalize; font-size: 18px;" />
+	</span><span jwcid="@If" condition="ognl:mode eq 'delete'" renderTag="false">
+    	<span key="crudparameter.title.confirm.delete" style="text-transform: capitalize; font-size: 18px;" />
+	</span>
+</div>
+<table class="uniform">
+	<tr jwcid="@Any" class="ognl:evenOddTable.next">
+		<td class="short">
+			<span key="crudparameter.field.nameParameter"/>
+        </td>
+        <td>
+        	<span jwcid="@Insert" value="ognl:parameterName" />
+        </td>
+	</tr>
+	<tr jwcid="@Any" class="ognl:evenOddTable.next">
+		<td class="short">
+			<span key="crudparameter.field.valueParameter"/>
+        </td>
+        <td>
+        	<span jwcid="@Insert" value="ognl:parameterValue" />
+        </td>
+	</tr>
+	<tr jwcid="@Any" class="ognl:evenOddTable.next">
+		<td class="short"></td>
+        <td>
+        	<input type="button" class="btn" jwcid="@Submit" value="message:button.continue" action="listener:onNext"/>
+			<input type="button" class="btn" jwcid="@Submit" value="message:button.cancel" action="listener:onBack"/>
+		    <input type="hidden" jwcid="doubleSubmitKeyField@Hidden" value="ognl:doubleSubmitKey" />
+        </td>
+	</tr>
+</table>
+<!-- <div class="button">
+	<input type="button" class="btn" jwcid="@Submit" value="message:button.continue" action="listener:onNext"/>
+	<input type="button" class="btn" jwcid="@Submit" value="message:button.cancel" action="listener:onBack"/>
+    <input type="hidden" jwcid="doubleSubmitKeyField@Hidden" value="ognl:doubleSubmitKey" />
+</div> -->
+</div>
+</form>
+</div>
+</body>
+</html>

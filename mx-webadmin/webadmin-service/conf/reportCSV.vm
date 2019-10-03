@@ -1,0 +1,7 @@
+$content.getColumName().toString()
+#set ($arrSparatedStr = $content.getSparatedDetail().toString().split("\r"))
+#foreach ( $rows in $arrSparatedStr )
+$rows
+#end
+
+

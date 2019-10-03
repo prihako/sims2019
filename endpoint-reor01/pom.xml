@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<artifactId>channels</artifactId>
+		<groupId>id.co.sigma.mx</groupId>
+		<version>2.2.0</version>
+	</parent>
+
+	<artifactId>endpoint-reor01</artifactId>
+	<packaging>bundle</packaging>
+	<version>2.2.0</version>
+		
+	<name>Telkomsigma MX Endpoints :: reor01 :: REOR</name>
+	<description>Core Banking REOR SDPPI</description>
+  
+	<properties>
+		<jaxb.api.version>2.1</jaxb.api.version>		
+		
+		<mx.version>2.2.0</mx.version>
+		
+		<mx.osgi.private.pkg>id.co.sigma.mx.channel.*</mx.osgi.private.pkg>
+		<mx.osgi.export>org.apache.servicemix.examples.cxf.jaxrs</mx.osgi.export>
+		<mx.osgi.import>
+			javax.wsdl,
+			javax.xml.bind,
+			javax.xml.bind.annotation,
+			javax.ws.rs,
+			META-INF.cxf,
+			META-INF.cxf.osgi,
+			org.apache.cxf.bus,
+			org.apache.cxf.bus.spring,
+			org.apache.cxf.bus.resource,
+			org.apache.cxf.resource,
+			org.apache.cxf.configuration.spring,
+			org.apache.cxf.binding,
+			org.apache.cxf.jaxrs.utils,
+			org.apache.cxf.jaxws,
+			org.apache.cxf.transport.http,
+			org.springframework.beans.factory.config,
+			org.apache.commons.httpclient,
+			org.apache.commons.httpclient.methods,
+			javax.jws,
+			javax.xml.namespace,
+			*
+		</mx.osgi.import>
+		<mx.osgi.dynamic>javax.ws.rs.*</mx.osgi.dynamic>
+		<mx.osgi.required.bundle>org.apache.cxf.bundle</mx.osgi.required.bundle>
+	</properties>
+ 
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-frontend-jaxws</artifactId>
+			<version>2.4.0</version>
+		</dependency>
+		<dependency>
+			<groupId>id.co.sigma.mx</groupId>
+			<artifactId>mx-core</artifactId>
+			<version>${mx.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>id.co.sigma.mx</groupId>
+			<artifactId>mx-transport-socket</artifactId>
+			<version>${mx.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.servicemix.specs</groupId>
+			<artifactId>org.apache.servicemix.specs.jsr311-api-1.1</artifactId>
+			<version>1.6.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.servicemix.specs</groupId>
+			<artifactId>org.apache.servicemix.specs.jaxb-api-${jaxb.api.version}</artifactId>
+			<version>1.6.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.servicemix.bundles</groupId>
+			<artifactId>org.apache.servicemix.bundles.commons-httpclient</artifactId>
+			<version>3.1_5</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.1</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>javax.xml.ws</groupId>
+			<artifactId>jaxws-api</artifactId>
+			<version>2.2.6</version>
+		</dependency>
+		
+	</dependencies>
+	
+<!-- <build> 
+<plugins>
+
+<plugin>
+       <groupId>org.apache.cxf</groupId>
+       <artifactId>cxf-codegen-plugin</artifactId>
+       <version>2.7.1</version>
+       <executions>
+           <execution>
+               <id>generate-sources</id>
+               <phase>generate-sources</phase>
+               <configuration>
+                   <sourceRoot>${project.build.directory}/generated/cxf</sourceRoot>
+                   <wsdlOptions>
+                       <wsdlOption>
+                           <wsdl>${basedir}/src/main/resources/wsdl/Reor.wsdl</wsdl>
+                          <extraargs>
+	                          <extraarg>-impl</extraarg>
+	                          <extraarg>-verbose</extraarg>
+                      	  </extraargs>
+                       </wsdlOption>
+                   </wsdlOptions>
+               </configuration>
+               <goals>
+                   <goal>wsdl2java</goal>
+               </goals>
+           </execution>
+       </executions>
+   </plugin>
+  
+ </plugins>
+</build> -->
+</project>

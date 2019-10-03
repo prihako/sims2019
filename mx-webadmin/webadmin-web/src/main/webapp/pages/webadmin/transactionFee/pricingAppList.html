@@ -1,0 +1,119 @@
+<html jwcid="@Shell" title="message:transactionFee.title">
+<script language="javascript" type="text/javascript"
+	src="scripts/common.js"></script>
+<body jwcid="@Body">
+	<div id="outer">
+		<span jwcid="@ValidationErrorTop" delegate="ognl:beans.delegate" />
+		<form jwcid="searchForm@Form" delegate="ognl:beans.delegate"
+			clientValidationEnabled="ognl:true">
+			<div id="title">
+				<span jwcid="@Insert"
+						value="ognl:getText('leftMenu.trxfee.app.list')" renderTag="false" />
+			</div>
+			<table class="uniform">
+				<tr jwcid="@Any" class="ognl:evenOddTable.next">
+					<td class="short"><span jwcid="@Insert"
+						value="ognl:getText('merchant.label.code')" renderTag="false" /></td>
+					<td><select jwcid="merchantGroupModel@PropertySelection"
+						model="ognl:getMerchantGroupModel()" value="ognl:merchantGroup" /></td>
+				</tr>
+				<tr jwcid="@Any" class="ognl:evenOddTable.next">
+					<td class="short"><span jwcid="@Insert"
+						value="ognl:getText('field.transactionFee.codeChannel')"
+						renderTag="false" /></td>
+					<td><select style="width: 11em;"
+						jwcid="channelCodeField@PropertySelection"
+						model="ognl:channelSelectionModel" value="ognl:channelCodeItem"
+						validators="validators:required[%common.message.validation.required]"
+						displayName="message:field.transactionFee.codeChannel" /></td>
+				</tr>
+			</table>
+			<table class="uniform">
+				<tr>
+					<td><span jwcid="@Insert"
+						value="ognl:getText('priority.label.criteria')" renderTag="false" /></td>
+					<td><span jwcid="@Insert"
+						value="ognl:getText('priority.label.keys')" renderTag="false" /></td>
+				</tr>
+				<tr jwcid="@Any" class="ognl:evenOddTable.next">
+					<td><select jwcid="criteria@PropertySelection"
+						model="ognl:getCriteriaModel()" value="ognl:criteria" /></td>
+
+					<td width="74%"><input maxlength="200" jwcid="keys@TextField"
+						value="ognl:keys" />
+					</td>
+				</tr>
+			</table>
+			<table>
+				<tr jwcid="@Any" class="ognl:evenOddTable.next">
+					<td><input class="btn100" type="button" jwcid="@Submit"
+						listener="listener:onSearch" value="message:button.search" /></td>
+				</tr>
+			</table>
+		</form>
+		<div id="berita">
+			<span jwcid="@Insert" value="ognl:errormsg" />
+		</div>
+		<form jwcid="mainForm@Form" delegate="ognl:beans.delegate"
+			clientValidationEnabled="ognl:true">
+			<div id="box">
+				<!-- <div id="title"><span key="list.transactionFee"/></div> -->
+				<table width="99%" jwcid="@contrib:TableView"
+					pageSize="ognl:pageSize" source="ognl:tableModel"
+					columns="literal:
+						no:No.:no,
+						merchantGroupTr:Kode Merchant:merchantGroupTr, 
+						projectCodeTr:Kode Proyek:projectCodeTr,
+						productCodeTr:Kode Produk:productCodeTr,
+						descriptionTr:Deskripsi:descriptionTr, 
+						nominalFeeField:Fee:nominalFeeField,
+						appStatusTr:Approval Status:appStatusTr">
+					<tr>
+						<td align="right"><span jwcid="@TablePages" /></td>
+					</tr>
+					<tr>
+						<td align="center">
+							<div style="overflow: auto">
+								<table width="99%" class="data">
+									<tr class="headerRow">										
+										<span jwcid="@contrib:TableColumns"
+											arrowUpAsset="ognl:assets.upArrow"
+											arrowDownAsset="ognl:assets.downArrow" />
+									</tr>
+									<tr jwcid="tableRows@contrib:TableRows" row="ognl:loopObject"
+										class="ognl:beans.evenOdd.next">
+
+										<td jwcid="no@TableColumn" class="center">
+										<a	jwcid="@DirectLink" listener="ognl:listeners.onViewDetail"
+											parameters="ognl:loopObject.key"><span jwcid="@Insert" value="ognl:loopObject.no" /> </a>
+										</td>
+
+										<td jwcid="merchantGroupTr@TableColumn"><span
+											jwcid="@Insert" value="ognl:loopObject.id.merchantGroupTr" /></td>
+
+										<td jwcid="projectCodeTr@TableColumn"><span
+											jwcid="@Insert" value="ognl:loopObject.id.projectCodeTr" /></td>
+
+										<td jwcid="productCodeTr@TableColumn"><span
+											jwcid="@Insert" value="ognl:loopObject.id.productCodeTr" /></td>
+
+										<td jwcid="descriptionTr@TableColumn"><span
+											jwcid="@Insert" value="ognl:loopObject.id.descriptionTr" /></td>
+
+										<td jwcid="nominalFeeField@TableColumn" class="center"><span
+											jwcid="@Insert"	value="ognl:loopObject.id.fee" /> 
+										</td>
+										<td jwcid="appStatusTr@TableColumn" class="center"><span
+											jwcid="@Insert"	value="ognl:loopObject.appStatusTr" /> 
+										</td>
+									</tr>
+								</table>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</form>
+	</div>
+</body>
+</html>

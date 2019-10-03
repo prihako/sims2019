@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration>
+<configuration xmlns="http://logging.apache.org/" debug="false">
+
+	<appender name="Console"
+		class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="%d [%t] %-5p %c - %m%n" />
+		</layout>
+	</appender>
+
+	<!-- Create a rolling file appender called "R" for the Tomcat system log -->
+	<appender name="R"
+		class="org.apache.log4j.rolling.RollingFileAppender">
+		<!-- Log files should use today's date and rotate at midnight -->
+		<rollingPolicy
+			class="org.apache.log4j.rolling.TimeBasedRollingPolicy">
+			<!-- Set the path and file name pattern for your Tomcat log files -->
+			<param name="FileNamePattern"
+				value="logs/billingsystemweb/bss.%d.log.zip" />
+		</rollingPolicy>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="%d [%t] %-5p %c - %m%n" />
+		</layout>
+	</appender>
+
+	<!-- Create a rolling file appender called "R" for the Tomcat system log -->
+	<appender name="ATTACK"
+		class="org.apache.log4j.rolling.RollingFileAppender">
+		<!-- Log files should use today's date and rotate at midnight -->
+		<rollingPolicy
+			class="org.apache.log4j.rolling.TimeBasedRollingPolicy">
+			<!-- Set the path and file name pattern for your Tomcat log files -->
+			<param name="FileNamePattern"
+				value="logs/billingsystemattack/andaAttack.%d.log.zip" />
+		</rollingPolicy>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="%d [%t] %-5p %c - %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="R_MESSAGE"
+		class="org.apache.log4j.rolling.RollingFileAppender">
+		<!-- Log files should use today's date and rotate at midnight -->
+		<rollingPolicy
+			class="org.apache.log4j.rolling.TimeBasedRollingPolicy">
+			<!-- Set the path and file name pattern for your Tomcat log files -->
+			<param name="FileNamePattern"
+				value="logs/billingsystemmessages/andaIso.%d.log.zip" />
+		</rollingPolicy>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="%d [%t] %-5p %c - %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="ConsoleAppender" class="org.apache.log4j.ConsoleAppender">
+    	<layout class="org.apache.log4j.SimpleLayout"/>
+  	</appender>
+
+	<!-- Create a rolling file appender called "R" for the Tomcat system log -->
+	<appender name="E"
+		class="org.apache.log4j.rolling.RollingFileAppender">
+		<!-- Log files should use today's date and rotate at midnight -->
+		<rollingPolicy
+			class="org.apache.log4j.rolling.TimeBasedRollingPolicy">
+			<!-- Set the path and file name pattern for your Tomcat log files -->
+			<param name="FileNamePattern"
+				value="logs/billingsystemerror/andaError.%d.log.zip" />
+		</rollingPolicy>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="%d [%t] %-5p %c - %m%n" />
+		</layout>
+	</appender>
+
+	<!-- Configure the root appender -->
+	<root>
+		<appender-ref ref="R" />
+		<!-- Set your root logging level: debug, info, warn, error or fatal -->
+		<level value="info" />
+	</root>
+
+	<!-- Configure the log level for Iso -->
+
+	<logger name="MESSAGE_LOG">
+		<appender-ref ref="R_MESSAGE" />
+		<appender-ref ref="Console" />
+		<param name="additivity" value="false" />
+		<level value="info" />
+	</logger>
+
+	<!-- Configure the log level for Iso -->
+
+	<logger name="LOGIC_LOG">
+		<appender-ref ref="R" />
+		<appender-ref ref="Console" />
+		<param name="additivity" value="false" />
+		<level value="info" />
+	</logger>
+
+	<!-- Configure the log level for Iso -->
+
+	<logger name="ATTACK_LOG">
+		<appender-ref ref="ATTACK" />
+		<appender-ref ref="Console" />
+		<param name="additivity" value="false" />
+		<level value="debug" />
+	</logger>
+	
+	<appender name="EMAIL"
+		class="org.apache.log4j.rolling.RollingFileAppender">
+		<!-- Log files should use today's date and rotate at midnight -->
+		<rollingPolicy
+			class="org.apache.log4j.rolling.TimeBasedRollingPolicy">
+			<!-- Set the path and file name pattern for your Tomcat log files -->
+			<param name="FileNamePattern"
+				value="logs/billingsystememail/andaEmail.%d.log.zip" />
+		</rollingPolicy>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="%d [%t] %-5p %c - %m%n" />
+		</layout>
+	</appender>
+
+	<logger name="EMAIL_LOG">
+		<appender-ref ref="EMAIL" />
+		<param name="additivity" value="false" />
+		<level value="info" />
+	</logger>
+
+
+  <!-- USED TO CHECK MESSAGE LOG -->
+  <!-- Create a rolling file appender called "R" for the Tomcat system log -->
+  <appender name="I" class="org.apache.log4j.rolling.RollingFileAppender">
+		<!-- Log files should use today's date and rotate at midnight -->
+		<rollingPolicy class="org.apache.log4j.rolling.TimeBasedRollingPolicy">
+			<!-- Set the path and file name pattern for your Tomcat log files -->
+			<param name="FileNamePattern" value="log/MESSAGELogs/Isoanda.%d.log.zip" />
+		</rollingPolicy>
+
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d [%t] %-5p %c - %m%n" />
+		</layout>
+  </appender>
+
+  <logger name="ISO_LOG">
+		<appender-ref ref="I" />
+		<!-- appender-ref ref="Console" / -->
+		<param name="additivity" value="false" />
+		<level value="debug" />
+  </logger>
+
+</configuration>

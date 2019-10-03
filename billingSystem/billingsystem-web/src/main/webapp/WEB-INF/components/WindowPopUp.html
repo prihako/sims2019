@@ -1,0 +1,23 @@
+<!--  
+	author aananto@balicamp.com
+-->
+<html>
+<head>
+	<title>Home</title>
+</head>
+<body jwcid="$content$" >
+<span jwcid="@If" condition="ognl:url neq null" renderTag="false">
+	<script type="text/javascript">
+		function showReport(url){
+			var bank = "<span key="html.common.bank" raw="true" />";
+			window.open(url,bank,"scrollbars=yes,resizable=yes,width=700,height=500");
+		}
+	</script>
+	<img src="images/dummy.gif" jwcid="@Any" onload="ognl:javaScriptUrl" />
+	<span jwcid="@If" condition="ognl:showAlternateLink" renderTag="false">
+		Jika pop up tidak muncul klik disini 
+		<a jwcid="@Any" href="ognl:'javascript:' + javaScriptUrl">pop up</a>
+	</span>
+</span>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<span jwcid="$content$">
+
+<span jwcid="@If" condition="ognl:rowCount gt 0" renderTag="false">
+	<span jwcid="iterRows">
+		<span jwcid="@If" condition="ognl:tableIndex eq 0" renderTag="false">
+			<tr>
+		</span>
+		<td class="center">
+			<span jwcid="wrapped"/>
+		</td>
+		<span jwcid="@If" condition="ognl:(tableIndex+1) % columnCount eq 0" renderTag="false">
+			<span jwcid="@If" condition="ognl:tableIndex+1 eq rowCount" renderTag="false">
+				<span jwcid="@Insert" value="</tr>" raw="true" />
+			</span>
+			<span jwcid="@Else" renderTag="false">
+				<span jwcid="@Insert" value="ognl:'</tr><tr>' " raw="true" />
+			</span>
+		</span>
+	</span>
+	
+	<span jwcid="@If" condition="ognl:rowCount % columnCount neq null" renderTag="false" />
+		<span jwcid="@For" source="ognl:additionalData" renderTag="false">
+			<td></td>
+		</span>
+		<span jwcid="@Insert" value="</tr>" raw="true" />
+	</span>
+</span>
+</span>

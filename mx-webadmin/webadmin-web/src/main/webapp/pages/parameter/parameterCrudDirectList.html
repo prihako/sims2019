@@ -1,0 +1,84 @@
+<html jwcid="@Shell" title="message:webapp.title">
+<script language="javascript" type="text/javascript"
+	src="scripts/common.js"></script>
+<body jwcid="@Body">
+	<div id="outer">
+		<form jwcid="searchForm@Form" delegate="ognl:beans.delegate"
+			clientValidationEnabled="ognl:true">
+			<div id="title">
+				<span key="crudparameter.title.search" />
+			</div>
+			<br />
+			<span jwcid="@ValidationErrorTop" delegate="ognl:beans.delegate" />
+
+			<table class="uniform">
+				<tr jwcid="@Any" class="ognl:evenOddTable.next">
+					<td class="short">
+						<label class="short" jwcid="@FieldLabel" field="component:nameField" />
+					</td>
+					<td>
+						<input type="text" maxlength="30" width="208px"
+							cssclass="TextBox" jwcid="nameField@TextField"
+							value="ognl:parameterName"
+							translator="translator:string,trim=true"
+							displayName="message:crudparameter.field.nameParameter" />
+					</td>
+				</tr>
+				<tr jwcid="@Any" class="ognl:evenOddTable.next">
+					<td class="short"></td>
+					<td>
+						<input class="btn" type="button" jwcid="@Submit"
+								listener="listener:onSearch" value="message:button.search" />						
+					</td>
+				</tr>
+			</table>
+			<!-- <div id="button">
+				<input class="btn" type="button" jwcid="@Submit"
+					listener="listener:onSearch" value="message:button.search" />
+			</div> -->
+		</form>
+
+		<form jwcid="mainForm@Form" delegate="ognl:beans.delegate"
+			clientValidationEnabled="ognl:true">
+				<!-- <div id="title">
+					<span key="crudparameter.title.list" />
+				</div> -->
+				<table width="99%" jwcid="@contrib:TableView"
+					pageSize="ognl:pageSize" source="ognl:tableModel"
+					columns="ognl:columns" class="data">
+					<tr>
+						<td align="right"><span jwcid="@TablePages" /></td>
+					</tr>
+					<tr>
+						<td align="center">
+							<div style="width:800px;">
+								<table width="99%" class="data">
+									<tr class="headerRow">
+										<span jwcid="@contrib:TableColumns"
+											arrowUpAsset="ognl:assets.upArrow"
+											arrowDownAsset="ognl:assets.downArrow" />
+									</tr>
+									<tr jwcid="@contrib:TableRows" row="ognl:row" class="ognl:beans.evenOdd.next">
+										<td jwcid="nameParameter@TableColumn" width="10%" class="left" style="min-width: 100px">
+											<span jwcid="@Insert" value="ognl:row.systemParameterId.name" />
+										</td>
+										<td jwcid="valueParameter@TableColumn" width="80%" class="center" style="min-width: 100px">
+											<span jwcid="@Insert" value="ognl:row.paramValue" />
+										</td>
+										<td jwcid="edit@TableColumn" width="10%" class="center" style="min-width: 100px">
+											<a jwcid="@DirectLink"
+												listener="ognl:listeners.onEdit"
+												parameters="ognl:{row.systemParameterId.name,row.paramValue}">
+												<span key="common.label.edit" />
+											</a>
+										</td>
+									</tr>
+								</table>
+							</div>
+						</td>
+					</tr>
+				</table>
+		</form>
+	</div>
+</body>
+</html>

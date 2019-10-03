@@ -1,0 +1,110 @@
+<html jwcid="@Shell" title="message:webapp.title">
+<body jwcid="@Body">
+	<div id="outer">
+		<span jwcid="@ValidationErrorTop" delegate="ognl:beans.delegate" />
+		<div id="title">
+			<span jwcid="@Insert" value="ognl:getText('priority.title.app.list')"
+				renderTag="false" />
+		</div>
+
+		<form jwcid="priorityList@Form" delegate="ognl:beans.delegate"
+			clientValidationEnabled="ognl:true">
+			<table class="uniform">
+				<tr>
+					<td><span jwcid="@Insert"
+						value="ognl:getText('priority.label.criteria')" renderTag="false" /></td>
+					<td><span jwcid="@Insert"
+						value="ognl:getText('priority.label.keys')" renderTag="false" /></td>
+				</tr>
+				<tr jwcid="@Any" class="ognl:evenOddTable.next">
+					<td><select jwcid="criteria@PropertySelection"
+						model="ognl:getCriteriaModel()" value="ognl:criteria" /></td>
+
+					<td width="74%"><input maxlength="200" jwcid="keys@TextField"
+						value="ognl:keys" /> &nbsp;&nbsp;&nbsp; <input class="btn80"
+						type="button" jwcid="@Submit" listener="listener:onSearch"
+						value="message:button.search" /></td>
+				</tr>
+			</table>
+		</form>
+
+		<div id="berita">
+			<span jwcid="@Insert" value="ognl:msgnotif" />
+		</div>
+
+		<form jwcid="@Form" delegate="ognl:beans.delegate"
+			clientValidationEnabled="ognl:true">
+			<div id="box">
+				<table width="99%" jwcid="@contrib:TableView"
+					pageSize="ognl:pageSize" source="ognl:tableModel"
+					columns="literal:transactionCode:priority.label.transactionCode:transactionCode,
+                                projectCode:priority.label.projectCode:projectCode,
+                                description:priority.label.description:description,
+                                productCode:priority.label.productCode:productCode,
+                                routingCode:priority.label.routingCode:routingCode, 
+                                appStatusTr:priority.label.appStatus:appStatusTr">
+					<tr>
+						<td align="right"><span jwcid="@TablePages" /></td>
+					</tr>
+					<tr>
+						<td align="center">
+							<div style="overflow: auto">
+								<table width="99%" class="data">
+									<tr class="headerRow">
+									<!-- 
+									<th align="center" width="10%"><span
+											jwcid="@CheckBoxSelectAll" /></th>
+									-->
+										<span jwcid="@contrib:TableColumns"
+											arrowUpAsset="ognl:assets.upArrow"
+											arrowDownAsset="ognl:assets.downArrow" />
+									</tr>
+									<tr jwcid="tableRows@contrib:TableRows" row="ognl:loopObject"
+										class="ognl:beans.evenOdd.next">
+										<!--  
+										<td class="center" width="10%"><input jwcid="@Checkbox"
+											type="checkbox" value="ognl:loopObject.selected"
+											class="noborder" /> <span jwcid="@InvokeListener"
+											listener="listener:checkSelect" /></td>
+										-->
+										 
+										<td jwcid="transactionCode@TableColumn"><a
+											jwcid="@DirectLink" listener="ognl:listeners.onViewDetail"
+											parameters="ognl:loopObject.id"><span jwcid="@Insert"
+												value="ognl:loopObject.transactionCode" /> </a></td>
+										<!-- 
+										<td jwcid="transactionCode@TableColumn"><span jwcid="@Insert"
+												value="ognl:loopObject.transactionCode" /></td>
+										 -->
+
+										<td jwcid="projectCode@TableColumn"><span jwcid="@Insert"
+											value="ognl:loopObject.projectCode" /></td>
+
+										<td jwcid="description@TableColumn"><span jwcid="@Insert"
+											value="ognl:loopObject.description" /></td>
+
+										<td jwcid="productCode@TableColumn"><span jwcid="@Insert"
+											value="ognl:loopObject.productCode" /></td>
+
+										<td jwcid="routingCode@TableColumn"><span jwcid="@Insert"
+											value="ognl:loopObject.routingCode" /></td>
+
+										<td jwcid="appStatusTr@TableColumn"><span
+											jwcid="@Insert" value="ognl:loopObject.appStatusTr" /></td>
+									</tr>
+								</table>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<!-- 
+			<div class="button">
+				<input class="btn100" jwcid="@Submit" listener="listener:doApprove"
+					value="message:button.delete" type="button" />
+			</div>
+			-->
+		</form>
+	</div>
+</body>
+</html>

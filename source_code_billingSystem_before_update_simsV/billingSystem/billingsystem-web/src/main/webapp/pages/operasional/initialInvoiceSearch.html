@@ -1,0 +1,288 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html jwcid="@Shell" title="message:webapp.title">
+<head>
+<script type="text/javascript" src="scripts/jquery-1.8.3.min.js"></script>
+<script type="text/javascript"
+	src="scripts/jquery-ui-1.10.0.custom.min.js"></script>
+<script type="text/javascript" src="scripts/mayora/tools.js"></script>
+
+<link rel="stylesheet"
+	href="styles/style-Kominfo/jquery-ui-1.10.0.custom.css" type="text/css" />
+<script>
+	
+	$(document).ready(function() {
+		
+		if ($("#criteria option[value='clientName']").attr('selected')) {
+
+			$('#clientNameLabel').show();
+			$('#clientName').show();
+			$('#clientNoLabel').hide();
+			$('#clientNo').hide();
+			$('#clientNo').val('');
+			$('#licenceNumberLabel').hide();
+			$('#licenceNumber').hide();
+			$('#licenceNumber').val('');
+			$('#bhpMethodLabel').hide();
+			$('#bhpMethod').hide();
+			$('#bhpMethod').val('');
+
+		} else if ($("#criteria option[value='clientNo']").attr('selected')) {
+
+			$('#clientNameLabel').hide();
+			$('#clientName').hide();
+			$('#clientName').val('');
+			$('#clientNoLabel').show();
+			$('#clientNo').show();
+			$('#licenceNumberLabel').hide();
+			$('#licenceNumber').hide();
+			$('#licenceNumber').val('');
+			$('#bhpMethodLabel').hide();
+			$('#bhpMethod').hide();
+			$('#bhpMethod').val('');
+
+		}else if ($("#criteria option[value='bhpMethod']").attr('selected')) {
+
+			$('#clientNameLabel').hide();
+			$('#clientName').hide();
+			$('#clientName').val('');
+			$('#clientNoLabel').hide();
+			$('#clientNo').hide();
+			$('#clientNo').val('');
+			$('#licenceNumberLabel').hide();
+			$('#licenceNumber').hide();
+			$('#licenceNumber').val('');
+			$('#bhpMethodLabel').show();
+			$('#bhpMethod').show();
+
+		}else if ($("#criteria option[value='noApp']").attr('selected')) {
+			
+			$('#clientNameLabel').hide();
+			$('#clientName').hide();
+			$('#clientName').val('');
+			$('#clientNoLabel').hide();
+			$('#clientNo').hide();
+			$('#clientNo').val('');
+			$('#licenceNumberLabel').show();
+			$('#licenceNumber').show();
+			$('#bhpMethodLabel').hide();
+			$('#bhpMethod').hide();
+			$('#bhpMethod').val('');
+	
+		}else{
+			$('#clientNameLabel').hide();
+			$('#clientName').hide();
+			$('#clientName').val('');
+			$('#clientNoLabel').hide();
+			$('#clientNo').hide();
+			$('#clientNo').val('');
+			$('#licenceNumberLabel').hide();
+			$('#licenceNumber').hide();
+			$('#licenceNumber').val('');
+			$('#bhpMethodLabel').hide();
+			$('#bhpMethod').hide();
+			$('#bhpMethod').val('');
+		}
+
+		
+		$('#criteria').on('change', function() {
+			if ($("#criteria option[value='clientName']").attr('selected')) {
+
+				$('#clientNameLabel').show();
+				$('#clientName').show();
+				$('#clientNoLabel').hide();
+				$('#clientNo').hide();
+				$('#clientNo').val('');
+				$('#licenceNumberLabel').hide();
+				$('#licenceNumber').hide();
+				$('#licenceNumber').val('');
+				$('#bhpMethodLabel').hide();
+				$('#bhpMethod').hide();
+				$('#bhpMethod').val('');
+
+			} else if ($("#criteria option[value='clientNo']").attr('selected')) {
+				
+				$('#clientNameLabel').hide();
+				$('#clientName').hide();
+				$('#clientName').val('');
+				$('#clientNoLabel').show();
+				$('#clientNo').show();
+				$('#licenceNumberLabel').hide();
+				$('#licenceNumber').hide();
+				$('#licenceNumber').val('');
+				$('#bhpMethodLabel').hide();
+				$('#bhpMethod').hide();
+				$('#bhpMethod').val('');
+
+			}else if ($("#criteria option[value='bhpMethod']").attr('selected')) {
+
+				$('#clientNameLabel').hide();
+				$('#clientName').hide();
+				$('#clientName').val('');
+				$('#clientNoLabel').hide();
+				$('#clientNo').hide();
+				$('#clientNo').val('');
+				$('#licenceNumberLabel').hide();
+				$('#licenceNumber').hide();
+				$('#licenceNumber').val('');
+				$('#bhpMethodLabel').show();
+				$('#bhpMethod').show();
+
+			}else if ($("#criteria option[value='noApp']").attr('selected')) {
+
+				$('#clientNameLabel').hide();
+				$('#clientName').hide();
+				$('#clientName').val('');
+				$('#clientNoLabel').hide();
+				$('#clientNo').hide();
+				$('#clientNo').val('');
+				$('#licenceNumberLabel').show();
+				$('#licenceNumber').show();
+				$('#bhpMethodLabel').hide();
+				$('#bhpMethod').hide();
+				$('#bhpMethod').val('');
+		
+			}else{
+				$('#clientNameLabel').hide();
+				$('#clientName').hide();
+				$('#clientName').val('');
+				$('#clientNoLabel').hide();
+				$('#clientNo').hide();
+				$('#clientNo').val('');
+				$('#licenceNumberLabel').hide();
+				$('#licenceNumber').hide();
+				$('#licenceNumber').val('');
+				$('#bhpMethodLabel').hide();
+				$('#bhpMethod').hide();
+				$('#bhpMethod').val('');
+			}
+
+		})
+
+	});
+</script>
+</head>
+<body jwcid="@Body">
+	<div id="outer" style="height: 50%">
+
+		<form jwcid="initialInvoiceSearch@Form" delegate="ognl:beans.delegate"
+			clientValidationEnabled="ognl:true">
+			
+			<span jwcid="notFirstLoad@Hidden" value="ognl:notFirstLoad"></span>
+
+			<div id="title">
+				<span key="initial.invoice.search.title"></span>
+			</div>
+			<table width="50%" class="uniform">
+			
+				
+				<tr>
+					<td><label id="cariLabel">Cari</label></td>
+					<td><select style="width: 200px"
+						jwcid="@PropertySelection"
+						model="ognl:getCriteriaModel()" value="ognl:criteria" id="criteria" >
+					</select></td>
+				
+				</tr>
+				<tr>
+					<td><label id="clientNameLabel" style="display: none">Nama Klien</label></td>
+					
+					<td><input jwcid="@TextField" type="text"
+						value="ognl:clientName" size="30" id="clientName" style="display: none" />
+					 </td>
+					
+				</tr>
+				<tr>
+					<td><label id="clientNoLabel" style="display: none">Klien ID</label></td>
+				
+					<td><input jwcid="@TextField" type="text"
+						value="ognl:clientNo" size="30" id="clientNo" style="display: none" />
+					</td>
+					
+				</tr>
+				<tr>
+					<td><label id="licenceNumberLabel" style="display: none">No. Aplikasi</label></td>
+				
+					<td><input jwcid="@TextField" type="text"
+						value="ognl:licenceNumber" size="30" id="licenceNumber" style="display: none" /> </td>
+					
+				</tr>
+				<tr>
+					<td><label  id="bhpMethodLabel" style="display: none">Pilih Metode</label></td>
+				
+					<td><select
+						jwcid="@PropertySelection"
+						model="ognl:getMethodBHPModel()" value="ognl:bhpMethod" id="bhpMethod" style="display: none" >
+					</select> </td>
+					
+				</tr>
+				<tr>
+					
+					<td><input name="BTN_SEARCH" type="button" class="btn" id="BTN_SEARCH"
+						jwcid="@Submit" action="listener:doSearch"
+						onclick="this.form.onsubmit=null"
+						value="message:button.masterMaintenance.ipsfr.license.search" /></td>
+
+				</tr>
+
+				
+			</table>
+			
+			<span jwcid="errorShadow@TextField" autocomplete="off"
+				value="ognl:errorValue" style="display: none"></span> <span
+				jwcid="@If" condition="ognl:delegate.hasErrors"> <script>
+					alert('<span jwcid="@Delegator" delegate="ognl:delegate.firstError">Error Message</span>');
+				</script>
+			</span>
+
+			<!-- Application Detail Result -->
+			<span jwcid="@If" condition="ognl:applicationList!=null">
+				<div id="box" style="width: 90%">
+					<table width="99%" jwcid="@contrib:TableView" pageSize="10"
+						source="ognl:applicationList"
+						columns="!Nama Klien, !Klien Id, !Metode BHP, !No. Aplikasi, !Action">
+						<tr>
+							<td align="right"><br /> <span jwcid="@TablePages" /></td>
+						</tr>
+						<tr>
+							<td>
+								<table border="0" class="data" width="99%">
+									<tr>
+										<th>Nama Klien</th>
+										<th>Klien  Id</th>
+										<th>Metode BHP</th>
+										<th>No Aplikasi</th>
+										<th>No. Keputusan<br/> Menteri</th>
+										<th>Action</th>
+									</tr>
+
+									<tr jwcid="@contrib:TableRows" row="ognl:application"
+										class="ognl:beans.evenOdd.next">
+										<td width="35%" align="left"><span jwcid="@Insert"
+											value="ognl:application.clientCompany"></span></td>
+										<td width="10%" align="center"><span jwcid="@Insert"
+											value="ognl:application.clientNumber"></span></td>
+										<td width="15%" align="center"><span jwcid="@Insert"
+											value="ognl:application.BHP"></span></td>
+										<td width="10%" align="center"><span jwcid="@Insert"
+											value="ognl:application.licenceNumber"></span></td>
+										<td width="20%" align="center"><span jwcid="@Insert"
+											value="ognl:application.kmNo"></span></td>		
+										<td width="10%" align="center"><a href=""
+											jwcid="@LinkSubmit" listener="listener:doCreate"
+											parameters="ognl:{application.licenceNumber, application.clientNumber}">
+												Initial Invoice
+										</a></td>
+										
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</span> 
+		</form>
+		
+	</div>
+</body>
+</html>

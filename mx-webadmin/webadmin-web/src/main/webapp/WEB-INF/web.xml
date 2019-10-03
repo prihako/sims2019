@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+<web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee
+                             http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+
+-->
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee"
+ 		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee                
+ 					http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+
+	<display-name>mx-webadmin</display-name>
+
+	<context-param>
+		<param-name>csstheme</param-name>
+		<param-value>style-MXAdmin</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
+		<param-value>ApplicationResources</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>javax.servlet.jsp.jstl.fmt.fallbackLocale</param-name>
+		<param-value>en</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+		   <!-- classpath*:/applicationContext-*.xml -->
+		   classpath:/applicationContext-resources.xml
+		   classpath:/applicationContext-service.xml
+   		   classpath:/applicationContext-web.xml
+		   classpath:/applicationContext-scheduler.xml
+   		   <!-- classpath:/applicationContext-security.xml -->
+   		   classpath*:/security.xml
+		    /WEB-INF/applicationContext-dao.xml
+		    /WEB-INF/applicationContext-dao-mx.xml
+		    /WEB-INF/applicationContext-dao-sims.xml
+		    /WEB-INF/applicationContext-dao-ebs.xml
+		    /WEB-INF/applicationContext-dao-armgmt.xml
+		    /WEB-INF/applicationContext-dao-sertifikasi.xml
+		    /WEB-INF/applicationContext-dao-pengujian.xml   
+		    /WEB-INF/applicationContext-dao-reor.xml 
+		    /WEB-INF/applicationContext-dao-iar.xml
+		    /WEB-INF/applicationContext-dao-ikrap.xml
+		    /WEB-INF/applicationContext-dao-kalibrasi.xml 		   
+   		    /WEB-INF/applicationContext-rpc.xml
+   		    /WEB-INF/applicationContext-report.xml
+<!--    		    /WEB-INF/applicationContext-jms.xml -->
+        </param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>contextType</param-name>
+		<param-value>$CONTEXT_TYPE</param-value>
+	</context-param>
+
+	<!-- ######## LISTENER ########## -->
+	<listener>
+		<listener-class>com.opensymphony.clickstream.ClickstreamListener</listener-class>
+	</listener>			
+
+	<listener>
+		<listener-class>com.balicamp.webapp.listener.AdminStartupListener</listener-class>
+	</listener>
+	
+	<listener> 
+	  <listener-class>org.acegisecurity.ui.session.HttpSessionEventPublisher</listener-class> 
+	</listener>
+
+	<listener>
+  		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+  	</listener>
+
+	<!-- ######## FILTER ########## -->
+	<filter>
+		<filter-name>securityFilter</filter-name>
+		<filter-class>org.acegisecurity.util.FilterToBeanProxy</filter-class>
+		<init-param>
+			<param-name>targetClass</param-name>
+			<param-value>org.acegisecurity.util.FilterChainProxy</param-value>
+		</init-param>
+	</filter>
+
+	<filter>
+		<filter-name>etagFilter</filter-name>
+		<filter-class>org.springframework.web.filter.ShallowEtagHeaderFilter</filter-class>
+	</filter>
+
+	<filter>
+		<filter-name>clickstreamFilter</filter-name>
+		<filter-class>com.opensymphony.clickstream.ClickstreamFilter</filter-class>
+	</filter>
+
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>ISO-8859-1</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+
+	<!-- <filter>
+		<filter-name>rewriteFilter</filter-name>
+		<filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
+		<init-param>
+			<param-name>logLevel</param-name>
+			<param-value>commons</param-value>
+		</init-param>
+	</filter> -->
+
+	<filter>
+		<filter-name>sitemesh</filter-name>
+		<filter-class>com.opensymphony.module.sitemesh.filter.PageFilter</filter-class>
+	</filter>
+	
+	<!-- Hibernate Filter -->
+	<filter>
+        <filter-name>adminHibernateFilter</filter-name>
+        <filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class>
+        <init-param>
+        	<param-name>sessionFactoryBeanName</param-name>
+        	<param-value>adminHibernateSessionFactory</param-value>
+        </init-param>
+        <init-param>
+	        <param-name>flushMode</param-name>
+	        <param-value>AUTO</param-value>
+        </init-param>
+    </filter>
+    
+    <filter>
+        <filter-name>mxHibernateFilter</filter-name>
+        <filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class>
+         <init-param>
+        	<param-name>sessionFactoryBeanName</param-name>
+        	<param-value>mxHibernateSessionFactory</param-value>
+        </init-param>
+    </filter>
+
+	<filter-mapping>
+		<filter-name>etagFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<!-- security filter -->
+	<filter-mapping>
+		<filter-name>securityFilter</filter-name>
+		<url-pattern>/j_acegi_security_check</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>securityFilter</filter-name>
+		<url-pattern>*.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>securityFilter</filter-name>
+		<url-pattern>*.jsp</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>securityFilter</filter-name>
+		<url-pattern>*.direct</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>securityFilter</filter-name>
+		<url-pattern>*.sdirect</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>securityFilter</filter-name>
+		<url-pattern>*.svc</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>securityFilter</filter-name>
+		<url-pattern>*.do</url-pattern>
+	</filter-mapping>
+	<!-- <filter-mapping>  
+	    <filter-name>securityFilter</filter-name>  
+	    <url-pattern>/*</url-pattern>  
+	</filter-mapping>   -->
+
+	<!-- rewrote
+	<filter-mapping>
+		<filter-name>rewriteFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping> -->
+	
+	<!--site template-->
+	<filter-mapping>
+		<filter-name>sitemesh</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<!-- Hibernate Filter Mapping -->
+	<filter-mapping>
+        <filter-name>adminHibernateFilter</filter-name>
+        <url-pattern>*.html</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>adminHibernateFilter</filter-name>
+        <url-pattern>*.sdirect</url-pattern>
+    </filter-mapping>
+    
+    <filter-mapping>
+        <filter-name>mxHibernateFilter</filter-name>
+        <url-pattern>*.html</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>mxHibernateFilter</filter-name>
+        <url-pattern>*.sdirect</url-pattern>
+    </filter-mapping>
+
+	<!-- ######## SERVLET ########## -->
+	<servlet>
+		<servlet-name>mx-webadmin</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	
+	<!-- tapestry framework -->
+	<servlet>
+		<servlet-name>tapestry</servlet-name>
+		<!-- <servlet-class>com.balicamp.webapp.action.AdminTapestryServlet</servlet-class> -->
+		<servlet-class>org.apache.tapestry.ApplicationServlet</servlet-class>
+		<load-on-startup>2</load-on-startup>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>downloaderServlet</servlet-name>
+		<servlet-class>com.balicamp.webapp.servlet.DownloaderServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>dashboardServlet</servlet-name>
+		<servlet-class>com.balicamp.webapp.servlet.Dashboard</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>AjaxRequestAutoComplete</servlet-name>
+		<servlet-class>com.balicamp.webapp.servlet.AjaxRequestAutoComplete</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>tapestry</servlet-name>
+		<url-pattern>/mx-webadmin</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>tapestry</servlet-name>
+		<url-pattern>/report/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>tapestry</servlet-name>
+		<url-pattern>*.html</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>tapestry</servlet-name>
+		<url-pattern>*.direct</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>tapestry</servlet-name>
+		<url-pattern>*.sdirect</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>tapestry</servlet-name>
+		<url-pattern>/assets/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>tapestry</servlet-name>
+		<url-pattern>*.svc</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>downloaderServlet</servlet-name>
+		<url-pattern>/download</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>dashboardServlet</servlet-name>
+		<url-pattern>/dashboard</url-pattern>
+	</servlet-mapping>
+	
+	
+	<!-- Autocomplete Text -->
+	<servlet-mapping>
+		<servlet-name>AjaxRequestAutoComplete</servlet-name>
+		<url-pattern>/JSON/AjaxRequestAutoComplete</url-pattern>
+	</servlet-mapping>
+	
+	<!-- Others -->
+	<session-config>
+		<session-timeout>8</session-timeout>
+	</session-config>
+
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+
+	<error-page>
+		<error-code>500</error-code>
+		<location>/error.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>400</error-code>
+		<location>/index.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>403</error-code>
+		<location>/403.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>404</error-code>
+		<location>/404.jsp</location>
+	</error-page>
+
+</web-app>

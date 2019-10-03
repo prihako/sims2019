@@ -1,0 +1,166 @@
+<!-- <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> -->
+<html jwcid="@Shell" title="message:webapp.title">
+<head>
+<script type="text/javascript" src="scripts/jquery-1.8.3.min.js"></script>
+<script type="text/javascript"
+	src="scripts/jquery-ui-1.10.0.custom.min.js"></script>
+<script type="text/javascript" src="scripts/mayora/tools.js"></script>
+
+<link rel="stylesheet"
+	href="styles/style-Kominfo/jquery-ui-1.10.0.custom.css" type="text/css" />
+
+
+</head>
+<body jwcid="@Body">
+	<div id="outer">
+		<form jwcid="@Form" delegate="ognl:beans.delegate"
+			clientValidationEnabled="ognl:true">
+			
+			<div id="title">Create Variabel Persentase Tahunan BHP</div>
+			<h2>Variable</h2>
+			<table class="uniform">
+				
+				<tr>
+					<td><label class="short" >Status Variable</label></td>
+					<td><select style="width: 100px"
+						jwcid="@PropertySelection"
+						model="ognl:getVariableStatusModel()" value="ognl:variableStatus">
+					</select></td>
+				</tr>
+				<tr>
+					<td><label class="short" >Variabel Persentase Tahunan</label></td>
+					<td><input jwcid="@TextField" value="ognl:variablePersentaseTahunan" /></td>
+				</tr>
+				<tr>
+					<td><label class="short" >Berdasarkan Dokumen</label></td>
+					<td><input jwcid="@TextField"
+						value="ognl:berdasarkanDokumen" /></td>
+				</tr>
+			</table>
+				
+			<h2>Detail Nilai Presentase Tahunan</h2>
+				
+			<table class="uniform">
+				
+				<tr>
+					<td><label jwcid="@FieldLabel"
+						field="component:percentageYearOne"
+						displayName="message:variable.annualPercentageBHPCreate.percentageYearOne.title"
+						class="short"></label></td>
+
+					<td><input jwcid="percentageYearOne@TextField" id="yearOne"
+						value="ognl:percentageYearOne" />%</td>
+				</tr>
+
+
+				<tr>
+					<td><label jwcid="@FieldLabel"
+						field="component:percentageYearTwo"
+						displayName="message:variable.annualPercentageBHPCreate.percentageYearTwo.title"
+						class="short"></label></td>
+
+					<td><input jwcid="percentageYearTwo@TextField" id="yearTwo"
+						value="ognl:percentageYearTwo" />%</td>
+				</tr>
+
+				<tr>
+					<td><label jwcid="@FieldLabel"
+						field="component:percentageYearThree"
+						displayName="message:variable.annualPercentageBHPCreate.percentageYearThree.title"
+						class="short"></label></td>
+
+					<td><input jwcid="percentageYearThree@TextField"
+						id="yearThree" value="ognl:percentageYearThree" />%</td>
+				</tr>
+				<tr>
+					<td><label jwcid="@FieldLabel"
+						field="component:percentageYearFour"
+						displayName="message:variable.annualPercentageBHPCreate.percentageYearFour.title"
+						class="short"></label></td>
+
+					<td><input jwcid="percentageYearFour@TextField" id="yearFour"
+						value="ognl:percentageYearFour" />%</td>
+				</tr>
+				<tr>
+					<td><label jwcid="@FieldLabel"
+						field="component:percentageYearFive"
+						displayName="message:variable.annualPercentageBHPCreate.percentageYearFive.title"
+						class="short"></label></td>
+
+					<td><input jwcid="percentageYearFive@TextField" id="yearFive"
+						value="ognl:percentageYearFive" />%</td>
+				</tr>
+
+				<tr>
+					<td><label jwcid="@FieldLabel"
+						field="component:percentageYearSix"
+						displayName="message:variable.annualPercentageBHPCreate.percentageYearSix.title"
+						class="short"></label></td>
+
+					<td><input jwcid="percentageYearSix@TextField" id="yearSix"
+						value="ognl:percentageYearSix" />%</td>
+				</tr>
+
+				<tr>
+					<td><label jwcid="@FieldLabel"
+						field="component:percentageYearSeven"
+						displayName="message:variable.annualPercentageBHPCreate.percentageYearSeven.title"
+						class="short"></label></td>
+
+					<td><input jwcid="percentageYearSeven@TextField"
+						id="yearSeven" value="ognl:percentageYearSeven" />%</td>
+				</tr>
+
+				<tr>
+					<td><label jwcid="@FieldLabel"
+						field="component:percentageYearEight"
+						displayName="message:variable.annualPercentageBHPCreate.percentageYearEight.title"
+						class="short"></label></td>
+
+					<td><input jwcid="percentageYearEight@TextField"
+						id="yearEight" value="ognl:percentageYearEight" />%</td>
+				</tr>
+
+				<tr>
+					<td><label jwcid="@FieldLabel"
+						field="component:percentageYearNine"
+						displayName="message:variable.annualPercentageBHPCreate.percentageYearNine.title"
+						class="short"></label></td>
+
+					<td><input jwcid="percentageYearNine@TextField" id="yearNine"
+						value="ognl:percentageYearNine" />%</td>
+				</tr>
+
+				<tr>
+					<td><label jwcid="@FieldLabel"
+						field="component:percentageYearTen"
+						displayName="message:variable.annualPercentageBHPCreate.percentageYearTen.title"
+						class="short"></label></td>
+
+					<td><input jwcid="percentageYearTen@TextField" id="yearTen"
+						value="ognl:percentageYearTen" />%</td>
+				</tr>
+			</table>
+			<!-- button -->
+			<div id="button">
+				<input type="submit" class="btn" jwcid="@Submit"
+					action="listener:doSave"
+					value="message:button.variable.annualPercentageBHPCreate.save" />
+				<input type="submit" class="btn" jwcid="@Submit"
+					action="listener:doCancel"
+					value="message:button.variable.annualPercentageBHPCreate.cancel" />
+			</div>
+
+			<span jwcid="errorShadow@TextField" autocomplete="off"
+				value="ognl:errorValue" style="display: none"></span> <span
+				jwcid="@If" condition="ognl:delegate.hasErrors"> <script>
+					alert('<span jwcid="@Delegator" delegate="ognl:delegate.firstError">Error Message</span>');
+				</script>
+			</span>
+			
+			<input type="hidden" jwcid="@Hidden" value="ognl:annualPercentId" /> 
+
+		</form>
+	</div>
+</body>
+</html>

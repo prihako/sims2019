@@ -1,0 +1,559 @@
+<!-- <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> -->
+<html jwcid="@Shell" title="message:webapp.title">
+<head>
+<script type="text/javascript" src="scripts/jquery-1.8.3.min.js"></script>
+<script type="text/javascript"
+	src="scripts/jquery-ui-1.10.0.custom.min.js"></script>
+<script type="text/javascript" src="scripts/mayora/tools.js"></script>
+
+<link rel="stylesheet"
+	href="styles/style-Kominfo/jquery-ui-1.10.0.custom.css" type="text/css" />
+<style>
+	.active{
+			background-color:#FFFF99;
+	}
+	 .right { text-align: right; }
+</style>
+<script>
+
+	var host = location.protocol + '//' + location.hostname + ':'
+			+ location.port;
+	var popupWindow = null;
+	
+	function percentage_annual() {
+		popupWindow = window.showModalDialog(host + '/billingsystem/annualPercentageBHPEntry.html');
+// 		popupWindow = window.open(host + '/billingsystem/annualPercentageBHPEntry.html', 'name', 'width=700,location=no,menubar=no,height=500,scrollbars=no,resizable=no,fullscreen=no');
+// 		popupWindow = window.showModalDialog(host + '/billingsystem/annualPercentageBHPEntry.html',"HelpWindow","width=600,height=400,location=no,status=no,menubar=no,toolbar=no,resizable=no,scrollbars=no");
+	}
+	
+	function bi_search() {
+		popupWindow = window.showModalDialog(host + '/billingsystem/annualRateBHPEntry.html');
+	}
+	
+	function annual_percentage_view(){
+		popupWindow =  window.showModalDialog(host + '/billingsystem/annualPercentageBHPViewManage.html');
+	}
+
+// 	function serviceLink() {
+// 		popupWindow =  window.showModalDialog('<span jwcid="@Insert" value="ognl:serviceURL" raw="true"/>');
+// 	}
+
+	function bi_rate_view(){
+		popupWindow =  window.showModalDialog(host +'/billingsystem/annualRateBHPViewManage.html');
+	}
+	
+	function serviceLink2() {
+		popupWindow =  window.showModalDialog('<span jwcid="@Insert" value="ognl:showPdf" raw="true"/>');
+	}
+	
+	function viewKmBiRate() {
+		popupWindow =  window.showModalDialog('<span jwcid="@Insert" value="ognl:doViewKmBiRate" raw="true"/>');
+	}
+
+	function parent_disable() {
+		if (popupWindow && !popupWindow.closed)
+			popupWindow.focus();
+	}
+	function readonlyTextbox()
+	{
+		document.getElementById("bhpUpfrontFee").setAttribute("readonly","readonly"); 
+		document.getElementById("bhpHL").setAttribute("readonly","readonly"); 
+	}
+	
+	function isNumber(evt) {
+	    evt = (evt) ? evt : window.event;
+	    var charCode = (evt.which) ? evt.which : evt.keyCode;
+	    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+	        return false;
+	    }
+	    return true;
+	}
+	
+	function goBack(){
+		 window.history.back()
+	}
+
+</script>
+<script>
+	$(document).ready(function() {
+		
+		var phl = $("#bhpPHL").val();
+		var hl = $("#bhpHL").val();
+		
+		if(phl != ""){
+			$("#radio2").attr('checked', 'checked');
+			$("#bhpHL").attr("disabled", "disabled"); 
+		}else if(hl != ""){
+			$("#radio1").attr('checked', 'checked');
+			$("#bhpPHL").attr("disabled", "disabled"); 
+		}else{
+			$("#bhpPHL").attr("disabled", "disabled"); 
+			$('#bhpPHL').val("");
+			$("#radio1").attr('checked', 'checked');
+		}
+		
+		$("#radio1").change( function(){
+			$("#bhpHL").removeAttr("disabled"); 
+			$("#bhpPHL").attr("disabled", "disabled"); 
+			$('#bhpPHL').val("");
+		});
+		
+		$("#radio2").change( function(){
+			$("#bhpPHL").removeAttr("disabled"); 
+			$("#bhpHL").attr("disabled", "disabled"); 
+			$('#bhpHL').val("");
+		});
+		
+	});
+</script>
+</head>
+<body jwcid="@Body">
+	<div id="outer">
+		<form jwcid="form1@Form" delegate="ognl:beans.delegate" clientValidationEnabled="ognl:true" id="form-license" refresh="listener:doRefresh">
+		
+			<span jwcid="@Hidden" value="ognl:notFirstLoad"></span>
+<!-- 			<span jwcid="applicationList@Hidden" value="ognl:applicationList"></span> -->
+			<span jwcid="criteria@Hidden" value="ognl:criteria"></span>
+			<span jwcid="criteriaSearch@Hidden" value="ognl:criteriaSearch"></span>
+			
+			<div id="title">
+		    	<span key="initial.invoice.varietyRate.create.title"></span>
+		   	</div>
+		
+			<table width="75%" class="uniform">
+			
+				<tr>
+					<td><label jwcid="@FieldLabel"  field="component:licenceNumber"
+						displayName="message:initial.invoice.licenceNumber"></label></td>
+					<td><input jwcid="licenceNumber@TextField" type="text" size="30"
+						id="licenceNumber" value="ognl:applicationBandwidth.licenceNumber" readonly="ognl:true" /></td>
+				</tr>
+				<tr>
+					<td><label jwcid="@FieldLabel" field="component:clientName" 
+						displayName="message:initial.invoice.clientName"></label></td>
+					<td><input jwcid="clientName@TextField" type="text" size="50"
+						value="ognl:applicationBandwidth.clientCompany" readonly="ognl:true" /></td>
+				</tr>
+				
+				<tr>
+					<td><label jwcid="@FieldLabel" field="component:clientID" 
+						displayName="message:initial.invoice.clientID"></label></td>
+					<td><input jwcid="clientID@TextField" type="text" size="15"
+						value="ognl:applicationBandwidth.clientNumber" readonly="ognl:true" /></td>
+				</tr>
+				<tr>
+					<td><label jwcid="@FieldLabel" field="component:BHPmethod" 
+						displayName="message:initial.invoice.BHPmethod"></label></td>
+					<td><input jwcid="BHPmethod@TextField" type="text" size="30"
+						value="ognl:bhpMethod" readonly="ognl:true" /></td>
+				</tr>
+			
+				<tr>
+					<td colspan="2"><h2>Izin Pita Spektrum Frekuensi Radio</h2></td>
+				</tr>
+
+				<tr>
+					<td><label jwcid="@FieldLabel" field="component:kmNo" 
+						displayName="message:initial.invoice.kmNo"></label></td>
+					<td><input jwcid="kmNo@TextField" type="text" size="30"
+						value="ognl:applicationBandwidth.kmNo" readonly="ognl:true" />
+						<input type="button" class="btn" onclick="serviceLink2()"
+							value="Lihat SKM" />
+					</td>
+				</tr>
+				<tr>
+					<td><label jwcid="@FieldLabel" field="component:kmDate" 
+						displayName="message:initial.invoice.kmDate"></label></td>
+					<td><input jwcid="kmDate@TextField" type="text" size="30" 
+						value="ognl:kmDateStr" readonly="ognl:true" /></td>
+				</tr>
+				<tr>
+					<td><label jwcid="@FieldLabel" field="component:ipsfr" 
+						displayName="message:initial.invoice.ipsfrNo"></label></td>
+
+					<td><input jwcid="ipsfr@TextField" type="text" size="4"
+						value="ognl:ipsfrNo" />
+					</td>
+				</tr>
+				<tr>
+					<td><label jwcid="@FieldLabel" field="component:zone" 
+						displayName="message:initial.invoice.zonaName"></label></td>
+
+					<td><input jwcid="zone@TextField" type="text" size="4"
+						value="ognl:applicationBandwidth.zoneNo" readonly="ognl:true" /><input
+						jwcid="@TextField" type="text" size="20" value="ognl:applicationBandwidth.zoneName"
+						readonly="ognl:true" /></td>
+				</tr>
+
+				<tr>
+					<td><label jwcid="@FieldLabel" field="component:licenceTimeValid" 
+						displayName="message:initial.invoice.licenceTimeValid"
+						></label></td>
+					<td><input jwcid=licenceTimeValid@TextField " id="licenseBegin" class="xshort"
+						value="ognl:licBeginDateStr" readonly="ognl:true" /><span
+						class="add-on-last"> sampai dengan</span><input jwcid="@TextField"
+						id="licenseEnd" class="xshort" value="ognl:licEndDateStr" 
+						readonly="ognl:true" />
+					</td>
+				</tr>
+				
+				<tr>
+					<td><label jwcid="@FieldLabel" field="component:frequencyRange"
+						displayName="message:initial.invoice.frequencyRange"
+						> </label></td>
+					<td><input type="text" jwcid="frequencyRange@TextField" id="freqmin"
+						value="ognl:applicationBandwidth.freqMin" class="xshort" readonly="ognl:true" /> <span
+						class="add-on-last"> MHz</span> -- <input type="text"
+						jwcid="@TextField" id="freqmax" value="ognl:applicationBandwidth.freqMax"
+						class="xshort" readonly="ognl:true" /> <span class="add-on-last">
+							MHz</span><br />
+						<input type="text" jwcid="@TextField" id="freqmin"
+						value="ognl:applicationBandwidth.freqMinR" class="xshort" readonly="ognl:true" /> <span
+						class="add-on-last"> MHz</span> -- <input type="text"
+						jwcid="@TextField" id="freqmax2" value="ognl:applicationBandwidth.freqMaxR"
+						class="xshort" readonly="ognl:true" /> <span class="add-on-last">
+							MHz</span>
+					</td>
+				</tr>
+				<tr>
+					<td><label jwcid="@FieldLabel" field="component:paymentType"
+						displayName="message:initial.invoice.BHPPaymentType"
+						> </label></td>
+					<td><input type="text" jwcid="paymentType@TextField" id="bhppaymenttype"
+						value="ognl:paymentType" class="xshort" readonly="ognl:true" /></td>
+				</tr>
+				<tr></tr>		
+				<tr>
+					<td><label jwcid="@FieldLabel" field="component:IPSFRPeriod"
+						displayName="message:initial.invoice.IPSFRPeriod" >
+					</label></td>
+					<td><input type="text" jwcid="IPSFRPeriod@TextField"
+						id="currentBeginDate" value="ognl:curBeginDateStr" class="xshort" 
+						readonly="ognl:true" /> sampai dengan <input type="text"
+						jwcid="@TextField" id="freqmax" value="ognl:curEndDateStr" 
+						class="xshort" readonly="ognl:true" />
+					</td>
+				</tr>
+
+				<tr>
+					<td><label jwcid="@FieldLabel" field="component:yearTo"
+						displayName="message:initial.invoice.yearTo" ></label>
+					</td>
+					<td><input jwcid="yearTo@TextField" id="yearto" size="4"
+						value="ognl:yearTo" readonly="ognl:true" />
+						<input jwcid="@TextField" id="year" size="4" 
+						value="ognl:year" readonly="ognl:true" />
+					</td>
+				</tr>
+
+				<tr>
+					<td><label jwcid="@FieldLabel" field="component:paymentDueDate"
+						displayName="message:initial.invoice.paymentDueDate"
+						></label></td>
+					<td><input jwcid="paymentDueDate@TextField" id="paymentDueDate"
+						value="ognl:paymentDueDateStr" readonly="ognl:true" /></td>
+				</tr>
+				<tr>
+					<td colspan="2"><h2>Bank Garansi</h2></td>
+				</tr>
+				<tr>
+					<td><label>Kewajiban Bank Garansi</label></td>
+					<td>
+						<span jwcid="@If" condition='ognl:applicationBandwidth.isBgAvailable == "Y"'>
+							<input type="text" size="8"
+							value="Y" readonly="true"></input>
+						</span>
+						<span jwcid="@Else">
+							<input type="text" size="8"
+							value="N" readonly="true"></input>
+						</span>
+					</td>
+				</tr>
+					
+				<span jwcid="@If" condition='ognl:applicationBandwidth.isBgAvailable == "Y"'>
+					<tr>
+						<td><label jwcid="@FieldLabel" field="component:bankGuaranteeDate"
+							displayName="message:initial.invoice.bankGuaranteeDuedate"
+							> </label></td>
+						<td><input type="text" jwcid="bankGuaranteeDate@DatePicker" translator="translator:date,pattern=dd-MMM-yyyy"
+							id="bgDueDatePicker" value="ognl:bgDueDate"  readonly="ognl:true" /></td>
+					</tr>
+				</span>
+				<tr>
+					<td colspan="2"><h2>Biaya Hak Penggunaan (BHP) Frekuensi Radio</h2></td>
+				</tr>
+				<tr>
+					<td><label jwcid="@FieldLabel" field="component:biRate" 
+						displayName="message:initial.invoice.biRate"></label></td>
+					<td><input jwcid="biRate@TextField" type="text" size="8" id="targetBi" readonly="readonly"
+						value="ognl:biRate" ></input>
+<!-- 						 <input type="button" class="btn" jwcid="@Submit" value="Lihat Bi Rate" action="listener:viewBiRate" /> -->
+						<input type="button" class="btn" jwcid="@Submit" value="Lihat Bi Rate" 
+						 	onclick="ognl:popupBiRate" />
+						<input class="btn" value="Lihat KM BI Rate" type="button"
+							onclick="viewKmBiRate()" />
+						 
+					</td>
+				</tr>
+				<tr>
+					<td><label jwcid="@FieldLabel" field="component:bhpPercentage" 
+						displayName="message:initial.invoice.percentageBHP"></label>
+					</td>
+					<td>
+						<span jwcid="@If" condition="ognl:enableInput.equalsIgnoreCase('Y')">
+							<select jwcid="bhpPercentage@PropertySelection" 
+								model="ognl:getPercentageBHPModel()" value="ognl:percentageBHP" onchange="this.form.submit()">
+							</select>
+						</span>
+						<span jwcid="@Else">
+							<select jwcid="@PropertySelection" disabled="disabled"
+								model="ognl:getPercentageBHPModel()" value="ognl:percentageBHP" >
+							</select>
+						</span>
+<!-- 						 <input type="button" class="btn" jwcid="@Submit" value="Lihat Presentase Tahunan BHP" action="listener:viewBhpAnnualRate" /> -->
+						 <input type="button" class="btn" jwcid="@Submit" value="Lihat Presentase Tahunan BHP" onclick="ognl:annualRatePopup" />
+					</td>
+				</tr>
+				<tr>
+					<td><label jwcid="@FieldLabel" field="component:index" 
+						displayName="message:initial.invoice.multiplyIndex"></label></td>
+					<td><input jwcid="index@TextField" type="text" size="8"
+						value="ognl:multiplyIndex" readonly="ognl:true"></input></td>
+				</tr>
+				<tr>
+					<td><label jwcid="@FieldLabel" field="component:upfrontFee" 
+						displayName="message:initial.invoice.upfrontFee"></label></td>
+					<td>
+						<span jwcid="@If" condition="ognl:enableInput.equalsIgnoreCase('Y')">
+							Rp <input jwcid="upfrontFee@TextField" type="text" size="25" class="right"
+							value="ognl:bhpUpfrontFee" translator='translator:moneyWithoutComma' onkeypress="return isNumber(event)" ></input>
+						</span>
+						<span jwcid="@Else">
+							Rp <input jwcid="@TextField" type="text" size="25" readonly="readonly" class="right" 
+							value="ognl:bhpUpfrontFee" translator='translator:moneyWithoutComma'></input>
+						</span>
+					</td>
+				</tr>
+				<tr>
+					<td><label >
+							<span jwcid="@If" condition="ognl:enableInput.equalsIgnoreCase('Y')">
+								<input id="radio1" type="radio" name="group1" value="HargaLelang" checked>Harga Lelang
+							</span>
+							<span jwcid="@Else">
+								<input type="radio" name="group1" value="HargaLelang" checked="checked" disabled="disabled">Harga Lelang
+							</span>
+						</label>
+					</td>
+					<td>
+						<span jwcid="@If" condition="ognl:enableInput.equalsIgnoreCase('Y')">
+							Rp <input jwcid="@TextField" type="text" size="25" class="right"
+							value="ognl:bhpHl" translator='translator:moneyWithoutComma' id="bhpHL" onkeypress="return isNumber(event)" />
+						</span>
+						<span jwcid="@Else">
+							Rp <input jwcid="@TextField" type="text" size="25" class="right" readonly="readonly" 
+							value="ognl:bhpHl" translator='translator:moneyWithoutComma' />
+						</span>
+					</td>
+
+				</tr>
+				<tr>
+					<td><label >
+						
+							<span jwcid="@If" condition="ognl:enableInput.equalsIgnoreCase('Y')">
+								<input id="radio2" type="radio" name="group1" value="Penyesuaian Harga Lelang">Penyesuaian Harga Lelang
+							</span>
+							<span jwcid="@Else">
+								<input type="radio" name="group1" value="Penyesuaian Harga Lelang" disabled="disabled">Penyesuaian Harga Lelang
+							</span>
+						
+						</label>
+					</td>
+					<td>
+						<span jwcid="@If" condition="ognl:enableInput.equalsIgnoreCase('Y')">
+							Rp <input jwcid="@TextField" type="text" size="25"
+							value="ognl:bhpPhl" translator='translator:moneyWithoutComma' id="bhpPHL" class="right" onkeypress="return isNumber(event)"
+							 />
+						</span>
+						<span jwcid="@Else">
+							Rp <input jwcid="@TextField" type="text" size="25" readonly="readonly" class="right"
+							value="ognl:bhpPhl" translator='translator:moneyWithoutComma'
+							/>
+						</span>
+					</td>
+				</tr>
+				<tr>
+					<td><label >Biaya IPFR Tahunan Tahun <br /> Ke-1(Tahun Ke-N)</label></td>
+					<td>Rp <input jwcid="ipsfrYearOne@TextField" type="text" size="25"
+						value="ognl:ipsfrYearOne" readonly="readonly" class="right"
+						translator='translator:moneyWithoutComma' />
+					</td>
+				</tr>
+				<tr>
+					<td><label >Nilai BHP Frequensi Radio</label></td>
+					<td>Rp <input jwcid="bhpValue@TextField" type="text" size="25"
+						value="ognl:bhpValueRadioFreq" readonly="readonly" class="right"
+						translator='translator:moneyWithoutComma' />
+					</td>
+				</tr>
+				<span jwcid="@If" condition='ognl:applicationBandwidth.isBgAvailable == "Y" '>
+					<tr>
+						<td><label >Nilai Bank Garansi Untuk Tahun <br /> Ke-2(tahun ke-N+1)</label></td>
+						<td>Rp <input jwcid="bgYear2@TextField" type="text" size="25"
+							value="ognl:bgYear2" readonly="readonly" class="right"
+							translator='translator:moneyWithoutComma' />
+						</td>
+					</tr>
+				</span>
+				
+			</table>
+			
+			<!-- button action -->
+			<div id="button">
+				<table width="99%" class="uniform">
+					<tr>
+						<td colspan="1" class="clearborder center">
+							<span jwcid="@If" condition="ognl:enableInput.equalsIgnoreCase('Y')">
+								<input jwcid="@Submit" class="btn" value="Hitung"
+									action="listener:hitung" />
+							</span>
+							<span jwcid="@Else">
+								<input type="submit" class="btn" value="Hitung"
+									disabled />
+							</span>
+						</td>
+					</tr>
+				</table>
+			</div>
+			
+			<span jwcid="@If" condition="ognl:invoiceList!=null  && showTable.equalsIgnoreCase('Y')">
+				<div id="box">
+					<span jwcid="@contrib:TableView" pageSize="10"
+						columns="!Tahun Izin,!TahunPembayaran,!UpfrontFee, !Bi Rate, !Index Pengali, !Persentase Tahunan, !BhpAnnual,!Nilai BHP"
+						source="ognl:invoiceList">
+
+						<table width="75%">
+							<tr>
+								<td colspan="2"><h3>Perhitungan Biaya Hak Penggunaan (BHP)</h3></td>
+							</tr>
+							<tr>
+								<td>
+									<table border="0" class="data" width="65%">
+										<tr>
+											<th><span >Tahun Izin</span></th>
+											<th><span key="calculateBhp.table.year">Year</span></th>
+											<th><span key="calculateBhp.table.upfrontFee">Biaya
+													Izin Awal (Upfront Fee)</span>
+											</th>
+											<th><span >BI Rate (Rn)</span></th>
+											<th><span >Index Pengali</span></th>
+											<th><span >Persentase BHP Tahunan</span></th>
+											<th><span key="calculateBhp.table.ipsfrAnnual">Biaya
+													IPSFR Tahunan</span></th>
+											<th><span key="calculateBhp.table.bhpAmount.vr">Nilai
+													BHP</span></th>
+										</tr>
+										<tr jwcid="@contrib:TableRows" row="ognl:invoice"
+											class="ognl:beans.evenOdd.next">
+											<span jwcid="@If" condition="ognl:invoice.yearTo.intValue() == 1 ">
+												<td align="right"><span jwcid="@Insert" value="ognl:invoice.yearTo" /></td>
+												<td align="right"><span jwcid="@Insert" value="ognl:invoice.years" /></td>
+												<td align="right"><span jwcid="@InsertMoney"
+													value="ognl:invoice.bhpUpfrontFee" /></td>
+												<td align="right"><span jwcid="@Insert" value="ognl:invoice.bhpRate" /></td>
+												<td align="right"><span jwcid="@Insert" value="ognl:invoice.bhpCalcIndex" /></td>
+												<td align="right"><span jwcid="@Insert" value="ognl:invoice.bhpAnnualPercent" /></td>
+												<td align="right"><span jwcid="@InsertMoney"
+													value="ognl:invoice.bhpAnnual" /></td>
+												<td align="right"><span jwcid="@InsertMoney"
+													value="ognl:invoice.bhpTotal" /></td>
+											</span>
+										</tr>
+									</table>
+									
+<!-- 									<span jwcid="@If" condition="ognl:applicationBandwidth.isBgAvailable.equalsIgnoreCase('Y')"> -->
+<!-- 										<div id="button"> -->
+<!-- 											<table width="99%" class="uniform"> -->
+<!-- 												<tr> -->
+<!-- 													<td colspan="1" class="clearborder center"> -->
+<!-- 														<input jwcid="@Submit" class="btn" value="Hitung Bank Garansi" -->
+<!-- 														action="listener:hitungBg" onclick="this.form.onsubmit=null" /> -->
+<!-- 													</td> -->
+<!-- 												</tr> -->
+<!-- 											</table> -->
+<!-- 										</div> -->
+<!-- 									</span> -->
+			
+								</td>
+							</tr>
+						</table>
+					</span>
+				</div>
+			</span>
+			
+			<span jwcid="@If" condition="ognl:bgList!=null && showTable.equalsIgnoreCase('Y')">
+				<div id="box">
+					<span jwcid="@contrib:TableView" pageSize="10"
+						columns="!TahunPembayaran,!UpfrontFee,!BhpAnnual,!Nilai BHP"
+						source="ognl:bgList">
+
+						<table width="75%">
+							<tr>
+								<td colspan="2"><h3>Bank Garansi</h3></td>
+							</tr>
+							<tr>
+								<td>
+									<table border="0" class="data" width="65%">
+										<tr>
+											<th><span>Tahun Penyerahan</span></th>
+											<th><span>Tahun</span></th>
+											<th><span>BI Rate</span></th>
+											<th><span>Index Pengali</span></th>
+											<th><span>Persentase BHP Tahunan</span></th>
+											<th><span>Nilai Bank Garansi (N+1)</span></th>
+										</tr>
+										<tr jwcid="@contrib:TableRows" row="ognl:bankGuarantee" class="ognl:beans.evenOdd.next">
+											<span jwcid="@If" condition="ognl:bankGuarantee.submitYearTo.intValue() == 1 ">
+												<td align="right"><span jwcid="@Insert" value="ognl:bankGuarantee.submitYearTo" /></td>
+												<td align="right"><span jwcid="@Insert" value="ognl:bankGuarantee.bankAddress" /></td>
+												<td align="right"><span jwcid="@Insert" value="ognl:bankGuarantee.biRate" /></td>
+												<td align="right"><span jwcid="@Insert" value="ognl:bankGuarantee.calcIndex" /></td>
+												<td align="right"><span jwcid="@Insert" value="ognl:bankGuarantee.bhpPercent" /></td>
+												<td align="right"><span jwcid="@InsertMoney" value="ognl:bankGuarantee.bgValue" /></td>
+											</span>
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+					</span>
+				</div>
+			</span>
+			
+			<span jwcid="@If" condition="ognl:invoiceList!=null  && showTable.equalsIgnoreCase('Y')">
+				<input jwcid="@Submit" class="btn" value="Reset" action="listener:doReset" />
+			</span>
+			
+			<!-- button -->
+			<div id="button">
+				<input type="submit" class="btn" jwcid="@Submit"
+					action="listener:doDraft"
+					value="message:button.masterMaintenance.ipsfr.license.draft" />
+				<input type="submit" class="btn" jwcid="@Submit"
+					action="listener:doSubmit"
+					value="message:button.masterMaintenance.ipsfr.license.submit" />
+
+				<input type="submit" class="btn" jwcid="@Submit" action="listener:doCancel" value="message:button.back" />
+<!-- 				<input type="button" jwcid="@Any" class="btn" value="message:button.back" onclick="goBack()" /> -->
+			</div>
+			
+			<span jwcid="errorShadow@TextField" autocomplete="off" value="ognl:errorValue" style="display:none"></span>
+			<span jwcid="@If" condition="ognl:delegate.hasErrors">    
+				<script>alert('<span jwcid="@Delegator" delegate="ognl:delegate.firstError">Error Message</span>');</script>
+			</span>
+			
+			<input type="hidden" jwcid="@Hidden" value="ognl:percentageAnnualBhp" />
+		</form>
+	</div>
+	
+</body>
+</html>

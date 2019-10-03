@@ -1,0 +1,115 @@
+<html jwcid="@Shell" title="message:transactionFee.title">
+<script language="javascript" type="text/javascript" src="scripts/common.js"></script>  
+<body jwcid="@Body">
+<div id="outer">
+<span jwcid="@ValidationErrorTop" delegate="ognl:beans.delegate" />
+<form jwcid="searchForm@Form" delegate="ognl:beans.delegate" clientValidationEnabled="ognl:true">
+	<div id="title">
+    	<span key="crud.transactionFee"/>
+   	</div>
+	<br/>
+    <table class="uniform">
+		<tr jwcid="@Any" class="ognl:evenOddTable.next">
+			<td class="short">
+				<label class="short" jwcid="@FieldLabel" field="component:identifier" />
+		       </td>
+		       <td>
+				<input type="text" maxlength="30" width="208px" cssclass="TextBox"
+				       jwcid="identifier@TextField" 
+					   value="ognl:identifier"
+					   translator="translator:string,trim=true"
+					   displayName="message:field.transactionFee.identifier" />
+		       </td>
+		</tr>
+		<tr jwcid="@Any" class="ognl:evenOddTable.next">
+			<td class="short">
+				<label class="short" jwcid="@FieldLabel" field="component:channelCodeField" />
+			</td>
+			<td>
+		        <select style="width: 11em;"
+		        	jwcid="channelCodeField@PropertySelection" 
+		        	model="ognl:channelSelectionModel" 
+		        	value="ognl:channelCodeItem" 
+		        	validators="validators:required[%common.message.validation.required]"
+		       		displayName="message:field.transactionFee.codeChannel" />
+		    </td>
+		</tr>
+		<tr jwcid="@Any" class="ognl:evenOddTable.next">
+			<td class="short"></td>
+			<td>
+				<input class="btn" type="button" jwcid="@Submit" listener="listener:onSearch" value="message:button.search" />
+		    </td>
+		</tr>
+	</table>
+	<!-- <div id="button">
+		<input class="btn" type="button" jwcid="@Submit" listener="listener:onSearch" value="message:button.search" />	
+	</div> -->
+</form>
+
+<form  jwcid="mainForm@Form" delegate="ognl:beans.delegate" clientValidationEnabled="ognl:true">
+	<div id="box">	
+    	<!-- <div id="title"><span key="list.transactionFee"/></div> -->
+    	<table width="99%" jwcid="@contrib:TableView" pageSize="ognl:pageSize" source="ognl:tableModel" columns="ognl:columns">
+    	<tr>
+		    <td align="right"><span jwcid="@TablePages" /></td>
+		</tr>
+    	<tr>
+    		<td align="center">
+            	<div style="overflow: auto">
+                	<table width="99%" class="data">
+                		<tr class="headerRow">
+                			<th align="center" width="10%"> <span jwcid="@CheckBoxSelectAll" /> </th>
+		                    <span jwcid="@contrib:TableColumns" arrowUpAsset="ognl:assets.upArrow" arrowDownAsset="ognl:assets.downArrow" />
+		                </tr> 
+		                <tr jwcid="tableRows@contrib:TableRows" row="ognl:loopObject" class="ognl:beans.evenOdd.next">
+						    <td class="center" width="10%">
+						    	<input jwcid="@Checkbox" type="checkbox" value="ognl:loopObject.selected" class="noborder"/>
+				                <span jwcid="@InvokeListener" listener="listener:checkSelect"/>                	                      
+						    </td>
+							<td jwcid="identifierField@TableColumn" width="10%" class="center" style="min-width:100px">
+								<span jwcid="@Insert" value="ognl:loopObject.id.identifier"/>
+							</td>
+							<td jwcid="kodeTransaksiField@TableColumn" width="10%" class="center" style="min-width:100px">
+								<span jwcid="@Insert" value="ognl:loopObject.transactions.code"/>
+							</td>
+							<td jwcid="namaTransaksiField@TableColumn" width="10%" class="left" style="min-width:100px">
+								<span jwcid="@Insert" value="ognl:loopObject.transactions.name"/>
+							</td>
+							<td jwcid="namaChannelField@TableColumn" width="10%" class="center" style="min-width:100px">
+								<span jwcid="@Insert" value="ognl:loopObject.endpoints.name"/>
+							</td>
+							<td jwcid="nominalFeeField@TableColumn" width="5%" class="right" style="min-width:100px">
+									<span jwcid="fee@TextField" 
+										validators="validators:required[%common.message.validation.required]"
+				   						translator="translator:string, trim=true"
+										value="ognl:loopObject.id.fee" 
+										disabled="ognl:stateFee"/>
+										<!-- <span jwcid="@InvokeListener" listener="listener:onChangeFee" />   -->
+							</td>			
+							<!-- <td  jwcid="edit@TableColumn" width="10%" class="center" style="min-width:100px">
+								<a href="" jwcid="@DirectLink" listener="ognl:listeners.doEdit" 
+									parameters="ognl:{loopObject.id.transactionId, loopObject.id.channelId, loopObject.id.identifier}">
+									<span key="common.label.edit"/>
+						  		</a>
+							</td>		
+							<td  jwcid="delete@TableColumn" width="10%" class="center" style="min-width:100px">
+								<a href="" jwcid="@DirectLink" listener="ognl:listeners.doDelete" 
+									parameters="ognl:{loopObject.id.transactionId, loopObject.id.channelId, loopObject.id.identifier}">
+									<span key="common.label.delete"/>
+						  		</a>
+							</td>-->	
+		                </tr>
+	    			</table>    			
+    			</div>
+    		</td>
+    	</tr>
+    	</table>
+	</div>
+    <div class="button">
+		<input class="btn" jwcid="@Submit" listener="listener:doEdit" value="message:button.edit" type="button"/>
+		<input class="btn" jwcid="@Submit" listener="listener:doDelete" value="message:button.delete" type="button"/>
+	</div>
+</form>
+</div>
+</body>
+</html>

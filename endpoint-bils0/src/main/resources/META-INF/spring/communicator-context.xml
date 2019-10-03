@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+  	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+  	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+	<bean id="communicator" class="id.co.sigma.mx.transport.socket.ClientSocketCommunicator"
+		p:endpointCode="${endpoint_code}" p:endpointStatusManager-ref="endpointStatusManager">
+		<property name="messageListeners">
+			<list>
+				<ref bean="incomingMessageListener"/>
+			</list>
+		</property>
+	</bean>
+
+	<bean class="id.co.sigma.mx.transport.socket.Client"
+		init-method="start"
+		destroy-method="stop"
+		p:host="${host}"
+		p:port="${port}"
+		p:reconnectDelay="${reconnect_delay}"
+		p:filterChainBuilder-ref="filterChainBuilder"
+		p:socketCommunicator-ref="communicator" />
+
+	<bean id="filterChainBuilder"
+		class="org.apache.mina.core.filterchain.DefaultIoFilterChainBuilder">
+		<property name="filters">
+			<util:map map-class="java.util.LinkedHashMap">
+				<entry key="protocolCodecFilter" value-ref="protocolCodecFilter" />
+				<entry key="iso8583Filter" value-ref="iso8583Filter" />
+				<entry key="signOnFilter" value-ref="signOnFilter" />
+				<entry key="echoFilter" value-ref="echoFilter" />
+			</util:map>
+		</property>
+	</bean>
+
+	<bean id="prefixedByteCodec"
+		class="id.co.sigma.mx.transport.socket.codec.PrefixedByteCodecFactory" />
+
+	<!-- Filters ========================================== -->
+	<bean id="protocolCodecFilter" class="org.apache.mina.filter.codec.ProtocolCodecFilter">
+		<constructor-arg ref="prefixedByteCodec" />
+	</bean>
+
+	<bean id="iso8583Filter"
+		class="id.co.sigma.mx.message.iso8583.transport.socket.Iso8583Filter">
+		<constructor-arg ref="codec" />
+	</bean>
+
+	<bean id="codec" class="id.co.sigma.mx.message.iso8583.Nucleus8583Codec">
+		<constructor-arg value="${packager_file}" />
+	</bean>
+
+	<bean id="signOnFilter"
+		class="id.co.sigma.mx.message.iso8583.transport.socket.SignOnFilter"
+				p:sendingSignOn="${sign_on.sent}"
+		p:stanGenerator-ref="stanGenerator"
+		p:endpointCode="${endpoint_code}" />
+
+	<bean id="echoFilter"
+		class="id.co.sigma.mx.message.iso8583.transport.socket.EchoFilter"
+		p:sendingEcho="${echo.sent}"
+		p:period="${echo.period}"
+		p:stanGenerator-ref="stanGenerator"
+		p:endpointCode="${endpoint_code}" />
+
+</beans>

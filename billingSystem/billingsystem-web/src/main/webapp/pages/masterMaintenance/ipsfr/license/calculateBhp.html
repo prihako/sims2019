@@ -1,0 +1,174 @@
+<!-- <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> -->
+<html jwcid="@Shell" title="message:webapp.title">
+
+<head>
+	<script src="scripts/jquery-1.8.3.min.js"></script>
+	<script src="scripts/jquery-ui-1.10.0.custom.min.js"></script>
+	<script src="scripts/mayora/tools.js"></script>
+	<link rel="stylesheet"
+		href="styles/style-Kominfo/jquery-ui-1.10.0.custom.css" type="text/css" />
+	<script type="text/javascript"></script>
+</head>
+
+<body jwcid="@Body">
+	<div id="outer">
+		<form jwcid="@Form" delegate="ognl:beans.delegate" clientValidationEnabled="ognl:true" form >
+			
+			<div id="title">
+		    	<span key="calculateBhp.title"></span>
+		   	</div>
+
+			<table width="99%" class="uniform">
+				<tr>
+					<td>
+						<label jwcid="@FieldLabel" field="component:licenseNumber" displayName="message:license.licenseNo.title" ></label>
+					</td>
+					<td>
+						<input jwcid="licenseNumber@TextField" type="text" size="35" value="ognl:licenseNumber" readonly="readonly"></input>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label jwcid="@FieldLabel" field="component:bhpUpfrontFee" displayName="message:calculateBhp.field.upfrontFee" ></label>
+					</td>
+					<td>
+						<input jwcid="bhpUpfrontFee@TextField" type="text" size="35" value="ognl:bhpUpfrontFee" translator='translator:money'></input>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label jwcid="@FieldLabel" field="component:bhpRate" displayName="message:calculateBhp.field.rate" ></label>
+					</td>
+					<td>
+						<input jwcid="bhpRate@TextField" type="text" size="35"value="ognl:bhpRate" readonly="readonly"/>&nbsp;%
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label jwcid="@FieldLabel" field="component:bhpCalcIndex" displayName="message:calculateBhp.field.index" ></label>
+					</td>
+					<td>
+						<input jwcid="bhpCalcIndex@TextField" type="text" size="35"value="ognl:bhpCalcIndex" readonly="readonly" onchange="listener:calculateIndex"/>
+						<input jwcid="@Submit" value="message:calculateBhp.button.calculateIndex" action="listener:calculateIndex" onclick="return validateOnSubmit(this.form)"/>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label jwcid="@FieldLabel" field="component:bhpPhl" displayName="message:calculateBhp.field.phl" ></label>
+					</td>
+					<td>
+						<input jwcid="bhpPhl@TextField" type="text" size="35"value="ognl:bhpPhl" translator='translator:money'/>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label jwcid="@FieldLabel" field="component:bhpAnnualPercent" displayName="message:calculateBhp.field.persentaseBhp" ></label>
+					</td>
+					<td>
+						<input jwcid="bhpAnnualPercent@TextField" type="text" size="35"value="ognl:bhpAnnualPercent" readonly="readonly" />&nbsp;%
+					</td>
+				</tr>
+				
+				<tr>
+					<td colspan="3" class="clearborder center">
+			        	<input jwcid="@Submit" class="btn" value="message:calculateBhp.button.calculateBHP" 
+			        				action="listener:hitungBhp" onclick="return validationExec(document.Form)" /><br/>
+			        </td>
+					<td>
+						&nbsp;
+					</td>
+				</tr>
+				
+				<tr>
+					<td>
+						<label jwcid="@FieldLabel" field="component:bhpAnnualValue" displayName="message:calculateBhp.field.nilaiBhp" ></label>
+					</td>
+					<td>
+						<input jwcid="bhpAnnualValue@TextField" type="text" size="35"value="ognl:bhpAnnualValue" readonly="readonly" translator='translator:money'/>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label jwcid="@FieldLabel" field="component:bhpTotal" displayName="message:calculateBhp.field.pembayaran" ></label>
+					</td>
+					<td>
+						<input jwcid="bhpTotal@TextField" type="text" size="35"value="ognl:bhpTotal" readonly="readonly" translator='translator:money'/>
+					</td>
+				</tr>
+				
+				
+				
+			</table>
+
+			<span jwcid="@If" condition="ognl:bhpList!=null">
+				<div id="box">
+	   				<span jwcid="@contrib:TableView" pageSize="10"
+	    				columns="!TahunPembayaran,!UpfrontFee,!Rate,!Index,!PersentaseBhp,!BhpAnnual,!Total" 
+	    				source="ognl:bhpList">
+					
+						<table width="100%">
+						<tr>
+							<td align="right">
+								<br/><span jwcid="@TablePages"></span>
+							</td>
+						</tr>
+						<tr><td>
+						  	<table border="0" class="data" width="100%">
+							  	
+								<tr>
+									<th> <span key="calculateBhp.table.year">Year</span> </th>
+									<th> <span key="calculateBhp.table.upfrontFee">Upfront fee</span> </th>
+									<th> <span key="calculateBhp.table.rate">Rate</span> </th>
+									<th> <span key="calculateBhp.table.index">Index</span> <br>
+									 <span key="calculateBhp.rumus.index">Rumus Index</span> </th>
+									<th> <span key="calculateBhp.table.persentaseBhp">Persentase BHP</span> </th>
+									<th> <span key="calculateBhp.table.bhpAmount">IPSFR</span> <br>
+									 <span key="calculateBhp.rumus.bhpAmount">Rumus IPFR</span> </th>
+									<th> <span key="calculateBhp.table.pembayaran">Total Pembayaran</span> <br>
+									 <span key="calculateBhp.rumus.pembayaran">Rumus Total Pembayaran</span> </th>
+								</tr>
+								<tr jwcid="@contrib:TableRows" row="ognl:row1" class="ognl:beans.evenOdd.next">
+									<td><span jwcid="@Insert" 						value="ognl:row1.yearTo"/></td>
+									<td><span jwcid="@InsertMoney" 					value="ognl:row1.bhpUpfrontFee"/></td>
+					  				<td align="right"><span jwcid="@Insert" 		value="ognl:row1.bhpRate"/>&nbsp;%</td>
+					  				<td align="right"><span jwcid="@Insert" 		value="ognl:row1.bhpCalcIndex"/></td>
+					  				<td align="right"><span jwcid="@Insert" 		value="ognl:row1.bhpAnnualPercent"/>&nbsp;%</td>
+					  				<td align="right"><span jwcid="@InsertMoney" 	value="ognl:row1.bhpAnnualValue"/></td>
+					  				<td align="right"><span jwcid="@InsertMoney" 	value="ognl:row1.bhpTotal"/></td>
+								</tr>
+							</table>
+						</td></tr>
+					
+					</span>
+				</div>
+			
+			
+				<table width="99%" class="uniform">
+					<tr>
+				    	<td colspan="2" class="clearborder center">
+				    		<input jwcid="@Submit" class="btn" value="message:calculateBhp.button.submit" action="listener:submit" onclick="return validateOnSubmit(this.form)"/>
+				    		<input jwcid="@Submit" class="btn" value="message:calculateBhp.button.back"	action="listener:back"  onclick="this.form.onsubmit=null" />
+				    	</td>
+			       	</tr>
+				</table>
+			</span>
+			<span jwcid="@Else">
+				<table width="99%" class="uniform">
+					<tr>
+				    	<td colspan="2">
+				    		<input jwcid="@Submit" class="btn" value="message:calculateBhp.button.back"	action="listener:back"  onclick="this.form.onsubmit=null" />
+				    	</td>
+			       	</tr>
+				</table>
+			</span>
+			
+			<span jwcid="errorShadow@TextField" autocomplete="off" value="ognl:errorValue" style="display:none"></span>
+			<span jwcid="@If" condition="ognl:delegate.hasErrors">    
+				<script>alert('<span jwcid="@Delegator" delegate="ognl:delegate.firstError">Error Message</span>');</script>
+			</span>
+	
+		</form>
+	</div>
+
+</body>
+</html>

@@ -1,0 +1,65 @@
+<html jwcid="@Shell" title="message:webapp.title">
+<body jwcid="@Body">
+
+<div id="outer">
+<div id="title">
+	<span key="blockUser.title">Block User</span>
+</div> <br />
+<span jwcid="@ValidationErrorTop" delegate="ognl:beans.delegate" />
+
+<span jwcid="@If" condition="ognl:userName neq null">
+<form jwcid="@Form" delegate="ognl:beans.delegate" clientValidationEnabled="ognl:true">
+	<input type="hidden" jwcid="doubleSubmitKeyField@Hidden" value="ognl:doubleSubmitKey" />
+	<table width="99%" class="uniform">
+		<tr jwcid="@Any" class="ognl:evenOddTable.next">
+			<td width="20%">
+				<label class="medium" ><span key="user.field.userID" /></label>
+	        </td>
+	        <td>
+	        	<span jwcid="@Insert" value="ognl:userToBlock.userName" />
+	        	<span jwcid="@Hidden" value="ognl:userName" />
+	        </td>
+		</tr>
+		<tr jwcid="@Any" class="ognl:evenOddTable.next">
+			<td width="20%">
+				<label class="medium" ><span key="user.field.name" /></label>
+	        </td>
+	        <td>
+	        	<span jwcid="@Insert" value="ognl:userToBlock.userFullName" />
+	        </td>
+		</tr>
+<!-- 		<tr jwcid="@Any" class="ognl:evenOddTable.next"> -->
+<!-- 			<td width="40%"> -->
+<!-- 				<label class="medium" ><span key="user.field.birthDate" /></label> -->
+<!-- 	        </td> -->
+<!-- 	        <td width="60%"> -->
+<!-- 	        	<span jwcid="@Insert" value="ognl:userToBlock.birthDate" format="ognl:dateFormat" /> -->
+<!-- 	        </td> -->
+<!-- 		</tr> -->
+<!-- 		<tr jwcid="@Any" class="ognl:evenOddTable.next"> -->
+<!-- 			<td width="40%"> -->
+<!-- 				<label class="medium" ><span key="user.field.phoneNumber" /></label> -->
+<!-- 	        </td> -->
+<!-- 	        <td width="60%"> -->
+<!-- 	        	<span jwcid="@Insert" value="ognl:userToBlock.phoneNumber" /> -->
+<!-- 	        </td> -->
+<!-- 		</tr> -->
+		<tr jwcid="@Any" class="ognl:evenOddTable.next">
+			<td width="20%">
+				<label class="medium" ><span key="user.field.email" /></label>
+	        </td>
+	        <td>
+	        	<span jwcid="@Insert" value="ognl:userToBlock.email" />
+	        </td>
+		</tr>
+	</table>
+    <div id="button">
+    	<input type="submit" class="btn" jwcid="@Submit" action="listener:doOk" value="message:blockUser.submit"/>
+    	<input type="submit" class="btn" jwcid="@Submit" action="listener:doCancel" value="message:button.cancel"/>
+    </div>
+</form>
+</span>
+
+</div>
+</body>
+</html>

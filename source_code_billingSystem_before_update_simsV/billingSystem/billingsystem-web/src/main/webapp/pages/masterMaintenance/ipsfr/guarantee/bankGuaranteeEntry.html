@@ -1,0 +1,115 @@
+<html jwcid="@Shell" title="message:webapp.title">
+<head>
+<script src="../scripts/jquery-1.8.3.min.js"></script>
+</head>
+<body jwcid="@Body">
+	<div id="outer" style="height: 50%">
+		<form jwcid="@Form" delegate="ognl:beans.delegate"
+			clientValidationEnabled="ognl:true">
+			<div id="title">
+				<span
+					key="masterMaintenance.ipsfr.guarantee.title"></span>
+			</div>
+			<table width="50%" class="uniform">
+
+				<tr>
+					<td><label class="medium" jwcid="@FieldLabel"
+						field="component:bhpMethod"
+						displayName="message:masterMaintenance.ipsfr.bankGuaranteeEntry.bhpmethod"></label></td>
+					<td><select style="width: 200px"
+						jwcid="bhpMethod@PropertySelection"
+						model="ognl:getMethodBHPModel()" value="ognl:bhpMethod">
+					</select></td>
+				</tr>
+
+
+				<tr>
+					<td><label jwcid="@FieldLabel" field="component:clientName"
+						displayName="message:masterMaintenance.ipsfr.bankGuaranteeEntry.client"></label></td>
+					<td><input style="width: 200px" jwcid="clientName@TextField"
+						type="text" size="33" value="ognl:clientName"> </input></td>
+				</tr>
+
+				<tr>
+					<td><label jwcid="@FieldLabel" field="component:licenceNo"
+						displayName="message:masterMaintenance.ipsfr.bankGuaranteeEntry.licenceno"></label></td>
+					<td><input jwcid="licenceNo@TextField" type="text" size="33"
+						value="ognl:licenceNo" /></td>
+				</tr>
+
+			</table>
+			<!-- button action -->
+			<div id="button">
+				<input name="BTN_SEARCH" type="button" class="btn" id="BTN_SEARCH"
+					jwcid="@Submit" action="listener:doSearch"
+					onclick="this.form.onsubmit=null"
+					value="message:button.masterMaintenance.ipsfr.license.search" /> <input
+					name="BTN_CREATE" type="button" class="btn" id="BTN_CREATE"
+					jwcid="@Submit" listener="listener:onCreate"
+					value="message:button.masterMaintenance.ipsfr.license.create" />
+			</div>
+			<!-- button -->
+
+
+
+			<!-- Variable Detail Result -->
+			<span jwcid="@If" condition="ognl:bankGuaranteeList!=null">
+				<div id="box">
+					<span jwcid="@contrib:TableView" pageSize="10"
+						source="ognl:bankGuaranteeList"
+						columns="!No. SKM, !Status Penyerahan, !Tanggal Penyerahan, !Kewajiban Penyerahan, !Status">
+						<table width="99%">
+							<tr>
+								<td align="right"><br /> <span jwcid="@TablePages" /></td>
+							</tr>
+							<tr>
+								<td>
+									<div id="conttable">
+										<table border="0" class="data" width="99%">
+											<tr>
+												<th><span key="bankGuaranteeEntry.licenceno"></span></th>
+												<th><span key="bankGuaranteeEntry.deliveryStatus"></span></th>
+												<th><span key="bankGuaranteeEntry.deliveryDate"></span></th>
+												<th><span key="bankGuaranteeEntry.deliveryRule"></span></th>
+												<th><span key="bankGuaranteeEntry.status"></span></th>
+
+
+											</tr>
+
+											<tr jwcid="@contrib:TableRows" row="ognl:row"
+												class="ognl:beans.evenOdd.next">
+
+												<td width="25%" align="left"><a href=""
+													jwcid="@DirectLink" listener="listener:doEdit"
+													parameters="ognl:{row.bgId}"> <span jwcid="@Insert"
+														value="ognl:row.licenceNo"></span></a></td>
+												<td width="5%" align="center"><span jwcid="@Insert"
+													value="ognl:row.deliveryRule"></span></td>
+												<td width="5%" align="center"><span jwcid="@Insert"
+													value="ognl:row.deliveryDate"></span></td>
+												<td width="5%" align="center"><span jwcid="@Insert"
+													value="ognl:row.deliveryPeriod"></span></td>
+												<td width="5%" align="center"><span jwcid="@Insert"
+													value="ognl:row.status"></span></td>
+											</tr>
+
+										</table>
+									</div>
+								</td>
+							</tr>
+						</table>
+					</span>
+				</div>
+
+			</span> <span jwcid="errorShadow@TextField" autocomplete="off"
+				value="ognl:errorValue" style="display: none"></span> <span
+				jwcid="@If" condition="ognl:delegate.hasErrors"> <script>
+					alert('<span jwcid="@Delegator" delegate="ognl:delegate.firstError">Error Message</span>');
+				</script>
+			</span>
+
+
+		</form>
+	</div>
+</body>
+</html>

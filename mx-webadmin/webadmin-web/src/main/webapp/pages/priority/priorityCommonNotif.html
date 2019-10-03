@@ -1,0 +1,27 @@
+<html jwcid="@Shell" title="message:webapp.title">
+<body jwcid="@Body">
+	<div id="outer" >
+		<span jwcid="@ValidationErrorTop" delegate="ognl:beans.delegate" />
+
+		<form jwcid="priorityCommonNotif@Form" delegate="ognl:beans.delegate"
+			clientValidationEnabled="ognl:true" >
+			<div id="title">
+				<span jwcid="@Insert" value="ognl:title" />
+			</div>
+			
+			<div id="berita">
+				<span jwcid="@Insert" value="ognl:msgnotif"/>
+			</div>
+			
+			<div class="button" >
+
+					<input
+						type="button"  class="btn" jwcid="cancel@Any"
+						value="message:button.welcome"
+						onclick="location.href='wellcome.html'" />
+			</div>
+			<hr>
+		</form>
+	</div>
+</body>
+</html>

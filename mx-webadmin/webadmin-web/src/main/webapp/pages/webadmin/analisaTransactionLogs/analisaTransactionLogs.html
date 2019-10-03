@@ -1,0 +1,252 @@
+<html jwcid="@Shell" title="message:webapp.title">
+<head>
+<script type="text/javascript" src="scripts/jquery-1.8.3.min.js"></script>
+<script type="text/javascript"
+	src="scripts/jquery-ui-1.9.2.custom.min.js"></script>
+<script type="text/javascript" src="scripts/textAutoComplete.js"></script>
+<script type="text/javascript">
+	$(document).ready(
+			function() {
+
+				$('#clientId').bind(
+						'keypress',
+						function(event) {
+							var regex = new RegExp("^[a-zA-Z0-9\b]+$");
+							var key = String
+									.fromCharCode(!event.charCode ? event.which
+											: event.charCode);
+							if (!regex.test(key)) {
+								event.preventDefault();
+								return false;
+							}
+						});
+				$('#invoiceNoInputText').bind(
+						'keypress',
+						function(event) {
+							var regex = new RegExp("^[a-zA-Z0-9\b]+$");
+							var key = String
+									.fromCharCode(!event.charCode ? event.which
+											: event.charCode);
+							if (!regex.test(key)) {
+								event.preventDefault();
+								return false;
+							}
+						});
+
+			});
+</script>
+<link rel="stylesheet" type="text/css" href="styles/jquery-ui.css" />
+<STYLE TYPE="text/css" media="all">
+.ui-autocomplete {
+	position: absolute;
+	cursor: default;
+	height: 200px;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+</STYLE>
+</head>
+<body jwcid="@Body">
+	<div id="outer">
+		<form jwcid="monitoringTxForm@Form" delegate="ognl:beans.delegate"
+			clientValidationEnabled="ognl:false">
+			<div id="title">
+				<span key="analisaTxLog.title" />
+			</div>
+			<br /> <span jwcid="@ValidationErrorTop"
+				delegate="ognl:beans.delegate" /> <span jwcid="notFirstLoad@Hidden"
+				value="ognl:notFirstLoad"></span>
+
+			<table class="uniform">
+
+				<tr>
+					<td><span key="leftmenu.analisaTransactionLogs.klienId">Klien
+							ID</span></td>
+
+					<td><input jwcid="@TextField" type="text" value="ognl:klienID"
+						id="clientId" size="30" /></td>
+				</tr>
+				<tr>
+					<td><span key="leftmenu.analisaTransactionLogs.noInvoice">No
+							Invoice</span></td>
+					<td><input jwcid="@TextField" type="text"
+						value="ognl:invoiceNo" size="30" id="invoiceNoInputText" /></td>
+				</tr>
+				<tr>
+					<td><span key="leftmenu.analisaTransactionLogs.startDate">Start
+							Date</span></td>
+					<td><span jwcid="startDate@DatePicker" value="ognl:startDate"
+						readonly="true"></span> <span
+						key="leftmenu.analisaTransactionLogs.hour">Hour</span> : <input
+						jwcid="@TextField" type="text" value="ognl:startHour" size="3" maxlength="2" />
+						<span key="leftmenu.analisaTransactionLogs.minute">Minute</span> :
+						<input jwcid="@TextField" type="text" value="ognl:startMinute" maxlength="2"
+						size="3" /> <span key="leftmenu.analisaTransactionLogs.second">Second</span>
+						: <input jwcid="@TextField" type="text" value="ognl:startSecond" maxlength="2"
+						size="3" /></td>
+				</tr>
+				<tr jwcid="@Any" class="ognl:evenOddTable.next">
+					<td class="short"><label class="short"></label></td>
+					<td><font size="1">*DD-MMM-YYYY</font></td>
+				</tr>
+				<tr>
+					<td><span key="leftmenu.analisaTransactionLogs.endDate">End
+							Date</span></td>
+					<td><span jwcid="endDate@DatePicker" value="ognl:endDate"
+						readonly="true"></span> <span
+						key="leftmenu.analisaTransactionLogs.hour">Hour</span> : <input
+						jwcid="@TextField" type="text" value="ognl:endHour" size="3" maxlength="2" /> <span
+						key="leftmenu.analisaTransactionLogs.minute">Minute</span> : <input
+						jwcid="@TextField" type="text" value="ognl:endMinute" size="3" maxlength="2" />
+						<span key="leftmenu.analisaTransactionLogs.second">Second</span> :
+						<input jwcid="@TextField" type="text" value="ognl:endSecond" maxlength="2"
+						size="3" /></td>
+				</tr>
+				<tr jwcid="@Any" class="ognl:evenOddTable.next">
+					<td class="short"><label class="short"></label></td>
+					<td><font size="1">*DD-MMM-YYYY</font></td>
+				</tr>
+
+				<tr>
+					<td><span
+						key="leftmenu.analisaTransactionLogs.transactionType">Tipe
+							Pembayaran / Kode Channel</span></td>
+					<td><select jwcid="transactionType@PropertySelection"
+						model="ognl:getTransactionTypeModel()" value="ognl:channelCode"
+						id="transactionType">
+					</select></td>
+				</tr>
+				<tr>
+					<td><span
+						key="leftmenu.analisaTransactionLogs.responseCodeMandiri">Response
+							Code Channel</span></td>
+					<td><select jwcid="responseCodeFieldMandiri@PropertySelection"
+						model="ognl:getResponseCodeMandiriModelOption2()"
+						value="ognl:responseCodeChannel">
+					</select></td>
+				</tr>
+				<tr>
+					<td><span key="leftmenu.analisaTransactionLogs.billerCode">Kode
+							Biller</span></td>
+					<td><select jwcid="transactionTypeBiller@PropertySelection"
+						model="ognl:getTransactionTypeModelBiller()"
+						value="ognl:billerCode" id="transactionTypeBiller">
+					</select></td>
+				</tr>
+				<tr>
+					<td><span
+						key="leftmenu.analisaTransactionLogs.responseBillerCode">Response
+							Code Biller</span></td>
+					<td><select jwcid="responseBillerCodeField@PropertySelection"
+						model="ognl:getResponseBillerCodeModelOption2()"
+						value="ognl:responseBillerCode">
+					</select></td>
+				</tr>
+				<tr>
+					<td><span
+						key="leftmenu.analisaTransactionLogs.transactionCode">Transaction
+							Code</span></td>
+					<td><select jwcid="transactionCodeField@PropertySelection"
+						model="ognl:getTransactionCodeModelOption()"
+						value="ognl:transactionCode">
+					</select></td>
+				</tr>
+
+				<tr jwcid="@Any" class="ognl:evenOddTable.next">
+					<td class="short"></td>
+					<td><input class="btn" type="button" id="searchButton"
+						jwcid="searchButton@Submit" listener="listener:doSearch2"
+						value="message:button.search" /></td>
+				</tr>
+				<tr height="10px">
+					<td colspan="2"></td>
+				</tr>
+			</table>
+
+			<span jwcid="@If" condition="ognl:transactionLogs!=null"> <span
+				jwcid="@If" condition="ognl:transactionLogs.size > 0">
+					<div id="box" style="width: 950px;">
+						<table width="99%" jwcid="@contrib:TableView" pageSize="10"
+							source="ognl:transactionLogs"
+							columns=""
+							class="data">
+
+							<tr>
+								<td align="right" colspan="10"><span jwcid="@TablePages" /></td>
+							</tr>
+							<tr class="headerRow">
+								<!--  <th align="center"><span jwcid="@CheckBoxSelectAll" /></th> -->
+								<span jwcid="@contrib:TableColumns"
+									arrowUpAsset="ognl:assets.upArrow"
+									arrowDownAsset="ognl:assets.downArrow" />
+							</tr>
+							<tr>
+								<th>No</th>
+<!-- 								<th>Trx Id</th> -->
+								<th>Client Id</th>
+								<th>Client Name</th>
+								<th>Invoice No</th>
+								<th>Nominal Tagihan</th>
+								<th>Nama Transaksi</th>
+								<th>Respon Biller</th>
+								<th>Respon Channel</th>
+								<th>Waktu Transaksi</th>
+								<th>Delivery Channel</th>
+							</tr>
+							<tr jwcid="@contrib:TableRows" row="ognl:transactionReport"
+								class="ognl:beans.evenOdd.next">
+								<!--  	<td class="center" width="5%"><input jwcid="@Checkbox"
+								type="checkbox" value="ognl:transactionReport.selected"
+								class="noborder" /> <span jwcid="@InvokeListener"
+								listener="listener:checkSelect" /></td> -->
+								<td width="5%" align="center"><span jwcid="@Insert"
+									value="ognl:transactionReport.no"></span></td>
+<!-- 								<td width="15%" style="text-align: center"><a -->
+<!-- 									jwcid="@LinkSubmit" listener="listener:additionalLinkListener2" -->
+<!-- 									parameters="ognl:{transactionReport.trxId,klienID, invoiceNo, startDate, endDate,channelCode, transactionCode}"> -->
+<!-- 										<span jwcid="@Insert" value="ognl:transactionReport.trxId"></span> -->
+<!-- 								</a></td> -->
+								<td width="5%" align="center"><span jwcid="@Insert"
+									value="ognl:transactionReport.clientId"></span></td>
+								<td width="15%"><span jwcid="@Insert"
+									value="ognl:transactionReport.nameKlien"></span></td>
+								<td width="5%">
+									<a
+									jwcid="@LinkSubmit" listener="listener:additionalLinkListener2"
+									parameters="ognl:{transactionReport.trxId, klienID, invoiceNo, startDate, endDate, channelCode, transactionCode}">
+									<span jwcid="@Insert"
+									value="ognl:transactionReport.invoiceNumber"></span></a></td>
+								<td width="10%"><span jwcid="@Insert"
+									value="ognl:transactionReport.invoiceAmount" align="right"></span></td>
+								<td width="10%"><span jwcid="@Insert"
+									value="ognl:transactionReport.trxDesc"></span></td>
+								<td width="10%" align="center"><span jwcid="@Insert"
+									value="ognl:transactionReport.billerRcDesc"></span></td>
+								<td width="10%" align="center"><span jwcid="@Insert"
+									value="ognl:transactionReport.channelRcDesc"></span></td>
+								<td width="15%"><span jwcid="@Insert"
+									value="ognl:transactionReport.trxTime"></span></td>
+								<td width="15%"><span jwcid="@Insert"
+									value="ognl:transactionReport.channelId"></span></td>
+							</tr>
+						</table>
+					</div>
+					<div>
+						<tr jwcid="@Any" class="ognl:evenOddTable.next">
+							<td class="short"></td>
+							<td><input class="btn" type="button" id="exportButton"
+								jwcid="exportButton@Submit" listener="listener:exportToExcel"
+								value="message:button.exportToExcel" /></td>
+							<td class="short"></td>
+							<td><input class="btn" type="button" id="exportButton2"
+								jwcid="exportButton2@Submit" listener="listener:exportToPdf"
+								value="message:button.exportToPdf" /></td>
+						</tr>
+					</div>
+				</span>
+			</span> <span jwcid="errorShadow@TextField" autocomplete="off"
+				value="ognl:errorValue" style="display: none"></span>
+		</form>
+	</div>
+</body>
+</html>

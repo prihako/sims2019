@@ -1,0 +1,99 @@
+<!-- <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> -->
+<html jwcid="@Shell" title="message:webapp.title">
+<head>
+<script type="text/javascript" src="scripts/jquery-1.8.3.min.js"></script>
+<script type="text/javascript"
+	src="scripts/jquery-ui-1.10.0.custom.min.js"></script>
+<script type="text/javascript" src="scripts/mayora/tools.js"></script>
+
+<link rel="stylesheet"
+	href="styles/style-Kominfo/jquery-ui-1.10.0.custom.css" type="text/css" />
+<script>
+	function isNumberWithComma(evt) {
+	    evt = (evt) ? evt : window.event;
+	    var charCode = (evt.which) ? evt.which : evt.keyCode;
+	    if (charCode > 31 && (charCode < 48 || charCode > 57) && (charCode != 46)) {
+	        return false;
+	    }
+	    return true;
+	}
+	function isNumberWithoutComma(evt) {
+	    evt = (evt) ? evt : window.event;
+	    var charCode = (evt.which) ? evt.which : evt.keyCode;
+	    if (charCode > 31 && (charCode < 48 || charCode > 57))  {
+	        return false;
+	    }
+	    return true;
+	}
+</script>
+</head>
+<body jwcid="@Body">
+	<div id="outer">
+		<form jwcid="@Form" delegate="ognl:beans.delegate"
+			clientValidationEnabled="ognl:true">
+			
+			<input type="hidden" jwcid="baseOnNoteCriteria@Hidden" value="ognl:baseOnNoteCriteria" />
+			<input type="hidden" jwcid="statusCriteria@Hidden" value="ognl:statusCriteria" />
+			
+			<div id="title">Create </div>
+			<h2>Variable</h2>
+			<table width="50%" class="uniform">
+
+				<tr>
+					<td><label class="medium" jwcid="@FieldLabel"
+						field="component:statusActive"
+						displayName="message:variable.annualRateBHPEntry.statusBIRate.title"></label></td>
+					<td><select style="width: 100px"
+						jwcid="statusActive@PropertySelection"
+						model="ognl:getVariableStatusModel()" value="ognl:statusActive">
+					</select></td>
+				</tr>
+
+				<tr>
+					<td><label class="medium" jwcid="@FieldLabel" field="component:baseOnNote"
+						displayName="message:variable.annualRateBHPEntry.baseOnNote.title"></label></td>
+					<td><input jwcid="baseOnNote@TextField" type="text" size="33"
+						value="ognl:baseOnNote" /></td>
+				</tr>
+				
+				<tr>
+					<td><label class="medium">Tahun</label></td>
+					<td><input jwcid="@TextField" value="ognl:rateYear" onkeypress="return isNumberWithoutComma(event)"  maxlength="4" /></td>
+
+				</tr>
+				
+				<tr>
+					<td><label jwcid="@FieldLabel" field="component:rateValue"
+						displayName="message:variable.annualRateBHPEntry.valueBIRate.title"
+						class="medium"></label></td>
+					<td><input jwcid="rateValue@TextField" value="ognl:rateValue" onkeypress="return isNumberWithComma(event)" />%</td>
+
+				</tr>
+
+
+			</table>
+			<!-- button -->
+			<div id="button">
+			<input type="submit" class="btn" jwcid="@Submit"
+					action="listener:doDraft"
+					value="message:button.variable.annualPercentageBHPCreate.draft" />
+				<input type="submit" class="btn" jwcid="@Submit"
+					action="listener:doSubmit"
+					value="message:button.variable.annualPercentageBHPCreate.submit" />
+				<input type="submit" class="btn" jwcid="@Submit"
+					action="listener:doCancel"
+					value="message:button.variable.annualPercentageBHPCreate.cancel" />
+			</div>
+
+			<span jwcid="errorShadow@TextField" autocomplete="off"
+				value="ognl:errorValue" style="display: none"></span> <span
+				jwcid="@If" condition="ognl:delegate.hasErrors"> <script>
+					alert('<span jwcid="@Delegator" delegate="ognl:delegate.firstError">Error Message</span>');
+				</script>
+			</span>
+
+
+		</form>
+	</div>
+</body>
+</html>

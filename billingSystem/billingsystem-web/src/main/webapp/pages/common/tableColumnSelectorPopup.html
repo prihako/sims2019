@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html jwcid="@Shell" title="message:tcsp.title">
+<head>
+    <title>Table Column Selector</title>
+    <style type="text/css">
+    <!--
+    @import url("styles/bprks/popup.css");
+    body { height:auto;}
+    -->
+    </style>
+    <script type="text/javascript">
+        function doclose(auto) {
+            var status = document.getElementById('closePopUp').value;
+            if (!auto || (status == 'T')) {
+                parent.document.location="<span jwcid='@Insert' value='ognl:refreshPageURL' />" + "?willReset=no";
+            }
+        }
+    </script>
+</head>
+<body jwcid='@Body' onload="javascript:doclose(true);" style="width:'100%'">
+<div id="center-form">
+    <h2><span key='tcsp.title'>Select Table Columns</span></h2>
+    <form jwcid='tcspForm@Form' id='tcspForm' focus='false'> 
+        <span jwcid='closePopUp@Hidden' value='ognl:closePopUp' id='closePopUp'/>
+        <span jwcid='@Hidden' value='ognl:notFirstLoad' />
+        
+        <span jwcid='@Hidden' value='ognl:tableId'/>
+        <span jwcid='@Hidden' value='ognl:refreshPage' />
+        
+        <span jwcid="@ValidationErrorTop" delegate="ognl:beans.delegate" />
+        
+        <span jwcid="@contrib:TableView" columns="!tcsp.check, !tcsp.column" source="ognl:columns">
+        <table border="0" width="100%" class="data">
+            <tr class="headerRow">
+                <span jwcid="@contrib:TableColumns" arrowUpAsset="ognl:assets.upArrow" arrowDownAsset="ognl:assets.downArrow" />
+            </tr>
+            <tr jwcid="@contrib:TableRows" row="ognl:row" class="ognl:beans.evenOdd.next">
+                <td width="20%" class="center">
+                    <span jwcid="@Checkbox" type="checkbox" value="ognl:row.checked" />
+                </td>
+                <td width="80%" class="left">
+                    <span jwcid="@Insert" value="ognl:getText(row.text)"/>
+                </td>
+                <span jwcid="@InvokeListener" listener="listener:checkSelect" />
+            </tr>
+        </table>
+        </span>
+        <hr />
+        <div id="button">
+            <input jwcid="@Submit" class="btn" action="listener:apply" value="message:button.ok"/>
+            <input jwcid="@Any" type="button" class="btn" value="message:button.cancel" onclick="javascript:doclose(false);"/>
+        </div>
+    </form> 
+</div>
+<div id="footer">&copy;&copy;<span key="common.print.copyright"/></div>
+</body>
+</html>

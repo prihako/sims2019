@@ -1,0 +1,24 @@
+#if($content.isHeader())
+#parse( "header.vm" )
+#end
+
+$content.line
+$content.getColumName().toString().replaceAll(",", "|")|
+$content.line
+#set ($arrSparatedStr = $content.getSparatedDetail().toString().split("\r"))
+#set($counter = 1)
+#foreach ( $rows in $arrSparatedStr )
+$rows.replaceAll(",", "|")
+#set($counter = $counter+1)
+#end
+$content.line
+
+#set($counter = $counter - 1)
+Jumlah Data : $content.jumlahData
+#foreach ( $summary in $content.summary )	
+$summary
+#end
+
+#foreach ( $rowCounts in $content.rowCount )	
+$rowCounts
+#end 

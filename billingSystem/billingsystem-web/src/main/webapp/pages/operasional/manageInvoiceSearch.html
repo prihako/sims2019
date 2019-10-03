@@ -1,0 +1,443 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html jwcid="@Shell" title="message:webapp.title">
+<head>
+<script type="text/javascript" src="scripts/jquery-1.8.3.min.js"></script>
+<script type="text/javascript"
+	src="scripts/jquery-ui-1.10.0.custom.min.js"></script>
+<script type="text/javascript" src="scripts/mayora/tools.js"></script>
+
+<link rel="stylesheet"
+	href="styles/style-Kominfo/jquery-ui-1.10.0.custom.css" type="text/css" />
+<script>
+	$(document)
+			.ready(
+					function() {
+
+						if ($("#criteria option[value='clientName']").attr(
+								'selected')) {
+
+							$('#invoiceStatusLabel').show();
+							$('#invoiceStatus').show();
+
+							$('#clientNameLabel').show();
+							$('#clientName').show();
+
+							$('#clientNoLabel').hide();
+							$('#clientNo').hide();
+							$('#clientNo').val('');
+
+							$('#applicationNumberLabel').hide();
+							$('#applicationNumber').hide();
+							$('#applicationNumber').val('');
+
+							$('#bhpMethodLabel').hide();
+							$('#bhpMethod').hide();
+							$('#bhpMethod').val('');
+
+						} else if ($("#criteria option[value='clientNo']")
+								.attr('selected')) {
+							$('#invoiceStatusLabel').show();
+							$('#invoiceStatus').show();
+
+							$('#clientNameLabel').hide();
+							$('#clientName').hide();
+							$('#clientName').val('');
+
+							$('#clientNoLabel').show();
+							$('#clientNo').show();
+
+							$('#applicationNumberLabel').hide();
+							$('#applicationNumber').hide();
+							$('#applicationNumber').val('');
+
+							$('#bhpMethodLabel').hide();
+							$('#bhpMethod').hide();
+							$('#bhpMethod').val('');
+
+						} else if ($("#criteria option[value='bhpMethod']")
+								.attr('selected')) {
+							$('#invoiceStatusLabel').show();
+							$('#invoiceStatus').show();
+
+							$('#clientNameLabel').hide();
+							$('#clientName').hide();
+							$('#clientName').val('');
+
+							$('#clientNoLabel').hide();
+							$('#clientNo').hide();
+							$('#clientNo').val('');
+
+							$('#applicationNumberLabel').hide();
+							$('#applicationNumber').hide();
+							$('#applicationNumber').val('');
+							$('#bhpMethodLabel').show();
+							$('#bhpMethod').show();
+
+						} else if ($("#criteria option[value='noApp']").attr(
+								'selected')) {
+							$('#invoiceStatusLabel').show();
+							$('#invoiceStatus').show();
+
+							$('#clientNameLabel').hide();
+							$('#clientName').hide();
+							$('#clientName').val('');
+
+							$('#clientNoLabel').hide();
+							$('#clientNo').hide();
+							$('#clientNo').val('');
+
+							$('#applicationNumberLabel').show();
+							$('#applicationNumber').show();
+
+							$('#bhpMethodLabel').hide();
+							$('#bhpMethod').hide();
+							$('#bhpMethod').val('');
+
+						} else {
+							$('#invoiceStatusLabel').hide();
+							$('#invoiceStatus').hide();
+							$('#clientNameLabel').hide();
+							$('#clientName').hide();
+							$('#clientName').val('');
+							$('#clientNoLabel').hide();
+							$('#clientNo').hide();
+							$('#clientNo').val('');
+							$('#applicationNumberLabel').hide();
+							$('#applicationNumber').hide();
+							$('#applicationNumber').val('');
+							$('#bhpMethodLabel').hide();
+							$('#bhpMethod').hide();
+							$('#bhpMethod').val('');
+						}
+
+						$('#criteria')
+								.on(
+										'change',
+										function() {
+											if ($(
+													"#criteria option[value='clientName']")
+													.attr('selected')) {
+
+												$('#invoiceStatusLabel').show();
+												$('#invoiceStatus').show();
+
+												$('#clientNameLabel').show();
+												$('#clientName').show();
+
+												$('#clientNoLabel').hide();
+												$('#clientNo').hide();
+												$('#clientNo').val('');
+
+												$('#applicationNumberLabel')
+														.hide();
+												$('#applicationNumber').hide();
+												$('#applicationNumber').val('');
+												$('#bhpMethodLabel').hide();
+												$('#bhpMethod').hide();
+												$('#bhpMethod').val('');
+
+											} else if ($(
+													"#criteria option[value='clientNo']")
+													.attr('selected')) {
+												$('#invoiceStatusLabel').show();
+												$('#invoiceStatus').show();
+												$('#clientNameLabel').hide();
+												$('#clientName').hide();
+												$('#clientName').val('');
+												$('#clientNoLabel').show();
+												$('#clientNo').show();
+												$('#applicationNumberLabel')
+														.hide();
+												$('#applicationNumber').hide();
+												$('#applicationNumber').val('');
+												$('#bhpMethodLabel').hide();
+												$('#bhpMethod').hide();
+												$('#bhpMethod').val('');
+
+											} else if ($(
+													"#criteria option[value='bhpMethod']")
+													.attr('selected')) {
+
+												$('#clientNameLabel').hide();
+												$('#clientName').hide();
+												$('#clientName').val('');
+
+												$('#clientNoLabel').hide();
+												$('#clientNo').hide();
+												$('#clientNo').val('');
+
+												$('#applicationNumberLabel')
+														.hide();
+												$('#applicationNumber').hide();
+												$('#applicationNumber').val('');
+												$('#bhpMethodLabel').show();
+												$('#bhpMethod').show();
+
+												$('#bhpMethod')
+														.on(
+																'change',
+																function() {
+																	if ($(
+																			"#bhpMethod option[value='FR']")
+																			.attr(
+																					'selected')) {
+																		$(
+																				'#invoiceStatusLabel')
+																				.show();
+																		$(
+																				'#invoiceStatus')
+																				.show();
+																	} else if ($(
+																			"#bhpMethod option[value='VR']")
+																			.attr(
+																					'selected')) {
+																		$(
+																				'#invoiceStatusLabel')
+																				.show();
+																		$(
+																				'#invoiceStatus')
+																				.show();
+																	}
+																});
+
+											} else if ($(
+													"#criteria option[value='noApp']")
+													.attr('selected')) {
+												$('#invoiceStatusLabel').show();
+												$('#invoiceStatus').show();
+
+												$('#clientNameLabel').hide();
+												$('#clientName').hide();
+												$('#clientName').val('');
+
+												$('#clientNoLabel').hide();
+												$('#clientNo').hide();
+												$('#clientNo').val('');
+
+												$('#applicationNumberLabel')
+														.show();
+												$('#applicationNumber').show();
+												$('#bhpMethodLabel').hide();
+												$('#bhpMethod').hide();
+												$('#bhpMethod').val('');
+
+											} else {
+												$('#clientNameLabel').hide();
+												$('#clientName').hide();
+												$('#clientName').val('');
+												$('#clientNoLabel').hide();
+												$('#clientNo').hide();
+												$('#clientNo').val('');
+												$('#applicationNumberLabel')
+														.hide();
+												$('#applicationNumber').hide();
+												$('#applicationNumber').val('');
+												$('#bhpMethodLabel').hide();
+												$('#bhpMethod').hide();
+												$('#bhpMethod').val('');
+												$('#invoiceStatus').hide();
+												$('#invoiceStatusLabel').hide();
+
+											}
+
+										})
+
+					});
+</script>
+</head>
+<body jwcid="@Body">
+	<div id="outer" style="height: 80%">
+
+		<form jwcid="@Form" delegate="ognl:beans.delegate"
+			clientValidationEnabled="ognl:true">
+
+			<span jwcid="notFirstLoad@Hidden" value="ognl:notFirstLoad"></span>
+
+			<div id="title">
+				<span key="manage.invoice.flat.search.title"></span>
+			</div>
+			<table width="90%" class="uniform">
+
+
+				<tr>
+					<td><label>Cari</label></td>
+					<td><select style="width: 200px" jwcid="@PropertySelection"
+						model="ognl:getCriteriaModel()" value="ognl:criteria"
+						id="criteria">
+					</select></td>
+					<!-- 					<td><input jwcid="@TextField" type="text" -->
+					<!-- 						value="ognl:clientName" size="30" id="clientName" -->
+					<!-- 						style="display: none" /><input jwcid="@TextField" type="text" -->
+					<!-- 						value="ognl:clientNo" size="30" id="clientNo" -->
+					<!-- 						style="display: none" /><input jwcid="@TextField" type="text" -->
+					<!-- 						value="ognl:licenceNumber" size="30" id="applicationNumber" -->
+					<!-- 						style="display: none" /><select jwcid="@PropertySelection" -->
+					<!-- 						model="ognl:getMethodBHPModel()" value="ognl:bhpMethod" -->
+					<!-- 						id="bhpMethod" style="display: none"> -->
+					<!-- 					</select> -->
+					<!-- 					</td> -->
+				</tr>
+				<tr>
+					<td><label id="clientNameLabel" style="display: none">Nama Klien</label></td>
+
+					<td><input jwcid="@TextField" type="text"
+						value="ognl:clientName" size="30" id="clientName"
+						style="display: none" /></td>
+				</tr>
+				<tr>
+					<td><label id="clientNoLabel" style="display: none">Klien ID</label></td>
+
+					<td><input jwcid="@TextField" type="text"
+						value="ognl:clientNo" size="30" id="clientNo"
+						style="display: none" /></td>
+				</tr>
+				<tr>
+					<td><label id="applicationNumberLabel" style="display: none">No. Aplikasi</label></td>
+
+					<td><input jwcid="@TextField" type="text"
+						value="ognl:licenceNumber" size="30" id="applicationNumber"
+						style="display: none" /></td>
+				</tr>
+				<tr>
+					<td><label id="bhpMethodLabel" style="display: none">Pilih Metode</label></td>
+
+					<td><select jwcid="@PropertySelection"
+						model="ognl:getMethodBHPModel()" value="ognl:bhpMethod"
+						id="bhpMethod" style="display: none">
+					</select></td>
+				</tr>
+				<tr>
+
+					<td><label id="invoiceStatusLabel" style="display: none">Status Invoice</label></td>
+					<td><select jwcid="@PropertySelection"
+						model="ognl:getInvoiceStatusModel()" value="ognl:invoiceStatus"
+						id="invoiceStatus" style="display: none">
+					</select></td>
+
+
+				</tr>
+				<tr>
+					<td><input name="BTN_SEARCH" type="button" class="btn"
+						id="BTN_SEARCH" jwcid="@Submit" action="listener:doSearch"
+						onclick="this.form.onsubmit=null"
+						value="message:button.masterMaintenance.ipsfr.license.search" /></td>
+				</tr>
+
+
+			</table>
+
+			<span jwcid="errorShadow@TextField" autocomplete="off"
+				value="ognl:errorValue" style="display: none"></span> <span
+				jwcid="@If" condition="ognl:delegate.hasErrors"> <script>
+					alert('<span jwcid="@Delegator" delegate="ognl:delegate.firstError">Error Message</span>');
+				</script>
+			</span>
+			
+			<span jwcid="@If" condition="ognl:licenseList!=null">
+				<div id="box" style="width: 95%">
+					<table width="99%" jwcid="@contrib:TableView" pageSize="10"
+						source="ognl:licenseList"
+						columns="!Nama Klien, !Klien Id, !Metode BHP, !Tahun Ke, !Tahun, !No. Aplikasi, !No. Invoice, !Invoice Type, !Denda Bulan ke-,!Tgl Jatuh Tempo Bayar,!Tanggal Bayar, !Status Invoice, !Nilai BHP Frekuensi">
+						<tr>
+							<td align="right"><br /> <span jwcid="@TablePages" /></td>
+						</tr>
+						<tr>
+							<td>
+								<table border="0" class="data" width="99%">
+									<tr>
+										<th>Nama Klien</th>
+										<th>Klien Id</th>
+										<th>Metode BHP</th>
+										<th>Tahun Ke</th>
+										<th>Tahun</th>
+										<th>No. Aplikasi</th>
+										<th>No. Keputusan <br />Menteri</th>
+										<th>No. Invoice</th>
+										<th>Invoice Type</th>
+										<th>Denda Bulan ke -</th>
+										<th>Tgl Jatuh Tempo Bayar<br />(dd-mm-yyyy)</th>
+										<th>Tanggal Bayar<br />(dd-mm-yyyy)</th>
+										<th>Status Invoice</th>
+										<th>Nilai BHP Frekuensi</th>
+									</tr>
+							
+									<tr jwcid="@contrib:TableRows" row="ognl:data"
+										class="ognl:beans.evenOdd.next">
+										<td width="15%" align="left"><span jwcid="@If"
+											condition='ognl:data[12] == "U"'> <font color="red"><span
+													jwcid="@Insert" value="ognl:data[2]"></span></font>
+										</span> <span jwcid="@Else" condition='ognl:data[12] == "P"'>
+
+												<span jwcid="@Insert" value="ognl:data[2]"></span>
+										</span></td>
+										<td width="5%" align="center"><span jwcid="@Insert"
+											value="ognl:data[3]"></span></td>
+										<td width="8%" align="center"><span jwcid="@If"
+											condition='ognl:data[4] == "FR"'>Flat BHP</span> <span
+											jwcid="@If" condition='ognl:data[4] == "VR"'>Variety
+												Rate</span></td>
+										<td width="5%" align="center"><span jwcid="@Insert"
+											value="ognl:data[5]"></span></td>
+										<td width="5%" align="center"><span jwcid="@Insert"
+											value="ognl:data[6]"></span></td>
+										<td width="8%" align="center"><a href=""
+											jwcid="@DirectLink" listener="listener:doView"
+											parameters="ognl:{data[0], data[1], data[4], data[5], data[7], data[8], data[9], data[14]}"><span
+												jwcid="@Insert" value="ognl:data[7]"></span></a></td>
+										<td width="5%" align="center"><span jwcid="@Insert"
+											value="ognl:data[16]"></span></td>
+										<td width="8%" align="center"><a href=""
+											jwcid="@DirectLink" listener="listener:doView"
+											parameters="ognl:{data[0], data[1], data[4], data[5], data[7], data[8], data[9], data[14]}">
+												<span jwcid="@Insert" value="ognl:data[8]"></span>
+										</a></td>
+										<td width="5%" align="center">
+											<span jwcid="@If" condition='ognl:data[9] == "1"'> <b><label key="label.invoiceType.pokok">Pokok</label></b></span>
+											<span jwcid="@If" condition='ognl:data[9] == "2"'> <font color="red"><b><label key="label.invoiceType.denda">Pokok + Denda</label></b></font></span>
+											<span jwcid="@If" condition='ognl:data[9] == "3"'> <b><label key="label.invoiceType.pokokBG">Pokok BG</label></b></span>
+											<span jwcid="@If" condition='ognl:data[9] == "4"'> <font color="red"><b><label key="label.invoiceType.dendaTanpaBG">Pokok + Denda</label></b></font></span>
+											<span jwcid="@If" condition='ognl:data[9] == "5"'> <b><label key="label.invoiceType.pokokSelisihBG">Pokok Selisih BG</label></b></span>
+											<span jwcid="@If" condition='ognl:data[9] == "6"'> <font color="red"><b><label key="label.invoiceType.pokokSelisihBGDenda">Pokok Selisih BG + Denda</label></b></font></span>
+										</td>
+										<td width="5%" align="center"><span jwcid="@Insert"
+											value="ognl:data[10]"></span></td>
+										<td width="10%" align="center"><span jwcid="@Insert"
+											value="ognl:data[11]"></span></td>
+										<td width="10%" align="center"><span jwcid="@Insert"
+											value="ognl:data[12]"></span></td>
+										<td width="5%" align="center"><span jwcid="@If"
+											condition='ognl:data[13] == "U"'> <font color="red"><b>Unpaid</b></font>
+										</span><span jwcid="@If" condition='ognl:data[13] == "P"'>Paid
+										</span><span jwcid="@If" condition='ognl:data[13] == "D"'>Draft</span>
+											<span jwcid="@If" condition='ognl:data[13] == "C"'>Cancel</span>
+											<span jwcid="@If" condition='ognl:data[13] == "BD"'>Bad Debt</span></td>
+										<td width="20%" align="right">
+											<span jwcid="@If" condition='ognl:data[9] == "3"'>
+												<span jwcid="@If" condition='ognl:data[14] < data[17]'>
+													<span jwcid="@InsertMoney" value="ognl:data[14]"></span>
+												</span>
+												<span jwcid="@Else">
+													<span jwcid="@InsertMoney" value="ognl:data[17]"></span>
+												</span>
+											</span>
+											<span jwcid="@Else">
+												<span jwcid="@InsertMoney" value="ognl:data[14]"></span>
+											</span>
+											
+										</td>
+
+									</tr>
+									
+								</table>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</span>
+
+		</form>
+		
+	</div>
+</body>
+</html>

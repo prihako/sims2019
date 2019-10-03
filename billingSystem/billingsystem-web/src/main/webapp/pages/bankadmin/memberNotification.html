@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html jwcid="@Shell" title="message:webapp.title">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title><span key="webapp.title">BPR KS Internet Banking</span></title>
+</head>
+<body jwcid="@Body">
+<div id="outer">
+<form jwcid="userConfirm@Form" delegate="ognl:beans.delegate">
+<div class="title">
+		<span key="memberNotification.title.notification">KONFIRMASI PERUBAHAN MEMBER</span>
+</div>
+<div class="message"><span jwcid="@Insert" value="ognl:message" /></div>
+<table width="99%" class="uniform">
+<tr jwcid="@Any" class="ognl:evenOddTable.next">
+	<td width="200px">
+		<label class="medium" key="memberEntry.username.parent">
+			Username Utama
+		</label>		
+	</td>	
+	<td width="74%">
+		<span jwcid="userId@Insert" value="ognl:parentUsername" />		
+	</td>
+</tr>
+<tr jwcid="@Any" class="ognl:evenOddTable.next">
+	<td>
+		<label class="medium" key="memberEntry.cardNumber.parent">
+			Nomor Kartu Utama
+		</label>
+	</td>
+	<td>
+		<span jwcid="name@Insert" value="ognl:parentCardNumber" />
+	</td>
+</tr>
+<tr jwcid="@Any" class="ognl:evenOddTable.next">
+	<td>
+		<label class="medium" key="memberEntry.username.member">
+			Username Anggota
+		</label>		
+	</td>
+	<td>
+		<span jwcid="email@Insert" value="ognl:memberUsername" />		
+	</td>
+</tr>
+<tr jwcid="@Any" class="ognl:evenOddTable.next">
+	<td>
+		<label class="medium" key="memberEntry.cardNumber.member">
+			Nomor Kartu Anggota
+		</label>
+	</td>
+	<td>
+		<span jwcid="role@Insert" value="ognl:memberCardNumber" />
+	</td>
+</tr>
+</table>
+<div class="button">
+	<input type="submit" class="btn" jwcid="@Submit" action="listener:doBack" value="message:button.back"/>
+</div>
+</form>
+</div>
+</body>
+</html>

@@ -1,0 +1,524 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html jwcid="@Shell" title="message:webapp.title">
+<head>
+<script type="text/javascript" src="scripts/jquery-1.8.3.min.js"></script>
+<script type="text/javascript"
+	src="scripts/jquery-ui-1.10.0.custom.min.js"></script>
+<script type="text/javascript" src="scripts/mayora/tools.js"></script>
+
+<link rel="stylesheet"
+	href="styles/style-Kominfo/jquery-ui-1.10.0.custom.css" type="text/css" />
+
+<script>
+	var host = location.protocol + '//' + location.hostname + ':'
+			+ location.port;
+	var popupWindow = null;
+	function license_search() {
+		// 		popupWindow = window.open(host
+		// 				+ '/billingsystem/licenseSearch.html',"" ,"width=600,height=400");
+		popupWindow = window.showModalDialog(host
+				+ '/billingsystem/licenseSearch.html');
+	}
+
+	function open_skm() {
+		// 		popupWindow = window.open(host
+		// 				+ '/billingsystem/licenseSearch.html',"" ,"width=600,height=400");
+		popupWindow = window.showModalDialog(host
+				+ '/SKM/SKM_AXISTELEKOM_9557811.pdf');
+
+	}
+
+	function serviceLink() {
+		popupWindow = window
+				.showModalDialog('<span jwcid="@Insert" value="ognl:doViewKmIpsfrRate" raw="true"/>');
+
+	}
+
+	function printLetter() {
+		popupWindow = window
+				.showModalDialog('<span jwcid="@Insert" value="ognl:doPrint" raw="true"/>');
+	}
+
+	function parent_disable() {
+		if (popupWindow && !popupWindow.closed)
+			popupWindow.focus();
+	}
+	function goBack(){
+		window.history.back()
+	}
+</script>
+
+<script type="text/javascript">
+	$(document).ready(
+		function(){
+			$('#paymentAmount').attr('disabled', 'disabled');
+			$('#BTN_SAVE').hide(); 
+			$('#BTN_CANCEL').hide();
+			$('#BTN_EDIT').click(
+				function(){
+					$('#paymentAmount').removeAttr('disabled');
+					$('#BTN_SAVE').show();
+					$('#BTN_CANCEL').show();
+					$('#BTN_EDIT').hide();		
+					$('#paymentAmount').focus();
+				} 
+			);
+			$('#BTN_CANCEL').click(
+				function(){
+					$('#BTN_EDIT').show();
+					$('#BTN_SAVE').hide(); 
+					$('#BTN_CANCEL').hide();
+					$('#paymentAmount').attr('disabled', 'disabled');
+				}				
+			);
+		}
+	);
+</script>
+</head>
+<body jwcid="@Body">
+	<div id="outer">
+		<form jwcid="@Form" delegate="ognl:beans.delegate"
+			clientValidationEnabled="ognl:true" id="form-license">
+			
+			<span jwcid="notFirstLoad@Hidden" value="ognl:notFirstLoad"></span>
+			<span jwcid="criteria@Hidden" value="ognl:criteria"></span>
+			<span jwcid="criteriaSearch@Hidden" value="ognl:criteriaSearch"></span>
+			<span jwcid="invoiceStatusCache@Hidden" value="ognl:invoiceStatusCache"></span>
+			
+			<div id="title">
+				<span key="manage.invoice.flat.fine.title"></span>
+			</div>
+			<table width="75%" class="uniform">
+				<tr>
+					<td><label jwcid="@FieldLabel" field="component:licenceNumber"
+						displayName="message:initial.invoice.licenceNumber"></label></td>
+					<td><input jwcid="licenceNumber@TextField" type="text"
+						size="30" id="licenceNumber" value="ognl:licenceNumber"
+						readonly="ognl:true" /></td>
+				</tr>
+				<tr>
+					<td><label jwcid="@FieldLabel" field="component:clientName"
+						displayName="message:initial.invoice.clientName"></label></td>
+					<td><input jwcid="clientName@TextField" type="text" size="50"
+						value="ognl:clientName" readonly="ognl:true" /></td>
+				</tr>
+
+				<tr>
+					<td><label jwcid="@FieldLabel" field="component:clientNO"
+						displayName="message:initial.invoice.clientID"></label></td>
+					<td><input jwcid="clientNO@TextField" type="text" size="15"
+						value="ognl:clientNO" readonly="ognl:true" /></td>
+				</tr>
+				<tr>
+					<td><label jwcid="@FieldLabel" field="component:BHPmethod"
+						displayName="message:initial.invoice.BHPmethod"></label></td>
+					<td><input jwcid="BHPmethod@TextField" type="text" size="15"
+						value="ognl:methodBHP" readonly="ognl:true" /> <input
+						type="hidden" jwcid="@Hidden" value="ognl:bhpMethod" /></td>
+				</tr>
+
+				<tr>
+					<td colspan="2"><h2>Izin Pita Spektrum Frekuensi Radio</h2></td>
+				</tr>
+
+				<tr>
+					<td><label>Nomor Keputusan Menteri</label></td>
+					<td><input jwcid="@TextField" type="text" size="30"
+						value="ognl:kmNo" readonly="ognl:true" /></td>
+					<td align="left"><input type="button" class="btn"
+						onclick="serviceLink()" value="LIHAT SKM" /></td>
+				</tr>
+				<tr>
+					<td><label>Tanggal Keputusan Menteri</label></td>
+					<td><input jwcid="@TextField" type="text" size="20"
+						value="ognl:kmDate" readonly="ognl:true" /></td>
+				</tr>
+				<tr>
+					<td><label>Zona IPFR</label></td>
+					<td><input jwcid="@TextField" type="text" size="2"
+						value="ognl:zoneNo" readonly="ognl:true" />&nbsp;<input
+						jwcid="@TextField" type="text" size="20" value="ognl:zoneName"
+						readonly="ognl:true" /></td>
+				</tr>
+
+				<tr>
+					<td><label>Masa Berlaku Izin Pita (10tahun)</label></td>
+					<td><input jwcid="@TextField" id="licenseBegin" 
+						value="ognl:licenceBeginDate" readonly="ognl:true" /><span
+						class="add-on-last"> sampai dengan </span><input jwcid="@TextField"
+						id="licenseEnd" value="ognl:licenceEndDate"
+						readonly="ognl:true" /></td>
+
+				</tr>
+				<tr>
+					<td><label>Rentang Frekuensi Radio</label></td>
+					<td><input type="text" jwcid="@TextField" id="freqTmin"
+						value="ognl:freqTMin" readonly="ognl:true" /> <span
+						class="add-on-last"> MHz</span> -- <input type="text"
+						jwcid="@TextField" id="freqTmax" value="ognl:freqTMax"
+						readonly="ognl:true" /> <span class="add-on-last">
+							MHz</span> <br> <input type="text" jwcid="@TextField" id="freqRmin"
+							value="ognl:freqRMin" readonly="ognl:true" /> <span
+							class="add-on-last"> MHz</span> -- <input type="text"
+							jwcid="@TextField" id="freqRmax" value="ognl:freqRMax"
+							readonly="ognl:true" /> <span class="add-on-last">
+								MHz</span></td>
+				</tr>
+				<tr>
+					<td><label>Tipe Pembayaran BHP IPFR</label></td>
+					<td><input type="text" jwcid="@TextField" id="bhppaymenttype"
+						value="ognl:paymentTypeMethod" readonly="ognl:true" />
+						<input type="hidden" jwcid="@Hidden" value="ognl:paymentType" /></td>
+				</tr>
+				<tr>
+					<td><label>Periode IPFR Berjalan</label></td>
+					<td><input type="text" jwcid="@TextField"
+						id="currentBeginDate" value="ognl:currentBeginDate" class="xshort"
+						readonly="ognl:true" /> sampai dengan <input type="text"
+						jwcid="@TextField" id="freqmax" value="ognl:currentEndDate"
+						readonly="ognl:true" /></td>
+				</tr>
+
+				<tr>
+					<td><label>Tahun Ke</label></td>
+					<td><input jwcid="@TextField" id="yearto" size="2"
+						value="ognl:yearTo" readonly="ognl:true" /> &nbsp; <input
+						jwcid="@TextField" id="year" size="4" value="ognl:year"
+						readonly="ognl:true" /></td>
+				</tr>
+
+				<tr>
+					<td><label>Tanggal Jatuh Tempo Pembayaran</label></td>
+					<td><input jwcid="paymentFineDueDate@TextField"
+						id="paymentFineDueDate" value="ognl:paymentFineDueDate"
+						readonly="ognl:true" /></td>
+				</tr>
+
+				<span jwcid="@If" condition="ognl:isBGAvailable!=null">
+					<tr>
+						<td colspan="2"><h2>Bank Garansi</h2></td>
+					</tr>
+					<tr>
+						<td><label jwcid="@FieldLabel"
+							field="component:bankGuaranteeStatus"
+							displayName="message:initial.invoice.bankGuaranteeStatus"></label></td>
+						<td><input jwcid="bankGuaranteeStatus@TextField" type="text"
+							size="5" value="ognl:bgAvailableStatus" readonly="ognl:true"></input></td>
+					</tr>
+					<tr>
+						<td><label jwcid="@FieldLabel"
+							field="component:bankGuaranteeDate"
+							displayName="message:initial.invoice.bankGuaranteeDuedate"></label></td>
+						<td><input type="text" jwcid="bankGuaranteeDate@TextField"
+							id="bgDueDatePicker" value="ognl:bgSubmitDueDate" readonly="ognl:true" /></td>
+					</tr>
+				</span>
+
+				<tr>
+					<td colspan="2"><h2>Biaya Hak Penggunaan (BHP) Frekuensi Radio</h2></td>
+				</tr>
+				<tr>
+					<td><label>Upfront Fee (Harga Penawaran)</label></td>
+					<td>Rp <input jwcid="@TextField" type="text" size="20"
+						value="ognl:bhpUpfrontFee"
+						translator='translator:moneyWithoutComma' readonly="ognl:true"
+						style="text-align: right"></input></td>
+				</tr>
+				<tr>
+					<td><label>Harga Lelang</label></td>
+					<td>Rp <input jwcid="@TextField" type="text" size="20"
+						value="ognl:bhpHl" translator='translator:moneyWithoutComma'
+						id="bhpHL" readonly="ognl:true" style="text-align: right" /></td>
+
+				</tr>
+				<tr>
+					<td><label>Penyesuaian Harga Lelang</label></td>
+					<td>Rp <input jwcid="@TextField" type="text" size="20"
+						value="ognl:bhpPhl" translator='translator:moneyWithoutComma'
+						id="bhpPHL" readonly="ognl:true" style="text-align: right" /></td>
+
+				</tr>
+
+				<tr>
+					<td><label>Biaya IPFR Tahunan Tahun Ke- <input jwcid="@Insert" value="ognl:yearTo" />
+						<br>(Tahun Ke-N)</br></label></td>
+					<td>Rp <input jwcid="@TextField" type="text" size="20"
+						value="ognl:bhpAnnual" readonly="readonly"
+						translator='translator:moneyWithoutComma'
+						style="text-align: right" /></td>
+				</tr>
+				<tr>
+					<td><label>Nilai BHP Frekuensi Radio</label></td>
+					<td>Rp
+						<span jwcid="@If" condition='ognl:invoiceType=="5"'>
+							<input jwcid="@TextField" type="text" size="20" value="ognl:bhpAnnual" readonly="readonly" 
+								translator='translator:moneyWithoutComma' style="text-align: right" />
+						</span>
+						<span jwcid="@Else">
+							<input jwcid="@TextField" type="text" size="20" value="ognl:bhpTotal" readonly="readonly" 
+								translator='translator:moneyWithoutComma' style="text-align: right" />
+						</span> 
+					</td>
+				</tr>
+				
+				<span jwcid="@If" condition="ognl:isBGAvailable!=null">
+					<tr>
+						<td><label>Nilai Bank Garansi</label></td>
+						<td>Rp <input jwcid="bgTotal@TextField" type="text" size="20"
+							value="ognl:bankGuarantee.bgValue" readonly="readonly"
+							translator='translator:moneyWithoutComma' 
+							style="text-align: right" /></td>
+					</tr>
+				</span>
+			</table>
+
+
+			<span jwcid="@If" condition="ognl:bhpList!=null">
+				<tr>
+					<span jwcid="@contrib:TableView" pageSize="10"
+						columns="!TahunPembayaran,!UpfrontFee,!BhpAnnual,!Nilai BHP"
+						source="ognl:bhpList">
+
+						<table width="65%">
+							<tr>
+								<td colspan="2"><h2>Perhitungan Biaya Hak Penggunaan (BHP)</h2></td>
+							</tr>
+							<tr>
+
+								<td>
+									<table border="0" class="data">
+
+										<tr>
+											<th><span key="calculateBhp.table.year.license">Tahun Izin</span></th>
+											<th><span key="calculateBhp.table.upfrontFee">Biaya
+													Izin Awal (Upfront Fee)</span></th>
+
+											<th><span key="calculateBhp.table.ipsfrAnnual">Biaya
+													IPSFR Tahunan</span></th>
+											<th><span key="calculateBhp.table.bhpAmount">Nilai
+													BHP</span></th>
+										</tr>
+										<tr jwcid="@contrib:TableRows" row="ognl:invoice"
+											class="ognl:beans.evenOdd.next">
+
+											<span jwcid="@If" condition='ognl:yearTo == invoice.yearTo'>
+												<td align="center" style="background-color: #FFFF99"><span
+													jwcid="@Insert" value="ognl:invoice.yearTo" /></td>
+												<td align="right" style="background-color: #FFFF99"><span
+													jwcid="@InsertMoney" value="ognl:invoice.bhpUpfrontFee" /></td>
+												<td align="right" style="background-color: #FFFF99"><span
+													jwcid="@InsertMoney" value="ognl:invoice.bhpAnnual" /></td>
+												<td align="right" style="background-color: #FFFF99"><span
+													jwcid="@InsertMoney" value="ognl:invoice.bhpTotal" /></td>
+											</span>
+											<span jwcid="@Else">
+												<td align="center"><span jwcid="@Insert"
+													value="ognl:invoice.yearTo" /></td>
+												<td align="right"><span jwcid="@InsertMoney"
+													value="ognl:invoice.bhpUpfrontFee" /></td>
+												<td align="right"><span jwcid="@InsertMoney"
+													value="ognl:invoice.bhpAnnual" /></td>
+												<td align="right"><span jwcid="@InsertMoney"
+													value="ognl:invoice.bhpTotal" /></td>
+											</span>
+										</tr>
+									</table>
+								</td>
+							</tr>
+
+						</table>
+					</span>
+				</tr>
+
+
+			</span> <span jwcid="@If" condition="ognl:bhpList!=null">
+				<tr>
+					<span jwcid="@contrib:TableView" pageSize="40"
+						columns="!Bulan,!Pokok,!Denda,!AkumulasiDenda,!PNPB"
+						source="ognl:invoiceFine">
+
+						<table width="65%">
+
+							<tr>
+								<td colspan="2"><h2>Table Informasi Perhitungan Denda</h2></td>
+							</tr>
+							<tr>
+								<td>
+									<table border="0" class="data">
+
+										<tr>
+											<th><span key="manage.invoice.fine.month"></span></th>
+											<th><span key="manage.invoice.fine.fee"></span></th>
+											<th><span key="manage.invoice.fine.fine"></span></th>
+											<th><span key="manage.invoice.fine.total"></span></th>
+											<th><span key="manage.invoice.fine.pnbp"></span></th>
+
+										</tr>
+										<tr jwcid="@contrib:TableRows" row="ognl:invoice"
+											class="ognl:beans.evenOdd.next">
+											<span jwcid="@If" condition="ognl:invoice.monthTo <= monthTo">
+											<td align="center"><span jwcid="@Insert"
+												value="ognl:invoice.monthTo" /></td>
+											<td align="right"><span jwcid="@InsertMoney"
+												value="ognl:invoice.bhpAnnual" /></td>
+											<td align="right"><span jwcid="@InsertMoney"
+												value="ognl:invoice.bhpFineCurrent" /></td>
+											<td align="right"><span jwcid="@InsertMoney"
+												value="ognl:invoice.bhpFineAccumulate" /></td>
+											<td align="right"><span jwcid="@InsertMoney"
+												value="ognl:invoice.bhpTotal" /></td>
+											</span>
+
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+					</span>
+				</tr>
+
+
+			</span>
+			<table width="65%" class="uniform">
+
+				<tr>
+					<td colspan="2"><h2>Invoice</h2></td>
+				</tr>
+				<tr>
+					<td>No Invoice</td>
+					<td><input jwcid="@TextField" type="text" size="15"
+						value="ognl:invoiceNo" readonly="ognl:true"></input></td>
+					<td><input jwcid="@Hidden" type="hidden" value="ognl:invoiceNo" id="invoiceNo" /></td>
+				</tr>
+				<tr>
+					<td>Type Invoice</td>
+					<td><input jwcid="@TextField" type="text" size="15"
+						value="ognl:invoiceTypeText" readonly="ognl:true"></input><input
+						type="hidden" jwcid="@Hidden" value="ognl:invoiceType" /></td>
+				</tr>
+				<tr>
+					<td>Denda ke</td>
+					<td><input jwcid="@TextField" type="text" size="15"
+						value="ognl:monthTo" readonly="ognl:true"></input></td>
+				</tr>
+				<tr>
+					<td>Status Invoice</td>
+					<td><input jwcid="@TextField" type="text" size="15"
+						value="ognl:invoiceStatusText" readonly="ognl:true"></input><input
+						type="hidden" jwcid="@Hidden" value="ognl:invoiceStatus" /></td>
+				</tr>
+				<tr>
+					<td>Tanggal Terbit Invoice Denda Bulan Ke-<input
+						jwcid="@Insert" value="ognl:monthTo" /></td>
+					<td><input jwcid="@TextField" type="text" size="15"
+						value="ognl:invoiceBeginDate" readonly="ognl:true"></input></td>
+				</tr>
+				<tr>
+					<td>Tanggal Jatuh Tempo Pembayaran Denda</td>
+					<td><input jwcid="@TextField" type="text" size="15"
+						value="ognl:paymentDueDate" readonly="ognl:true"></input></td>
+				</tr>
+				<tr>
+					<td>Jumlah PNBP yang terutang</td>
+					<td>Rp <input jwcid="@TextField" type="text" size="20"
+						value="ognl:paymentAmount" id="paymentAmount"
+						translator='translator:moneyWithoutComma'
+						style="text-align: right"></input></td>
+				</tr>
+				
+			
+				
+				<span jwcid="@If" condition="ognl:isBGAvailable!=null">
+					<tr>
+						<td>Nilai Bank Garansi untuk Tahun Ke-<input jwcid="@Insert"
+							value="ognl:bankGuarantee.submitYearTo" /></td>
+						<td>Rp <input jwcid="@TextField" type="text" size="20"
+							value="ognl:bankGuarantee.bgValue"
+							translator='translator:moneyWithoutComma' readonly="readonly"
+							style="text-align: right"></input></td>
+						<!-- value="ognl:bgTotal" -->
+					</tr>
+					<tr>
+						<td>Selisih</td>
+							<td>Rp <input jwcid="@TextField" type="text" size="20"
+								value="ognl:bankGuarantee.bgValueDiff"
+								translator='translator:moneyWithoutComma' readonly="ognl:true"
+								style="text-align: right"></input></td>
+					</tr>
+					<tr>
+						<td>Selisih untuk ditagihkan (Kurang Bayar)</td>
+							<td>Rp <input jwcid="@TextField" type="text" size="20"
+								value="ognl:bankGuarantee.bgValueDiff"
+								translator='translator:moneyWithoutComma' readonly="ognl:true"
+								style="text-align: right"></input></td>
+					</tr>
+					<tr>
+						<td>Nilai Invoice untuk Kekurangan bayar Bank Garansi</td>
+							<td>Rp <input jwcid="@TextField" type="text" size="20"
+								value="ognl:bankGuarantee.bgValueDiff"
+								translator='translator:moneyWithoutComma' readonly="ognl:true"
+								style="text-align: right"></input></td>
+					</tr>
+					<tr> 
+						<td><label label jwcid="@FieldLabel" field="component:pencairanBg" 
+							displayName="message:manage.invoice.pencairanBg">Tanggal Pencairan Bank Garansi</label></td>
+						<td><input jwcid="pencairanBg@TextField" type="text" size="25" translator="translator:date, pattern=dd-MMM-yyyy"
+							value="ognl:bankGuarantee.claimDate" readonly="ognl:true"></input>
+						</td>
+					</tr>
+				</span>
+
+			</table>
+
+			<div id="button">
+				<input type="submit" class="btn" jwcid="@Submit"
+					action="listener:doBack" value="message:manage.invoice.button.back" />
+				<span jwcid="@If" condition="ognl:bankGuarantee == null">
+					<input type="button" class="btn" onclick="printLetter()" value="Print" />
+				</span>
+				<span jwcid="@Else">
+					<span jwcid="@If" condition="ognl:invoice != null && invoice.letterID != null">
+						<input type="button" class="btn" onclick="printLetter()" value="Print" />
+					</span>
+				</span>
+				<span jwcid="@If" condition='ognl:invoice.invoiceStatus=="U" && fields.INVOICE_CANCEL==null'>
+					<input type="submit" class="btn" jwcid="@Submit" action="listener:doCancelInvoice" value="message:manage.invoice.button.cancelInvoice" />
+				</span>
+			</div>
+			
+			<span jwcid="@If" condition="ognl:fields.INVOICE_CANCEL!=null">
+				<!-- INVOICE CANCEL CONFIRMATION -->
+				<h2><span jwcid="@Insert" value="ognl:invoiceCancelConfirmation"></span></h2>
+				
+				<table width="75%" class="uniform">
+					<tr>
+						<td><label jwcid="@FieldLabel" field="component:invoiceCommentCancelInvoice" 
+							displayName="message:manage.invoice.comment.cancelInvoice"></label></td>
+						<td><textarea jwcid="invoiceCommentCancelInvoice@TextArea" type="text" rows="4" cols="50" 
+							value="ognl:invoiceCommentCancelInvoice" ></textarea>
+						</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td colspan="2"><span key="manageInvoice.invoice.cancel.notification"></span></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td>
+							<input type="submit" class="btn" jwcid="@Submit" action="listener:doCancelInvoice2" value="message:manage.invoice.button.cancelInvoice" />
+							<input type="submit" class="btn" jwcid="@Submit" action="listener:doCancel2" value="message:manage.invoice.button.back" />
+						</td>
+					</tr>
+				</table>
+			</span>
+			
+			<input type="hidden" jwcid="@Hidden" value="ognl:licenceId" /> <input
+				type="hidden" jwcid="@Hidden" value="ognl:invoiceId" /> <input
+				type="hidden" jwcid="@Hidden" value="ognl:clientID" />
+		</form>
+	</div>
+</body>
+</html>

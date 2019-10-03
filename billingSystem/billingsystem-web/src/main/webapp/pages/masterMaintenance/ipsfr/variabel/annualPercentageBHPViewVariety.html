@@ -1,0 +1,193 @@
+<!-- <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> -->
+<html jwcid="@Shell" title="message:webapp.title">
+<head>
+<script type="text/javascript" src="scripts/jquery-1.8.3.min.js"></script>
+<script type="text/javascript"
+	src="scripts/jquery-ui-1.10.0.custom.min.js"></script>
+<script type="text/javascript" src="scripts/mayora/tools.js"></script>
+
+<link rel="stylesheet"
+	href="styles/style-Kominfo/jquery-ui-1.10.0.custom.css" type="text/css" />
+
+
+</head>
+<body jwcid="@Body">
+	<div id="outer">
+		<form jwcid="@Form" delegate="ognl:beans.delegate"
+			clientValidationEnabled="ognl:true">
+			<!-- 			 -->
+			<div id="title">View</div>
+			<h2>Variable</h2>
+			<table class="uniform">
+
+				<tr>
+					<td><label class="short" >Status Variable</label></td>
+					<td><input jwcid="@Insert" value="ognl:variableStatus" /></td>
+				</tr>
+				<tr>
+					<td><label class="short" >Variabel Persentase Tahunan</label></td>
+					<td><input jwcid="@Insert" value="ognl:variablePresentaseTahunan" /></td>
+				</tr>
+				<tr>
+					<td><label class="short" >Berdasarkan Dokumen</label></td>
+					<td><input jwcid="@Insert" value="ognl:berdasarkanDokumen" /></td>
+				</tr>
+				
+			</table>
+			
+			<h2>Percentage Detail</h2>
+			
+			<table class="uniform">
+
+				<tr jwcid="@Any" class="ognl:evenOddTable.next">
+					<td><label class="short"
+						key="variable.annualPercentageBHPCreate.percentageYearOne.title"></label></td>
+
+					<td>
+						<span jwcid="@Insert" value="ognl:percentageYearOne" />
+						<span
+							key="masterMaintenance.ipsfr.license.subService.percentage"></span>
+					</td>
+
+				</tr>
+				<tr jwcid="@Any" class="ognl:evenOddTable.next">
+					<td><label class="short"
+						key="variable.annualPercentageBHPCreate.percentageYearTwo.title"></label></td>
+
+					<td>
+						<span jwcid="@Insert" value="ognl:percentageYearTwo" />
+						<span
+							key="masterMaintenance.ipsfr.license.subService.percentage"></span>
+					</td>
+
+				</tr>
+
+				<tr jwcid="@Any" class="ognl:evenOddTable.next">
+					<td><label class="short"
+						key="variable.annualPercentageBHPCreate.percentageYearThree.title"></label></td>
+
+					<td>
+						<span jwcid="@Insert" value="ognl:percentageYearThree" />
+						<span
+							key="masterMaintenance.ipsfr.license.subService.percentage"></span>
+					</td>
+
+				</tr>
+
+				<tr jwcid="@Any" class="ognl:evenOddTable.next">
+					<td><label class="short"
+						key="variable.annualPercentageBHPCreate.percentageYearFour.title"></label></td>
+
+					<td>
+						<span jwcid="@Insert" value="ognl:percentageYearFour" />
+						<span
+							key="masterMaintenance.ipsfr.license.subService.percentage"></span>
+					</td>
+
+				</tr>
+				<tr jwcid="@Any" class="ognl:evenOddTable.next">
+					<td><label class="short"
+						key="variable.annualPercentageBHPCreate.percentageYearFive.title"></label></td>
+
+					<td>
+						<span jwcid="@Insert" value="ognl:percentageYearFive" />
+						<span
+							key="masterMaintenance.ipsfr.license.subService.percentage"></span>
+					</td>
+
+				</tr>
+
+				<tr jwcid="@Any" class="ognl:evenOddTable.next">
+					<td><label class="short"
+						key="variable.annualPercentageBHPCreate.percentageYearSix.title"></label></td>
+
+					<td>
+						<span jwcid="@Insert" value="ognl:percentageYearSix" />
+						<span
+							key="masterMaintenance.ipsfr.license.subService.percentage"></span>
+					</td>
+
+				</tr>
+
+				<tr jwcid="@Any" class="ognl:evenOddTable.next">
+					<td><label class="short"
+						key="variable.annualPercentageBHPCreate.percentageYearSeven.title"></label></td>
+
+					<td>
+						<span jwcid="@Insert" value="ognl:percentageYearSeven" />
+						<span
+							key="masterMaintenance.ipsfr.license.subService.percentage"></span>	
+					</td>
+
+				</tr>
+
+				<tr jwcid="@Any" class="ognl:evenOddTable.next">
+					<td><label class="short"
+						key="variable.annualPercentageBHPCreate.percentageYearEight.title"></label></td>
+
+					<td>
+						<span jwcid="@Insert" value="ognl:percentageYearEight" />
+						<span
+							key="masterMaintenance.ipsfr.license.subService.percentage"></span>
+					</td>
+
+				</tr>
+
+				<tr jwcid="@Any" class="ognl:evenOddTable.next">
+					<td><label class="short"
+						key="variable.annualPercentageBHPCreate.percentageYearNine.title"></label></td>
+
+					<td>
+						<span jwcid="@Insert" value="ognl:percentageYearNine" />
+						<span
+							key="masterMaintenance.ipsfr.license.subService.percentage"></span>
+					</td>
+
+				</tr>
+
+				<tr jwcid="@Any" class="ognl:evenOddTable.next">
+					<td><label class="short"
+						key="variable.annualPercentageBHPCreate.percentageYearTen.title"></label></td>
+
+					<td>
+						<span jwcid="@Insert" value="ognl:percentageYearTen" />
+						<span
+							key="masterMaintenance.ipsfr.license.subService.percentage"></span>	
+					</td>
+
+				</tr>
+
+			</table>
+			
+			<!-- button -->
+			<div id="button">
+				<input type="submit" class="btn" jwcid="@Submit"
+					action="listener:doEdit"
+					value="message:button.variable.annualPercentageBHPView.edit" /> 
+				<input type="submit" class="btn" jwcid="@Submit"
+					action="listener:doNewInput"
+					value="message:button.variable.annualPercentageBHPView.newInput" />
+				<input type="submit" class="btn" jwcid="@Submit"
+					action="listener:doCancel"
+					value="message:button.variable.annualPercentageBHPCreate.cancel" />
+			</div>
+
+			<input type="hidden" jwcid="@Hidden" value="ognl:annualPercentId" /> 
+			<input type="hidden" jwcid="@Hidden" value="ognl:variableStatus" />
+			<input type="hidden" jwcid="@Hidden" value="ognl:berdasarkanDokumen" />
+			<input type="hidden" jwcid="@Hidden" value="ognl:variablePresentaseTahunan" /> 
+			<input type="hidden" jwcid="@Hidden" value="ognl:percentageYearOne" /> 
+			<input type="hidden" jwcid="@Hidden" value="ognl:percentageYearTwo" /> 
+			<input type="hidden" jwcid="@Hidden" value="ognl:percentageYearThree" /> 
+			<input type="hidden" jwcid="@Hidden" value="ognl:percentageYearFour" /> 
+			<input type="hidden" jwcid="@Hidden" value="ognl:percentageYearFive" /> 
+			<input type="hidden" jwcid="@Hidden" value="ognl:percentageYearSix" /> 
+			<input type="hidden" jwcid="@Hidden" value="ognl:percentageYearSeven" /> 
+			<input type="hidden" jwcid="@Hidden" value="ognl:percentageYearEight" /> 
+			<input type="hidden" jwcid="@Hidden" value="ognl:percentageYearNine" /> 
+			<input type="hidden" jwcid="@Hidden" value="ognl:percentageYearTen" /> 
+
+		</form>
+	</div>
+</body>
+</html>

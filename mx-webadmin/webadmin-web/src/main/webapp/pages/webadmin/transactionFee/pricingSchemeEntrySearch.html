@@ -1,0 +1,50 @@
+<html jwcid="@Shell" title="message:webapp.title">
+<body jwcid="@Body">
+	<div id="outer">
+		<span jwcid="@ValidationErrorTop" delegate="ognl:beans.delegate" />
+		<div id="title">
+			<span jwcid="@Insert" value="ognl:getText('transactionFee.title')"
+				renderTag="false" />
+		</div>
+
+		<form jwcid="priorityList@Form" delegate="ognl:beans.delegate"
+			clientValidationEnabled="ognl:true">
+			<table class="uniform">
+				<tr>
+					<td><span jwcid="@Insert"
+						value="ognl:getText('priority.label.criteria')" renderTag="false" /></td>
+					<td><span jwcid="@Insert"
+						value="ognl:getText('priority.label.keys')" renderTag="false" /></td>
+				</tr>
+				<tr jwcid="@Any" class="ognl:evenOddTable.next">
+					<td><select jwcid="criteria@PropertySelection"
+						model="ognl:getCriteriaModel()" value="ognl:criteria" /></td>
+
+					<td width="74%"><input maxlength="200" jwcid="keys@TextField"
+						value="ognl:keys" /> &nbsp;&nbsp;&nbsp; <span jwcid="@Insert"
+						value="AND" renderTag="false" /></td>
+				</tr>
+				<tr>
+					<td><span jwcid="@Insert"
+						value="ognl:getText('priority.label.criteria')" renderTag="false" /></td>
+					<td><span jwcid="@Insert"
+						value="ognl:getText('priority.label.keys')" renderTag="false" /></td>
+				</tr>
+				<tr jwcid="@Any" class="ognl:evenOddTable.next">
+					<td><select jwcid="criteria2@PropertySelection"
+						model="ognl:getCriteriaModel()" value="ognl:criteria2" /></td>
+
+					<td width="74%"><input maxlength="200" jwcid="keys2@TextField"
+						value="ognl:keys2" /> &nbsp;&nbsp;&nbsp; <input class="btn80"
+						type="button" jwcid="@Submit" listener="listener:onSearch"
+						value="message:button.search" /></td>
+				</tr>
+			</table>
+		</form>
+
+		<div id="berita">
+			<span jwcid="@Insert" value="ognl:msgnotif" />
+		</div>
+	</div>
+</body>
+</html>

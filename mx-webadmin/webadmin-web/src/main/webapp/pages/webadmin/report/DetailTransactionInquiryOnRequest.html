@@ -1,0 +1,123 @@
+<html jwcid="@Shell" title="message:webapp.title">
+<head>
+<script type="text/javascript" src="scripts/jquery-1.8.3.min.js"></script>
+<script type="text/javascript"
+	src="scripts/jquery-ui-1.9.2.custom.min.js"></script>
+<script type="text/javascript" src="scripts/textAutoComplete.js"></script>
+<script type="text/javascript">
+		$(document).ready(function() {
+			#$("#dayDateYear").datepicker({ dateFormat: 'dd-MM-yyyy', showOn: 'button' });
+			#$("#dayDateYear_0").datepicker({ dateFormat: 'dd-MM-yyyy', showOn: 'button' });
+			
+			
+		});
+</script>
+<link rel="stylesheet" type="text/css" href="styles/jquery-ui.css" />
+</head>
+<body jwcid="@Body">
+	<div id="outer">
+		<form jwcid="mainForm@Form" delegate="ognl:beans.delegate"
+			clientValidationEnabled="ognl:false">
+
+			<div id="title">
+				<span key="lefmenu.DetailTransactioninquiryOnRequest.title" />
+			</div>
+
+			<span jwcid="reconcileDto@Hidden" value="ognl:reconcileDto"></span> <span
+				jwcid="mapParams@Hidden" value="ognl:mapParams"></span> <span
+				jwcid="channelCode@Hidden" value="ognl:channelCode"></span> <span
+				jwcid="invoiceNo@Hidden" value="ognl:invoiceNo"></span> <span
+				jwcid="clientId@Hidden" value="ognl:clientId"></span> <span
+				jwcid="reconcileStatus@Hidden" value="ognl:reconcileStatus"></span>
+
+			<table class="uniform" width="60%">
+				<tr jwcid="@Any" class="ognl:evenOddTable.next">
+					<td><span
+						key="lefmenu.DetailTransactioninquiryOnRequest.trxId">Trx
+							Id </span></td>
+					<td><span jwcid="@Insert" value="ognl:reconcileDto.trxId" /></td>
+				</tr>
+				<tr jwcid="@Any" class="ognl:evenOddTable.next">
+					<td><span
+						key="lefmenu.DetailTransactioninquiryOnRequest.transactionName">
+							Transaction Name </span></td>
+					<td><span jwcid="@Insert"
+						value="ognl:reconcileDto.transactionName" /></td>
+				</tr>
+				<tr>
+					<td><span
+						key="lefmenu.DetailTransactioninquiryOnRequest.noInvoice">Invoice
+							No </span></td>
+					<td><font color="blue"><span jwcid="@Insert"
+							value="ognl:reconcileDto.invoiceNo" /></font></td>
+				</tr>
+				<tr>
+					<td><span
+						key="lefmenu.DetailTransactioninquiryOnRequest.clientId">Client
+							Id </span></td>
+					<td><span jwcid="@Insert" value="ognl:reconcileDto.clientId" /></td>
+				</tr>
+				<tr>
+					<td><span
+						key="lefmenu.DetailTransactioninquiryOnRequest.clientName">Client
+							Name </span></td>
+					<td><span jwcid="@Insert" value="ognl:reconcileDto.clientName" /></td>
+				</tr>
+				<tr>
+					<td><span
+						key="lefmenu.DetailTransactioninquiryOnRequest.responseBiller">Response
+							Biller </span></td>
+					<td><span jwcid="@Insert"
+						value="ognl:reconcileDto.billerResponse" /></td>
+				</tr>
+				<tr>
+					<td><span
+						key="lefmenu.DetailTransactioninquiryOnRequest.responseChannel">Response
+							Channel </span></td>
+					<td><span jwcid="@Insert"
+						value="ognl:reconcileDto.ChannelResponse" /></td>
+				</tr>
+				<tr>
+					<td><span
+						key="lefmenu.DetailTransactioninquiryOnRequest.simsStatus">Status
+							SIMS </span></td>
+					<td><span jwcid="@Insert" value="ognl:reconcileDto.simsStatus" /></td>
+				</tr>
+				<tr>
+					<td><span
+						key="lefmenu.DetailTransactioninquiryOnRequest.paymentStatus">Payment
+							Status </span></td>
+					<td><span jwcid="@If"
+						condition='ognl:reconcileDto.reconcileStatus=="Not Settled"'>
+							<font color="red"><span jwcid="@Insert"
+								value="ognl:reconcileDto.reconcileStatus" /></font>
+					</span> <span jwcid="@Else"> <span jwcid="@Insert"
+							value="ognl:reconcileDto.reconcileStatus" />
+					</span></td>
+				</tr>
+				<tr>
+					<td><span
+						key="lefmenu.DetailTransactioninquiryOnRequest.transactionDate">Transaction
+							Date </span></td>
+					<td><span jwcid="@Insert"
+						value="ognl:reconcileDto.transactionDate"></span></td>
+				</tr>
+				<tr>
+					<td><span
+						key="lefmenu.DetailTransactioninquiryOnRequest.invoiceDueDate">Tanggal
+							Jatuh Tempo </span></td>
+					<td><span jwcid="@Insert"
+						value="ognl:reconcileDto.invoiceDueDate" /></td>
+				</tr>
+				<tr>
+					<td class="short"></td>
+					<td><input class="btn" type="button"
+						jwcid="searchButton@Submit" listener="listener:doBack"
+						value="message:lefmenu.DetailTransactioninquiryOnRequest.button.back" /></td>
+				</tr>
+
+			</table>
+
+		</form>
+</body>
+</html>

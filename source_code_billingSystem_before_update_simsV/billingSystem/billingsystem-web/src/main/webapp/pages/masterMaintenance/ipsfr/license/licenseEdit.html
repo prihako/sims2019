@@ -1,0 +1,748 @@
+<!-- <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> -->
+<html jwcid="@Shell" title="message:webapp.title">
+<head>
+<script type="text/javascript" src="scripts/jquery-1.8.3.min.js"></script>
+<script type="text/javascript"
+	src="scripts/jquery-ui-1.10.0.custom.min.js"></script>
+<script type="text/javascript" src="scripts/mayora/tools.js"></script>
+
+<link rel="stylesheet"
+	href="styles/style-Kominfo/jquery-ui-1.10.0.custom.css" type="text/css" />
+
+<script>
+	$(document).ready(function() {
+
+		//alert("licenceNoBirate = "+$("#licenceNoBirate").val());
+
+		$('.ba').on('change', function() {
+			var checked = $(this).prop('checked');
+			$('.tax').prop('disabled', !checked);
+			$('.tex').prop('disabled', checked);
+
+		});
+		
+		$("#formula-info").button().click(function() {
+			$("#formula-vr-info").dialog("open");
+			$("#formula-fr-info").dialog("close");
+
+		});
+
+		$("#annualRateInfo").dialog({
+			autoOpen : false,
+			modal : true
+		});
+
+		$("#rate-info").button().click(function() {
+			$("#annualRateInfo").dialog("open");
+		});
+		
+
+		
+		
+		$("#formula-fr-info").dialog({
+			autoOpen : false,
+			modal : true
+		});
+		
+
+		$("#formula-vr-info").dialog({
+			autoOpen : false,
+			modal : true
+		});
+		
+
+		$("#annualPercentage").dialog({
+			autoOpen : false,
+			modal : true
+		});
+
+		$("#bhpCalcIndexinfo").button().click(function() {
+			$("#formula-vr-info").dialog("open");
+		});
+		
+		$("#percent-info").button().click(function() {
+			$("#annualPercentage").dialog("open");
+		});
+
+		$("#radioHL").click(function() {
+
+			$("#bhpHL").prop("disabled", false);
+			$("#bhpPHL").prop("disabled", true);
+
+		});
+
+		$("#radioPHL").click(function() {
+			$("#bhpHL").prop("disabled", true);
+			$("#bhpPHL").prop("disabled", false);
+
+		});
+
+	});
+</script>
+
+
+</head>
+<body jwcid="@Body">
+	<div id="outer">
+	
+		<form jwcid="@Form" delegate="ognl:beans.delegate" clientValidationEnabled="true">
+			<span jwcid="licenses@Hidden" value="ognl:licenses"></span>
+			<span jwcid="services@Hidden" value="ognl:services"></span>
+			<span jwcid="subServices@Hidden" value="ognl:subServices"></span>
+			
+			<div id="title">Contract
+				<!--<span jwcid="notFirstLoad@Hidden" value="ognl:notFirstLoad"></span>-->
+			</div>
+			
+			<h2>Edit License</h2>
+			<table width="99%" class="uniform">
+				<tr>
+					<td><label jwcid="@FieldLabel" field="component:licenceNo"
+						displayName="message:license.licenseNo.title" class="medium"></label></td>
+					<td><input jwcid="licenceNo@TextField" type="text" size="30"
+						id="licenseNumber" value="ognl:licenses.licenceNo" readonly="readonly" /></td>
+				</tr>
+				<tr>
+					<td><label jwcid="@FieldLabel" field="component:licenceId"
+						displayName="message:license.licenseId.title" class="medium"></label></td>
+					<td><input jwcid="licenceId@TextField" type="text" size="30"
+						value="ognl:licenses.licenceId" readonly="readonly" /></td>
+				</tr>
+
+				<tr>
+					<td><label jwcid="@FieldLabel" class="medium"
+						field="component:serviceName"
+						displayName="message:masterMaintenance.ipsfr.license.service.title"></label></td>
+					<td><input style="width: 200px" jwcid="serviceName@TextField"
+						type="text" size="30" value="ognl:services.serviceName"
+						readonly="readonly" /></td>
+				</tr>
+
+				<tr>
+					<td><label class="medium" jwcid="@FieldLabel"
+						field="component:subServicesName"
+						displayName="message:masterMaintenance.ipsfr.license.subService.title">
+					</label></td>
+					<td><input style="width: 200px"
+						jwcid="subServicesName@TextField" type="text" size="30"
+						value="ognl:subServices.subserviceName" readonly="readonly" /></td>
+				</tr>
+				<tr>
+					<td><label class="medium" jwcid="@FieldLabel"
+						field="component:bhpMethod"
+						displayName="message:masterMaintenance.ipsfr.license.methodBHP.title"></label></td>
+
+					<td>
+						<span jwcid="bhpMethod@TextField" type="text" size="30" value="ognl:metodeBhp" readonly="readonly" ></span>
+					</td>
+				</tr>
+				<tr>
+					<td><label jwcid="@FieldLabel" field="component:clientName"
+						displayName="message:masterMaintenance.ipsfr.license.clientName.title" class="medium"></label></td>
+					<td><input style="width: 200px" jwcid="clientName@TextField"
+						type="text" size="30" value="ognl:licenses.clientName" readonly="readonly" /></td>
+				</tr>
+				<tr>
+					<td><label jwcid="@FieldLabel" field="component:licenceDate"
+						displayName="message:license.licensedate.title" class="medium"></label></td>
+					<td><input jwcid="licenceDate@DatePicker"
+						id="datepickerLicenseDate" value="ognl:licenses.licenceDate" /></td>
+				</tr>
+				<tr>
+					<td><label jwcid="@FieldLabel" field="component:licenceBegin"
+						displayName="message:license.periodeIPSFR.mulai.title"
+						class="medium"></label></td>
+					<td><input jwcid="licenceBegin@DatePicker"
+						id="datepickerLicenseBegin" value="ognl:licenses.licenceBegin"
+						disabled="disabled" /></td>
+				</tr>
+				<tr>
+					<td><label jwcid="@FieldLabel" field="component:licenceEnd"
+						displayName="message:license.periodeIPSFR.akhir.title"
+						class="medium"></label></td>
+					<td><input jwcid="licenceEnd@DatePicker"
+						id="datepickerLicenseEnd" value="ognl:licenses.licenceEnd"
+						disabled="disabled" /></td>
+				</tr>
+				<tr>
+					<td><label jwcid="@FieldLabel" field="component:yearTo"
+						displayName="message:license.yearto.title" class="medium"></label></td>
+					<td><input jwcid="yearTo@TextField" id="yearto"
+						value="ognl:licenses.yearTo" readonly="readonly" /></td>
+				</tr>
+				<tr>
+					<td><label jwcid="@FieldLabel"
+						field="component:licenceNoBirate"
+						displayName="message:license.licenceNoBirate.title" class="medium"
+						id="licenceNoBirateLabel" style="display: none"></label></td>
+					<td><input jwcid="licenceNoBirate@TextField"
+						id="licenceNoBirate" value="ognl:licenses.licenceNoBirate"
+						style="display: none" /></td>
+				</tr>
+				<tr>
+					<td colspan="2"><h2>Alokasi Pita/ Frekuensi</h2></td>
+				</tr>
+				<tr>
+					<td><label jwcid="@FieldLabel" field="component:transmitMin"
+						displayName="message:license.transmit.min.title" class="medium"></label></td>
+					<td><input type="text"
+						jwcid="transmitMin@TextField" id="transmitmin"
+						value="ognl:licenses.transmitMin" class="xshort" readonly="readonly" /> <span
+						class="add-on-last"> MHz</span></td>
+				</tr>
+				<tr>
+					<td><label jwcid="@FieldLabel" field="component:transmitMax"
+						displayName="message:license.transmit.max.title" class="medium"></label></td>
+					<td><input type="text"
+						jwcid="transmitMax@TextField" id="transmitmax"
+						value="ognl:licenses.transmitMax" class="xshort" readonly="readonly" /> <span
+						class="add-on-last"> MHz</span></td>
+				</tr>
+				<tr>
+					<td><label jwcid="@FieldLabel" field="component:receiveMin"
+						displayName="message:license.receive.min.title" class="medium"></label></td>
+					<td><input type="text"
+						jwcid="receiveMin@TextField" id="receivemin"
+						value="ognl:licenses.receiveMin" readonly="readonly" class="xshort" /> <span
+						class="add-on-last"> MHz</span></td>
+				</tr>
+				<tr>
+					<td><label jwcid="@FieldLabel" field="component:receiveMax"
+						displayName="message:license.receive.max.title" class="medium"></label></td>
+					<td><input type="text"
+						jwcid="receiveMax@TextField" id="receivemax"
+						value="ognl:licenses.receiveMax" readonly="readonly" class="xshort" /> <span
+						class="add-on-last"> MHz</span></td>
+				</tr>
+				<tr>
+					<td><label jwcid="@FieldLabel"
+						field="component:bhpPaymentType"
+						displayName="message:license.bhpPaymentType.title" class="medium"></label></td>
+					<td>
+						<input type="text" jwcid="bhpPaymentType@TextField" id="bhppaymenttype" 
+								value="ognl:metodePembayaran" readonly="readonly" class="xshort" />
+					</td>
+				</tr>
+				<tr>
+					<td><label jwcid="@FieldLabel"
+						field="component:paymentDueDate"
+						displayName="message:license.paymentDueDate.title" class="medium"></label></td>
+					<td><input type="text" jwcid="paymentDueDate@DatePicker"
+						id="datepickerpaymentDueDate" value="ognl:licenses.paymentDueDate" /></td>
+				</tr>
+				<span jwcid="@If" condition='ognl:licenses.licenceStatus=="S" && licenses.yearTo!="1"'>
+					<tr>
+						<td><label jwcid="@FieldLabel"
+							field="component:licenseComment"
+							displayName="message:license.comment.title" class="medium"></label></td>
+						<td><input type="text" jwcid="licenseComment@TextArea"
+							id="licenseComment" value="ognl:fields.COMMENT" /></td>
+					</tr>
+				</span>
+				<tr>
+					<td colspan="2"><h2>Biaya Hak Penggunaan (BHP)</h2></td>
+				</tr>
+
+				<span jwcid="@If" condition='ognl:licenses.bhpMethod=="FR"'>
+					<tr jwcid="@Any" class="ognl:evenOddTable.next">
+						<td><label jwcid="@FieldLabel" field="component:bhpUpfrontFee" 
+							displayName="message:calculateBhp.field.upfrontFee" class="medium"></label></td>
+						<td><span class="add-on-first">Rp</span>
+							<span jwcid="@If" condition='ognl:licenses.licenceStatus=="S" && licenses.yearTo!="1"'>
+								<input type="text" jwcid="@TextField" value="ognl:fields.UP_FRONT_FEE" translator='translator:money' readonly="readonly"></input>
+							</span>
+							<span jwcid="@Else">
+								<input type="text" jwcid="bhpUpfrontFee@TextField" value="ognl:fields.UP_FRONT_FEE" translator='translator:money'></input>
+							</span>
+						</td>
+					</tr>
+					
+					<tr jwcid="@Any" class="ognl:evenOddTable.next">
+						<td>
+							<label jwcid="@FieldLabel" field="component:bhpHlFR" displayName="message:calculateBhp.field.hl" 
+								id="bhpHlLabel" class="medium"></label>
+						</td>
+						<td><span class="add-on-first">Rp</span>
+							<span jwcid="@If" condition='ognl:licenses.licenceStatus=="S" && licenses.yearTo!="1"'>
+								<input jwcid="@TextField" type="text" value="ognl:fields.HL" translator='translator:money' id="bhpHL" class="tex" readonly="readonly"/>
+							</span>
+							<span jwcid="@Else">
+								<input jwcid="bhpHlFR@TextField" type="text" value="ognl:fields.HL" translator='translator:money' id="bhpHL" class="tex"/>
+							</span>
+						</td>
+					</tr>
+					<tr jwcid="@Any" class="ognl:evenOddTable.next">
+						<td>
+							<label jwcid="@FieldLabel" field="component:bhpPhlFR" displayName="message:calculateBhp.field.phl" class="medium"></label>
+						</td>
+						<td><span class="add-on-first">Rp</span>
+							<input jwcid="@TextField" type="text" value="ognl:fields.PHL" translator='translator:money' id="bhpPHL" class="tax"/>
+							<span class="add-on-last">
+								<input jwcid="bhpPhlFR@Checkbox" type="checkbox" value="ognl:bhpPhl" name="bhpPHL" id="chk" class="ba"/>
+							</span>
+						</td>
+					</tr>
+				</span>
+				
+				<span jwcid="@If" condition='ognl:licenses.bhpMethod=="VR"'>
+					<tr jwcid="@Any" class="ognl:evenOddTable.next">
+						<td><label jwcid="@FieldLabel" field="component:bhpUpfrontFee" 
+							displayName="message:calculateBhp.field.upfrontFee" class="medium"></label></td>
+						<td><span class="add-on-first">Rp</span>
+							<span jwcid="@If" condition='ognl:licenses.licenceStatus=="S"'>
+								<input type="text" jwcid="@TextField" value="ognl:fields.UP_FRONT_FEE" translator='translator:money' readonly="readonly"></input>
+							</span>
+							<span jwcid="@Else">
+								<input type="text" jwcid="@TextField" value="ognl:fields.UP_FRONT_FEE" translator='translator:money'></input>
+							</span>
+						</td>
+					</tr>
+					<tr jwcid="@Any" class="ognl:evenOddTable.next">
+						<td><label jwcid="@FieldLabel" field="component:bhpRate" class="medium"
+							displayName="message:calculateBhp.field.rate" id="bhpRateLabel"></label></td>
+						<td><span class="add-on-first"> </span>
+							<input jwcid="bhpRate@TextField" type="text" size="5" value="ognl:fields.BHP_RATE" id="bhpRate" readonly="readonly"/>
+							<span class="add-on-last">%</span>
+							<button class="btn" type="button" id="rate-info" >?</button>
+						</td>
+					</tr>	
+					<tr jwcid="@Any" class="ognl:evenOddTable.next">
+						<td><label jwcid="@FieldLabel" field="component:bhpCalcIndex" displayName="message:calculateBhp.field.index"
+							id="bhpCalcIndexLabel" class="medium"></label></td>
+						<td><span class="add-on-first"> </span>
+							<input jwcid="bhpCalcIndex@TextField" type="text" size="5" value="ognl:fields.CALC_INDEX" 
+							readonly="readonly" id="bhpCalcIndex" />
+							<span class="add-on-last"></span>
+							<button class="btn" type="button" id="bhpCalcIndexinfo" >?</button>
+						</td>
+					</tr>				
+					<tr jwcid="@Any" class="ognl:evenOddTable.next">
+						<td>
+							<label jwcid="@FieldLabel" field="component:bhpHl" displayName="message:calculateBhp.field.hl"  
+								id="bhpHlLabel" class="medium"></label>
+						</td>
+						<td><span class="add-on-first">Rp</span>
+							<input jwcid="bhpHl@TextField" type="text" value="ognl:fields.HL" translator='translator:money' id="bhpHL" class="tex"/>
+						</td>
+					</tr>
+					<tr jwcid="@Any" class="ognl:evenOddTable.next">
+						<td>
+							<label jwcid="@FieldLabel" field="component:bhpPhl" displayName="message:calculateBhp.field.phl"
+								id="bhpPhlLabel" class="medium"></label>
+						</td>
+						<td><span class="add-on-first">Rp</span>
+							<input jwcid="@TextField" type="text" value="ognl:fields.PHL" translator='translator:money' id="bhpPHL" class="tax"/>
+							<span class="add-on-last">
+								<input jwcid="bhpPhl@Checkbox" type="checkbox" value="ognl:bhpPhl" name="bhpPHL" id="chk" class="ba" />
+							</span>
+						</td>
+					</tr>
+					<tr jwcid="@Any" class="ognl:evenOddTable.next">
+						<td><label jwcid="@FieldLabel" field="component:bhpAnnualPercent" class="medium"
+							displayName="message:calculateBhp.field.persentaseBhp" id="bhpAnnualPercentLabel"></label></td>
+						<td>
+							<input jwcid="bhpAnnualPercent@TextField" id="bhpAnnualPercent" type="text" size="5" 
+								value="ognl:fields.ANNUAL_PERCENTAGE" readonly="readonly"></input>
+							<span class="add-on-last">%</span>
+							<button class="btn" type="button" id="percent-info" >?</button>
+						</td>
+					</tr>
+					<tr jwcid="@Any" class="ognl:evenOddTable.next">
+						<td><label jwcid="@FieldLabel" field="component:bhpAnnualValue" class="medium"
+							displayName="message:calculateBhp.field.nilaiBhp" id="bhpAnnualValueLabel"></label></td>
+						<td><span class="add-on-first">Rp</span>
+							<input jwcid="bhpAnnualValue@TextField" id="bhpAnnualValue" type="text" translator='translator:money'
+								value="ognl:fields.ANNUAL_VALUE" readonly="readonly"></input>
+						</td>
+					</tr>
+				</span>
+				
+				<tr>
+					<td><label jwcid="@FieldLabel" field="component:bhpTotal"
+						displayName="message:license.bhpTotal.title" class="medium"></label></td>
+					<td><span class="add-on-first">Rp</span> 
+						<input type="text" jwcid="bhpTotal@TextField" value="ognl:fields.TOTAL" translator='translator:money'
+							readonly="readonly"></input>
+					</td>
+				</tr>
+				
+			</table>
+			
+			<!-- button action -->
+			<div id="button">
+				<table width="99%" class="uniform">
+					<tr>
+						<td colspan="3" class="clearborder center">
+						<input jwcid="@Submit" class="btn" value="message:calculateBhp.button.calculateBHP" action="listener:hitung"/></td>
+					</tr>
+				</table>
+			</div>
+			<!-- button -->
+			
+			<!-- 			TABLE LIST CALCULATION -->
+				<span jwcid="@If" condition='ognl:bhpList!=null && bhpList.size()>0 && licenses.bhpMethod=="FR"'>
+					<div id="box">
+		   				<span jwcid="@contrib:TableView" pageSize="10"
+		    				columns="!TahunPembayaran,!UpfrontFee,!Rate,!Index,!PersentaseBhp,!BhpAnnual,!Total" 
+		    				source="ognl:bhpList">
+						
+							<table width="100%">
+							<tr>
+								<td align="right">
+									<br/><span jwcid="@TablePages"></span>
+								</td>
+							</tr>
+							<tr><td>
+							  	<table border="0" class="data" width="100%">
+								  	
+									<tr>
+										<th> <span key="calculateBhp.table.year">Year</span> </th>
+										<th> <span key="calculateBhp.table.upfrontFee">Upfront fee</span> </th>
+										<th> <span key="calculateBhp.table.bhpAmount">IPSFR</span> <br>
+										 <span key="calculateBhp.rumus.bhpAmount">Rumus IPFR</span> </th>
+										<th> <span key="calculateBhp.table.pembayaran">Total Pembayaran</span> <br>
+										 <span key="calculateBhp.rumus.pembayaran">Rumus Total Pembayaran</span> </th>
+									</tr>
+									<tr jwcid="@contrib:TableRows" row="ognl:row1" class="ognl:beans.evenOdd.next">
+										<td><span jwcid="@Insert" 						value="ognl:row1.yearTo"/></td>
+										<td align="right"><span jwcid="@InsertMoney" 	value="ognl:row1.bhpUpfrontFee"/></td>
+						  				<td align="right"><span jwcid="@InsertMoney" 	value="ognl:row1.bhpAnnualValue"/></td>
+						  				<td align="right"><span jwcid="@InsertMoney" 	value="ognl:row1.bhpTotal"/></td>
+									</tr>
+								</table>
+							</td></tr>
+						</span>
+					</div>
+				</span>
+<!-- 			END OF TABLE LIST CALCULATION -->
+
+<!-- 			TABLE LIST CALCULATION -->
+				<span jwcid="@If" condition='ognl:viewList!=null && viewList.size()>0 && licenses.bhpMethod=="VR"'>
+					<div id="box">
+		   				<span jwcid="@contrib:TableView" pageSize="10"
+		    				columns="!TahunPembayaran,!UpfrontFee,!Rate,!Index,!PersentaseBhp,!BhpAnnual,!Total" 
+		    				source="ognl:viewList">
+						
+							<table width="100%">
+							<tr>
+								<td align="right">
+									<br/><span jwcid="@TablePages"></span>
+								</td>
+							</tr>
+							<tr><td>
+							  	<table border="0" class="data" width="100%">
+								  	
+									<tr>
+										<th> <span key="calculateBhp.table.year">Year</span> </th>
+										<th> <span key="calculateBhp.table.upfrontFee">Upfront fee</span> </th>
+										<th> <span key="calculateBhp.table.rate">Rate</span> </th>
+										<th> <span key="calculateBhp.table.index">Index</span> <br>
+										 <span key="calculateBhp.rumus.index">Rumus Index</span> </th>
+										<th> <span key="calculateBhp.table.persentaseBhp">Persentase BHP</span> </th>
+										<th> <span key="calculateBhp.table.bhpAmount">IPSFR</span> <br>
+										 <span key="calculateBhp.rumus.bhpAmount">Rumus IPFR</span> </th>
+										<th> <span key="calculateBhp.table.pembayaran">Total Pembayaran</span> <br>
+										 <span key="calculateBhp.rumus.pembayaran">Rumus Total Pembayaran</span> </th>
+									</tr>
+									<tr jwcid="@contrib:TableRows" row="ognl:row2" class="ognl:beans.evenOdd.next">
+										<td><span jwcid="@Insert" 						value="ognl:row2.yearTo"/></td>
+										<td align="right"><span jwcid="@InsertMoney" 	value="ognl:row2.bhpUpfrontFee"/></td>
+						  				<td align="right"><span jwcid="@Insert" 		value="ognl:row2.bhpRate"/>&nbsp;%</td>
+						  				<td align="right"><span jwcid="@Insert" 		value="ognl:row2.bhpCalcIndex"/></td>
+						  				<td align="right"><span jwcid="@Insert" 		value="ognl:row2.bhpAnnualPercent"/>&nbsp;%</td>
+						  				<td align="right"><span jwcid="@InsertMoney" 	value="ognl:row2.bhpAnnualValue"/></td>
+						  				<td align="right"><span jwcid="@InsertMoney" 	value="ognl:row2.bhpTotal"/></td>
+									</tr>
+								</table>
+							</td></tr>
+						</span>
+					</div>
+				</span>
+<!-- 			END OF TABLE LIST CALCULATION -->
+
+			<div id="button">
+				<span jwcid="@If" condition='ognl:licenses.licenceStatus=="D"'>
+					<input type="submit" class="btn" jwcid="@Submit"
+						action="listener:doDraft"
+						value="message:button.masterMaintenance.ipsfr.license.draft" /> 
+				</span>
+				<input type="submit" class="btn" jwcid="@Submit"
+					action="listener:doSubmit"
+					value="message:button.masterMaintenance.ipsfr.license.submit" /> 
+				<input type="submit" class="btn" jwcid="@Submit"
+					action="listener:doCancel" 
+					value="message:button.back" />
+			</div>
+
+			<input type="hidden" jwcid="@Hidden" value="ognl:bsLicenceId" />
+			<input type="hidden" jwcid="@Hidden" value="ognl:serviceId" /> 
+			<input type="hidden" jwcid="@Hidden" value="ognl:subServiceId" /> 
+			
+			<span jwcid="errorShadow@TextField" autocomplete="off" value="ognl:errorValue" style="display: none"></span>
+			<span jwcid="@If" condition="ognl:delegate.hasErrors"> 
+				<script>
+					alert('<span jwcid="@Delegator" delegate="ognl:delegate.firstError">Error Message</span>');
+				</script>
+			</span>
+		
+		</form>
+	</div>
+	
+	<div id="formula-vr-info">
+
+		<table border="0" class="data" width="99%">
+			<tr>
+			<th>Tahun <br />Pembayaran</th>
+			<th>Biaya Izin Awal<br />(Up Front Fee)</th>
+			<th>Rate (Rn)</th>
+			<th>Index Pengali</th>
+			<th>Persentase BHP</th>
+			<th>Biaya IPFR Tahunan</th>
+			<th>Total Pembayaran</th>
+		</tr>
+		<tr>
+			<td>1</td>
+			<td>Up Front Fee</td>
+			<td>-</td>
+			<td>-</td>
+			<td>20%</td>
+			<td>20%*PHL</td>
+			<td>UP Front Fee + (20%*PHL)</td>
+		<tr>
+		<tr>
+			<td>2</td>
+			<td></td>
+			<td>R1</td>
+			<td>I1 = (1+R1)</td>
+			<td>40%</td>
+			<td>40%*I1*PHL</td>
+			<td>40%*I1*PHL</td>
+		</tr>
+		<tr>
+			<td>3</td>
+			<td></td>
+			<td>R2</td>
+			<td>I2=I1*(1+R2)</td>
+			<td>60%</td>
+			<td>60%*I2*PHL</td>
+			<td>60%*I2*PHL</td>
+		</tr>
+		<tr>
+			<td>4</td>
+			<td></td>
+			<td>R3</td>
+			<td>I3=I2*(1+R3)</td>
+			<td>100%</td>
+			<td>100%*I3*PHL</td>
+			<td>100%*I3*PHL</td>
+		</tr>
+		<tr>
+			<td>5</td>
+			<td></td>
+			<td>R4</td>
+			<td>I4=I3*(1+R4)</td>
+			<td>130%</td>
+			<td>130%*I4*PHL</td>
+			<td>130%*I4*PHL</td>
+		</tr>
+		<tr>
+			<td>6</td>
+			<td></td>
+			<td>R5</td>
+			<td>I5=I4*(1+R5)</td>
+			<td>130%</td>
+			<td>130%*I5*PHL</td>
+			<td>130%*I5*PHL</td>
+		</tr>
+		<tr>
+			<td>7</td>
+			<td></td>
+			<td>R6</td>
+			<td>I6=I5*(1+R6)</td>
+			<td>130%</td>
+			<td>130%*I6*PHL</td>
+			<td>130%*I6*PHL</td>
+		</tr>
+		<tr>
+			<td>8</td>
+			<td></td>
+			<td>R7</td>
+			<td>I7=I6*(1+R7)</td>
+			<td>130%</td>
+			<td>130%*I7*PHL</td>
+			<td>130%*I7*PHL</td>
+		</tr>
+		<tr>
+			<td>9</td>
+			<td></td>
+			<td>R8</td>
+			<td>I8=I7*(1+R8)</td>
+			<td>130%</td>
+			<td>130%*I8*PHL</td>
+			<td>130%*I8*PHL</td>
+		</tr>
+		<tr>
+			<td>10</td>
+			<td></td>
+			<td>R9</td>
+			<td>I9=I8*(1+R9)</td>
+			<td>130%</td>
+			<td>130%*I9*PHL</td>
+			<td>130%*I9*PHL</td>
+		</tr>
+		</table>
+
+	</div>
+	
+	<div id="formula-fr-info">
+
+		<table border="0" class="data" width="99%">
+		<tr>
+			<th>Tahun <br />Pembayaran</th>
+			<th>Biaya Izin Awal<br />(Up Front Fee)</th>
+			<th>Biaya IPFR Tahunan</th>
+			<th>BHP IPFR</th>
+		</tr>
+		<tr>
+			<td>1</td>
+			<td>1*HP</td>
+			<td>1*HL</td>
+			<td>(1*HP) + (1*HL)</td>
+		<tr>
+		<tr>
+			<td>2</td>
+			<td>0</td>
+			<td>1*HL</td>
+			<td>1*HL</td>
+		</tr>
+		<tr>
+			<td>3</td>
+			<td>0</td>
+			<td>1*HL</td>
+			<td>1*HL</td>
+		</tr>
+		<tr>
+			<td>4</td>
+			<td>0</td>
+			<td>1*HL</td>
+			<td>1*HL</td>
+		</tr>
+		<tr>
+			<td>5</td>
+			<td>0</td>
+			<td>1*HL</td>
+			<td>1*HL</td>
+		</tr>
+		<tr>
+			<td>6</td>
+			<td>0</td>
+			<td>1*HL</td>
+			<td>1*HL</td>
+		</tr>
+		<tr>
+			<td>7</td>
+			<td>0</td>
+			<td>1*HL</td>
+			<td>1*HL</td>
+		</tr>
+		<tr>
+			<td>8</td>
+			<td>0</td>
+			<td>1*HL</td>
+			<td>1*HL</td>
+		</tr>
+		<tr>
+			<td>9</td>
+			<td>0</td>
+			<td>1*HL</td>
+			<td>1*HL</td>
+		</tr>
+		<tr>
+			<td>10</td>
+			<td>0</td>
+			<td>1*HL</td>
+			<td>1*HL</td>
+		</tr>
+		</table>
+
+	</div>
+	
+
+	<div id="annualRateInfo">
+
+		<table border="0" class="data" width="99%">
+			<tr>
+				<th><span key="variable.annualRateBHPEntry.baseOnNote.title"></span></th>
+				<th><span key="variable.annualRateBHPEntry.valueBIRate.title"></span></th>
+				<th><span key="variable.annualRateBHPEntry.statusBIRate.title"></span></th>
+
+			</tr>
+
+			<tr>
+
+				<td width="8%" align="left"><span jwcid="@Insert"
+					value="ognl:baseOnNote"></span></td>
+				<td width="4%" align="center"><span jwcid="@Insert"
+					value="ognl:bhpRate"></span></td>
+				<td width="4%" align="center"><span jwcid="@Insert"
+					value="ognl:statusActive"></span></td>
+
+			</tr>
+
+		</table>
+
+	</div>
+	<div id="annualPercentage" style="width: 99%">
+
+		<table border="0" class="data" width="99%">
+			<tr>
+				<th>Tahun</th>
+				<th>Persentase Tahunan</th>
+			</tr>
+
+			<tr>
+				<td width="5%" align="right">1</td>
+				<td><span jwcid="@Insert" value="ognl:percentageYearOne"></span></td>
+			</tr>
+			<tr>
+				<td width="5%" align="right">2</td>
+				<td><span jwcid="@Insert" value="ognl:percentageYearTwo"></span></td>
+			</tr>
+			<tr>
+				<td width="5%" align="right">3</td>
+				<td><span jwcid="@Insert" value="ognl:percentageYearThree"></span></td>
+			</tr>
+			<tr>
+				<td width="5%" align="right">4</td>
+				<td><span jwcid="@Insert" value="ognl:percentageYearFour"></span></td>
+			</tr>
+			<tr>
+				<td width="5%" align="right">5</td>
+				<td><span jwcid="@Insert" value="ognl:percentageYearFive"></span></td>
+			</tr>
+			<tr>
+				<td width="5%" align="right">6</td>
+				<td><span jwcid="@Insert" value="ognl:percentageYearSix"></span></td>
+			</tr>
+			<tr>
+				<td width="5%" align="right">7</td>
+				<td><span jwcid="@Insert" value="ognl:percentageYearSeven"></span></td>
+			</tr>
+			<tr>
+				<td width="5%" align="right">8</td>
+				<td><span jwcid="@Insert" value="ognl:percentageYearEight"></span></td>
+			</tr>
+			<tr>
+				<td width="5%" align="right">9</td>
+				<td><span jwcid="@Insert" value="ognl:percentageYearNine"></span></td>
+			</tr>
+			<tr>
+				<td width="5%" align="right">10</td>
+				<td><span jwcid="@Insert" value="ognl:percentageYearTen"></span></td>
+			</tr>
+		</table>
+
+	</div>
+	
+</body>
+</html>

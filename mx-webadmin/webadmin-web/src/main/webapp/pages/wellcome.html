@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title><span key="webapp.title" /></title>
+</head>
+
+<body>
+	<div id="outer">
+		<form name="mainForm">
+			<span jwcid="@If" condition="ognl:lastLogin neq null">
+				<div id="berita">
+<!-- 					<span key="wellcome.info.lastLogin" />  -->
+<!-- 					<span jwcid="@Insert" value="ognl:lastLogin" format="ognl:dateFormatWellcome" /> -->
+				</div>
+			</span> 
+			<span jwcid="@Else"><br></br>
+			</span>
+			<p class="note">
+				<span jwcid="@Insert" value="ognl:userLoginFromSession.userFullName" />
+			</p>
+			<span jwcid="@If" condition="ognl:isCustomer()" renderTag="false">
+				<div id="title">
+					<span key="wellcome.info.greeting" />
+				</div>
+			</span> 
+			<span jwcid="@Else">
+				<div id="title">
+					<span key="wellcome.info.greetingAdmin" />
+				</div>
+			</span><br></br> 
+			<span jwcid="userNotification@Insert" value="ognl:notification"></span>
+			<p>
+				<a jwcid="@DirectLink" listener="listener:gotoCHP"><span
+					jwcid="@Insert" value="ognl:MCHP" /></a>
+			</p>
+		</form>
+	</div>
+</body>
+</html>

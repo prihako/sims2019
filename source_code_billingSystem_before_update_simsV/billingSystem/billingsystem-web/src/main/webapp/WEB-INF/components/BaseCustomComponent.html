@@ -1,0 +1,104 @@
+<span jwcid="$content$">
+	<script type="text/javascript" src="scripts/splitbox.js"></script>
+	<table width="100%">
+		<tr>
+			<td colspan="2">
+				<span jwcid="@If" condition="ognl:showDatePicker == true" renderTag="false">
+					<span id="startDate" jwcid="start@TimestampPicker" value="ognl:startDateFilterValue" label="literal:Start Date"></span>
+					<span id="endDate" jwcid="end@TimestampPicker" value="ognl:endDateFilterValue" label="literal:End Date"></span>
+				</span>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<input type="hidden" id="filterVal" jwcid="@Hidden" value="ognl:objectFilter" encode="false"/>
+			</td>
+		</tr>
+		<tr>
+			<td width="207px"></td>
+			<td>
+				<input class="btn" type="button" jwcid="@Submit" listener="listener:onSearchBtn" value="message:button.search" />
+			</td>
+		</tr>
+		<tr height="20px"><td colspan="2"></td></tr>
+	</table>
+	
+	<!-- <div id="button">
+		<input class="btn" type="button" jwcid="@Submit" listener="listener:onSearchBtn" value="message:button.search" />				    	
+	</div> -->
+	
+	<div id="box">
+			<table id="tableView" jwcid="tableView@contrib:TableView" source="ognl:tableModel"
+				columns="ognl:columns" class="data">
+
+				<tr class="headerRow">
+					<span jwcid="@If" condition="ognl:selectorType eq 'checkbox'" renderTag="false">
+						<th align="center" width="10%"><span jwcid="@CheckBoxSelectAll" /></th>
+					</span>
+					<span jwcid="@Else" renderTag="false">
+						<th align="center" width="10%"><span jwcid="@Insert" value=""/></th>
+					</span>
+					<span jwcid="@If" condition="ognl:additionalLinkListener != null" renderTag="false">
+						<th align="center" width="10%">
+							<table class="tableHeaderTable">
+								<tr>
+									<td>Edit</td>
+								</tr>
+							</table>
+						</th>
+					</span>
+					<span jwcid="@contrib:TableColumns"
+						arrowUpAsset="ognl:assets.upArrow"
+						arrowDownAsset="ognl:assets.downArrow" />
+				</tr>
+				
+				<tr jwcid="tableRows@contrib:TableRows" row="ognl:tableRow" class="ognl:beans.evenOdd.next">
+					<td class="center" width="10%">
+						<!-- <input type="checkbox" id="ognl:tableRow.pKey" jwcid="@Checkbox" value="ognl:tableRow.selected" onclick="return selectedRow(this.id+'_hv');" class="noborder"/>
+						<input type="hidden" id="ognl:tableRow.pKey+'_hv'" jwcid="@Hidden" value="ognl:tableRow.pKey" encode="false"/> -->				        
+				        <span jwcid="@If" condition="ognl:selectorType != null" renderTag="false">
+				        	<span jwcid="@If" condition="ognl:selectorType eq 'checkbox'" renderTag="false">
+								<input jwcid="@Checkbox" type="checkbox" value="ognl:tableRow.selected" class="noborder"/>
+					        	<span jwcid="@InvokeListener" listener="listener:checkSelect"/>
+					        </span>
+					        <span jwcid="@Else" condition="ognl:selectorType eq 'radiogroup'" renderTag="false">
+									<span jwcid="rgroup@RadioGroup" selected="ognl:tableRow.selected">
+										<input id="ognl:tableRow.pKey+'_radio'" 
+											type="radio" jwcid="@Radio" value="ognl:tableRow" 
+											onclick="return selectRadio(this);"/>
+										<span jwcid="@InvokeListener" listener="listener:checkSelect"/>
+									</span>								
+					        </span>
+						</span>
+					</td>
+										
+					<span jwcid="@If" condition="ognl:additionalLinkListener != null" renderTag="false">
+						<td class="center" width="10%">
+							<span jwcid="@If" condition="ognl:additionalLinkType eq 'button'" renderTag="false">
+								<span jwcid="@DirectLink" listener="ognl:additionalLinkListener" parameters="ognl:tableRow.pKey" >
+									<span jwcid="@Button"><span jwcid="@Insert" value="ognl:additionalLinkLabel"></span></span>
+								</span>
+							</span>
+							<span jwcid="@Else" renderTag="false">
+								<span jwcid="@DirectLink" listener="ognl:additionalLinkListener" parameters="ognl:tableRow.pKey" >
+									<span jwcid="@Insert" value="ognl:additionalLinkLabel" />
+								</span>
+							</span>
+						</td>
+					</span>
+					
+					<td jwcid="@contrib:TableValues" column="ognl:tableRow"></td>
+					
+				</tr>
+				
+				<tr>
+					<td style="padding-left: 20px; border: 0;">
+						<input class="btn" type="button" jwcid="@Submit" listener="listener:doAction" value="ognl:gridActionButtonLabel" />
+					</td>
+					<td align="right" style="border: 0"><span jwcid="tablePages@contrib:TablePages" /></td>
+				</tr>
+			</table>
+			
+		</div>
+	<script type="text/javascript">adjustSpan();</script> 
+</span>

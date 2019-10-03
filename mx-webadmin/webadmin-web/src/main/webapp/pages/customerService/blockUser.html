@@ -1,0 +1,40 @@
+<html jwcid="@Shell" title="message:webapp.title">
+<script language="javascript" type="text/javascript" src="scripts/common.js"></script>
+<body jwcid="@Body">
+	<div id="outer">
+		<form jwcid="blockUser@Form" delegate="ognl:beans.delegate" clientValidationEnabled="ognl:true">
+			<div id="title">
+				<span key="blockUser.title" />
+			</div>
+			<br/>
+			<span jwcid="@ValidationErrorTop" delegate="ognl:beans.delegate" />
+			<table class="uniform">
+				<tr jwcid="@Any" class="ognl:evenOddTable.next">
+					<td class="medium">
+						<label class="medium" jwcid="@FieldLabel" field="component:userId"></label>
+					</td>
+					<td>
+						<input type="text" maxlength="30" width="208px"
+							cssclass="TextBox" jwcid="userId@TextField"
+							value="ognl:userId"
+							translator="translator:stringUpper,trim=true"
+							displayName="message:blockUser.userId" />
+					</td>
+				</tr>
+				<tr jwcid="@Any" class="ognl:evenOddTable.next">
+					<td class="medium"></td>
+					<td>
+						<input type="submit" class="btn" jwcid="block@Submit"
+							action="listener:doBlock" value="message:button.continue" />
+					</td>
+				</tr>
+				<tr height="10px"><td colspan="2"></td></tr>
+			</table>
+			<!-- <div class="button">
+				<input type="submit" class="btn" jwcid="block@Submit"
+					action="listener:doBlock" value="message:button.continue" />
+			</div> -->
+		</form>
+	</div>
+</body>
+</html>

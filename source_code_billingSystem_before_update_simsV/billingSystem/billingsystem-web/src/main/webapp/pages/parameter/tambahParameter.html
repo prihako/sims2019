@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html jwcid="@Shell" title="message:webapp.title">
+<head>
+    <title>
+        <span key="webapp.title"/>
+        <span key="crudparameter.title.search"/>
+    </title>
+    <script language="JavaScript"></script>
+</head>
+<body jwcid="@Body">
+<div id="outer">
+<span jwcid="@ValidationErrorTop" delegate="ognl:beans.delegate" />
+<form jwcid="mainForm@Form" delegate="ognl:beans.delegate" clientValidationEnabled="ognl:true" >
+<div id="box">
+<div id="title"><span jwcid="@Insert" value="ognl:getText('crudparameter.title.input.' + mode)" renderTag="false" /></div>
+<table width="99%" class="uniform">
+   <tr jwcid="@Any" class="ognl:evenOddTable.next">
+		<td style="width: 155px; height: 20px;">
+			<label class="short" key="crudparameter.field.nameParameter" />
+        </td>
+        <td>
+        	<span jwcid="@Insert" value="ognl:parameterName" />
+        </td>
+	</tr>
+	
+	<tr jwcid="@Any" class="ognl:evenOddTable.next">
+		<td style="width: 155px; height: 20px;">
+			<label class="short" jwcid="@FieldLabel" field="component:codeField" />
+       	</td>
+       	<td>
+			<input type="text" maxlength="100" width="208px" cssclass="TextBox"
+				   jwcid="codeField@TextField" 
+				   value="ognl:parameterValue"
+				   validators="validators:required[%common.message.validation.required]"
+				   displayName="message:crudparameter.field.valueParameter" />
+       </td>
+	</tr>
+	
+	<tr jwcid="@Any" class="ognl:evenOddTable.next">
+		<td style="width: 155px; height: 20px;"></td>
+       	<td>
+			<input type="button" class="btn" jwcid="@Submit" value="message:button.continue" action="listener:onNext"/>
+		    <input type="hidden" jwcid="doubleSubmitKeyField@Hidden" value="ognl:doubleSubmitKey" />
+		    <span jwcid="@If" condition="ognl:mode eq 'edit'" renderTag="false">
+				<input type="button" class="btn" jwcid="@Any" value="message:button.back" onclick="location.href='parameterCrudDirectList.html'" />
+		    </span>       		
+       </td>
+	</tr>
+</table>
+<!-- <div id="button">
+	<input type="button" class="btn" jwcid="@Submit" value="message:button.continue" action="listener:onNext"/>
+    <input type="hidden" jwcid="doubleSubmitKeyField@Hidden" value="ognl:doubleSubmitKey" />
+    <span jwcid="@If" condition="ognl:mode eq 'edit'" renderTag="false">
+		<input type="button" class="btn" jwcid="@Any" value="message:button.back" onclick="location.href='parameterCrudDirectList.html'" />
+    </span>
+</div> -->
+</div>
+</form>
+</div>
+</body>
+</html>

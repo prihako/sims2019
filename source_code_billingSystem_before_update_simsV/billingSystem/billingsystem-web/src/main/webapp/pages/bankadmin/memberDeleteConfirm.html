@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title><span key="webapp.title">BPR KS Internet Banking</span></title>
+</head>
+<span jwcid="@Shell" title="message:webapp.title"> 
+<body jwcid="@Body">
+<div id="outer">
+<form	
+	jwcid="@Form" delegate="ognl:beans.delegate"
+	clientValidationEnabled="ognl:true">
+<div id="title"><span key="memberDeleteConfirm.title">Konfirmasi Member</span></div>
+<div id="box">
+    <span jwcid="@contrib:TableView"
+		pageSize="ognl:pageSize"
+		columns="
+			!memberDeleteConfirm.username,
+			!memberDeleteConfirm.cardNumber,
+			!memberDeleteConfirm.parentUsername" source="ognl:memberToDelete">
+	<table class="data" width="100%">
+	    <tr>
+        	<span jwcid="@contrib:TableColumns"/>
+        </tr>
+    	<tr jwcid="tableRows@contrib:TableRows" row="ognl:loopObject" class="ognl:beans.evenOdd.next">
+		    <td width="30%">
+		    	<span jwcid="@Insert" value="ognl:loopObject.userName"/>
+		    </td>
+		    <td width="40%">
+		    	<span jwcid="@Insert" value="ognl:loopObject.cardNumber"/>
+		    </td>
+		    <td width="30%">
+		    	<span jwcid="@Insert" value="ognl:loopObject.parentUsername"/>               
+		    </td>
+		</tr>
+    </table>
+    </span>
+    </div>
+<br />
+<div class="message"><span jwcid="@Insert" value="ognl:message" /></div>
+<input type="hidden" jwcid="@Hidden" value="ognl:memberToDelete" />
+<div id="button">
+<input class="btn" type="submit" jwcid="@Submit" listener="listener:doDelete" value="message:button.continue"/>
+<input class="btn" type="submit" jwcid="@Submit" listener="listener:doCancel" value="message:button.cancel"/>
+</div>
+</form>
+</div>
+</body>
+</span>
+</html>

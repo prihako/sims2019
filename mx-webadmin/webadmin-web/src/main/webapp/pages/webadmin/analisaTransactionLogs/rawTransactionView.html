@@ -1,0 +1,25 @@
+<form  jwcid="@Form">
+<table>
+<tr>
+	<td align="left">
+		<input jwcid="@Any" class="btn" type="button" id="backButtonTop" value="message:button.back" />
+	</td>
+</tr>
+<tr>
+	<td>
+		<input type="hidden" id="formattedMsg" jwcid="@Hidden" value="ognl:formattedRaw" encode="false"/>
+		<div id="detail" style="width: 100%;"></div>
+	</td>
+</tr>
+<tr>
+	<td align="left">
+		<input jwcid="@Any" class="btn" type="button" id="backButtonBottom" value="message:button.back" />
+	</td>
+</tr>
+</table>
+</form>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#detail").html($("#formattedMsg").val()); 
+	});
+</script>

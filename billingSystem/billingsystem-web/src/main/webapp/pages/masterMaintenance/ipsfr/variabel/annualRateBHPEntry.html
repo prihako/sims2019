@@ -1,0 +1,136 @@
+<html jwcid="@Shell" title="message:webapp.title">
+<head>
+<script src="../scripts/jquery-1.8.3.min.js"></script>
+<script>
+	function changeparent(bi){
+		window.opener.document.getElementById('targetBi').value = bi;
+		window.close();
+	}
+</script>
+</head>
+<body jwcid="@Body">
+	<div id="outer" style="height: 50%">
+		<form jwcid="@Form" delegate="ognl:beans.delegate"
+			clientValidationEnabled="ognl:true">
+			<span jwcid="@Hidden" value="ognl:notFirstLoad"></span>
+			<div id="title">
+				<span
+					key="masterMaintenance.ipsfr.variabel.annualRateBHPEntry.title"></span>
+			</div>
+			
+			<table width="50%" class="uniform">
+
+				<tr>
+					<td><label jwcid="@FieldLabel" field="component:baseOnNote"
+						displayName="message:variable.annualRateBHPEntry.baseOnNote.title"></label></td>
+					<td><input jwcid="baseOnNote@TextField" type="text" size="33"
+						value="ognl:baseOnNote" /></td>
+				</tr>
+
+
+				<tr>
+					<td><label class="medium" jwcid="@FieldLabel"
+						field="component:statusActive"
+						displayName="message:variable.annualRateBHPEntry.statusBIRate.title"></label></td>
+					<td><select style="width: 100px"
+						jwcid="statusActive@PropertySelection"
+						model="ognl:getVariableStatusModel()" value="ognl:statusActive">
+					</select></td>
+				</tr>
+
+			</table>
+			<!-- button action -->
+			<div id="button">
+				<input name="BTN_SEARCH" type="button" class="btn" id="BTN_SEARCH"
+					jwcid="@Submit" action="listener:doSearch"
+					onclick="this.form.onsubmit=null"
+					value="message:button.masterMaintenance.ipsfr.license.search" /> <input
+					name="BTN_CREATE" type="button" class="btn" id="BTN_CREATE"
+					jwcid="@Submit" listener="listener:onCreate"
+					value="message:button.masterMaintenance.ipsfr.license.create" />
+				
+				<script>
+						function callFunctBi(){
+							if(window.opener != null && !window.opener.closed){
+								document.write('<input type="button" class="btn" jwcid="@Submit" onclick="ognl:closePopup" value="Close" />');
+							}
+						}
+				</script>
+				<span jwcid="@If" condition="ognl:popupBi != null" >
+						<script type="text/javascript">callFunctBi()</script>
+				</span>
+
+			</div>
+			<!-- button -->
+
+			<!-- Variable Detail Result -->
+			<span jwcid="@If" condition="ognl:variableAnnualRateList!=null">
+				<div id="box">
+					<span jwcid="@contrib:TableView" pageSize="10"
+						source="ognl:variableAnnualRateList"
+						columns="!Valid from,!Base on Note,!Status">
+						<table width="99%">
+							<tr>
+								<td align="right"><br /> <span jwcid="@TablePages" /></td>
+							</tr>
+							<tr>
+								<td>
+									<div id="conttable">
+										<table border="0" class="data" width="99%">
+											<tr>
+												<th><span
+													key="variable.annualRateBHPEntry.baseOnNote.title"></span></th>
+												<th><span
+													key="variable.annualRateBHPEntry.rateYear.title"></span></th>
+												<th><span
+													key="variable.annualRateBHPEntry.valueBIRate.title"></span></th>
+												<th><span
+													key="variable.annualRateBHPEntry.statusBIRate.title"></span></th>
+												<th><span
+													key="variable.annualRateBHPEntry.savestatus.title"></span></th>
+
+
+											</tr>
+
+											<tr jwcid="@contrib:TableRows" row="ognl:rows"
+												class="ognl:beans.evenOdd.next">
+
+												<td width="25%" align="left"><span jwcid="@If"
+													condition="ognl:rows.draftSubmit=='Submit' && rows.status=='Active'">
+														<span jwcid="@Insert" value="ognl:rows.kmNo"></span>
+												</span> <span jwcid="@Else"> <a href="" jwcid="@LinkSubmit"
+														listener="listener:doEdit"
+														parameters="ognl:{rows.annualRateId}"> <span
+															jwcid="@Insert" value="ognl:rows.kmNo"></span></a>
+
+												</span></td>
+												<td width="5%"><span jwcid="@Insert"
+													value="ognl:rows.rateYear"></span></td>
+												<td width="5%" align="center"><span jwcid="@Insert"
+													value="ognl:rows.rateValue"></span></td>
+												<td width="5%" align="center"><span jwcid="@Insert"
+													value="ognl:rows.status"></span></td>
+												<td width="5%" align="center"><span jwcid="@Insert"
+													value="ognl:rows.draftSubmit"></span></td>
+											</tr>
+
+										</table>
+									</div>
+								</td>
+							</tr>
+						</table>
+					</span>
+				</div>
+
+			</span> <span jwcid="errorShadow@TextField" autocomplete="off"
+				value="ognl:errorValue" style="display: none"></span> <span
+				jwcid="@If" condition="ognl:delegate.hasErrors"> <script>
+					alert('<span jwcid="@Delegator" delegate="ognl:delegate.firstError">Error Message</span>');
+				</script>
+			</span>
+
+
+		</form>
+	</div>
+</body>
+</html>

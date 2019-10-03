@@ -1,0 +1,50 @@
+<html jwcid="@Shell" title="message:webapp.title">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body jwcid="@Body">
+
+	<form id="mainForm" jwcid="mainForm@Form"
+		delegate="ognl:beans.delegate" clientValidationEnabled="ognl:true">
+
+		<div id="outer">
+
+			<div id="title">
+				<span key="crud.viewConnection" />
+			</div>
+			<br />
+
+			<div id="box" style="width: 90%">
+				<table width="99%" jwcid="@contrib:TableView" pageSize="10"
+					source="ognl:endpointList" columns="!Nama Endpoint, !Status">
+					<tr>
+						<td align="right"><br /> <span jwcid="@TablePages" /></td>
+					</tr>
+					<tr>
+						<td>
+							<table border="0" class="data" width="99%">
+								<tr>
+									<th>Nama Endpoint</th>
+									<th>Status</th>
+
+								</tr>
+								<tr jwcid="@contrib:TableRows" row="ognl:endpointData"
+									class="ognl:beans.evenOdd.next">
+									<td width="30%" align="center"><span jwcid="@Insert"
+										value="ognl:endpointData.name"></span></td>
+									<td width="10%" align="center"><span jwcid="@Insert"
+										value="ognl:endpointData.state"></span></td>
+
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+
+
+			</div>
+		</div>
+	</form>
+</body>
+</html>

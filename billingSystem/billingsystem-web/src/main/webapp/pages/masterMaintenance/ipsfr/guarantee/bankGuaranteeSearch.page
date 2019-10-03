@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE page-specification PUBLIC
+    "-//Apache Software Foundation//Tapestry Specification 4.0//EN"
+    "http://jakarta.apache.org/tapestry/dtd/Tapestry_4_0.dtd">
+
+<page-specification class="com.balicamp.webapp.action.mastermaintenance.ipsfr.guarantee.BankGuaranteeLicenseSearch">
+<property name="columns" 
+    	initial-value="literal:
+    		!bsLicenceId:license.licenseNo.title:bsLicenceId,
+			!licenceID:license.licenseId.title:licenceID,
+			!yearTo:license.yearto.title:yearTo, 
+			!licenceDate:license.licensedate.title:licenceDate, 
+			!paymentType:license.bhpPaymentType.title:paymentType,
+			!statusLicense:license.status.title:statusLicense"
+			
+			
+	    />
+
+</page-specification>

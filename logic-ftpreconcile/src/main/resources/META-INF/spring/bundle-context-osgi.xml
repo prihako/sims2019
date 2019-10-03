@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:osgi="http://www.springframework.org/schema/osgi"
+	xmlns:osgix="http://www.springframework.org/schema/osgi-compendium"
+	xmlns:ctx="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+   http://www.springframework.org/schema/beans 
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+   http://www.springframework.org/schema/osgi 
+    http://www.springframework.org/schema/osgi/spring-osgi.xsd
+   http://www.springframework.org/schema/osgi-compendium 
+    http://www.springframework.org/schema/osgi-compendium/spring-osgi-compendium.xsd
+   http://www.springframework.org/schema/context 
+    http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- Load configuration from OSGi configuration file defined in persistent-id 
+		attribute -->
+	<osgix:cm-properties id="configuration"
+		persistent-id="sigma.mx.logic_ftpreconcile">
+		<!-- Default values -->
+		<prop key="packager_file">src/main/resources/iso87ascii.xml</prop>
+		<prop key="mq.broker_url">tcp://localhost:61616</prop>
+		<prop key="mq.concurrent_consumers">10</prop>
+		<prop key="mq.max_connections">8</prop>
+		<prop key="mq.max_active">500</prop>
+		<prop key="mq.session_cache_size">20</prop>
+		<prop key="camel_threadpool.size">2</prop>
+		<prop key="camel_threadpool.max_size">8</prop>
+		
+		<prop key="ftp.settings_file">src/main/resources/ftp.properties</prop>
+		<prop key="ojdbc.settings_file">src/main/resources/ojdbc.properties</prop>
+		<prop key="ftp.job_time">0 0 5 * * ?</prop>
+		<prop key="recon.job_time">0 0 * * * ?</prop>
+		<prop key="payment.reversal_period">30</prop>
+<!-- 		<prop key="oracle.connection_string">jdbc:oracle:thin:@10.10.101.95:1521:CBSS10G</prop> -->
+<!-- 		<prop key="oracle.connection_string">jdbc:oracle:thin:@localhost:1521:xe</prop> -->
+<!-- 		<prop key="oracle.connection_username">postel</prop> -->
+<!-- 		<prop key="oracle.connection_password">postel</prop> -->
+<!-- 		<prop key="postgres.connection_string">jdbc:postgresql://127.0.0.1:5432/mx_webadmin</prop> -->
+<!-- 		<prop key="postgres.connection_username">mx_usr</prop> -->
+<!-- 		<prop key="postgres.connection_password">mx_pwd</prop> -->
+	</osgix:cm-properties>
+
+	<!-- Apply configuration above -->
+	<ctx:property-placeholder properties-ref="configuration" />
+
+	<!-- Import OSGi services -->
+	<osgi:reference id="dataConditioningDao"
+		interface="id.co.sigma.mx.env.conditioning.DataConditioningDao" />
+		
+	<osgi:reference id="mappingDao"
+		interface="id.co.sigma.mx.message.mapping.MappingDao" />
+		
+	<osgi:reference id="logDao" interface="id.co.sigma.mx.logic.logging.LogDao" />
+
+
+	<!-- If you use ITM, you may need to import these services -->
+	<!-- <osgi:reference id="itmReversalCreator"
+		interface="id.co.sigma.mx.message.iso8583.reversal.ReversalCreator"
+		bean-name="itmReversalCreator" /> -->
+
+	<!-- If you use Alphabits, you may need to import these services -->
+	<!-- <osgi:reference id="alphabitsDebetReversalCreator"
+		interface="id.co.sigma.mx.message.alphabits.reversal.ReversalCreator"
+		bean-name="alphabitsDebetReversalCreator" />
+
+	<osgi:reference id="alphabitsHelper"
+		interface="id.co.sigma.mx.endpoint.alphabits.helper.AlphabitsHelper" /> -->
+</beans>

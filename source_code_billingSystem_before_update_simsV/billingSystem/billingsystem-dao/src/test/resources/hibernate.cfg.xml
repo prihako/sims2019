@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory name="webadmin-mx-hibernate">
+        <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+        <property name="hibernate.connection.password">mx_pwd</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://192.168.41.35:5432/mx3</property>
+        <property name="hibernate.connection.username">mx_usr</property>
+        <property name="hibernate.default_schema">public</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+        
+       <mapping class="com.balicamp.model.mx.TransactionLogsId"/>
+       <mapping class="com.balicamp.model.mx.TransactionLogs"/>
+       <mapping class="com.balicamp.model.mx.Transactions"/>
+       <mapping class="com.balicamp.model.mx.Routes"/>
+       <mapping class="com.balicamp.model.mx.Mappings"/>
+       <mapping class="com.balicamp.model.mx.Endpoints"/>
+       <mapping class="com.balicamp.model.mx.Packagers"/>
+       <mapping class="com.balicamp.model.mx.TransactionFee"/>
+       <mapping class="com.balicamp.model.mx.Conditionings"/>
+       <mapping class="com.balicamp.model.mx.MappingDetails"/>
+       <mapping class="com.balicamp.model.mx.Timeouts"/>
+       <mapping class="com.balicamp.model.mx.EndpointRcs"/>
+       <mapping class="com.balicamp.model.mx.StanCounters"/>
+       <mapping class="com.balicamp.model.mx.PackagerFields"/>
+       <mapping class="com.balicamp.model.mx.RcMappings"/>
+    </session-factory>
+</hibernate-configuration>

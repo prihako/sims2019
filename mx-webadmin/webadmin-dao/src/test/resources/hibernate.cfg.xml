@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory name="webadmin-mx-hibernate">
+        <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+        <property name="hibernate.connection.password">mx_pwd</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://192.168.41.35:5432/mx3</property>
+        <property name="hibernate.connection.username">mx_usr</property>
+        <property name="hibernate.default_schema">public</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+        
+       <mapping class="com.mayora.webadmin.mx.model.TransactionLogsId"/>
+       <mapping class="com.mayora.webadmin.mx.model.TransactionLogs"/>
+       <mapping class="com.mayora.webadmin.mx.model.Transactions"/>
+       <mapping class="com.mayora.webadmin.mx.model.Routes"/>
+       <mapping class="com.mayora.webadmin.mx.model.Mappings"/>
+       <mapping class="com.mayora.webadmin.mx.model.Endpoints"/>
+       <mapping class="com.mayora.webadmin.mx.model.Packagers"/>
+       <mapping class="com.mayora.webadmin.mx.model.TransactionFee"/>
+       <mapping class="com.mayora.webadmin.mx.model.Conditionings"/>
+       <mapping class="com.mayora.webadmin.mx.model.MappingDetails"/>
+       <mapping class="com.mayora.webadmin.mx.model.Timeouts"/>
+       <mapping class="com.mayora.webadmin.mx.model.EndpointRcs"/>
+       <mapping class="com.mayora.webadmin.mx.model.StanCounters"/>
+       <mapping class="com.mayora.webadmin.mx.model.PackagerFields"/>
+       <mapping class="com.mayora.webadmin.mx.model.RcMappings"/>
+    </session-factory>
+</hibernate-configuration>

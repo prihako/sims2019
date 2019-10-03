@@ -1,0 +1,61 @@
+<html jwcid="@Shell" title="message:webapp.title">
+<head>
+<title><span key="webapp.title"> </span></title>
+</head>
+<body jwcid="@Body">
+	<div id="outer">
+		<form jwcid="transactionEntryConfirm@Form"
+			delegate="ognl:beans.delegate">
+			<div id="title">
+				<span key="transactionFeeEntryConfirm.title"/>
+			</div>
+			<table width="99%" jwcid="@contrib:TableView"
+				pageSize="ognl:pageSize" source="ognl:tableModel"
+				columns="literal:identifier:Identifier:identifier, code:Trx. Code:code, name:Trx. Name:name, epname:Channel:name, idfee:Fee:fee">
+				<tr>
+					<td align="right"><span jwcid="@TablePages" /></td>
+				</tr>
+				<tr>
+					<td align="center">
+						<div style="overflow: auto">
+							<table width="99%" class="data">
+								<tr class="headerRow">
+									<span jwcid="@contrib:TableColumns"
+										arrowUpAsset="ognl:assets.upArrow"
+										arrowDownAsset="ognl:assets.downArrow" />
+								</tr>
+								<tr jwcid="tableRows@contrib:TableRows" row="ognl:loopObject"
+									class="ognl:beans.evenOdd.next">
+									<td width="10%"
+										class="left" style="min-width: 100px"><span
+										jwcid="@Insert" value="ognl:loopObject.id.identifier" /></td>
+									<td j width="10%"
+										class="center" style="min-width: 100px"><span
+										jwcid="@Insert" value="ognl:loopObject.transactions.code" /></td>
+									<td width="10%"
+										class="left" style="min-width: 100px"><span
+										jwcid="@Insert" value="ognl:loopObject.transactions.name" /></td>
+									<td width="10%"
+										class="left" style="min-width: 100px"><span
+										jwcid="@Insert" value="ognl:loopObject.endpoints.name" /></td>
+									<td width="5%"
+										class="right" style="min-width: 100px"><span
+										jwcid="fee@Insert"
+										value="ognl:loopObject.id.fee" /> <!-- <span jwcid="@InvokeListener" listener="listener:onChangeFee" />   -->
+									</td>
+								</tr>
+							</table>
+						</div>
+					</td>
+				</tr>
+			</table>
+			<div class="button">
+				<input class="btn" jwcid="@Submit" listener="listener:doSave"
+					value="message:button.save" type="submit" /> 
+				<input class="btn" value="Kembali"
+					onclick="return window.history.back();" type="button" />
+			</div>
+		</form>
+	</div>
+</body>
+</html>

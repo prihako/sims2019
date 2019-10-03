@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <title>KOMINFO</title>
+    <script src="../js/tools.js" language="JavaScript"></script>
+    <link rel="stylesheet" href="../styles/style-Kominfo/layout.css" type="text/css" />
+    <link rel="stylesheet" href="../styles/style-Kominfo/jquery.mCustomScrollbar.css" type="text/css" />
+</head>
+<body>
+<div id="outer">
+    <form name="mainForm">
+        <div id="title">Bank Garansi</div>
+        <table width="99%" class="uniform">
+            <tr>
+                <td><label class="short">Service</label></td>
+                <td><span>Land Mobile</span></td>
+            </tr>
+            <tr>
+                <td><label class="short">Sub Service</label></td>
+                <td><select class="medium">
+                    <option value="">3G</option>
+                    <option value="">3G Band</option>
+                    <option value="" selected="selected">Bandwith</option>
+                </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label class="short">Metode BHP</label></td>
+                <td><select id="bhp" name="bhp" class="medium">
+                    <option value="" id="FR">Flat Rate</option>
+                    <option value="" id="VR">Varieted Rate</option>
+                </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label class="short">Client Name</label></td>
+                <td><select id="client" name="client" class="medium">
+                    <option value="" selected="selected">Telkomsel</option>
+                    <option value="">XL</option>
+                    <option value="">Indosat</option>
+                </select>
+                </td>
+            </tr>
+        </table>
+        <!-- button action -->
+        <div id="button">
+            <button type="button" class="btn" id="search" >Search</button>
+            <button type="button" class="btn" id="create" >Create</button>
+        </div><!-- button -->
+        <div id="conttable">
+            <table class="data" id="table_FR">
+                <tr>
+                    <th>No.SKM</th>
+                    <th>Status Penyerahan</th>
+                    <th>Tanggal Penyerahan</th>
+                    <th>Kewajiban Penyerahan</th>
+                    <th>Status</th>
+                </tr>
+                <tr>
+                    <td><a href="pg_bg_FRVR_view.html">047/TIMSEL3G/02/2020</a></td>
+                    <td class="center">Ya</td>
+                    <td class="center">21-Apr-20</td>
+                    <td class="center">Tahunan</td>
+                    <td class="center">Draft</td>
+                </tr>
+                <tr>
+                    <td><a href="pg_bg_FRVR_view.html">021/TIMSEL3G/03/2011</a></td>
+                    <td class="center">Ya</td>
+                    <td class="center">15 Mei 2011</td>
+                    <td class="center">Tahunan</td>
+                    <td class="center">Done</td>
+                </tr>
+            </table>
+            <table class="data" id="table_VR">
+                <tr>
+                    <th>No.SKM</th>
+                    <th>Status Penyerahan</th>
+                    <th>Tanggal Penyerahan</th>
+                    <th>Kewajiban Penyerahan</th>
+                    <th>Status</th>
+                </tr>
+                <tr>
+                    <td><a href="pg_bg_FRVR_view.html">047/TIMSEL3G/02/2020</a></td>
+                    <td class="center">Ya</td>
+                    <td class="center">21-Apr-20</td>
+                    <td class="center">Tahunan</td>
+                    <td class="center">Draft</td>
+                </tr>
+                <tr>
+                    <td><a href="pg_bg_FRVR_view.html">021/TIMSEL3G/03/2011</a></td>
+                    <td class="center">Ya</td>
+                    <td class="center">15 Mei 2011</td>
+                    <td class="center">Tahunan</td>
+                    <td class="center">Done</td>
+                </tr>
+            </table>
+        </div>
+        <div id="button">
+            <button type="button" class="btn" id="back">Back</button>
+        </div>
+    </form>
+</div>
+<script src="../js/jquery-1.9.1.min.js"></script>
+<script src="../js/jquery.mCustomScrollbar.concat.min.js"></script>
+<script>
+    (function($){
+        $(document).ready(function (){
+            $("#outer").mCustomScrollbar({
+                verticalScroll:true,
+                horizontalScroll:false,
+                theme:"dark-thick",
+                scrollButtons:{
+                    enable:true}
+            });
+        });
+        $("#conttable").mCustomScrollbar({
+            verticalScroll:false,
+            horizontalScroll:true,
+            theme:"dark-thick",
+            scrollButtons:{
+                enable:true}
+        });
+    })(jQuery);
+
+    $("#button #back").on('click',function(){
+        window.location.href='pg_bg_search.html';
+    });
+
+    $(function(){
+        $("#button #create").on('click',function(){
+            if ($('#bhp #FR').is(':selected')) {
+                window.location.href='pg_bg_FR_create.html';}
+            if ($('#bhp #VR').is(':selected')) {
+                window.location.href='pg_bg_VR_create.html';}
+        });
+    });
+
+    $(function(){
+        $('#conttable').show();
+        $('#conttable #table_FR').hide();
+        $('#conttable #table_VR').hide();
+        $('#button #search').click(function() {
+
+            if ($('#bhp #FR').is(':selected')) {
+                $('#conttable #table_FR').show();
+                $('#conttable #table_VR').hide();
+            }
+            if ($('#bhp #VR').is(':selected')) {
+                $('#conttable #table_VR').show();
+                $('#conttable #table_FR').hide();
+            }
+        });
+    });
+
+</script>
+
+</body>
+</html>

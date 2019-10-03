@@ -1,0 +1,50 @@
+<span jwcid="$content$">
+	<script type="text/javascript" src="scripts/dateformatter.js">
+	</script>
+	<div id="box">
+
+			<div id="dateInput" style="float: left; padding-right: 10px; margin-bottom: 5px;">
+				<span jwcid="@If" condition="ognl:label != null" renderTag="false">
+					<label class="medium" id="dateLabel" jwcid="@FieldLabel" field="component:dayDateYear" />
+				</span>
+				<!-- <input style="margin-left: 2px;" type="text" 
+					jwcid="dayDateYear@TextField"
+					value="ognl:date" 
+					displayName="ognl:label" 
+					onclick="$(this).datepicker({ dateFormat: 'dd-mm-yy', showOn: 'button' }); return false;" /> --> 
+					<!-- onchange="this.value=formatDate(this);" /> -->
+<!-- 				<input style="margin-left: 2px;"  -->
+<!-- 					jwcid="dayDateYear@DatePicker"  -->
+<!-- 					value="ognl:date"  -->
+<!-- 					translator="translator:date,pattern=dd-MM-yyyy" -->
+<!-- 					displayName="ognl:label" /> -->
+					<input style="margin-left: 2px;" 
+					jwcid="dayDateYear@DatePicker" 
+					value="ognl:date" 
+					translator="translator:date,pattern=dd-MM-yyyy"
+					readonly="true"
+					displayName="ognl:label" />
+			</div>
+			
+			<div id="timeInput" style="float: left;">	
+				<label id="hourLabel" style="width: 50px" jwcid="@FieldLabel" field="component:hourPicker" />
+				<input id="hourPicker" style="float: left; width: 20px;" type="text" 
+					jwcid="hourPicker@TextField" 
+					value="ognl:hour" 
+					displayName="literal:Hour"/>
+	
+				<label id="minutesLabel" style="width: 50px" jwcid="@FieldLabel" field="component:minutesPicker" />
+				<input id="minutesPicker" style="float: left; width: 20px;" type="text" 
+					jwcid="minutesPicker@TextField" 
+					value="ognl:minutes" 
+					displayName="literal:Minutes" />
+				
+				<label id="secondsLabel" style="width: 50px" jwcid="@FieldLabel" field="component:secondsPicker" />
+				<input id="secondsPicker" style="float: left; width: 20px;" type="text" 
+					jwcid="secondsPicker@TextField" 
+					value="ognl:seconds" 
+					displayName="literal:Seconds" />
+			</div>
+	</div>
+	
+</span>

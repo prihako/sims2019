@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+	<!-- Camel -->
+	<camelContext xmlns="http://camel.apache.org/schema/spring">
+		<propertyPlaceholder id="properties" location="ref:configuration" />
+
+		<routeBuilder ref="logicRouteBuilder" />
+
+		<threadPoolProfile id="defaultProfile" defaultProfile="true"
+			poolSize="{{camel_threadpool.size}}" maxPoolSize="{{camel_threadpool.max_size}}" />
+	</camelContext>
+
+	<bean id="logicRouteBuilder" class="id.co.sigma.mx.route.LogicRouteBuilder"
+		p:logicName="epayment" p:dataConditioner-ref="conditioner"
+		p:beanExecutor-ref="beanExecutor" />
+
+	<!-- Conditioner -->
+	<bean id="conditioner" class="id.co.sigma.mx.env.conditioning.DataConditionerImpl"
+		p:dataResolver-ref="dataResolver" p:dao-ref="dataConditioningDao" />
+
+	<bean id="dataResolver" class="id.co.sigma.mx.message.DataResolverImpl" />
+
+
+	<!-- Bean executor -->
+	<bean id="beanExecutor" class="id.co.sigma.mx.env.BeanExecutor"
+		p:dataResolver-ref="dataResolver" p:mappingDao-ref="mappingDao" />
+
+	<!-- ActiveMQ component -->
+	<bean id="activemq" class="org.apache.camel.component.jms.JmsComponent"
+		p:configuration-ref="jmsConfig" />
+
+	<bean id="jmsConfig" class="org.apache.camel.component.jms.JmsConfiguration"
+		p:connectionFactory-ref="jmsConnectionFactory" p:transacted="false"
+		p:concurrentConsumers="${mq.concurrent_consumers}" />
+
+<!-- 
+	<bean id="jmsConnectionFactory"
+		class="org.springframework.jms.connection.CachingConnectionFactory"
+		p:targetConnectionFactory-ref="nakedConnectionFactory"
+		p:sessionCacheSize="${mq.session_cache_size}" />  -->
+
+	<bean id="jmsConnectionFactory" class="org.apache.activemq.pool.PooledConnectionFactory"
+		p:maxConnections="${mq.max_connections}" p:maximumActive="${mq.max_active}"
+		p:connectionFactory-ref="nakedConnectionFactory" />
+
+	<bean id="nakedConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory"
+		p:brokerURL="${mq.broker_url}" p:useAsyncSend="true"
+		p:copyMessageOnSend="false" p:prefetchPolicy-ref="prefetchPolicy" />
+	
+	<!-- 	Defaultnya p:queuePrefetch="1000"  -->
+	<bean id="prefetchPolicy" class="org.apache.activemq.ActiveMQPrefetchPolicy" 
+		p:queuePrefetch="1" />
+		
+	<bean id="transactionType" class="id.co.sigma.mx.project.epayment.TransactionType" 
+		p:reor="${reor}" p:skor="${skor}" p:billing="${billing}" p:perangkat="${perangkat}"
+		p:unar="${unar}" p:iar="${iar}" p:ikrap="${ikrap}" p:pap="${pap}" p:klbsi="${klbsi}" />
+		
+</beans>

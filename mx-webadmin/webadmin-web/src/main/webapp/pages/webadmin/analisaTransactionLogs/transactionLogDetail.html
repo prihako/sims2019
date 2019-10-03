@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html jwcid="@Shell" title="message:webapp.title">
+<head>
+<script type="text/javascript" src="scripts/jquery-1.8.3.min.js"></script>
+<script type="text/javascript"
+	src="scripts/jquery-ui-1.9.2.custom.min.js"></script>
+<script type="text/javascript" src="scripts/mayora/tools.js"></script>
+
+<link rel="stylesheet"
+	href="styles/style-Kominfo/jquery-ui-1.10.0.custom.css" type="text/css" />
+<script>
+	$(document).ready(function() {
+	});
+</script>
+<style>
+
+
+tab1,td,tr {
+	border-style: solid;
+	border-width: 1px;
+	border-color: grey;
+}
+</style>
+</head>
+<body jwcid="@Body">
+	<div id="outer" style="height: 50%">
+
+		<form jwcid="myForm@Form" delegate="ognl:beans.delegate"
+			clientValidationEnabled="ognl:true">
+
+			<!-- 			<div id="title"> -->
+			<!-- 				<span key="masterMaintenance.ipsfr.license.title"></span> -->
+			<!-- 			<span jwcid="notFirstLoad@Hidden" value="ognl:notFirstLoad"></span> -->
+			<!-- 			</div> -->
+
+			<!-- 			<div id="title"> -->
+			<!-- 				<span key="analisaTxLog.title"></span> -->
+			<!-- 			</div> -->
+			<table width="45%" class="uniform" id="tab1">
+				<tr>
+					<td><input type="submit" class="btn" jwcid="@Submit"
+						action="listener:doBack" value="Kembali" /></td>
+				</tr>
+
+				<tr height="5px">
+					<td><span jwcid="@Insert" value="ognl:rawDate" /></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr height="5px">
+					<td><label>companyCode</label></td>
+					<td>=</td>
+					<td><span jwcid="@Insert" type="text"
+						value="ognl:rawCompanyCode" /></td>
+				</tr>
+				<tr height="5px">
+					<td><label>transactionCode</label></td>
+					<td>=</td>
+					<td><span jwcid="@Insert" type="text"
+						value="ognl:rawTransactionCode" /></td>
+				</tr>
+				<tr height="5px">
+					<td><label>transactionType</label></td>
+					<td>=</td>
+					<td><span jwcid="@Insert" type="text"
+						value="ognl:rawTransactionType" /></td>
+				</tr>
+
+				<tr height="5px">
+					<td><label>routeId</label></td>
+					<td>=</td>
+					<td><span jwcid="@Insert" type="text" value="ognl:rawRouteId" /></td>
+				</tr>
+				<tr height="5px">
+					<td><label>clientName</label></td>
+					<td>=</td>
+					<td><span jwcid="@Insert" type="text"
+						value="ognl:rawClientName" /></td>
+				</tr>
+				<tr height="5px">
+					<td><label>clientId</label></td>
+					<td>=</td>
+					<td><span jwcid="@Insert" type="text" value="ognl:rawClientID" /></td>
+				</tr>
+
+
+				<tr height="5px">
+					<td><label>invoiceNumber</label></td>
+					<td>=</td>
+					<td><span jwcid="@Insert" type="text"
+						value="ognl:rawInvoiceNo" /></td>
+				</tr>
+
+
+
+
+				<tr height="5px">
+					<td><label>periodBegin</label></td>
+					<td>=</td>
+					<td><span jwcid="@Insert" type="text"
+						value="ognl:rawPeriodBegin" /></td>
+				</tr>
+				<tr height="5px">
+					<td><label>periodEnd</label></td>
+					<td>=</td>
+					<td><span jwcid="@Insert" type="text"
+						value="ognl:rawPeriodEnd" /></td>
+				</tr>
+
+				<tr height="5px">
+					<td><label>transactionDate</label></td>
+					<td>=</td>
+					<td><span jwcid="@Insert" type="text"
+						value="ognl:rawTransactionDate" /></td>
+				</tr>
+				<tr height="5px">
+					<td><label>transactionTime</label></td>
+					<td>=</td>
+					<td><span jwcid="@Insert" type="text"
+						value="ognl:rawTransactionTime" /></td>
+				</tr>
+				<tr height="5px">
+					<td><label>amountTransaction</label></td>
+					<td>=</td>
+					<td><span jwcid="@Insert" type="text"
+						value="ognl:rawAmountTransaction" /></td>
+				</tr>
+				<tr height="5px">
+					<td><label>currencyCodeTransaction</label></td>
+					<td>=</td>
+					<td><span jwcid="@Insert" type="text"
+						value="ognl:rawCurrencyCodeTransaction" /></td>
+				</tr>
+				<tr height="5px">
+					<td><label>responseCode</label></td>
+					<td>=</td>
+					<td><span jwcid="@Insert" type="text"
+						value="ognl:rawResponseCode" /></td>
+				</tr>
+				<tr height="5px">
+					<td><label>channelID</label></td>
+					<td>=</td>
+					<td><span jwcid="@Insert" type="text"
+						value="ognl:rawChannelID" /></td>
+				</tr>
+				<tr height="5px">
+					<td><label>channelCode</label></td>
+					<td>=</td>
+					<td><span jwcid="@Insert" type="text"
+						value="ognl:rawChannelCode" /></td>
+				</tr>
+				<tr height="5px">
+					<td><label>transactionId</label></td>
+					<td>=</td>
+					<td><span jwcid="@Insert" type="text"
+						value="ognl:rawTransactionId" /></td>
+				</tr>
+
+				<tr>
+					<td><input type="submit" class="btn" jwcid="@Submit"
+						action="listener:doBack" value="Kembali" /></td>
+				</tr>
+
+
+			</table>
+
+		</form>
+	</div>
+</body>
+</html>

@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+
+	<!-- ini untuk keperluan test applikasi keseluruhan -->
+	<bean id="filterChainProxy" class="org.acegisecurity.util.FilterChainProxy">
+		<property name="filterInvocationDefinitionSource">
+			<value>
+				CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
+				PATTERN_TYPE_APACHE_ANT
+				/**=requestFilter,concurrentSessionFilter,httpSessionContextIntegrationFilter,logoutFilter,authenticationProcessingFilter,securityContextHolderAwareRequestFilter,anonymousProcessingFilter,exceptionTranslationFilter,filterInvocationInterceptor
+			</value>
+		</property>
+	</bean>
+	
+	<!-- Ini untuk keperluan test per page / *.html -->
+	<!-- <bean id="filterChainProxy" class="org.acegisecurity.util.FilterChainProxy">
+		<property name="filterInvocationDefinitionSource"><value>
+				CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
+				PATTERN_TYPE_APACHE_ANT
+				filter=none
+				</value></property>
+	</bean> -->
+
+	<bean id="requestFilter" class="com.balicamp.webapp.filter.RequestFilter">
+		<property name="systemParameterManager" ref="systemParameterManager" />
+	</bean>
+	
+	<bean id="httpSessionContextIntegrationFilter" class="org.acegisecurity.context.HttpSessionContextIntegrationFilter"/>   
+
+    <bean id="logoutFilter" class="org.acegisecurity.ui.logout.LogoutFilter">
+        <constructor-arg value="/afterLogout.html"/> <!-- URL redirected to after logout -->
+        <constructor-arg>
+            <list>
+                <bean class="org.acegisecurity.ui.logout.SecurityContextLogoutHandler"/>
+            </list>
+        </constructor-arg>
+        <property name="filterProcessesUrl" value="/logout.jsp"/>
+    </bean>
+
+	<bean id="authenticationProcessingFilter"
+		class="com.balicamp.service.impl.security.acegi.AuthenticationProcessingFilter">
+		<property name="authenticationManager" ref="authenticationManager" />
+		<property name="authenticationFailureUrl"
+			value="/login.jsp?loginMessage=loginStatus.fail.invalidUserNameOrPassword" />
+		<property name="defaultTargetUrl" value="/main.html" />
+		<property name="alwaysUseDefaultTargetUrl" value="true" />
+		<property name="filterProcessesUrl" value="/j_acegi_security_check" />
+		<property name="userManager" ref="userManager" />
+		<property name="systemParameterManager" ref="systemParameterManager" />
+		<property name="sessionRegistry" ref="sessionRegistry" />
+		<property name="exceptionMappings">
+			<props>
+				<prop key="com.balicamp.exception.UserBlockException">/login.jsp?loginMessage=loginStatus.fail.userBlock
+				</prop>
+				<prop key="com.balicamp.exception.UserBlockAdminException">/login.jsp?loginMessage=loginStatus.fail.userBlockAdmin
+				</prop>
+				<prop key="com.balicamp.exception.UserResetException">/login.jsp?loginMessage=loginStatus.fail.userReset
+				</prop>
+				<prop key="org.acegisecurity.concurrent.ConcurrentLoginException">/login.jsp?loginMessage=loginStatus.fail.concurrentLogin
+				</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="securityContextHolderAwareRequestFilter"
+		class="org.acegisecurity.wrapper.SecurityContextHolderAwareRequestFilter" />
+
+	<bean id="anonymousProcessingFilter"
+		class="org.acegisecurity.providers.anonymous.AnonymousProcessingFilter">
+		<property name="key" value="anonymous" />
+		<property name="userAttribute" value="anonymous,ROLE_ANONYMOUS" />
+	</bean>
+
+	<bean id="exceptionTranslationFilter" class="org.acegisecurity.ui.ExceptionTranslationFilter">
+		<property name="authenticationEntryPoint">
+			<bean
+				class="org.acegisecurity.ui.webapp.AuthenticationProcessingFilterEntryPoint">
+				<property name="loginFormUrl" value="/logoutRedirect.jsp" />
+				<property name="forceHttps" value="false" />
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="filterInvocationInterceptor"
+		class="org.acegisecurity.intercept.web.FilterSecurityInterceptor">
+		<property name="authenticationManager" ref="authenticationManager" />
+		<property name="accessDecisionManager" ref="accessDecisionManager" />
+		<property name="objectDefinitionSource" ref="urlDefinition" />
+	</bean>
+
+	<bean id="urlDefinition"
+		class="com.balicamp.service.impl.security.acegi.UrlDefinition">
+		<constructor-arg ref="functionManager" />
+		<constructor-arg>
+			<value>
+				main;loginHeader;leftMenu;header;footer;right;left;welcome;eula;reset;ShowPopUpHelp;portalLink;waitSendJms;infoPage;exceptionPage;staleSessionPage;newPasswordAdminChange;waitSlowPage
+			</value>
+		</constructor-arg>
+	</bean>
+
+	<bean id="accessDecisionManager" class="org.acegisecurity.vote.AffirmativeBased">
+		<property name="allowIfAllAbstainDecisions" value="false" />
+		<property name="decisionVoters">
+			<list>
+				<bean class="org.acegisecurity.vote.RoleVoter">
+					<property name="rolePrefix" value="" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="daoAuthenticationProvider"
+		class="com.balicamp.service.impl.security.acegi.DaoAuthenticationProvider">
+		<property name="passwordEncoder" ref="passwordEncoder" />
+		<property name="saltSource" ref="saltSource" />
+	</bean>
+
+	<bean id="anonymousAuthenticationProvider"
+		class="org.acegisecurity.providers.anonymous.AnonymousAuthenticationProvider">
+		<property name="key" value="anonymous" />
+	</bean>
+
+	
+
+	<!-- This bean is optional; it isn't used by any other bean as it only listens and logs -->
+	<bean id="loggerListener" class="org.acegisecurity.event.authentication.LoggerListener" />
+
+	<!-- SSL Switching: to use this, configure it in the filterChainProxy bean -->
+	<bean id="channelProcessingFilter" class="org.acegisecurity.securechannel.ChannelProcessingFilter">
+		<property name="channelDecisionManager" ref="channelDecisionManager" />
+		<property name="filterInvocationDefinitionSource">
+			<value>
+				PATTERN_TYPE_APACHE_ANT
+				/**=REQUIRES_SECURE_CHANNEL
+			</value>
+		</property>
+	</bean>
+
+	<bean id="channelDecisionManager"
+		class="org.acegisecurity.securechannel.ChannelDecisionManagerImpl">
+		<property name="channelProcessors">
+			<list>
+				<bean class="org.acegisecurity.securechannel.SecureChannelProcessor" />
+				<bean class="org.acegisecurity.securechannel.InsecureChannelProcessor" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- BEGIN: Concurrent Session Handling, Old Session Will Be Expired If 
+		New Session If Registered -->
+	<bean id="concurrentSessionFilter" class="org.acegisecurity.concurrent.ConcurrentSessionFilter">
+		<property name="sessionRegistry" ref="sessionRegistry" />
+		<property name="expiredUrl" value="/main.html" />
+	</bean>
+
+	<!-- ################ Configuration Acegi Concurrent Login ################ -->
+	<!-- First step implementation bean to our security context -->
+	<bean id="sessionRegistry" class="org.acegisecurity.concurrent.SessionRegistryImpl" />
+	
+	<!-- Next step Define the org.acegisecurity.concurrent.SessionController bean -->
+	<bean id="concurrentSessionController"
+		class="org.acegisecurity.concurrent.ConcurrentSessionControllerImpl">
+		<property name="maximumSessions" value="1" />
+		<property name="sessionRegistry" ref="sessionRegistry" />
+		<property name="exceptionIfMaximumExceeded" value="true" />
+	</bean>
+	
+	<!-- Last step is to add sessionController property to your ProviderManager bean: -->
+	<bean id="authenticationManager" class="org.acegisecurity.providers.ProviderManager">
+		<property name="providers">
+			<list>
+				<ref local="daoAuthenticationProvider" />
+				<ref local="anonymousAuthenticationProvider" />
+			</list>
+		</property>
+		<property name="sessionController" ref="concurrentSessionController" />
+	</bean>
+</beans>

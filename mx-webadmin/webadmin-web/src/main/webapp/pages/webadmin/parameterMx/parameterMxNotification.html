@@ -1,0 +1,46 @@
+<html jwcid="@Shell" title="message:webapp.title">
+<head>
+<title><span key="webapp.title"> </span></title>
+</head>
+<body jwcid="@Body">
+	<div id="outer">
+		<form jwcid="transactionEntryConfirm@Form"
+			delegate="ognl:beans.delegate">
+			<div id="title">
+				<span key="paramMx.update.success"/>
+			</div>
+			<table width="99%" jwcid="@contrib:TableView"
+				pageSize="ognl:pageSize" source="ognl:tableModel"
+				columns="literal:descriptions:Descriptions:descriptions">
+				<tr>
+					<td align="right"><span jwcid="@TablePages" /></td>
+				</tr>
+				<tr>
+					<td align="center">
+						<div style="overflow: auto">
+							<table width="99%" class="data">
+								<tr class="headerRow">
+									<span jwcid="@contrib:TableColumns"
+										arrowUpAsset="ognl:assets.upArrow"
+										arrowDownAsset="ognl:assets.downArrow" />
+								</tr>
+								<tr jwcid="tableRows@contrib:TableRows" row="ognl:paramMx"
+									class="ognl:beans.evenOdd.next">
+									<td width="10%"
+										class="left" style="min-width: 100px"><span
+										jwcid="@Insert" value="ognl:paramMx.descriptions" /></td>
+								</tr>
+							</table>
+						</div>
+					</td>
+				</tr>
+			</table>
+			<div class="button">
+				<input  type="button"  class="btn" 
+					value="Kembali"
+					onclick="return window.history.back();" />
+			</div>
+		</form>
+	</div>
+</body>
+</html>

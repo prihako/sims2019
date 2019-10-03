@@ -1,0 +1,16 @@
+<html jwcid="@Shell" title="message:webapp.title">
+<body jwcid="@Body">
+	<form jwcid="notFound@Form">
+		<div id="msgNotFound">
+			<p>
+				Message Logs <b><span jwcid="@Insert" value="ognl:msg" /></b> Tidak Ditemukan.
+			</p>
+		</div>
+		<div id="button">
+			<input class="btn" type="button" jwcid="@Submit"
+				listener="listener:onSubmit" value="Kembali" />
+		</div>
+	</form>
+	<br />
+</body>
+</html>

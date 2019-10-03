@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE component-specification PUBLIC
+  "-//Apache Software Foundation//Tapestry Specification 4.0//EN"
+  "http://jakarta.apache.org/tapestry/dtd/Tapestry_4_0.dtd">
+
+<component-specification allow-body="no" class="com.balicamp.webapp.tapestry.component.InsertTimeStamp">
+    <description>
+    	This compononent used as special Insert
+        customized component to exhibit time in 
+        certain date format        
+    </description>
+    
+    <parameter name="value" required="yes">
+        <description>
+			set the date value to be formatted
+            caution, please input date object
+        </description>
+    </parameter>    
+    
+    <parameter name="type" required="no" default-value="literal:date">
+        <description>
+			set the date value to be formatted
+            as date, time, or date time
+        </description>
+    </parameter>    
+    
+    <parameter name="format" required="no" default-value="literal:dd/MM/yyyy">
+        <description>
+			free format
+        </description>
+    </parameter>    
+</component-specification>

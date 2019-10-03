@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>
+    	<span key="webapp.title"> </span>&nbsp;
+    	<span key="updateRole.title">Ubah Role</span>
+    </title>
+    <script language="JavaScript"></script>
+</head>
+<span jwcid="@Shell" title="message:webapp.title">
+<body jwcid="@Body">
+<div id="outer">
+	<div id="title"><span key="updateRole.title.list" /></div>
+	<br />
+	<span jwcid="@ValidationErrorTop" delegate="ognl:beans.delegate" />
+	<form jwcid="searchForm@Form" delegate="ognl:beans.delegate" clientValidationEnabled="ognl:false">
+		<table class="uniform">
+			<tr jwcid="@Any" class="ognl:evenOddTable.next">
+				<td width="200px">
+					<label class="medium" jwcid="@FieldLabel" field="component:nameField" />
+				</td>
+				<td>
+					<input class="short" type="text" maxlength="30"
+						jwcid="nameField@TextField" 
+						value="ognl:searchRole.name"
+						translator="translator:stringUpper,trim=true"
+						displayName="message:addRole.name"
+					 />
+	            </td>
+			</tr>
+			<tr jwcid="@Any" class="ognl:evenOddTable.next">
+				<td width="200px"></td>
+				<td>
+					<input class="btn" type="button" jwcid="@Submit" listener="listener:onSearch" value="message:button.search" />
+	            </td>
+			</tr>
+		</table>
+		<!-- <div id="button">
+			<input class="btn" type="button" jwcid="@Submit" listener="listener:onSearch" value="message:button.search" />
+		</div> -->
+	</form>
+	
+    <form jwcid="@Form">
+	    <table width="99%" jwcid="@contrib:TableView" pageSize="ognl:pageSize" source="ognl:tableModel"
+	           columns="literal:roleName:addRole.name:roleName,
+                                roleDesc:addRole.description:roleDesc">
+	    	<tr>
+			    <td align="right"><span jwcid="@TablePages" /></td>
+			</tr>
+	    	<tr>
+	    		<td align="center">
+	            	<div style="overflow: auto">
+	                	<table width="99%" class="data">
+	                		<tr class="headerRow">
+	                			<th align="center"> <span jwcid="@CheckBoxSelectAll"/> </th>
+			                    <span jwcid="@contrib:TableColumns" arrowUpAsset="ognl:assets.upArrow" arrowDownAsset="ognl:assets.downArrow" />
+			                </tr> 
+			                <tr jwcid="@contrib:TableRows" row="ognl:loopObject" class="ognl:beans.evenOdd.next">                              
+								<td class="center" width="13%">
+									<input jwcid="@Checkbox" type="checkbox" value="ognl:loopObject.selected" class="noborder"/>
+									<span jwcid="@InvokeListener" listener="listener:checkSelect"/>
+								</td>
+								<td jwcid="roleName@TableColumn" width="37%">
+									<a jwcid="@DirectLink" listener="ognl:listeners.onViewDetail" parameters="ognl:loopObject.id">
+										<span jwcid="@Insert" value="ognl:loopObject.name"/>
+									</a>
+								</td>
+								<td jwcid="roleDesc@TableColumn" width="50%" class="left">
+									<span jwcid="@Insert" value="ognl:loopObject.description"/>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</td>
+			</tr>
+		</table>
+		<div class="button">
+			<input jwcid="@Submit" type="button" value="message:button.delete"  class="btn" action="listener:doDelete"/>
+		</div>
+	</form>
+</div>
+</body>
+</span>
+</html>

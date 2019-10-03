@@ -1,0 +1,31 @@
+<span jwcid="$content$">
+<table width="99%" align="right">
+<div id="page">
+    <ul>
+        <li class="clear">
+            <span jwcid="@Insert"
+                  value="ognl:messages.format('common.label.pagingLink.pageInfo', currentPage, pageCount)">
+                Page of 4 of 6
+            </span>
+        </li>
+            <!--disable or enable button-->
+            <span jwcid="@If" condition='ognl:condBack'>
+                <li><a href="#" jwcid="linkBack"><span key="common.label.pagingLink.prevSeal">Prev</span></a></li>
+            </span>
+            <span jwcid="@Else">
+                <li class="pg-disable"><a href="#"><span key="common.label.pagingLink.prevSeal">Prev</span></a></li>
+            </span>
+        <span jwcid="iterPage">
+			<li><a href="#" jwcid="linkPage"><span jwcid="insertOtherPage"/></a></li>
+		</span>
+            <!--disable or enable button-->
+            <span jwcid="@If" condition='ognl:condFwd'>
+                <li><a href="#" jwcid="linkFwd"><span key="common.label.pagingLink.nextSeal">Next</span></a></li>
+            </span>
+            <span jwcid="@Else">
+                <li class="pg-disable"><a href="#"><span key="common.label.pagingLink.nextSeal">Next</span></a></li>
+            </span>
+    </ul>
+</div>
+</table>
+</span>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xsi:schemaLocation="
+  	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+  	http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+  	http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+
+	<!-- MX Communicator -->
+	<bean id="communicator"
+		class="id.co.sigma.mx.channel.message.WsService"
+		p:endpointCode="${endpoint_code}" p:endpointStatusManager-ref="endpointStatusManager" 
+		p:httpUrlREORInquiry="${http_url_reor01}" >
+		<property name="messageListeners">
+			<list>
+				<ref bean="incomingMessageListener" />
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="wsTranslator" class="id.co.sigma.mx.channel.message.WsTranslator"
+		p:stanGenerator-ref="stanGenerator" />
+		
+	<bean id="codec" class="id.co.sigma.mx.channel.message.WsCodec" />	
+</beans>

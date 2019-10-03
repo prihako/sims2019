@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE component-specification PUBLIC
+  "-//Apache Software Foundation//Tapestry Specification 4.0//EN"
+  "http://jakarta.apache.org/tapestry/dtd/Tapestry_4_0.dtd">
+
+<component-specification allow-body="no" class="com.balicamp.webapp.tapestry.component.InsertMoney">
+    <description>
+    	This compononent used as special Insert
+        customized component to exhibit number in
+        certain money format
+    </description>
+
+    <parameter name="value" required="yes">
+        <description>
+			set the value to be formatted
+        </description>
+    </parameter>
+
+    <parameter name="decimalFlag" required="no" default-value="ognl:defaultDecimalFlag">
+        <description>
+			Decimal used or not used
+        </description>
+    </parameter>
+</component-specification>

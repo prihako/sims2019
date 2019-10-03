@@ -1,0 +1,45 @@
+<!-- <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> -->
+<html jwcid="@Shell" title="message:webapp.title">
+
+<head>
+	<script src="scripts/jquery-1.8.3.min.js"></script>
+	<script src="scripts/jquery-ui-1.10.0.custom.min.js"></script>
+	<script src="scripts/mayora/tools.js"></script>
+	<link rel="stylesheet"
+		href="styles/style-Kominfo/jquery-ui-1.10.0.custom.css" type="text/css" />
+</head>
+
+<body jwcid="@Body">
+	<div id="outer" width="100%">
+	
+		<form jwcid="@Form" delegate="ognl:beans.delegate" clientValidationEnabled="ognl:true" refresh='listener:refresh'>
+         	
+         	<div id="title">
+		    	<span key="downloadPage.usermanual.title"></span>
+		   	</div>
+		   	
+		   	<table class="uniform" >
+				
+				<tr>
+					<td><label class="medium"><span key="downloadPage.usermanual.file">
+						Download User Manual</span></label>
+					</td>
+					<td>
+						<a href="" jwcid="@LinkSubmit" listener="listener:doDownload">
+							<span key="downloadPage.usermanual.documentName"/>
+						</a>
+					</td>
+				</tr>
+				
+			</table>
+		   	
+		   	<span jwcid="errorShadow@TextField" autocomplete="off" value="ognl:errorValue" style="display:none"></span>
+			<span jwcid="@If" condition="ognl:delegate.hasErrors">    
+				<script>alert('<span jwcid="@Delegator" delegate="ognl:delegate.firstError">Error Message</span>');</script>
+			</span>
+			
+		</form>
+		
+	</div>
+</body>
+</html>

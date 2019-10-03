@@ -1,0 +1,28 @@
+<html jwcid="@Shell" title="message:webapp.title">
+
+
+<body jwcid="@Body">
+<div id="outer">
+	<form  jwcid="mainForm@Form" delegate="ognl:beans.delegate" clientValidationEnabled="ognl:true">
+		<div id="title">
+	    	<span key="daftarReport.listReport.title"/>
+	   	</div>
+		<br/>
+	    <span jwcid="@ValidationErrorTop" delegate="ognl:beans.delegate" />
+	    
+		<span jwcid="grid@BaseCustomComponent"
+			initFilter="ReportModel:$aktif:eq:BOOLEAN:true"
+			strFilter="kodeReport:reportModel.$kodeReport:like:STRING:Kode Report|namaReport:reportModel.$namaReport:like:STRING:Nama Report"
+			columns="kodeReport:Kode Report:kodeReport,namaReport:Nama Report:namaReport"
+			gridData="ognl:gridData"	
+			gridRowCount="ognl:gridRowCount"			
+			gridActionButtonLabel="Generate"
+			filterCriteria="ognl:filterCriteria"		
+			gridActionButtonListener="ognl:gridActionButtonListener"	>
+		</span>
+		<br/>
+		
+	    
+	</form>
+</body>
+</html>

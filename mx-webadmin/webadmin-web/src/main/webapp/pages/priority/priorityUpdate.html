@@ -1,0 +1,97 @@
+<html jwcid="@Shell" title="message:webapp.title">
+<body jwcid="@Body">
+	<div id="outer">
+		<span jwcid="@ValidationErrorTop" delegate="ognl:beans.delegate" />
+
+		<form jwcid="priorityUpdate@Form" delegate="ognl:beans.delegate"
+			clientValidationEnabled="ognl:true">
+			<div id="title">
+				<span jwcid="@Insert" value="ognl:getText('priority.title.update')"
+					renderTag="false" />
+			</div>
+			
+			<div id="berita">
+				<span jwcid="@Insert" value="ognl:errormsg" />
+			</div>
+
+			<table width="100%" class="uniform">
+				<tr>
+					<td colspan="2">
+						<h2>
+							<span> Silahkan ubah priority routing:</span>
+						</h2>
+					</td>
+				</tr>
+				<!-- transaction code -->
+				<tr jwcid="@Any" class="ognl:evenOddTable.next">
+					<td><span jwcid="@Insert" value="ognl:getText('priority.label.transactionCode')"
+					renderTag="false" /></td>
+					<td><select jwcid="transactionCodeModel@PropertySelection"
+						model="ognl:getTransactionCodeModel()" value="ognl:transactionCodeTr" /></td>
+				</tr>
+				
+				<!-- project code -->
+				<tr>
+					<td><span jwcid="@Insert" value="ognl:getText('priority.label.projectCode')"
+					renderTag="false" /></td>
+					<td><select jwcid="projectCodeModel@PropertySelection"
+						model="ognl:getProjectCodeModel()" value="ognl:projectCodeTr" /></td>
+				</tr>
+
+				<!-- description -->
+				<tr>
+					<td><span jwcid="@Insert"
+						value="ognl:getText('priority.label.description')"
+						renderTag="false" /></td>
+					<td><input maxlength="200" jwcid="description@TextField"
+						value="ognl:description" /></td>
+				</tr>
+
+				<!-- product code -->
+				<tr>
+					<td><span jwcid="@Insert"
+						value="ognl:getText('priority.label.productCode')"
+						renderTag="false" /></td>
+					<td><input maxlength="20" jwcid="productCode@TextField"
+						value="ognl:productCode" /></td>
+				</tr>
+				
+				<!-- product code ext -->
+				<tr>
+					<td><span jwcid="@Insert"
+						value="ognl:getText('priority.label.productCodeExt')"
+						renderTag="false" /></td>
+					<td><input maxlength="20" jwcid="productCodeExt@TextField"
+						value="ognl:productCodeExt" /></td>
+				</tr>
+
+				<!-- routing code -->
+				<tr>
+					<td><span jwcid="@Insert"
+						value="ognl:getText('priority.label.routingCode')"
+						renderTag="false" /></td>
+					<td><input maxlength="5" jwcid="routingCode@TextField"
+						value="ognl:routingCode" /></td>
+				</tr>
+				<!-- GL code -->
+				<tr>
+					<td><span jwcid="@Insert"
+						value="ognl:getText('priority.label.glCode')"
+						renderTag="false" /></td>
+					<td><input maxlength="5" jwcid="glCode@TextField"
+						value="ognl:glCode" /></td>
+				</tr>
+			</table>
+
+			<br />
+			<div class="button">
+				<input type="submit" jwcid="@Submit" class="btn100"
+					action="listener:doSubmit" value="message:button.continue" /> <input
+					type="button" class="btn100" jwcid="cancel@Any"
+					value="message:button.cancel"
+					onclick="location.href='priorityList.html'" />
+			</div>
+		</form>
+	</div>
+</body>
+</html>

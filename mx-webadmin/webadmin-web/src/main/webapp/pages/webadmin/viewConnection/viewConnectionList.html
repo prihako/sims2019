@@ -1,0 +1,38 @@
+<html jwcid="@Shell" title="message:webapp.title">
+<head>
+	<script type="text/javascript" src="scripts/swapvalues.js"></script>
+</head>
+<body jwcid="@Body">
+<div id="outer">
+	<form id="mainForm" jwcid="mainForm@Form" delegate="ognl:beans.delegate" clientValidationEnabled="ognl:true">
+		<div id="title">
+	    	<span key="crud.viewConnection"/>
+	   	</div>
+		<br/>
+	    <span jwcid="@ValidationErrorTop" delegate="ognl:beans.delegate" />
+	    
+	    
+	   <span jwcid="grid@BaseCustomComponent" 
+	   		initFilter="endpoints"
+			strFilter="code:endpoints.$code:eq:STRING:Kode Endpoint|name:endpoints.$name:like:STRING:Nama Endpoint" 
+			filterCriteria="ognl:filterCriteria"
+			columns="literal:code:Kode Endpoint:getCode(), name:Nama Endpoint:getName(), state:Status:getState()"
+			gridRowCount="ognl:gridRowCount"
+			gridData="ognl:gridData">
+		</span>
+		<br/>
+	</form>
+</div>
+<script type="text/javascript">
+	var allRows = document.getElementById('tableView').rows;
+	for ( var i = 0; i < allRows.length; i++) {
+		allRows[i].deleteCell(0);
+	}
+	
+	var lastRow = document.getElementById('tableView').rows.length -1;
+	var cell =document.getElementById('tableView').rows[lastRow].cells;
+	var cellLength = document.getElementById('tableView').rows[0].cells.length;
+	cell[0].colSpan=""+cellLength+"";
+</script>
+</body>
+</html>

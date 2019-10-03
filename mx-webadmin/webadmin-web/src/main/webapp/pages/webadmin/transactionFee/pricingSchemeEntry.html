@@ -1,0 +1,101 @@
+<html jwcid="@Shell" title="message:transactionFee.title">
+<script language="javascript" type="text/javascript"
+	src="scripts/common.js"></script>
+<body jwcid="@Body">
+	<div id="outer">
+		<span jwcid="@ValidationErrorTop" delegate="ognl:beans.delegate" />
+		<form jwcid="@Form" delegate="ognl:beans.delegate"
+			clientValidationEnabled="ognl:true">
+			<div id="title">
+				<span key="transactionFee.title" />
+			</div>
+			<div id="berita">
+				<span jwcid="@Insert" value="ognl:errormsg" />
+			</div>
+
+			<table class="uniform">
+				<tr jwcid="@Any" class="ognl:evenOddTable.next">
+					<td class="short"><span jwcid="@Insert"
+						value="ognl:getText('merchant.label.code')" renderTag="false" /></td>
+					<td><select jwcid="merchantGroupModel@PropertySelection"
+						model="ognl:getMerchantGroupModel()" value="ognl:merchantGroup" /></td>
+				</tr>
+				<tr jwcid="@Any" class="ognl:evenOddTable.next">
+					<td class="short"><span jwcid="@Insert"
+						value="ognl:getText('field.transactionFee.codeChannel')"
+						renderTag="false" /></td>
+					<td><select jwcid="channelCodeField@PropertySelection"
+						model="ognl:getChannelModel()" value="ognl:channel"
+						displayName="message:field.transactionFee.codeChannel"></select></td>
+				</tr>
+
+			</table>
+
+			<!--   </form>
+
+<form  jwcid="mainForm@Form" delegate="ognl:beans.delegate" clientValidationEnabled="ognl:true"> -->
+			<div id="box">
+				<table width="99%" jwcid="@contrib:TableView"
+					pageSize="ognl:pageSize" source="ognl:tableModel"
+					columns="literal:no:No:no,trxCode:Trx. Code:trxCode, trxName:Deskripsi:trxName, productCode:Product Code:productCode, fee:Fee/Harga:fee">
+					<tr>
+						<td align="right"><span jwcid="@TablePages" /></td>
+					</tr>
+					<tr>
+						<td align="center">
+							<div style="overflow: auto">
+								<table width="99%" class="data">
+									<tr class="headerRow">
+
+										<span jwcid="@contrib:TableColumns"
+											arrowUpAsset="ognl:assets.upArrow"
+											arrowDownAsset="ognl:assets.downArrow"  />
+									</tr>
+
+									<tr jwcid="tableRows@contrib:TableRows" row="ognl:loopObject"
+										class="ognl:beans.evenOdd.next">
+										<td class="center" "><span jwcid="@Insert"
+											value="ognl:loopObject.no" /></td>
+
+										<td ><span jwcid="@Insert"
+											value="ognl:loopObject.trxCode" /></td>
+
+										<td ><span jwcid="@Insert"
+											value="ognl:loopObject.trxName" /></td>
+
+										<td ><span jwcid="@Insert"
+											value="ognl:loopObject.productCode" /></td>
+
+										<td class="right"><span jwcid="fee@TextField"
+											validators="validators:required[%common.message.validation.required]"
+											translator="translator:string, trim=true"
+											value="ognl:loopObject.fee" disabled="ognl:stateFee" style="text-align:right" /> <span
+											jwcid="@InvokeListener" listener="listener:valueChanges" /></td>
+										<!-- 
+										<td width="5%" class="right" style="min-width: 100px"><span
+											jwcid="fee@TextField"
+											validators="validators:required[%common.message.validation.required]"
+											translator="translator:string, trim=true"
+											value="ognl:loopObject.fee" disabled="ognl:stateFee" /> <span
+											jwcid="@InvokeListener" listener="listener:valueChanges" /></td>
+											-->
+									</tr>
+								</table>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div class="button">
+				<input class="btn100" jwcid="@Submit" listener="listener:doSave"
+					value="message:button.save" type="button" /> 
+				<!-- 
+				<input class="btn100"
+					jwcid="@Submit" listener="listener:doReset"
+					value="message:button.reset" type="button" />
+				-->
+			</div>
+		</form>
+	</div>
+</body>
+</html>

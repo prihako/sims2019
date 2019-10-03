@@ -1,0 +1,124 @@
+<span jwcid="$content$">
+		<div id="box">
+			<table id="tableView" jwcid="tableView@contrib:TableView" source="ognl:tableModel"
+				columns="ognl:columns" pageSize="ognl:pageSize" class="data">
+				
+				<tr>
+					<td style="padding-left: 20px; border: 0;" colspan="9">
+						<span jwcid="@TablePages" />
+					</td>					
+				</tr>
+				
+				<tr class="headerRow">
+					 <span jwcid="@If" condition="ognl:selectorType != null" renderTag="false">
+						<span jwcid="@If" condition="ognl:selectorType eq 'checkbox'" renderTag="false">
+							<th align="center" width="10%" style="min-width: 30px"><span jwcid="@CheckBoxSelectAll" /></th>
+						</span>
+						<span jwcid="@Else" renderTag="false">
+							<th align="center" width="10%" style="min-width: 30px"><span jwcid="@Insert" value=""/></th>
+						</span>
+					</span>
+					
+					<span jwcid="@contrib:TableColumns"
+						arrowUpAsset="ognl:assets.upArrow"
+						arrowDownAsset="ognl:assets.downArrow">
+					</span>
+		         	
+					<span jwcid="@If" condition="ognl:additionalLinkListener != null" renderTag="false">
+						<th align="center" width="10%" style="min-width: 50px">
+							<table class="tableHeaderTable">
+								<tr>
+									<td>
+										<span jwcid="@Insert" value="ognl:additionalLinkHeaderLabel" ></span>
+									</td>
+								</tr>
+							</table>
+						</th>
+					</span>
+				</tr>
+				
+				<tr jwcid="tableRows@contrib:TableRows" row="ognl:tableRow" class="ognl:beans.evenOdd.next">
+				<!-- <input type="checkbox" id="ognl:tableRow.pKey" jwcid="@Checkbox" value="ognl:tableRow.selected" onclick="return selectedRow(this.id+'_hv');" class="noborder"/>
+				<input type="hidden" id="ognl:tableRow.pKey+'_hv'" jwcid="@Hidden" value="ognl:tableRow.pKey" encode="false"/> -->				        
+			      <span jwcid="@If" condition="ognl:selectorType != null" renderTag="false">
+			        <td class="center" width="10%" style="min-width: 30px">
+			        	<span jwcid="@If" condition="ognl:selectorType eq 'checkbox'" renderTag="false">
+							<input jwcid="@Checkbox" type="checkbox" value="ognl:tableRow.selected" class="noborder"/>
+				        	<span jwcid="@InvokeListener" listener="listener:checkSelect"/>
+				        </span>
+				        <span jwcid="@Else" condition="ognl:selectorType eq 'radiogroup'" renderTag="false">
+							<span jwcid="rgroup@RadioGroup" selected="ognl:tableRow.selected">
+								<input id="ognl:tableRow.pKey+'_radio'" 
+									type="radio" jwcid="@Radio" value="ognl:tableRow" 
+									onclick="return selectRadio(this);"/>
+								<span jwcid="@InvokeListener" listener="listener:checkSelect"/>
+							</span>
+				        </span>
+				     </td>
+					</span>
+		         	
+		         	<td width="10%" class="center" style="min-width: 150px">
+		         		<span jwcid="@Insert" value="ognl:tableRow.transactionId"/>
+		         	</td>		         	         	
+		         	<td width="15%" class="left" style="min-width: 200px">
+		         		<span jwcid="@Insert" value="ognl:tableRow.mappingName"/>
+		         	</td>		         	
+		         	<td width="10%" class="center" style="min-width: 50px">
+		         		<span jwcid="@Insert" value="ognl:tableRow.endpointCode"/>
+		         	</td>		         	
+		         	<td width="10%" class="center" style="min-width: 120px">
+		         		<span jwcid="@Insert" value="ognl:tableRow.formatedTransDate"/>
+		         	</td>		         	
+		         	<td width="10%" class="center" style="min-width: 30px">
+		         		<span jwcid="@Insert" value="ognl:tableRow.rc"/>
+		         	</td>		         	
+		         	<td width="15%" class="left" style="min-width: 150px">
+		         		<span jwcid="@Insert" value="ognl:tableRow.rcDesc"/>
+		         		<span jwcid="raw@Hidden" value="ognl:tableRow.raw" />
+		         	</td>
+					
+					<!-- <td jwcid="@contrib:TableValues" column="ognl:tableRow"></td> -->
+										
+					<span jwcid="@If" condition="ognl:additionalLinkListener != null" renderTag="false">
+						<td class="center" width="10%" style="min-width: 50px">
+							<span jwcid="@If" condition="ognl:additionalLinkType eq 'button'" renderTag="false">
+								<span jwcid="@DirectLink" listener="ognl:additionalLinkListener" parameters="ognl:tableRow.pKey" >
+									<span jwcid="@Button"><span jwcid="@Insert" value="ognl:getPropertyValueForAdditionalLinkLabel()"></span></span>
+								</span>
+							</span>
+							<span jwcid="@Else" renderTag="false">
+								<span jwcid="@DirectLink" listener="ognl:additionalLinkListener" parameters="ognl:tableRow.pKey" >
+									<span jwcid="@Insert" value="ognl:getPropertyValueForAdditionalLinkLabel()" />
+								</span>
+							</span>
+						</td>
+					</span>					
+				</tr>
+				
+				<!-- <tr>
+					<td style="padding-left: 20px; border: 0;" colspan="9">
+						<span jwcid="@If" condition="ognl:gridActionButtonListener != null" renderTag="false">
+							<input class="btn" type="button" jwcid="@Submit" listener="listener:doAction" value="ognl:gridActionButtonLabel" />
+						</span>
+					</td>
+					 <td align="right" colspan="7" ><span jwcid="@TablePages" /></td>
+					<td align="right" style="border: 0"><span jwcid="tablePages@contrib:TablePages" /></td>
+				</tr> -->
+			</table>
+		</div>		
+			
+		<div id="button">
+			<span jwcid="@If" condition="ognl:gridActionButtonListener != null" renderTag="false">
+				<input class="btn" type="button" jwcid="@Submit" listener="listener:doAction" value="ognl:gridActionButtonLabel" />
+			</span>
+		</div>
+	<script type="text/javascript">
+		function adjustSpan() {
+			var lastRow = document.getElementById('tableView').rows.length - 1;
+			var cell =document.getElementById('tableView').rows[lastRow].cells;
+			var cellLength = document.getElementById('tableView').rows[0].cells.length;
+			cell[0].colSpan=""+cellLength - 1+"";
+		}
+		adjustSpan();
+	</script>
+</span>

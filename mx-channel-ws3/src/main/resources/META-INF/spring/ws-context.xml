@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:jaxrs="http://cxf.apache.org/jaxrs" xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xsi:schemaLocation="
+  	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd
+	http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+
+	<import resource="classpath:META-INF/cxf/cxf.xml" />
+	<import resource="classpath:META-INF/cxf/osgi/cxf-extension-osgi.xml" />
+
+	<!-- All service will be started from this context -->
+	<!-- <jaxrs:server id="wsChannelServer" address="/mx">
+		<jaxrs:serviceBeans>
+			<ref bean="channel" />
+		</jaxrs:serviceBeans>
+		<jaxrs:extensionMappings>
+			<entry key="xml" value="application/xml" />
+			<entry key="json" value="application/json" />
+		</jaxrs:extensionMappings>
+	</jaxrs:server> -->
+
+	<!-- Exposing the Order service as a SOAP service. The address is the address 
+		of WSDL -->
+	<jaxws:endpoint implementor="#channel" address="/webservice-bri"
+		serviceName="s:WebServiceBriChannel" xmlns:s="http://ws.channel.mx.sigma.co.id/" />
+
+</beans>

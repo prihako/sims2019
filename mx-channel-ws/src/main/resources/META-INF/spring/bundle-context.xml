@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="
+  	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+  	http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+	<!-- Camel -->
+	<camelContext xmlns="http://camel.apache.org/schema/spring">
+		<propertyPlaceholder id="properties" location="ref:configuration" />
+
+		<routeBuilder ref="endpointRouteBuilder" />
+
+		<threadPoolProfile id="defaultProfile"
+			defaultProfile="true" poolSize="{{camel_threadpool.size}}"
+			maxPoolSize="{{camel_threadpool.max_size}}" />
+	</camelContext>
+
+	<bean id="endpointRouteBuilder" class="id.co.sigma.mx.route.CommonEndpointRouteBuilder"
+		p:endpointCode="${endpoint_code}" p:interMessageController-ref="interMessageController"
+		p:commonPropertySetter-ref="commonPropertySetter" p:channel="true" />
+
+	<bean id="incomingMessageListener" class="id.co.sigma.mx.transport.IncomingMessageListener"
+		p:connectionFactory-ref="jmsConnectionFactory" p:queueName="sigma.mx.${endpoint_code}.goInside" />
+
+	<bean id="noErrorHandler" class="org.apache.camel.builder.NoErrorHandlerBuilder" />
+
+	<bean id="interMessageController" class="id.co.sigma.mx.message.InterMessageController"
+		p:endpoint="${endpoint_code}" p:translator-ref="wsTranslator" p:transport-ref="channel"
+		p:producerTemplate-ref="producerTemplate">
+		<property name="conversionListeners">
+			<list>
+				<ref bean="messageLogWriter" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="producerTemplate" class="org.apache.camel.spring.CamelProducerTemplateFactoryBean" />
+
+	<bean id="wsTranslator" class="id.co.sigma.mx.channel.ws.WsTranslator"
+		p:sourceValueResolver-ref="dataResolver" p:mappingDao-ref="mappingDao" />
+
+	<bean id="messageLogWriter" class="id.co.sigma.mx.logic.logging.MessageLogWriter"
+		p:codec-ref="wsCodec" p:logDao-ref="logDao" />
+
+	<bean id="wsCodec" class="id.co.sigma.mx.channel.ws.WsCodec" />
+
+	<bean id="commonPropertySetter" class="id.co.sigma.mx.channel.ws.CommonPropertySetter" />
+
+	<bean id="channel" class="id.co.sigma.mx.channel.ws.ChannelImpl">
+		<property name="messageListeners">
+			<list>
+				<ref bean="incomingMessageListener" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- ActiveMQ component -->
+	<bean id="activemq" class="org.apache.camel.component.jms.JmsComponent"
+		p:configuration-ref="jmsConfig" />
+
+	<bean id="jmsConfig" class="org.apache.camel.component.jms.JmsConfiguration"
+		p:connectionFactory-ref="jmsConnectionFactory" p:transacted="false"
+		p:concurrentConsumers="${mq.concurrent_consumers}" />
+
+	<bean id="jmsConnectionFactory"
+		class="org.springframework.jms.connection.CachingConnectionFactory"
+		p:targetConnectionFactory-ref="nakedConnectionFactory"
+		p:sessionCacheSize="${mq.session_cache_size}" />
+
+	<bean id="nakedConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory"
+		p:brokerURL="${mq.broker_url}" p:useAsyncSend="true"
+		p:copyMessageOnSend="false" p:prefetchPolicy-ref="prefetchPolicy" />
+
+	<bean id="prefetchPolicy" class="org.apache.activemq.ActiveMQPrefetchPolicy"
+		p:queuePrefetch="10000" />
+</beans>

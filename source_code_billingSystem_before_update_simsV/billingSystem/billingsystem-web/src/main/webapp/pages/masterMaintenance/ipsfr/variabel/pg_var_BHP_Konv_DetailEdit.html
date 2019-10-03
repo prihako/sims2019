@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>KOMINFO</title>
+<script src="../js/tools.js" language="JavaScript"></script>
+<link rel="stylesheet" href="../styles/style-Kominfo/layout.css" type="text/css" />
+<link rel="stylesheet" href="../styles/style-Kominfo/jquery-ui-1.10.0.custom.css" type="text/css" />
+<link rel="stylesheet" href="../styles/style-Kominfo/jquery.mCustomScrollbar.css" type="text/css" />
+</head>
+<body>
+<div id="outer">
+  <form name="mainForm">
+    <div id="title">Variabel</div>
+    <h2>Create</h2>
+    <table width="99%" class="uniform">
+      <tr>
+        <td><label class="short">Service</label></td>
+        <td><span>Land Mobile</span></td>
+      </tr>
+      <tr>
+        <td><label class="short">Sub Service</label></td>
+        <td><select class="medium" disabled="disabled">
+            <option value="">3G</option>
+            <option value="">3G Band</option>
+            <option value="" selected="selected">Bandwith</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td><label class="short">Metode BHP</label></td>
+        <td><select id="bhp" name="bhp" class="medium" disabled="disabled">
+            <option value="" id="bhp_all">All</option>
+            <option value="" id="FR">Flat Rate</option>
+            <option value="" id="VR">Varieted Rate</option>
+            <option value="" id="C" selected="selected">Convertion</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td><label class="short">Nama Klien</label></td>
+        <td><select class="medium" disabled="disabled">
+            <option value="" selected="selected">Telkomsel</option>
+            <option value="">XL</option>
+            <option value="">Indosat</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td><label class="short">Frekuensi</label></td>
+        <td><select class="medium" disabled="disabled">
+            <option value="">All</option>
+            <option value="" selected="selected">900</option>
+            <option value="">1800</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td><label class="short">No. SKM</label></td>
+        <td><input class="short" value="047/TIMSEL3G/02/2012" readonly="readonly" />
+        </td>
+      </tr>
+      <tr>
+        <td><label class="short">Blok (B)</label></td>
+        <td><input class="short" value="15" readonly="readonly" />
+        </td>
+      </tr>
+      <tr>
+        <td><label class="short">NxK</label></td>
+        <td><input class="short" value="25,29542" readonly="readonly" />
+        </td>
+      </tr>
+      <tr>
+        <td><label class="short">I</label></td>
+        <td><input class="short" value="6202" readonly="readonly" /><span class="add-on-last">Rp/MHz</span>
+        </td>
+      </tr>
+      <tr>
+        <td><label class="short">C</label></td>
+        <td><input class="short" value="241564,863" readonly="readonly" /><span class="add-on-last">Kilo Populasi</span>
+        </td>
+      </tr>
+    </table>
+        
+    <div id="button">
+      <button class="btn" type="button" id="edit">Edit</button>
+      <button class="btn" type="button" id="back">Back</button>
+    </div>
+  </form>
+</div>
+<script src="../js/jquery-1.9.1.min.js"></script>
+<script src="../js/jquery-ui-1.10.0.custom.min.js" type="text/javascript"></script>
+<script src="../js/jquery.mCustomScrollbar.concat.min.js"></script>
+<script>
+    (function($){
+        $(document).ready(function (){
+            $("#outer").mCustomScrollbar({
+				verticalScroll:true,
+				horizontalScroll:false,
+				theme:"dark-thick",
+					scrollButtons:{
+						enable:true}
+				});
+        });
+            $("#conttable").mCustomScrollbar({
+				verticalScroll:false,
+				horizontalScroll:true,
+				theme:"dark-thick",
+					scrollButtons:{
+						enable:true}
+				});
+    })(jQuery);
+</script>
+<script>
+	$('input.required').each(function(){
+    	$(this).after(' *');
+      }); 
+
+$(function(){		
+	$("#button #edit").on('click',function(){
+			window.location.href='pg_var_BHP_Konv_edit.html';
+	});
+	$("#button #back").on('click',function(){
+			window.location.href='pg_var_BHP_Konv_search.html';
+	});
+});
+
+</script>
+</body>
+</html>

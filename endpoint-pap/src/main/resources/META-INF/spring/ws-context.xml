@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:jaxrs="http://cxf.apache.org/jaxrs" xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xsi:schemaLocation="
+  	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd
+	http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+
+	<import resource="classpath:META-INF/cxf/cxf.xml" />
+	<import resource="classpath:META-INF/cxf/osgi/cxf-extension-osgi.xml" />
+
+	<!-- as server 
+	<bean id="channelImplMx" class="com.finnet.ws.FinnetSoapServerImpl">
+		<property name="communicator" ref="communicator" />
+	</bean>
+	<jaxws:endpoint id="mxEndpoint" implementor="#channelImplMx" address="/MxChannel" />
+	http://192.168.12.34/devofc/geteva.php	
+	http://192.168.12.34/devofc/maya/index.php
+	 as server -->
+		
+	<!--  as client -->
+<!-- 	    <jaxws:client id="reor01" -->
+<!--                   serviceClass="ws.billpayment.h2h.bankmandiri.BillPaymentServiceSoap" -->
+<!--                   address="${soap_url}" />
+        
+        <jaxws:client id="classImpl" 
+                  serviceClass="id.co.sigma.mx.channel.wsdl.PaymentManagerControllerPortType" wsdlLocation="sigma-data/PaymentManagerControllerwsdl.wsdl"
+                  address="${http_url_reor01}" />
+                   -->
+</beans>

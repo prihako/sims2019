@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script PUBLIC
+	"-//Apache Software Foundation//Tapestry Script Specification 3.0//EN"
+	"http://jakarta.apache.org/tapestry/dtd/Script_3_0.dtd">
+<script>
+	<input-symbol key="dashboardCurrentTime" required="yes" class="java.lang.Long"/> 
+
+  <body>
+<![CDATA[ 
+	/* GLOBAL VARIABEL  */
+	var data = [];
+	var dataset;
+	var updateInterval = 20*1000;
+	var appCurrentDate= new Date();
+	//var appNowDate = new Date("January 22, 2014 "+appCurrentDate.getHours()+":"+appCurrentDate.getMinutes()+":"+appCurrentDate.getSeconds());
+	//var appNowTime = appNowDate.getTime();
+	var appNowTime=${dashboardCurrentTime};
+	var startDateChart=appNowTime-(1000*60*1);
+	
+	var appTime=appNowTime;
+	
+	var onDataReceived=function(response) {
+				
+		dataset = [{
+			label : "Transaksi Sukses",
+			data : response.success,
+			color : "#5cb85c"
+		},
+		{
+			label : "Transaksi Gagal",
+			data : response.fail,
+			color : "#f0ad4e"
+		},
+		{
+			label : "Transaksi Timeout",
+			data : response.timeout,
+			color : "#e5412d"
+		}];
+        
+       	$.plot($("#TRANSACTION-LINE-CHART-CONTAINER"), dataset, options);
+     }
+	
+	var GetData=function(){
+		data.shift();
+		
+		$.ajax({
+            url: "dashboard",
+            method: "GET",
+            dataType: "json",
+            data:{
+            	action:"getTransactionChart"
+            },
+            success: onDataReceived
+        });
+		
+	}
+
+	var options = {
+		xaxis : {
+			mode : "time",
+			 tickSize : [ 1, "minute" ], 
+			tickFormatter : function(v, axis) {
+				var date = new Date(v);
+
+				//if (date.getSeconds() % 10 == 0) {
+					var hours = date.getHours() < 10 ? "0" + date.getHours()
+							: date.getHours();
+					var minutes = date.getMinutes() < 10 ? "0"
+							+ date.getMinutes() : date.getMinutes();
+					var seconds = date.getSeconds() < 10 ? "0"
+							+ date.getSeconds() : date.getSeconds();
+
+					//return hours + ":" + minutes + ":" + seconds;
+					
+					if(minutes % 5==0)
+						return hours + ":" + minutes;
+					return "";
+				//} //else {
+					//return "";
+				//}
+			},
+			axisLabel : "Waktu Transaksi",
+			axisLabelUseCanvas : true,
+			axisLabelFontSizePixels : 12,
+			axisLabelPadding : 10
+		},
+		yaxis : {
+			min : 0,
+			axisLabel : "Jumlah Transaksi",
+			axisLabelUseCanvas : true,
+			axisLabelFontSizePixels : 12,
+			axisLabelPadding : 6
+		},
+		series : {
+			lines : {
+				show : true,
+				fill : false,
+				lineWidth : 1
+			},
+			points : {
+				show : true,
+				radius : 2.5,
+				fill : true,
+				fillColor : "#ffffff",
+				lineWidth : 1
+			}
+		},
+		grid : {
+			hoverable : true,
+			clickable : false,
+			borderWidth : 0
+		},
+		legend : {
+			show : true
+		},
+
+		tooltip : true,
+		tooltipOpts : {
+			content : '%s: %y'
+		},
+		colors : App.chartColors
+	};
+	
+	var getListEndpoints=function(state){
+		var urlJSON="dashboard";	
+		
+		$.ajax({
+			dataType:"json",
+			url:urlJSON,
+			data:{
+				action:"listEndpoint",
+				state:state
+			},
+			success:function(response){
+				if(state!="chart"){
+					var content="";
+					if(parseInt(response.total)>0){
+						$.each(response.list,function(index,data){
+							var classLabel="label-primary";
+							var iconLabel="fa-times-circle";
+							
+							content+="<tr>";
+							content+="<td class=\"hidden-xs\">"+data.code+"</td>";
+							content+="<td>"+data.name+"</td>";
+							
+							if(data.state=="ready"){
+								classLabel="label-success";
+								iconLabel="fa-check-circle";
+							}
+							
+							content+="<td><span class=\"label "+classLabel+"\">"+
+									"<i class=\"fa "+iconLabel+"\"></i>"+
+									"</span></td>";
+							content+="</tr>";
+						});
+					}
+					else{
+						content="<tr><td colspan=\"3\" align=\"center\">-- Koneksi Kosong --</td></tr>";
+					}
+					
+					$("#TB-LIST-CONN > tbody").html(content);
+					
+					$("#LABEL-CONN-TOTAL").html(response.total);
+					
+					if(state==""){
+						$("#LABEL-CONN-READY").html(response.ready);
+						$("#LABEL-CONN-DISCN").html(response.discn);
+					}
+				}
+				else{
+					appEndpointChartDonut(response);
+				}
+			}
+		});
+	}
+	
+	var getListTransaction=function(){
+		$.ajax({
+			dataType:"json",
+			url:"dashboard",
+			data:{
+				action:"listTransaction",
+				fromTimeMilis:appNowTime,
+				toTimeMilis:(appNowTime+updateInterval)
+			},
+			success:function(response){
+				var content="";
+				$.each(response.list,function(index,data){
+					var classLabel="label-secondary";
+					
+					content+="<tr>";
+					content+="<td class=\"hidden-xs\">"+data.trxId+"</td>";
+					content+="<td>"+data.trxTime+"</td>";
+					content+="<td>"+data.trxCode+"</td>";
+					content+="<td>"+data.channelCode+"</td>";
+					
+					if(data.channelRc=="00")
+						classLabel="label-success";
+					else if(data.channelRc=="ZZ")
+						classLabel="label-primary";
+					
+					content+="<td><span class=\"label "+classLabel+"\">"+data.channelRc+"</span></td>";
+					content+="</tr>";
+				});
+				
+				if(content.length>0)
+					$("#LIST-TRANSACTION").html(content);
+				
+				//removeOlderRowData("TB-LIST-TRANSACTION");
+			}
+		});
+	}
+	
+	var getListTransactionTotal=function(){
+		$.ajax({
+			dataType:"json",
+			url:"dashboard",
+			data:{
+				action:"getLastTransaction"
+			},
+			success:function(response){
+				var content="";
+				$.each(response,function(index,data){
+					var classLabel="label-secondary";
+					
+					content+="<tr>";
+					content+="<td class=\"hidden-xs\">"+data.trxId+"</td>";
+					content+="<td>"+data.trxTime+"</td>";
+					content+="<td>"+data.trxCode+"</td>";
+					content+="<td>"+data.channelCode+"</td>";
+					
+					if(data.channelRc=="00")
+						classLabel="label-success";
+					else if(data.channelRc=="ZZ")
+						classLabel="label-primary";
+					
+					content+="<td><span class=\"label "+classLabel+"\">"+data.channelRc+"</span></td>";
+					content+="</tr>";
+				});
+				if(content.length>0)
+					$("#LIST-TRANSACTION").prepend(content);
+				
+			}
+		});
+	}
+	
+	var getTotalTrasactionDonutChart=function(response){
+		var dataTrans, transChartOptions;
+		
+		var valueSuccess=response.totalSuccess<1 ? 0.000001 : response.totalSuccess;
+		var valueFailed=response.totalFailed<1 ? 0.000001 : response.totalFailed;
+		var valueTimeOut=response.totalTimeOut<1 ? 0.000001 : response.totalTimeOut;
+		
+		dataTrans = [
+			{ label: "Transaksi Sukses", data:valueSuccess , color : "#5cb85c" }, 
+			{ label: "Transaksi Gagal", data:valueFailed , color : "#f0ad4e" },
+			{ label: "Transaksi Timeout", data:valueTimeOut , color : "#e5412d" }
+		];
+
+		transChartOptions = {		
+			series: {
+				pie: {
+					show: true,  
+					innerRadius: .6, 
+					stroke: {
+						width: 4
+					}
+				}
+			}, 
+				
+			legend: {
+				position: 'ne'
+			}, 
+			
+			tooltip: true,
+
+			tooltipOpts: {
+				content: '%s: %y'
+			},
+			
+			grid: {
+				hoverable: true
+			},
+
+			colors: App.chartColors
+		};
+		
+		var holder = $('#TRANSACTION-DONUT-CHART-CONTAINER');
+
+	    if (holder.length) {
+			$.plot(holder, dataTrans, transChartOptions );
+	    }
+	}
+	
+	var getTotalTransaction=function(){
+		$.ajax({
+			dataType:"json",
+			url:"dashboard",
+			data:{
+				action:"getSummaryTransaction"		
+			},
+			success:function(response){				
+				$("#VALUE-SUCCESS").html(response.totalSuccess);
+				$("#VALUE-FAIL").html(response.totalFailed);
+				$("#VALUE-TIMEOUT").html(response.totalTimeOut);
+				$("#VALUE-TOTAL").html(response.total);
+				
+				getTotalTrasactionDonutChart(response);
+			}
+		});
+	}
+	
+	var removeOlderRowData=function(tableId){
+		var max=15;
+		var countRow=$("#"+tableId+" > tbody").children().length;
+		if(countRow>max){
+			$("#"+tableId+" > tbody > tr:last").remove();
+			removeOlderRowData(tableId);
+		}
+	}
+	
+	var appDashboardTime=function(){
+		var time=new Date(appTime);
+		var labelDate=time.getDate();
+		var monthDate=(parseInt(time.getMonth())+1);
+		var labelMonth=monthDate<10 ? "0"+monthDate : monthDate;
+		var labelYear=time.getFullYear();
+		var labelCalendar=labelDate+"/"+labelMonth+"/"+labelYear;
+		
+		var labelHour=(time.getHours()<10 ? "0" : "")+time.getHours();
+		var labelMinute=(time.getMinutes()<10 ? "0" : "")+time.getMinutes();
+		var labelSecond=(time.getSeconds()<10 ? "0" : "")+time.getSeconds();
+		var labelTime=labelHour+":"+labelMinute+":"+labelSecond;
+		
+		var timeLabel=labelCalendar+" "+labelTime;
+		
+		$("#TIME-DASHBOARD").html(timeLabel);
+		appTime+=1000;
+	}
+	
+	var appEndpointChartDonut=function(response){
+		var dataEndpoint, endpointChartOptions;
+		
+		var valueReady=response.ready<1 ? 0.000001 : response.ready;
+		var valueDiscn=response.disconnected<1 ? 0.000001 : response.disconnected;
+		
+		dataEndpoint = [
+			{ label: "Ready", data:valueReady , color : "#5cb85c" }, 
+			{ label: "Disconnect", data:valueDiscn , color : "#e5412d" }
+		];
+
+		endpointChartOptions = {		
+			series: {
+				pie: {
+					show: true,  
+					innerRadius: .6, 
+					stroke: {
+						width: 4
+					}
+				}
+			}, 
+				
+			legend: {
+				position: 'ne'
+			}, 
+			
+			tooltip: true,
+
+			tooltipOpts: {
+				content: '%s: %y'
+			},
+			
+			grid: {
+				hoverable: true
+			},
+
+			colors: App.chartColors
+		};
+
+
+	    var holder = $('#ENDPOINT-DONUT-CHART-CONTAINER');
+
+	    if (holder.length) {
+			$.plot(holder, dataEndpoint, endpointChartOptions );
+	    }
+	}
+	
+	$(document).ready(function() {
+		clearTimeout(runApp);
+		//GetData();
+		
+		getListTransactionTotal();
+		
+		getListEndpoints("");
+		$("#LABEL-ALL").addClass("active");
+		$("#ENDPOINT-CHART").css("display","none");
+		
+		$("#STATE-ALL,#STATE-READY,#STATE-DISCN,#STATE-PIE-ENDPOINT").click(function(){
+			var stateVal=$(this).val();
+			if(stateVal==""){
+				$("#LABEL-ALL").addClass("active");
+				$("#LABEL-READY").removeClass("active");
+				$("#LABEL-DISCN").removeClass("active");
+				$("#LABEL-PIE-ENDPOINT").removeClass("active");
+				$("#CONTAINER-READY").css("display","block");
+				$("#CONTAINER-DISCN").css("display","block");
+			}
+			else if(stateVal=="ready"){
+				$("#LABEL-ALL").removeClass("active");
+				$("#LABEL-READY").addClass("active");
+				$("#LABEL-DISCN").removeClass("active");
+				$("#LABEL-PIE-ENDPOINT").removeClass("active");
+				$("#CONTAINER-READY").css("display","none");
+				$("#CONTAINER-DISCN").css("display","none");
+			}
+			else if(stateVal=="disconnected"){
+				$("#LABEL-ALL").removeClass("active");
+				$("#LABEL-READY").removeClass("active");
+				$("#LABEL-DISCN").addClass("active");
+				$("#LABEL-PIE-ENDPOINT").removeClass("active");
+				$("#CONTAINER-READY").css("display","none");
+				$("#CONTAINER-DISCN").css("display","none");
+			}
+			else if(stateVal=="chart"){
+				$("#LABEL-ALL").removeClass("active");
+				$("#LABEL-READY").removeClass("active");
+				$("#LABEL-DISCN").removeClass("active");
+				$("#LABEL-PIE-ENDPOINT").addClass("active");
+			}
+			
+			if(stateVal!="chart"){
+				$("#ENDPOINT-TABLE").css("display","block");
+				$("#ENDPOINT-CHART").css("display","none");
+			}
+			else{
+				$("#ENDPOINT-TABLE").css("display","none");
+				$("#ENDPOINT-CHART").css("display","block");
+			}
+			
+			getListEndpoints(stateVal);
+		});
+		
+		function update(){
+			getTotalTransaction();
+			GetData();
+			getListTransaction();
+			appNowTime+=updateInterval;
+			startDateChart+=updateInterval;
+			
+			runApp=setTimeout(update, updateInterval);
+		}
+		update();
+		
+		function timeDashoard(){
+			appDashboardTime();
+			runTime=setTimeout(timeDashoard, 1000);
+		}
+		timeDashoard();
+	});
+]]>
+</body>
+<initialization>
+
+</initialization>
+</script>

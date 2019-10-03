@@ -1,0 +1,186 @@
+<!-- <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> -->
+<html jwcid="@Shell" title="message:webapp.title">
+
+<head>
+	<script src="scripts/jquery-1.8.3.min.js"></script>
+	<script src="scripts/jquery-ui-1.10.0.custom.min.js"></script>
+	<script src="scripts/mayora/tools.js"></script>
+	<link rel="stylesheet"
+		href="styles/style-Kominfo/jquery-ui-1.10.0.custom.css" type="text/css" />
+	<script>
+		$(document).ready(function() {
+			
+			$("#dialog").dialog({
+				autoOpen : false, 
+				modal : true, 
+				show : "blind", 
+				hide : "blind"
+			});
+			
+		});
+		
+		function showPopUp(){
+			$("#dialog").dialog("open");
+			
+		}
+	</script>
+</head>
+
+<body jwcid="@Body">
+	<div id="outer">
+	
+		<form jwcid="@Form" delegate="ognl:beans.delegate" clientValidationEnabled="ognl:true" refresh='listener:refresh'>
+			
+			<div id="title">
+		    	<span key="leftMenu.masterMaintenance.ipsfr.uploadDokumen.title.bg"></span>
+		   	</div>
+
+			<table class="uniform">
+
+				<tr>
+					<td>
+						<label class="medium">
+							No Aplikasi
+						</label>
+					</td>
+					<td>
+						<input jwcid="@TextField" type="text" size="30" value="ognl:bankGuarantee.license.licenseNo" disabled="true" ></input>
+					</td>
+				</tr>
+				
+				<tr>
+					<td>
+						<label class="medium">
+							Nama Klien
+						</label>
+					</td>
+					<td>
+						<input jwcid="@TextField" id="input1" type="text" size="30" value="ognl:bankGuarantee.license.clientName" disabled="true" />
+					</td>
+				</tr>
+				
+				<tr>
+					<td>
+						<label class="medium">
+							ID Klien
+						</label>
+					</td>
+					<td>
+						<input jwcid="@TextField" id="input2" type="text" size="30" value="ognl:bankGuarantee.license.clientNo" disabled="true" />
+					</td>
+				</tr>
+				
+				<tr>
+					<td>
+						<label class="medium">
+							Tahun Ke
+						</label>
+					</td>
+					<td>
+						<input jwcid="@TextField" type="text" size="5" value="ognl:bankGuarantee.invoice.yearTo" disabled="true" />
+						<input jwcid="@TextField" type="text" size="5" value="ognl:bankGuarantee.license.variableAnnualPercent.percentYear" disabled="true" />
+					</td>
+				</tr>
+				
+				<tr>
+					<td>
+						<label class="medium">
+							Metode BHP
+						</label>
+					</td>
+					<td>
+						<input jwcid="@TextField" type="text" size="30" value="ognl:bankGuarantee.license.bhpMethod" disabled="true" />
+					</td>
+				</tr>
+				
+				<tr>
+					<td>
+						<label class="medium">
+							Jenis Dokumen
+						</label>
+					</td>
+					<td>
+						<input jwcid="@TextField" type="text" size="30" value="ognl:jenisDokumen" disabled="true"/>
+					</td>
+				</tr>
+				
+				<tr>
+					<td>
+						<label class="medium">
+							Tanggal Jatuh Tempo
+						</label>
+					</td>
+					<td>
+						<input jwcid="@TextField" type="text" size="30" value="ognl:bankGuarantee.dueDate" disabled="true" />
+					</td>
+				</tr>
+				
+				<tr>
+					<td>
+						<label class="medium">
+							No Dokumen Bank
+						</label>
+					</td>
+					<td>
+						<input jwcid="@TextField" type="text" size="30" value="ognl:documentNumber" />
+					</td>
+				</tr>
+				
+				<tr>
+					<td>
+						<label class="medium">
+							Deskripsi
+						</label>
+					</td>
+					<td>
+						<input jwcid="@TextField" type="text" size="45" value="ognl:deskripsi" />
+					</td>
+				</tr>
+				
+			</table>
+			
+			<br /><br />
+			<table>
+				<tr>
+					<td colspan="3"><input jwcid="@Upload" file="ognl:file" type= "file" /></td>
+					<td><input jwcid="@Submit" class="btn" value="Remove" action="listener:doRemove" /></td>
+				</tr>	
+				<tr>
+					<td></td>
+					<td><input jwcid="@Submit" class="btn" value="Save" action="listener:doSave" /></td>
+					<td></td>
+				</tr>
+			</table>
+			
+			<span jwcid="errorShadow@TextField" autocomplete="off" value="ognl:errorValue" style="display:none"></span>
+			<span jwcid="@If" condition="ognl:delegate.hasErrors">    
+				<script>alert('<span jwcid="@Delegator" delegate="ognl:delegate.firstError">Error Message</span>');</script>
+			</span>
+			
+			<span jwcid="@If" condition="ognl:notification ==  true">    
+				<script>
+					$(document).ready(function() {
+						showPopUp();
+						$("#no").click(function(){
+							$("#dialog").dialog("close");
+						});
+					});
+				</script>
+			</span>
+			
+			<div id="dialog" title="Replace Document" style="display:none;">
+				<div align="center">
+               		 Apakah Anda Ingin mengganti dokumen ?<br /><br />
+                
+               		<a href="" class="btn" jwcid="@DirectLink" listener="listener:doReplace" 
+               			parameters="ognl:{bankGuarantee.license.licenseNo, bankGuarantee.bgId, bankGuarantee.invoice.yearTo}">Yes</a>
+               		<a href="#" class="btn" id="no">No</a>
+               </div>
+         	</div>
+		
+		</form>
+		
+		
+	</div>
+</body>
+</html>

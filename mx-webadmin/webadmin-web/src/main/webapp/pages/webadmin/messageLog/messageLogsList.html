@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html jwcid="@Shell" title="message:messageLog.title">
+<head>
+<script type="text/javascript" src="scripts/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="scripts/jquery-ui-1.9.2.custom.min.js" ></script>
+<script type="text/javascript" src="scripts/textAutoComplete.js" ></script>
+<script type="text/javascript">
+		$(document).ready(function() {
+			#$("#dayDateYear").datepicker({ format: 'dd/MM/yyyy', showOn: 'button' });
+			#$("#dayDateYear_0").datepicker({ format: 'dd/MM/yyyy', showOn: 'button' });
+		});
+</script>
+<link rel="stylesheet" type="text/css" href="styles/jquery-ui.css" />
+<STYLE TYPE="text/css" media="all">
+.ui-autocomplete {
+    position: absolute;
+    cursor: default;
+    height: 200px;
+    overflow-y: scroll;
+    overflow-x: hidden;}
+</STYLE>
+</head>
+<body jwcid="@Body">
+	<div id="outer">
+		<form jwcid="searchForm@Form" delegate="ognl:beans.delegate" clientValidationEnabled="ognl:true" >
+			
+			<span jwcid="editorState@Hidden" value="ognl:editorState"></span>
+			<span jwcid="klienID@Hidden" value="ognl:klienID"></span>
+			<span jwcid="invoiceNo@Hidden" value="ognl:invoiceNo"></span>
+			<span jwcid="transactionCode@Hidden" value="ognl:transactionCode"></span>
+			<span jwcid="transactionType@Hidden" value="ognl:transactionType"></span>
+			<span jwcid="startDate2@Hidden" value="ognl:startDate2"></span>
+			<span jwcid="endDate2@Hidden" value="ognl:endDate2"></span>
+			<span jwcid="transactionLogList@Hidden" value="ognl:transactionLogList"></span>
+			<span jwcid="notFirstLoad@Hidden" value="ognl:notFirstLoad"></span>
+
+			<div id="title">
+				<span key="analisaTxLog.detail.title" />
+			</div>
+			<br />
+			
+			<span jwcid="@If" condition="ognl:editorState == null" renderTag="false">
+				<table class="uniform">
+					<tr jwcid="@Any" class="ognl:evenOddTable.next">
+						<td class="short">
+							<label class="short" jwcid="@FieldLabel" field="component:endpointCode" />
+						</td>
+						<td>
+							<input type="text" maxlength="30" width="208px"
+								cssclass="TextBox" jwcid="endpointCode@TextField"
+								value="ognl:endpointCode" translator="translator:string,trim=true"
+								displayName="message:messageLogDetails.endpointCode" />
+						</td>
+					</tr>
+					<tr jwcid="@Any" class="ognl:evenOddTable.next">
+						<td class="short">
+							<label class="short" jwcid="@FieldLabel" field="component:rawKey" />
+						</td>
+						<td>
+							<input type="text" maxlength="30" width="208px"
+								cssclass="TextBox" jwcid="rawKey@TextField"
+			    			 	value="ognl:rawKey"
+			    			 	displayName="message:analisaTxLog.rawKey" />
+						</td>
+					</tr>
+					<tr jwcid="@Any" class="ognl:evenOddTable.next">
+						<td class="short">
+							<label class="short" jwcid="@FieldLabel" field="component:transactionId" />
+						</td>
+						<td>
+							<input type="text" maxlength="30" width="208px"
+								cssclass="TextBox" jwcid="transactionId@TextField"
+								value="ognl:transactionId" translator="translator:string,trim=true"
+								displayName="message:messageLogDetails.transactionId" />
+						</td>
+					</tr>
+					<tr jwcid="@Any" class="ognl:evenOddTable.next">
+						<td class="short">
+							<label class="short" displayName="message:common.label.startDate">Start Date</label>
+						</td>
+						<td>
+							<span jwcid="startDate@TimestampPicker" value="ognl:startDate" ></span>
+						</td>
+					</tr>
+					<tr jwcid="@Any" class="ognl:evenOddTable.next">
+						<td class="short">
+							<label class="short" displayName="message:common.label.endDate">End Date</label>
+						</td>
+						<td>
+							<span jwcid="endDate@TimestampPicker" value="ognl:endDate" ></span>
+						</td>
+					</tr>
+					<tr jwcid="@Any" class="ognl:evenOddTable.next">
+						<td class="short"></td>
+						<td>
+							<input class="btn" type="button" id="searchButton" jwcid="searchButton@Submit" 
+								listener="listener:onSearch" value="message:button.search" />
+						</td>
+					</tr>
+					<tr height="10px"><td colspan="2"></td></tr>
+				</table>
+				<!-- <div id="button">
+					<input class="btn" type="button" id="searchButton" jwcid="searchButton@Submit" 
+						listener="listener:onSearch" value="message:button.search" />
+				</div> -->
+			</span>
+			<span jwcid="@Else">
+				<input type="hidden" jwcid="@Hidden" value="ognl:transactionId" encode="false" />
+<!-- 				<input type="button" jwcid="@Any" class="btn" value="message:button.back" onclick="goBack()" /> -->
+				<input type="button" jwcid="back@Submit" class="btn" value="message:button.back" listener="listener:goBack" />
+			</span>
+			<span jwcid="@ValidationErrorTop" delegate="ognl:beans.delegate" />
+			
+			<div style="overflow-x: auto; width:1024px;">
+				<span jwcid="grid@ExtendedGrid" 
+					columns="literal:!transactionId:Trx Id:getTransactionId(), !transactionDesc:Trx Desc:getMappingName(), !endpoint:Endpoint:getEndpointCode(),!trasactionDate:Trx Date:getFormatedTransDate(), !rc:RC:getRc(), !rcDesc:RC Desc:getRcDesc()"
+					gridRowCount="ognl:gridRowCount"
+					pageSize="ognl:pageSize"
+					gridData="ognl:gridData"
+					additionalLinkType="literal:anchor" 
+					additionalLinkListener="ognl:additionalLinkListener"
+					staticAdditionalLinkLabel="literal:View"
+					additionalLinkHeaderLabel="Detail"
+					gridActionButtonLabel="literal:Export to Word"
+					gridActionButtonListener="ognl:gridActionButtonListener">
+				</span>
+			</div>
+			
+		</form>
+	</div>
+	<script type="text/javascript">
+		function goBack(){
+		  window.history.back()
+		}
+		
+		$(document).ready(function(){
+			$("#searchForm").submit(function (){
+				$("#searchForm").submit();
+				alert($("#notFound").val());
+				if($("#notFound").val() == "404")
+					alert("Pencarian tidak ditemukan");	
+			});
+		});
+	</script>
+</body>
+</html>

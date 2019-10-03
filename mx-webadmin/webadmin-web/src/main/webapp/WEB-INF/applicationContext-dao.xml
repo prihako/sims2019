@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+   <!-- MX DEV -->
+      <bean id="dataSource" class="org.postgresql.ds.PGPoolingDataSource">
+<!--         <property name="serverName" value="10.1.1.22" /> -->
+        <!--<property name="serverName" value="localhost" />-->
+        <property name="serverName" value="10.1.1.22" /> 
+        <property name="portNumber" value="5432" />
+        <property name="databaseName" value="mx_webadmin" />
+        <property name="user" value="mx_usr" />
+        <property name="password" value="mx_pwd" />
+        <property name="tcpKeepAlive" value="true" />
+        <property name="initialConnections" value="4" />
+        <property name="maxConnections" value="30" />
+    </bean>
+    
+    <!-- Hibernate SessionFactory -->
+    <bean id="adminHibernateSessionFactory" class="com.balicamp.dao.AdminHibernateSessionFactory">
+        <property name="dataSource" ref="dataSource"/>
+        
+        <property name="entityPackages">
+        	<list>
+        		<value>com.balicamp.model</value>
+        		<value>com.balicamp.model.mx</value>
+        		<value>com.balicamp.model.user</value> 
+        	</list>
+        </property>
+        
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
+				<prop key="hibernate.query.substitutions">true 'Y', false 'N'</prop>
+				<prop key="hibernate.show_sql">false</prop>
+				<prop key="hibernate.format_sql">false</prop>
+				
+				<prop key="hibernate.generate_statistics">false</prop>
+				<prop key="hibernate.bytecode.use_reflection_optimizer">true</prop>
+				<prop key="hibernate.max_fetch_depth">4</prop>
+				<prop key="hibernate.jdbc.use_streams_for_binary">true</prop>
+				
+				<prop key="hibernate.connection.release_mode">after_transaction</prop>
+				<prop key="hibernate.dbcp.testOnBorrow">true</prop>
+				<prop key="hibernate.dbcp.testOnReturn">true</prop>
+				<prop key="hibernate.dbcp.validationQuery">SELECT 1</prop>
+				<prop key="hibernate.dbcp.maxActive">8</prop>
+				<prop key="hibernate.dbcp.maxIdle">8</prop>
+				<prop key="hibernate.dbcp.maxWait">100</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!-- Transaction manager for a single Hibernate SessionFactory (alternative to JTA) -->
+    <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <property name="sessionFactory" ref="adminHibernateSessionFactory"/>
+    </bean>
+
+    <!-- Generic Dao - can be used when doing standard CRUD -->
+    <bean id="dao" class="com.balicamp.dao.hibernate.BaseDaoHibernate">
+        <property name="sessionFactory" ref="adminHibernateSessionFactory"/>
+    </bean>
+
+	<bean id="ftpManager" class="com.balicamp.webapp.ftp.FTPManager">
+ 		<constructor-arg index="0" value="10.1.1.22"/> 
+<!-- 		<constructor-arg index="0" value="10.1.125.24"/> -->
+		<constructor-arg index="1" value="21"/>
+<!-- 		<constructor-arg index="2" value="postel"/> -->
+<!-- 		<constructor-arg index="2" value="sigma"/> -->
+<!-- 		<constructor-arg index="3" value="postel1234"/> -->
+		<constructor-arg index="2" value="anonymous"/>
+		<constructor-arg index="3" value="xxx"/>
+<!-- 		<constructor-arg index="4" value="report/ParsingMT940/"/> -->
+		<constructor-arg index="4" value="report/"/>
+	</bean>
+    
+    <bean id="insertIntoTransactionReportTask" class="com.balicamp.webapp.scheduler.InsertIntoTransactionReportTask">
+    	<property name="ftpManager" ref="ftpManager" />
+    	<property name="dataSource" ref="dataSource" />
+    </bean>
+	
+	<bean name="runMeJob" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="com.balicamp.webapp.scheduler.RunMeJob" />
+		<property name="jobDataAsMap">
+			<map>
+				<entry key="insertIntoTransactionReportTask" value-ref="insertIntoTransactionReportTask" />
+			</map>
+		</property>
+	</bean>
+	
+	<bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="runMeJob" />
+<!--  		<property name="cronExpression" value="0/10 * * * * ?" /> -->
+		<property name="cronExpression" value="0 0 6-7 * * ?" />
+	</bean>
+	
+
+	<bean name="runReconcileEodJob" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="com.balicamp.webapp.scheduler.RunReconcileEodJob" />
+		<property name="jobDataAsMap">
+			<map>
+				<entry key="reconcileEodTask" value-ref="reconcileEodTask" />
+			</map>
+		</property>
+	</bean>
+	
+	<bean name="runReconcileWeeklyJob" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="com.balicamp.webapp.scheduler.RunReconcileWeeklyJob" />
+		<property name="jobDataAsMap">
+			<map>
+				<entry key="reconcileWeeklyTask" value-ref="reconcileWeeklyTask" />
+			</map>
+		</property>
+	</bean>
+	
+	<bean name="runReconcileMonthlyJob" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="com.balicamp.webapp.scheduler.RunReconcileMonthlyJob" />
+		<property name="jobDataAsMap">
+			<map>
+				<entry key="reconcileMonthlyTask" value-ref="reconcileMonthlyTask" />
+			</map>
+		</property>
+	</bean>
+	
+	<bean id="cronTriggerReconcileEod" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="runReconcileEodJob" />
+		<!--<property name="cronExpression" value="0 38 9 * * ?" />  -->
+		<property name="cronExpression" value="0 0 8 1/1 * ? *"/>
+		<!--<property name="cronExpression" value="0 0 4 ? * FRI *" />-->
+		<!--<property name="cronExpression" value="0 0 4 1/1 * ? *" />-->
+	</bean>
+	
+	<bean id="cronTriggerReconcileWeekly" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="runReconcileWeeklyJob" />
+ 		<!-- <property name="cronExpression" value="0 31 18 * * ?" /> -->
+		<!-- <property name="cronExpression" value="0 0/1 * * * ?" />  -->
+		<property name="cronExpression" value="0 30 7 ? * SAT *" /> 
+		<!--<property name="cronExpression" value="0 0 4 1/1 * ? *" />-->
+	</bean>
+	
+	<bean id="cronTriggerReconcileMonthly" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="runReconcileMonthlyJob" />
+		<!--<property name="cronExpression" value="0 9 22 * * ?" /> -->
+ 		<!-- <property name="cronExpression" value="0/10 * * * * ?" /> -->
+		 <!-- <property name="cronExpression" value="0 0/1 * * * ?" /> -->
+		<!-- <property name="cronExpression" value="0 0 4 1 1/1 ? *" /> -->
+		<property name="cronExpression" value="0 30 8 1 * ?" /> 
+		 <!--<property name="cronExpression" value="0 0 4 1/1 * ? *" /> -->
+	</bean>
+	
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="jobDetails">
+			<list>
+				<!-- <ref bean="runMeJob" />  -->
+				<ref bean="runReconcileEodJob" />
+				<ref bean="runReconcileWeeklyJob" />
+				<ref bean="runReconcileMonthlyJob" />
+			</list>
+		</property>
+		<property name="triggers">
+			<list>
+ 				<!-- <ref bean="cronTrigger" /> -->
+				<ref bean="cronTriggerReconcileEod" />
+				<ref bean="cronTriggerReconcileWeekly" />
+				<ref bean="cronTriggerReconcileMonthly" />
+			</list>
+		</property>
+	</bean>
+</beans>
+	 

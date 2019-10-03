@@ -1,0 +1,245 @@
+<html jwcid="@Shell" title="message:webapp.title">
+<head>
+<span jwcid="dasboardScript"/>
+
+	<link rel="stylesheet" href="css/font-awesome.min.css" type="text/css" />		
+	<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />	
+	<link rel="stylesheet" href="js/libs/css/ui-lightness/jquery-ui-1.9.2.custom.css" type="text/css" />
+		
+	<link rel="stylesheet" href="js/plugins/icheck/skins/minimal/blue.css" type="text/css" />
+	<link rel="stylesheet" href="js/plugins/select2/select2.css" type="text/css" />
+	<link rel="stylesheet" href="js/plugins/fullcalendar/fullcalendar.css" type="text/css" />
+	
+	<link rel="stylesheet" href="js/plugins/datepicker/datepicker.css" type="text/css" />
+	
+	<link rel="stylesheet" href="js/plugins/timepicker/bootstrap-timepicker.css" type="text/css" />
+	
+	<link rel="stylesheet" href="css/App.css" type="text/css" />
+	<link rel="stylesheet" href="css/custom.css" type="text/css" />	
+	
+	
+	<link rel="stylesheet" href="css/App-custom.css" type="text/css" />	
+	<link rel="stylesheet" href="css/flick/jquery-ui-1.10.3.custom.css" type="text/css" />	
+	
+	<link rel="stylesheet" href="css/jstree/style.min.css" type="text/css" />	
+
+<script src="js/jquery/jquery-1.9.1.js"></script>
+<script src="js/libs/jquery-ui-1.9.2.custom.min.js"></script>
+<script src="js/libs/bootstrap.min.js"></script>
+
+<script src="js/plugins/icheck/jquery.icheck.js"></script>
+<script src="js/plugins/parsley/parsley.js"></script>
+<script src="js/plugins/datepicker/bootstrap-datepicker.js"></script>
+<script src="js/plugins/timepicker/bootstrap-timepicker.js"></script>
+
+<script src="js/common-app.js"></script>
+<script src="js/form-app.js"></script>
+<script src="js/validation-app.js"></script>
+<script src="js/App.js"></script>
+
+<!-- JQUERY -->
+<script src="js/jquery/jquery.ui.core.js"></script>
+<script src="js/jquery/jquery.ui.widget.js"></script>
+<script src="js/jquery/jquery.ui.mouse.js"></script>
+<script src="js/jquery/jquery.ui.draggable.js"></script>
+<script src="js/jquery/jquery.ui.position.js"></script>
+<script src="js/jquery/jquery.ui.resizable.js"></script>
+<script src="js/jquery/jquery.ui.button.js"></script>
+<script src="js/jquery/jquery.ui.dialog.js"></script>
+<script src="js/jquery/jquery.ui.menu.js"></script>
+<script src="js/jquery/jquery.ui.autocomplete.js"></script>
+
+<!-- JQFLOT -->
+<script src="js/plugins/flot/jquery.flot.js"></script>
+<script src="js/plugins/flot/jquery.flot.orderBars.js"></script>
+<script src="js/plugins/flot/jquery.flot.pie.js"></script>
+<script src="js/plugins/flot/jquery.flot.stack.js"></script>
+<script src="js/plugins/flot/jquery.flot.tooltip.min.js"></script>
+<script src="js/plugins/flot/jquery.flot.resize.js"></script>
+<script src="js/plugins/flot/jquery.flot.time.js"></script>
+<script src="js/plugins/flot/jshashtable-2.1.js"></script>
+<script src="js/plugins/flot/jquery.flot.axislabels.js"></script>
+
+<!-- JSTREE -->
+<script type="text/javascript" src="js/jstree/jstree.min.js"></script>
+
+</head>
+<body jwcid="@Body">
+<form jwcid="mainForm@Form" delegate="ognl:beans.delegate" clientValidationEnabled="ognl:true">
+	<div>
+		<h4 class="heading-inline">
+			<i class="fa fa-clock-o"></i> Transaksi Hari Ini &nbsp;&nbsp;<small id="TIME-DASHBOARD"></small> &nbsp;&nbsp;
+		</h4>
+	</div>
+	<br>
+	<div class="row">
+		<div class="col-md-3 col-sm-6">
+
+			<a href="javascript:;" class="dashboard-stat success">
+				<div class="visual">
+					<i class="fa fa-check"></i>
+				</div> <!-- /.visual -->
+
+				<div class="details">
+					<span class="content">Sukses</span> <span class="value" id="VALUE-SUCCESS"></span>
+				</div> <!-- /.details --> <i class="fa fa-play-circle more"></i>
+
+			</a>
+			<!-- /.dashboard-stat -->
+		</div>
+		<!-- /.col-md-3 -->
+
+		<div class="col-md-3 col-sm-6">
+			<a href="javascript:;" class="dashboard-stat secondary">
+				<div class="visual">
+					<i class="fa fa-warning"></i>
+				</div> <!-- /.visual -->
+
+				<div class="details">
+					<span class="content">Gagal</span> <span class="value" id="VALUE-FAIL"></span>
+				</div> <!-- /.details --> <i class="fa fa-play-circle more"></i>
+
+			</a>
+			<!-- /.dashboard-stat -->
+		</div>
+		<!-- /.col-md-3 -->
+
+		<div class="col-md-3 col-sm-6">
+			<a href="javascript:;" class="dashboard-stat primary">
+				<div class="visual">
+					<i class="fa fa-times"></i>
+				</div> <!-- /.visual -->
+
+				<div class="details">
+					<span class="content">Timeout</span> <span class="value" id="VALUE-TIMEOUT"></span>
+				</div> <!-- /.details --> <i class="fa fa-play-circle more"></i>
+
+			</a>
+			<!-- /.dashboard-stat -->
+		</div>
+		<!-- /.col-md-3 -->
+
+		<div class="col-md-3 col-sm-6">
+			<a href="javascript:;" class="dashboard-stat tertiary">
+				<div class="visual">
+					<i class="fa fa-clock-o"></i>
+				</div> <!-- /.visual -->
+
+				<div class="details">
+					<span class="content">Total Transaksi</span> <span class="value" id="VALUE-TOTAL"></span>
+				</div> <!-- /.details --> <i class="fa fa-play-circle more"></i>
+
+			</a>
+			<!-- /.dashboard-stat -->
+		</div>
+		<!-- /.col-md-9 -->
+	</div>
+	<!-- /.row -->
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="portlet">
+				<div class="portlet-header">
+					<h3>
+						<i class="fa fa-bar-chart-o"></i> Grafik Transaksi Sampai Hari Ini
+					</h3>
+				</div>
+				<div class="portlet-content">
+					<div id="TRANSACTION-LINE-CHART-CONTAINER" class="chart-holder"></div>
+				</div>
+			</div>
+		</div>
+<!-- 
+		<div class="col-md-4">
+			<div class="portlet">
+				<div class="portlet-header">
+					<h3>
+						<i class="fa fa-bar-chart-o"></i> Perc(%) Transaksi
+					</h3>
+				</div>
+				<div class="portlet-content">
+					<div id="TRANSACTION-DONUT-CHART-CONTAINER" class="chart-holder"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+ -->
+	<div class="row">
+		<div class="col-md-4">
+			<div class="portlet">
+				<div class="portlet-header">
+					<h3>
+						<i class="fa fa-list-alt"></i> Daftar Koneksi
+					</h3>
+				</div>
+				<div class="portlet-content">
+					<div class="btn-group" data-toggle="buttons">
+						<label class="btn btn-sm btn-default" id="LABEL-ALL"> 
+							<input type="radio" name="STATE-ALL" id="STATE-ALL" value=""> Semua
+						</label> 
+						<label class="btn btn-sm btn-default" id="LABEL-READY"> 
+							<input type="radio" name="STATE-READY" id="STATE-READY" value="ready"> Ready
+						</label> 
+						<label class="btn btn-sm btn-default" id="LABEL-DISCN"> 
+							<input type="radio" name="STATE-DISCN" id="STATE-DISCN" value="disconnected"> Disconnected
+						</label>
+						<label class="btn btn-sm btn-default" id="LABEL-PIE-ENDPOINT"> 
+							<input type="radio" name="STATE-PIE-ENDPOINT" id="STATE-PIE-ENDPOINT" value="chart"> Perc(%)
+						</label>
+					</div><br><br>
+					<div id="ENDPOINT-TABLE">
+						<div class="table-responsive">
+							<table id="TB-LIST-CONN" class="table table-striped table-checkable">
+								<thead>
+									<tr>
+										<th class="hidden-xs">Kode</th>
+										<th>Nama</th>
+										<th>State</th>
+									</tr>
+								</thead>
+								<tbody></tbody>
+							</table>
+						</div>
+						<br>
+						<div>Total Koneksi : <span id="LABEL-CONN-TOTAL"></span></div>
+						<div id="CONTAINER-READY">Jumlah Terkoneksi : <span id="LABEL-CONN-READY"></span></div>
+						<div id="CONTAINER-DISCN">Jumlah Tidak Terkoneksi  : <span id="LABEL-CONN-DISCN"></span></div>
+					</div>
+					<div id="ENDPOINT-CHART">
+						<div id="ENDPOINT-DONUT-CHART-CONTAINER" class="chart-holder"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="col-md-8">
+			<div class="portlet">
+				<div class="portlet-header">
+					<h3>
+						<i class="fa fa-list-alt"></i> Daftar Transaksi Terakhir
+					</h3>
+				</div>
+				<div class="portlet-content">
+					<div class="table-responsive">
+						<table id="TB-LIST-TRANSACTION" class="table table-striped table-checkable">
+							<thead>
+								<tr>
+									<th class="hidden-xs">Id Transaksi</th>
+									<th>Waktu Transaksi</th>
+									<th>Kode Transaksi</th>
+									<th>Channel Code</th>
+									<th>Channel RC</th>
+								</tr>
+							</thead>
+							<tbody id="LIST-TRANSACTION"></tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</form>
+</body>
+</html>

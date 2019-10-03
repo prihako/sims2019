@@ -1,0 +1,109 @@
+<!-- <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> -->
+<html jwcid="@Shell" title="message:webapp.title">
+
+<head>
+	<script src="scripts/jquery-1.8.3.min.js"></script>
+	<script src="scripts/jquery-ui-1.10.0.custom.min.js"></script>
+	<script src="scripts/mayora/tools.js"></script>
+	<link rel="stylesheet"
+		href="styles/style-Kominfo/jquery-ui-1.10.0.custom.css" type="text/css" />
+	<script>
+		function isNumberWithComma(evt) {
+		    evt = (evt) ? evt : window.event;
+		    var charCode = (evt.which) ? evt.which : evt.keyCode;
+		    if (charCode > 31 && (charCode < 48 || charCode > 57) && charCode != 46) {
+		        return false;
+		    }
+		    return true;
+		}
+		function isNumberWithoutComma(evt) {
+		    evt = (evt) ? evt : window.event;
+		    var charCode = (evt.which) ? evt.which : evt.keyCode;
+		    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+		        return false;
+		    }
+		    return true;
+		}
+	</script>
+</head>
+
+<body jwcid="@Body">
+	<div id="outer">
+	
+		<form jwcid="@Form" delegate="ognl:beans.delegate" clientValidationEnabled="ognl:true" refresh='listener:refresh'>
+			
+			<div id="title">
+		    	<span key="calculateBhp.simulasi.title.denda"></span>
+		   	</div>
+		   	
+		   	<span jwcid="@Hidden" value="ognl:notFirstLoad"></span>
+		   	
+		   	<table class="uniform">
+
+				<tr>
+					<td>
+						<label class="medium">
+							<span key="calculateBhp.field.bhpFrekuensi"></span>
+						</label>
+					</td>
+					<td>
+						<input jwcid="@TextField" type="text" size="35" value="ognl:nilaiBhp" translator='translator:moneyWithoutComma' 
+						onkeypress="return isNumberWithoutComma(event)" style="text-align: right" ></input>
+					</td>
+				</tr>
+				
+				<tr>
+					<td>
+						<label class="medium">
+							
+						</label>
+					</td>
+					<td>
+						<input jwcid="@Submit" class="btn" value="Hitung Nilai Denda" 
+			        				action="listener:hitungDenda" />
+					</td>
+				</tr>
+				
+			</table>
+			
+			<span jwcid="@If" condition="ognl:listDenda!=null">
+				<div id="box" style="margin:auto;width:600px;">
+	   				<span jwcid="@contrib:TableView" pageSize="24"
+	    				columns="Bulan,Pokok,Denda,AkumulasiDenda,JumlahPNBP" 
+	    				source="ognl:listDenda" width="100%">
+	    				
+						<tr><td>
+						  	<table border="0" class="data" >
+							  	
+								<tr>
+									<th>Bulan <br/> (a)</th>
+									<th width="20%">Pokok <br /> (b) </th>
+									<th width="20%">Denda <br /> (c) </th>
+									<th>Akumulasi Denda <br /> (d)</th>
+									<th> Jumlah PNBP yang terutang <br />(e) </th>
+								</tr>
+								
+								<tr jwcid="@contrib:TableRows" row="ognl:row" class="ognl:beans.evenOdd.next">
+									<td><span jwcid="@Insert" 						value="ognl:row.yearTo"/></td>
+					  				<td align="right"><span jwcid="@InsertMoney" 	value="ognl:row.bhpB"/></td>
+					  				<td align="right"><span jwcid="@InsertMoney" 	value="ognl:row.bhpC"/></td>
+					  				<td align="right"><span jwcid="@InsertMoney" 	value="ognl:row.bhpDelta"/></td>
+					  				<td align="right"><span jwcid="@InsertMoney" 	value="ognl:row.bhpI"/></td>
+								</tr>
+								
+							</table>
+						</td></tr>
+					</span>
+					<input jwcid="@Submit" class="btn" value="Reset" action="listener:reset" />
+				</div>
+			</span>
+			
+			<span jwcid="errorShadow@TextField" autocomplete="off" value="ognl:errorValue" style="display:none"></span>
+			<span jwcid="@If" condition="ognl:delegate.hasErrors">    
+				<script>alert('<span jwcid="@Delegator" delegate="ognl:delegate.firstError">Error Message</span>');</script>
+			</span>
+		   	
+		</form>
+	</div>
+</body>
+</html>

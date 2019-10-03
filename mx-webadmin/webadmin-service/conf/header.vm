@@ -1,0 +1,7 @@
+
+$header.bank
+$header.judul
+$header.periode
+
+User Pencetak : $header.userId
+Tanggal Cetak : $header.tglCetak

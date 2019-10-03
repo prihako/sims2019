@@ -1,0 +1,25 @@
+<html jwcid="@Shell" title="message:transactionFee.title">
+<body jwcid="@Body">
+<div id="outer">
+<span jwcid="@ValidationErrorTop" delegate="ognl:beans.delegate" />
+<form jwcid="@Form" delegate="ognl:beans.delegate" clientValidationEnabled="ognl:true">
+	<div id="title">
+    	<span key="transactionFee.title"/>
+   	</div>   	
+		<span style="font-size: 16px;" key="transactionFeeEntry.error.idexists"/><br /><br />
+		<!--  
+		<span jwcid="grid@ExtendedGrid" 
+				columns="literal:transactionId:Transaction ID:transactions.name, channelId:Channel ID:endpoints.name, identifier:Identifier:id.identifier"
+				gridRowCount="ognl:gridRowCount"
+				gridData="ognl:transactionFee">
+		</span>		
+		
+		<div class="button">
+				<input class="btn100" value="Kembali"
+					onclick="return window.history.back();" type="button" />
+			</div>
+			-->
+	</form>
+</div>
+</body>
+</html>

@@ -1,0 +1,431 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html jwcid="@Shell" title="message:webapp.title">
+<head>
+<script type="text/javascript" src="scripts/jquery-1.8.3.min.js"></script>
+<script type="text/javascript"
+	src="scripts/jquery-ui-1.9.2.custom.min.js"></script>
+<script type="text/javascript" src="scripts/mayora/tools.js"></script>
+
+<link rel="stylesheet"
+	href="styles/style-Kominfo/jquery-ui-1.10.0.custom.css" type="text/css" />
+<script>
+	$(document).ready(function() {
+	});
+</script>
+<style>
+
+
+tab1,td,tr {
+	border-style: solid;
+	border-width: 1px;
+	border-color: grey;
+}
+</style>
+</head>
+<body jwcid="@Body">
+	<div id="outer" style="height: 50%">
+
+		<form jwcid="myForm@Form" delegate="ognl:beans.delegate"
+			clientValidationEnabled="ognl:true">
+			
+			<div id="title">
+					<span key="leftmenu.reconcileDetail.title" />
+				</div>
+				<span jwcid="@ValidationErrorTop" delegate="ognl:beans.delegate" /> 
+				<span jwcid="reconcileDto@Hidden" value="ognl:reconcileDto"></span> 
+				<span jwcid="mapParams@Hidden" value="ognl:mapParams"></span>
+				<span jwcid="notFirstLoad@Hidden" value="ognl:notFirstLoad"></span>
+				<span jwcid="doReconcileStatus@Hidden" value="ognl:doReconcileStatus"></span>
+				
+				<span jwcid="reconcileStatus@Hidden" value="ognl:reconcileStatus"></span>
+				<span jwcid="trxDate@Hidden" value="ognl:trxDate"></span> 
+				<span jwcid="channelCode@Hidden" value="ognl:channelCode"></span>
+				<span jwcid="transactionType@Hidden" value="ognl:transactionType"></span>
+				
+				<span jwcid="settled@Hidden" value="ognl:settled"></span>
+				<span jwcid="notSettled@Hidden" value="ognl:notSettled"></span>
+				<span jwcid="unconfirmed@Hidden" value="ognl:unconfirmed"></span>
+			
+				<span jwcid="settledReport@Hidden" value="ognl:settledReport"></span> 
+				<span jwcid="notSettledReport@Hidden" value="ognl:notSettledReport"></span>
+				<span jwcid="unconfirmedReport@Hidden" value="ognl:unconfirmedReport"></span>
+				
+				<span jwcid="amountSettled@Hidden" value="ognl:amountSettled"></span>
+				<span jwcid="amountNotSettled@Hidden" value="ognl:amountNotSettled"></span>
+				<span jwcid="amountUnconfirmed@Hidden" value="ognl:amountUnconfirmed"></span>
+				<span jwcid="totalAmount@Hidden" value="ognl:totalAmount"></span>
+				<span jwcid="totalAmountDenda@Hidden" value="ognl:totalAmountDenda"></span>
+				
+				<span jwcid="amountSettledReport@Hidden" value="ognl:amountSettledReport"></span>
+				<span jwcid="amountNotSettledReport@Hidden" value="ognl:amountNotSettledReport"></span>
+				<span jwcid="amountUnconfirmedReport@Hidden" value="ognl:amountUnconfirmedReport"></span>
+				<span jwcid="totalAmountReport@Hidden" value="ognl:totalAmountReport"></span>
+				<span jwcid="totalAmountDendaReport@Hidden" value="ognl:totalAmountDendaReport"></span>
+				
+				
+				
+			<!-- 			<div id="title"> -->
+			<!-- 				<span key="masterMaintenance.ipsfr.license.title"></span> -->
+			<!-- 			<span jwcid="notFirstLoad@Hidden" value="ognl:notFirstLoad"></span> -->
+			<!-- 			</div> -->
+
+			<!-- 			<div id="title"> -->
+			<!-- 				<span key="analisaTxLog.title"></span> -->
+			<!-- 			</div> -->
+					<span jwcid="@If" condition="ognl:doReconcileStatus=='Success'">				
+						<span style="font-size: 14px;color:green; font-weight: 700;" key="leftmenu.reconcileDetail.doReconcileSuccess" />
+						<br></br>
+					</span>
+					<span jwcid="@If" condition="ognl:doReconcileStatus=='Fail'">			
+						<span style="font-size: 14px;color:red; font-weight: 700;" key="leftmenu.reconcileDetail.doReconcileFail" />
+						<br></br>
+					</span>
+					<span jwcid="@If" condition="ognl:doReconcileStatus=='FailIsNotEOD'">			
+						<span style="font-size: 14px;color:red; font-weight: 700;" key="leftmenu.reconcileDetail.doReconcileFailIsNotEOD" />
+						<br></br>
+					</span>
+				
+			<table width="85%" class="uniform" id="tab1">
+				<!-- <tr height="5px">
+					<td><span key="leftmenu.reconcileDetail.trxId">Transaction Id</span></td>
+					<td><span jwcid="@Insert" type="text"
+						value="ognl:reconcileDto.trxId" /></td>
+				</tr> -->
+				<tr height="5px">
+					<td><span key="leftmenu.reconcileDetail.paymentChannel">Payment Channel</span></td>
+					<td><span jwcid="@Insert" type="text"
+						value="ognl:reconcileDto.paymentChannel" /></td>
+				</tr>
+				<tr height="5px">
+					<td><span key="leftmenu.reconcileDetail.invoiceNo">Invoice No</span></td>
+					<td>
+							<span jwcid="@Insert" type="text"
+								value="ognl:reconcileDto.invoiceNo"  />
+					</td>
+				</tr>
+
+				<tr height="5px">
+					<td><span key="leftmenu.reconcileDetail.clientId">Client Id</span></td>
+					<td><span jwcid="@Insert" type="text" value="ognl:reconcileDto.clientId" /></td>
+				</tr>
+				<tr height="5px">
+					<td><span key="leftmenu.reconcileDetail.clientName">Client Name</span></td>
+					<td><span jwcid="@Insert" type="text"
+						value="ognl:reconcileDto.clientName" /></td>
+				</tr>
+				<tr height="5px">
+					<td><span key="leftmenu.reconcileDetail.billerRc">Respon Biller</span></td>
+					<td><span jwcid="@Insert" type="text" value="ognl:reconcileDto.billerRc" /></td>
+				</tr>
+				
+				<tr height="5px">
+					<td><span key="leftmenu.reconcileDetail.channelRc">Respon Channel</span></td>
+					<td><span jwcid="@Insert" type="text"
+						value="ognl:reconcileDto.channelRc" /></td>
+				</tr>
+
+				<tr height="5px">
+					<td><span key="leftmenu.reconcileDetail.simsStatus">Invoice Status(SIMS)</span></td>
+					<td>
+						<span jwcid="@If" condition="ognl:reconcileDto.simsStatus!='Paid'">
+						<span style="color:red">
+							<span jwcid="@Insert" type="text"
+								value="ognl:reconcileDto.simsStatus"  />
+						</span>
+						</span>
+						<span jwcid="@Else">
+							<span jwcid="@Insert" type="text"
+								value="ognl:reconcileDto.simsStatus"/>
+							</span>
+					</td>
+				</tr>
+				<tr height="5px">
+					<td><span key="leftmenu.reconcileDetail.mt940Status">Invoice Status(MT940)</span></td>
+					<td>
+						<span jwcid="@If" condition="ognl:reconcileDto.mt940Status!='Paid'">
+						<span style="color:red">
+							<span jwcid="@Insert" type="text"
+								value="ognl:reconcileDto.mt940Status"  />
+						</span>
+						</span>
+						<span jwcid="@Else">
+							<span jwcid="@Insert" type="text"
+								value="ognl:reconcileDto.mt940Status"/>
+							</span>
+					</td>
+				</tr>
+
+				<tr height="5px">
+					<td><span key="leftmenu.reconcileDetail.reconcileStatus">Payment Status</span></td>
+					<td>
+						<span jwcid="@If" condition="ognl:reconcileDto.reconcileStatus!='Settled'">
+						<span style="color:red">
+							<span jwcid="@Insert" type="text"
+								value="ognl:reconcileDto.reconcileStatus"  />
+						</span>
+						</span>
+						<span jwcid="@Else">
+							<span jwcid="@Insert" type="text"
+								value="ognl:reconcileDto.reconcileStatus"/>
+							</span>
+					</td>
+				</tr>
+				<tr height="5px">
+					<td><span key="leftmenu.reconcileDetail.transactionTime">Waktu Transaksi (H2H)</span></td>
+					<td><span jwcid="@Insert" type="text"
+						value="ognl:reconcileDto.transactionTime" /></td>										
+				</tr>
+				<tr height="5px">
+					<td><span key="leftmenu.reconcileDetail.paymentDateSims">Waktu Pembayaran (SIMS)</span></td>
+					<span jwcid="@If" condition='ognl:reconcileDto.simsStatus=="Paid"'>
+						<span jwcid="@If" condition='ognl:reconcileDto.mt940Status=="Paid"'>
+							<span jwcid="@If" condition='ognl:reconcileDto.transactionTime!="-"'>
+								<span jwcid="@If" condition='ognl:reconcileDto.reconcileStatus=="Unsettled"'>
+									<td style="color:red"><span jwcid="@Insert" type="text" value="ognl:reconcileDto.paymentDateSims" /></td>	
+								</span>
+								<span jwcid="@Else">
+									<td><span jwcid="@Insert" type="text" value="ognl:reconcileDto.paymentDateSims" /></td>	
+								</span>
+							</span>
+							<span jwcid="@Else">
+								<td><span jwcid="@Insert" type="text" value="ognl:reconcileDto.paymentDateSims" /></td>	
+							</span>
+						</span>
+						<span jwcid="@Else">
+							<td><span jwcid="@Insert" type="text" value="ognl:reconcileDto.paymentDateSims" /></td>	
+						</span>
+					</span>
+					<span jwcid="@Else">
+						<td><span jwcid="@Insert" type="text" value="ognl:reconcileDto.paymentDateSims" /></td>							
+					</span>
+					
+				</tr>
+				<tr height="5px">
+					<td><span key="leftmenu.reconcileDetail.invoiceDueDate">Tanggal Jatuh Tempo</span></td>
+					<span jwcid="@If" condition='ognl:reconcileDto.simsStatus=="Paid"'>
+						<span jwcid="@If" condition='ognl:reconcileDto.mt940Status=="Paid"'>
+							<span jwcid="@If" condition='ognl:reconcileDto.transactionTime!="-"'>
+								<span jwcid="@If" condition='ognl:reconcileDto.reconcileStatus=="Unsettled"'>
+									<td style="color:red"><span jwcid="@Insert" type="text" value="ognl:reconcileDto.invoiceDueDate" /></td>
+								</span>
+								<span jwcid="@Else">
+									<td><span jwcid="@Insert" type="text" value="ognl:reconcileDto.invoiceDueDate" /></td>	
+								</span>
+							</span>
+							<span jwcid="@Else">
+								<td><span jwcid="@Insert" type="text" value="ognl:reconcileDto.invoiceDueDate" /></td>				
+							</span>
+						</span>
+						<span jwcid="@Else">
+							<td><span jwcid="@Insert" type="text" value="ognl:reconcileDto.invoiceDueDate" /></td>				
+						</span>
+					</span>
+					<span jwcid="@Else">
+						<td><span jwcid="@Insert" type="text" value="ognl:reconcileDto.invoiceDueDate" /></td>							
+					</span>
+					
+				</tr>
+				<tr height="5px">
+					<td><span key="leftmenu.reconcileDetail.invoiceDendaNo">Invoice No Denda</span></td>
+					<td>
+							<span jwcid="@Insert" type="text"
+								value="ognl:reconcileDto.invoiceDendaNo"/>
+					</td>
+				</tr>
+				<tr height="5px">
+					<td><span key="leftmenu.reconcileDetail.statusDenda">Status Denda</span></td>
+					<td>
+							<span jwcid="@Insert" type="text"
+								value="ognl:reconcileDto.statusDenda"/>
+					</td>
+				</tr>
+	
+				<tr>
+				<span jwcid="@If" condition="ognl:doReconcileStatus!=null">
+					<span jwcid="@If" condition="ognl:doReconcileStatus.equalsIgnoreCase('Success')">
+						<td><span key="leftmenu.reconcileDetail.remarks">Remarks</span></td>
+						<td><span jwcid="@Insert" type="text" value="ognl:remarks" /></td>
+					</span>
+				</span>
+					
+					<span jwcid="@If" condition="ognl:doReconcileStatus==null">
+						<span jwcid="@If" condition='ognl:reconcileDto.reconcileStatus.equalsIgnoreCase("Settled")'>
+							<td><span key="leftmenu.reconcileDetail.remarks">Remarks</span></td>
+							<td><span jwcid="@Insert" type="text" value="ognl:remarks" /></td>
+						</span>
+						
+						<span jwcid="@If" condition='ognl:reconcileDto.reconcileStatus.equalsIgnoreCase("Need Confirmation/Manual Payment")'>
+							<span jwcid="@If" condition='ognl:reconcileDto.mt940Status.equalsIgnoreCase("Unpaid") && (reconcileDto.simsStatus.equalsIgnoreCase("Unpaid") || reconcileDto.simsStatus.equalsIgnoreCase("Cancelled")) && reconcileDto.reconFlag.equalsIgnoreCase("CAN_RECON")'>
+								
+							</span>
+							<span jwcid="@Else">
+								<span jwcid="@If" condition='ognl:reconcileDto.mt940Status.equalsIgnoreCase("Unpaid") && (reconcileDto.simsStatus.equalsIgnoreCase("Unpaid") || reconcileDto.simsStatus.equalsIgnoreCase("Cancelled")) && reconcileDto.reconFlag.equalsIgnoreCase("-")'>
+									<td><span key="leftmenu.reconcileDetail.remarks">Remarks</span></td>
+									<td><span jwcid="@Insert" type="text" value="ognl:remarks" /></td>	
+								</span>
+								<span jwcid="@Else">
+									<span jwcid="@If" condition='ognl:reconcileDto.reconFlag.equalsIgnoreCase("-")'>
+										
+										
+									</span>
+								</span>
+							</span>
+						</span>
+						
+						
+						
+					</span>
+					
+					
+					<span jwcid="@If" condition='!ognl:reconcileDto.reconcileStatus.equalsIgnoreCase("Settled")'>
+						
+						<span jwcid="@If" condition='ognl:reconcileDto.reconcileStatus.equalsIgnoreCase("Unsettled")'>
+							<span jwcid="@If" condition='ognl:reconcileDto.mt940Status.equalsIgnoreCase("Paid")'>
+								<span jwcid="@If" condition='ognl:reconcileDto.simsStatus.equalsIgnoreCase("Unpaid")'>
+									<span jwcid="@If" condition='!ognl:reconcileDto.trxId.equalsIgnoreCase("-")'>
+										<td><span key="leftmenu.reconcileDetail.remarks">Remarks</span></td>
+										<td><input jwcid="@TextField" type="text" value="ognl:remarks" size="30" id="remarks" /></td>
+									</span>
+								</span>
+							</span>
+						</span>
+						
+						<span jwcid="@If" condition='ognl:reconcileDto.reconcileStatus.equalsIgnoreCase("Unsettled")'>
+							<span jwcid="@If" condition='ognl:reconcileDto.mt940Status.equalsIgnoreCase("Paid")'>
+								<span jwcid="@If" condition='ognl:reconcileDto.simsStatus.equalsIgnoreCase("Cancelled")'>
+									<span jwcid="@If" condition='!ognl:reconcileDto.trxId.equalsIgnoreCase("-")'>
+										<td><span key="leftmenu.reconcileDetail.remarks">Remarks</span></td>
+										<td><input jwcid="@TextField" type="text" value="ognl:remarks" size="30" id="remarks" /></td>
+									</span>
+								</span>
+							</span>
+						</span>
+						
+						<span jwcid="@If" condition='ognl:reconcileDto.reconcileStatus.equalsIgnoreCase("Unsettled")'>
+							<span jwcid="@If" condition='ognl:reconcileDto.mt940Status.equalsIgnoreCase("Unpaid")'>
+								<span jwcid="@If" condition='ognl:reconcileDto.simsStatus.equalsIgnoreCase("Paid")'>
+									<span jwcid="@If" condition='!ognl:reconcileDto.trxId.equalsIgnoreCase("-")'>
+										<td><span key="leftmenu.reconcileDetail.remarks">Remarks</span></td>
+										<td><input jwcid="@TextField" type="text" value="ognl:remarks" size="30" id="remarks" /></td>
+									</span>
+								</span>
+							</span>
+						</span>
+						
+						<span jwcid="@If" condition='ognl:reconcileDto.reconcileStatus.equalsIgnoreCase("Need Confirmation/Manual Payment")'>
+							<span jwcid="@If" condition='ognl:reconcileDto.mt940Status.equalsIgnoreCase("Unpaid") && (reconcileDto.simsStatus.equalsIgnoreCase("Unpaid") || reconcileDto.simsStatus.equalsIgnoreCase("Cancelled")) && reconcileDto.reconFlag.equalsIgnoreCase("CAN_RECON")'>
+									<td><span key="leftmenu.reconcileDetail.remarks">Remarks</span></td>
+									<td><input jwcid="@TextField" type="text" value="ognl:remarks" size="30" id="remarks" /></td>
+							</span>
+							<span jwcid="@Else">
+								<span jwcid="@If" condition='ognl:reconcileDto.mt940Status.equalsIgnoreCase("Unpaid") && (reconcileDto.simsStatus.equalsIgnoreCase("Unpaid") || reconcileDto.simsStatus.equalsIgnoreCase("Cancelled")) && reconcileDto.reconFlag.equalsIgnoreCase("-")'>
+												
+								</span>
+								<span jwcid="@Else">
+									<span jwcid="@If" condition='ognl:reconcileDto.reconFlag.equalsIgnoreCase("-")'>
+										<td><span key="leftmenu.reconcileDetail.remarks">Remarks</span></td>
+										<td><input jwcid="@TextField" type="text" value="ognl:remarks" size="30" id="remarks" /></td>
+									</span>
+								</span>
+							</span>
+						</span>	
+						
+					</span>
+					
+				</tr>
+			<div>
+				<tr>
+					<span jwcid="@If" condition='!ognl:reconcileDto.reconcileStatus.equalsIgnoreCase("Settled")'>
+					
+						<span jwcid="@If" condition='ognl:reconcileDto.reconcileStatus.equalsIgnoreCase("Unsettled")'>
+							<span jwcid="@If" condition='ognl:reconcileDto.mt940Status.equalsIgnoreCase("Paid")'>
+								<span jwcid="@If" condition='ognl:reconcileDto.simsStatus.equalsIgnoreCase("Unpaid")'>
+									<span jwcid="@If" condition='!ognl:reconcileDto.trxId.equalsIgnoreCase("-")'>
+										<td><input type="submit" class="btn" jwcid="@Submit"
+											parameters="ognl:{reconcileDto,trxDate,channelCode,transactionType,reconcileStatus,reconcileDto.invoiceNo}"
+											action="listener:doUpdateInvoicePaid" value="Rekon" /></td>
+									</span>
+								</span>
+							</span>
+						</span>
+						
+						<span jwcid="@If" condition='ognl:reconcileDto.reconcileStatus.equalsIgnoreCase("Unsettled")'>
+							<span jwcid="@If" condition='ognl:reconcileDto.mt940Status.equalsIgnoreCase("Paid")'>
+								<span jwcid="@If" condition='ognl:reconcileDto.simsStatus.equalsIgnoreCase("Cancelled")'>
+									<span jwcid="@If" condition='!ognl:reconcileDto.trxId.equalsIgnoreCase("-")'>
+										<td><input type="submit" class="btn" jwcid="@Submit"
+											parameters="ognl:{reconcileDto,trxDate,channelCode,transactionType,reconcileStatus,reconcileDto.invoiceNo}"
+											action="listener:doUpdateInvoicePaid" value="Rekon" /></td>
+									</span>
+								</span>
+							</span>
+						</span>
+						
+						<span jwcid="@If" condition='ognl:reconcileDto.reconcileStatus.equalsIgnoreCase("Unsettled")'>
+							<span jwcid="@If" condition='ognl:reconcileDto.mt940Status.equalsIgnoreCase("Unpaid")'>
+								<span jwcid="@If" condition='ognl:reconcileDto.simsStatus.equalsIgnoreCase("Paid")'>
+										<td><input type="submit" class="btn" jwcid="@Submit"
+											parameters="ognl:{reconcileDto,trxDate,channelCode,transactionType,reconcileStatus,reconcileDto.invoiceNo}"
+											action="listener:doUpdateInvoiceUnpaid" value="Rekon" /></td>
+								</span>
+							</span>
+						</span>
+						
+						<!--<span jwcid="@If" condition='ognl:reconcileDto.reconcileStatus.equalsIgnoreCase("Need Confirmation/Manual Payment")'>
+							<span jwcid="@If" condition='ognl:reconcileDto.mt940Status.equalsIgnoreCase("Unpaid")'>
+								<span jwcid="@If" condition='ognl:reconcileDto.simsStatus.equalsIgnoreCase("Unpaid")'>
+										<span jwcid="@If" condition='ognl:reconcileDto.reconFlag.equalsIgnoreCase("CAN_RECON")'>
+											<td><input type="submit" class="btn" jwcid="@Submit"
+												parameters="ognl:{reconcileDto,trxDate,channelCode,transactionType,reconcileStatus,reconcileDto.invoiceNo}"
+												action="listener:doForceSettled" value="Rekon" /></td>
+										</span>
+								</span>
+							</span>
+						</span>-->
+						
+						<span jwcid="@If" condition='ognl:reconcileDto.reconcileStatus.equalsIgnoreCase("Need Confirmation/Manual Payment")'>
+							<span jwcid="@If" condition='ognl:reconcileDto.mt940Status.equalsIgnoreCase("Unpaid") && (reconcileDto.simsStatus.equalsIgnoreCase("Unpaid") || reconcileDto.simsStatus.equalsIgnoreCase("Cancelled")) && reconcileDto.reconFlag.equalsIgnoreCase("CAN_RECON")'>
+											<td><input type="submit" class="btn" jwcid="@Submit"
+												parameters="ognl:{reconcileDto,trxDate,channelCode,transactionType,reconcileStatus,reconcileDto.invoiceNo}"
+												action="listener:doForceSettled" value="Rekon" /></td>
+							</span>
+							<span jwcid="@Else">
+								<span jwcid="@If" condition='ognl:reconcileDto.mt940Status.equalsIgnoreCase("Unpaid") && (reconcileDto.simsStatus.equalsIgnoreCase("Unpaid") || reconcileDto.simsStatus.equalsIgnoreCase("Cancelled")) && reconcileDto.reconFlag.equalsIgnoreCase("-")'>
+												
+								</span>
+								<span jwcid="@Else">
+									<span jwcid="@If" condition='ognl:reconcileDto.reconFlag.equalsIgnoreCase("-")'>
+										<td><input type="submit" class="btn" jwcid="@Submit"
+													parameters="ognl:{reconcileDto,trxDate,channelCode,transactionType,reconcileStatus,reconcileDto.invoiceNo}"
+													action="listener:doForceSettled" value="Rekon" /></td>
+									</span>
+								</span>
+							</span>
+						</span>
+						
+						<!--<span jwcid="@If" condition='ognl:reconcileDto.reconcileStatus.equalsIgnoreCase("Need Confirmation/Manual Payment")'>
+							<span jwcid="@If" condition='ognl:{!reconcileDto.mt940Status.equalsIgnoreCase("Unpaid") and !reconcileDto.simsStatus.equalsIgnoreCase("Unpaid") and reconcileDto.reconFlag.equalsIgnoreCase("-")}'>
+									<td><input type="submit" class="btn" jwcid="@Submit"
+												parameters="ognl:{reconcileDto,trxDate,channelCode,transactionType,reconcileStatus,reconcileDto.invoiceNo}"
+												action="listener:doForceSettled" value="Rekon" /></td>
+							</span>
+						</span>-->
+						
+						
+						
+					</span>
+		
+					<td><input type="submit" class="btn" jwcid="@Submit"
+						action="listener:doBack" value="Kembali" /></td>
+				</tr>
+			</div>
+			</table>
+			<span jwcid="errorShadow@TextField" autocomplete="off" value="ognl:errorValue" style="display:none"></span>
+			<span jwcid="@If" condition="ognl:delegate.hasErrors">    
+				<script>alert('<span jwcid="@Delegator" delegate="ognl:delegate.firstError">Error Message</span>');</script>
+			</span>
+		</form>
+	</div>
+</body>
+</html>

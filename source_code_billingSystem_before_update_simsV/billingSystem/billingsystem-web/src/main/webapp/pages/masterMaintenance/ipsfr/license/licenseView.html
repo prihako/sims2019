@@ -1,0 +1,326 @@
+<html jwcid="@Shell" title="webapp.title">
+<head>
+<script type="text/javascript" src="scripts/jquery-1.8.3.min.js"></script>
+<script type="text/javascript"
+	src="scripts/jquery-ui-1.10.0.custom.min.js"></script>
+<script type="text/javascript" src="scripts/mayora/tools.js"></script>
+
+<link rel="stylesheet"
+	href="styles/style-Kominfo/jquery-ui-1.10.0.custom.css" type="text/css" />
+
+<script>
+	$(document).ready(function() {
+		if ($("#bhpMethod").attr('value') == 1) {
+			$('#licenceNoBirateValue').show();
+		} else {
+			$('#licenceNoBirateValue').hide();
+		}
+	});
+</script>
+
+
+</head>
+<body jwcid="@Body">
+	<div id="outer">
+		<form jwcid="@Form" delegate="ognl:beans.delegate" clientValidationEnabled="ognl:true">
+			<span jwcid="licenses@Hidden" value="ognl:licenses"></span>
+			<span jwcid="services@Hidden" value="ognl:services"></span>
+			<span jwcid="subServices@Hidden" value="ognl:subServices"></span>
+		
+			<div id="title">Information</div>
+			<h2>View License</h2>
+			<table width="50%" class="uniform">
+<!-- 				<tr jwcid="@Any" class="ognl:evenOddTable.next"> -->
+<!-- 					<td><label class="medium" -->
+<!-- 						key="masterMaintenance.ipsfr.license.serviceId.title"></label></td> -->
+<!-- 					<td><span jwcid="@Insert" value="ognl:serviceId" /></td> -->
+<!-- 				</tr> -->
+				<tr jwcid="@Any" class="ognl:evenOddTable.next">
+					<td><label class="medium"
+						key="masterMaintenance.ipsfr.license.service.title"></label></td>
+					<td><span jwcid="@Insert" value="ognl:services.serviceName" /></td>
+				</tr>
+<!-- 				<tr jwcid="@Any" class="ognl:evenOddTable.next"> -->
+<!-- 					<td><label class="medium" -->
+<!-- 						key="masterMaintenance.ipsfr.license.subServiceId.title"></label></td> -->
+<!-- 					<td><span jwcid="@Insert" value="ognl:subServiceId" /></td> -->
+<!-- 				</tr> -->
+				<tr jwcid="@Any" class="ognl:evenOddTable.next">
+					<td><label class="medium"
+						key="masterMaintenance.ipsfr.license.subService.title"></label></td>
+					<td><span jwcid="@Insert" value="ognl:subServices.subserviceName" /></td>
+				</tr>
+				<tr jwcid="@Any" class="ognl:evenOddTable.next">
+					<td><label class="medium"
+						key="masterMaintenance.ipsfr.license.methodBHP.title"></label></td>
+<!-- 					<td><span jwcid="@Insert" value="ognl:bhpMethod" id="bhpMethod" ></span></td> -->
+					<td>
+						<span jwcid="@If" condition='ognl:licenses.bhpMethod=="FR"'>
+							<span key="method.bhp.flat"></span>
+						</span>
+						<span jwcid="@If" condition='ognl:licenses.bhpMethod=="VR"'>
+							<span key="method.bhp.variated"></span>
+						</span>
+						<span jwcid="@If" condition='ognl:licenses.bhpMethod=="C"'>
+							<span key="method.bhp.conversion"></span>
+						</span>
+					</td>
+				</tr>
+				<tr jwcid="@Any" class="ognl:evenOddTable.next">
+					<td><label class="medium"
+						key="masterMaintenance.ipsfr.license.clientID.title"></label></td>
+					<td><span jwcid="@Insert" value="ognl:licenses.clientID" /></td>
+				</tr>
+				<tr jwcid="@Any" class="ognl:evenOddTable.next">
+					<td><label class="medium"
+						key="masterMaintenance.ipsfr.license.clientName.title"></label></td>
+					<td><span jwcid="@Insert" value="ognl:licenses.clientName" /></td>
+				</tr>
+				<tr jwcid="@Any" class="ognl:evenOddTable.next">
+					<td><label class="medium" key="license.licenseNo.title"></label></td>
+					<td><span jwcid="@Insert" value="ognl:licenses.licenceNo" /></td>
+				</tr>
+				<tr jwcid="@Any" class="ognl:evenOddTable.next">
+
+					<td><label class="medium" key="license.licenseId.title"
+						field="component:licenceId"></label></td>
+					<td><span jwcid="licenceId@Insert" value="ognl:licenses.licenceId" /></td>
+				</tr>
+				<tr jwcid="@Any" class="ognl:evenOddTable.next">
+					<td><label class="medium" key="license.licensedate.title"></label></td>
+					<td><span jwcid="licenceDate@Insert" value="ognl:licenceDate" /></td>
+				</tr>
+				<tr jwcid="@Any" class="ognl:evenOddTable.next">
+					<td><label class="medium" key="license.periodeIPSFR.mulai.title"></label></td>
+					<td><span jwcid="licenceBegin@Insert" value="ognl:licenceBegin"></span> &nbsp; s/d &nbsp;
+						<span jwcid="licenceEnd@Insert" value="ognl:licenceEnd"></span></td>
+				</tr>
+				<tr jwcid="@Any" class="ognl:evenOddTable.next">
+					<td><label class="medium" key="license.licenseExpireDate.title"></label></td>
+					<td><span jwcid="licenceExpireDate@Insert" value="ognl:licenceExpireDate" /></td>
+				</tr>
+<!-- 				<tr jwcid="@Any" class="ognl:evenOddTable.next"> -->
+<!-- 					<td><label class="medium" -->
+<!-- 						key="license.periodeIPSFR.akhir.title"></label></td> -->
+<!-- 					<td><span jwcid="licenceEnd@Insert" value="ognl:licenceEnd" /></td> -->
+<!-- 				</tr> -->
+				<tr jwcid="@Any" class="ognl:evenOddTable.next">
+					<td><label class="medium" key="license.yearto.title"></label></td>
+					<td><span jwcid="yearTo@Insert" value="ognl:licenses.yearTo" /></td>
+				</tr>
+
+				<span jwcid="@If" condition="ognl:bhpMethod=='VR'">
+					<tr jwcid="@Any" class="ognl:evenOddTable.next">
+						<td><label class="medium" key="license.licenceNoBirate.title"></label></td>
+						<td><span id="licenceNoBirateValue"
+							jwcid="licenceNoBirate@Insert" value="ognl:licenses.licenceNoBirate" style="display: none"></span></td>
+					</tr>
+				</span>
+				
+				<tr>
+					<td><h2>Alokasi Pita/ Frekuensi</h2></td>
+				</tr>
+				<tr jwcid="@Any" class="ognl:evenOddTable.next">
+					<td><label key="license.transmit.title" class="medium"></label></td>
+					<td><span jwcid="transmitMin@Insert" value="ognl:licenses.transmitMin" ></span><span class="add-on-last"> MHz</span>&nbsp; - &nbsp;
+						<span jwcid="transmitMax@Insert" value="ognl:licenses.transmitMax" ></span><span class="add-on-last"> MHz</span></td>
+				</tr>
+
+				<tr jwcid="@Any" class="ognl:evenOddTable.next">
+					<td><label key="license.receive.title" class="medium"></label></td>
+					<td><span jwcid="receiveMin@Insert" value="ognl:licenses.receiveMin" ></span><span class="add-on-last"> MHz</span>&nbsp; - &nbsp;
+						<span jwcid="receiveMax@Insert" value="ognl:licenses.receiveMax" ></span><span class="add-on-last"> MHz</span></td>
+				</tr>
+
+				<tr jwcid="@Any" class="ognl:evenOddTable.next">
+					<td><label key="license.bhpPaymentType.title" class="medium"></label></td>
+<!-- 					<td><span jwcid="bhpPaymentType@Insert" -->
+<!-- 						value="ognl:bhpPaymentType" /></td> -->
+					<td>
+						<span jwcid="@If" condition="ognl:licenses.bhpPaymentType=='FP'">
+							<span key="method.payment.full"></span>
+						</span>
+						<span jwcid="@Else">
+							<span jwcid="bhpPaymentType@Insert" value="ognl:licenses.bhpPaymentType"></span>
+						</span>
+					</td>
+				</tr>
+				<tr jwcid="@Any" class="ognl:evenOddTable.next">
+					<td><label key="license.paymentDueDate.title" class="medium"></label></td>
+					<td><span jwcid="paymentDueDate@Insert" value="ognl:paymentDueDate"></span></td>
+				</tr>
+				
+				<span jwcid="@If" condition='ognl:licenses.licenceComment!=null && licenses.yearTo!="1"'>
+					<tr jwcid="@Any" class="ognl:evenOddTable.next">
+						<td><label key="license.comment.title" class="medium"></label></td>
+						<td><span jwcid="licenceComment@Insert" value="ognl:licenses.licenceComment"></span></td>
+					</tr>
+				</span>
+				
+				<tr>
+					<td><h2>Biaya Hak Penggunaan (BHP)</h2></td>
+				</tr>
+				
+					<span jwcid="@If" condition='ognl:licenses.bhpMethod=="FR"'>
+					<tr jwcid="@Any" class="ognl:evenOddTable.next">
+						<td>
+							<label class="medium" key="calculateBhp.field.upfrontFee" ></label>
+						</td>
+						<td><span class="add-on-first">Rp</span>
+							<span jwcid="bhpUpfrontFee@InsertMoney" value="ognl:licenses.bhpUpfrontFee"></span>
+						</td>
+					</tr>
+					<tr jwcid="@Any" class="ognl:evenOddTable.next">
+						<td>
+							<label class="medium" key="calculateBhp.field.hl" ></label>
+						</td>
+						<td><span class="add-on-first">Rp</span>
+							<span jwcid="bhpHl@InsertMoney" value="ognl:licenses.bhpHl"></span>
+						</td>
+					</tr>
+					<tr jwcid="@Any" class="ognl:evenOddTable.next">
+						<td>
+							<label class="medium" key="calculateBhp.field.phl" ></label>
+						</td>
+						<td><span class="add-on-first">Rp</span>
+							<span jwcid="bhpPhl@InsertMoney" value="ognl:licenses.bhpPhl"></span>
+						</td>
+					</tr>
+					</span>
+					
+					<span jwcid="@If" condition='ognl:licenses.bhpMethod=="VR"'>
+					<tr jwcid="@Any" class="ognl:evenOddTable.next">
+						<td>
+							<label class="medium" key="calculateBhp.field.upfrontFee" ></label>
+						</td>
+						<td><span class="add-on-first">Rp</span>
+							<span jwcid="@InsertMoney" value="ognl:licenses.bhpUpfrontFee"></span>
+						</td>
+					</tr>
+					<tr jwcid="@Any" class="ognl:evenOddTable.next">
+						<td>
+							<label class="medium" key="calculateBhp.field.rate" ></label>
+						</td>
+						<td><span jwcid="@Insert" value="ognl:licenses.bhpRate"></span>
+							<span class="add-on-last">%</span>
+						</td>
+					</tr>
+					<tr jwcid="@Any" class="ognl:evenOddTable.next">
+						<td>
+							<label class="medium" key="calculateBhp.field.index" ></label>
+						</td>
+						<td>
+							<span jwcid="@Insert" value="ognl:licenses.bhpCalcIndex"></span>
+						</td>
+					</tr>
+					<tr jwcid="@Any" class="ognl:evenOddTable.next">
+						<td>
+							<label class="medium" key="calculateBhp.field.hl" ></label>
+						</td>
+						<td><span class="add-on-first">Rp</span>
+							<span jwcid="@InsertMoney" value="ognl:licenses.bhpHl"></span>
+						</td>
+					</tr>
+					<tr jwcid="@Any" class="ognl:evenOddTable.next">
+						<td>
+							<label class="medium" key="calculateBhp.field.phl" ></label>
+						</td>
+						<td><span class="add-on-first">Rp</span>
+							<span jwcid="@InsertMoney" value="ognl:licenses.bhpPhl"></span>
+						</td>
+					</tr>
+					<tr jwcid="@Any" class="ognl:evenOddTable.next">
+						<td>
+							<label class="medium" key="calculateBhp.field.persentaseBhp" ></label>
+						</td>
+						<td><span jwcid="@Insert" value="ognl:licenses.bhpAnnualPercent"></span>
+							<span class="add-on-last">%</span>
+						</td>
+					</tr>
+					<tr jwcid="@Any" class="ognl:evenOddTable.next">
+						<td><label class="medium" key="calculateBhp.field.nilaiBhp"></label></td>
+						<td><span class="add-on-first">Rp</span> 
+							<span jwcid="@InsertMoney" value="ognl:licenses.bhpAnnualValue"></span></td>
+					</tr>
+					</span>
+			
+					<tr jwcid="@Any" class="ognl:evenOddTable.next">
+						<td><label class="medium">Total Pembayaran</label></td>
+						<td><span class="add-on-first">Rp</span> 
+							<span jwcid="bhpTotal@InsertMoney" value="ognl:licenses.bhpTotal"></span></td>
+					</tr>
+				</table>
+
+<!-- 			TABLE LIST CALCULATION -->
+				<span jwcid="@If" condition='ognl:bhpList!=null && bhpList.size()>0 && licenses.bhpMethod=="FR"'>
+					<div id="box">
+		   				<span jwcid="@contrib:TableView" pageSize="10"
+		    				columns="!TahunPembayaran,!UpfrontFee,!Rate,!Index,!PersentaseBhp,!BhpAnnual,!Total" 
+		    				source="ognl:bhpList">
+						
+							<table width="100%">
+							<tr>
+								<td align="right">
+									<br/><span jwcid="@TablePages"></span>
+								</td>
+							</tr>
+							<tr><td>
+							  	<table border="0" class="data" width="100%">
+								  	
+									<tr>
+										<th> <span key="calculateBhp.table.year">Year</span> </th>
+										<th> <span key="calculateBhp.table.upfrontFee">Upfront fee</span> </th>
+<!-- 										<th> <span key="calculateBhp.table.rate">Rate</span> </th> -->
+<!-- 										<th> <span key="calculateBhp.table.index">Index</span> <br> -->
+<!-- 										 <span key="calculateBhp.rumus.index">Rumus Index</span> </th> -->
+<!-- 										<th> <span key="calculateBhp.table.persentaseBhp">Persentase BHP</span> </th> -->
+										<th> <span key="calculateBhp.table.bhpAmount">IPSFR</span> <br>
+										 <span key="calculateBhp.rumus.bhpAmount">Rumus IPFR</span> </th>
+										<th> <span key="calculateBhp.table.pembayaran">Total Pembayaran</span> <br>
+										 <span key="calculateBhp.rumus.pembayaran">Rumus Total Pembayaran</span> </th>
+									</tr>
+									<tr jwcid="@contrib:TableRows" row="ognl:row1" class="ognl:beans.evenOdd.next">
+										<td><span jwcid="@Insert" 						value="ognl:row1.yearTo"/></td>
+										<td><span jwcid="@InsertMoney" 					value="ognl:row1.bhpUpfrontFee"/></td>
+<!-- 						  				<td align="right"><span jwcid="@Insert" 		value="ognl:row1.bhpRate"/>&nbsp;%</td> -->
+<!-- 						  				<td align="right"><span jwcid="@Insert" 		value="ognl:row1.bhpCalcIndex"/></td> -->
+<!-- 						  				<td align="right"><span jwcid="@Insert" 		value="ognl:row1.bhpAnnualPercent"/>&nbsp;%</td> -->
+						  				<td align="right"><span jwcid="@InsertMoney" 	value="ognl:row1.bhpAnnualValue"/></td>
+						  				<td align="right"><span jwcid="@InsertMoney" 	value="ognl:row1.bhpTotal"/></td>
+									</tr>
+								</table>
+							</td></tr>
+						</span>
+					</div>
+				</span>
+<!-- 			END OF TABLE LIST CALCULATION -->
+
+			<!-- button -->
+			<div id="button">
+			<span jwcid="@If" condition='ognl:licenses.yearTo=="1"'>
+				<input type="submit" class="btn" jwcid="@Submit" action="listener:doEdit" 
+						value="message:button.masterMaintenance.ipsfr.license.edit" />
+				<input type="submit" class="btn" jwcid="@Submit" action="listener:doDelete"
+					value="message:button.masterMaintenance.ipsfr.license.delete" />
+			</span>
+			
+			<span jwcid="@If" condition='ognl:licenses.yearTo!="1" && licenses.licenceStatus=="S"'>
+				<input type="submit" class="btn" jwcid="@Submit" action="listener:doEdit" 
+					value="message:button.masterMaintenance.ipsfr.license.edit" /> 
+			</span>
+			
+				<input type="submit" class="btn" jwcid="@Submit" action="listener:doCancel"
+					value="message:button.back" />
+			</div>
+			<!-- button -->
+			
+			<input type="hidden" jwcid="@Hidden" value="ognl:bsLicenceId" /> 
+			<input type="hidden" jwcid="@Hidden" value="ognl:licenceId" /> 
+			<input type="hidden" jwcid="@Hidden" value="ognl:licenceNo" />
+
+		</form>
+
+	</div>
+</body>
+
+</html>

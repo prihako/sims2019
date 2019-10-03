@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html jwcid="@Shell" title="message:webapp.title">
+<head>
+<script type="text/javascript" src="scripts/jquery-1.8.3.min.js"></script>
+<script type="text/javascript"
+	src="scripts/jquery-ui-1.10.0.custom.min.js"></script>
+<script type="text/javascript" src="scripts/mayora/tools.js"></script>
+<link rel="stylesheet"
+	href="styles/style-Kominfo/jquery-ui-1.10.0.custom.css" type="text/css" />
+<script type="text/javascript">
+	function myFunction(val) {
+	    document.getElementById("date2").value = val;
+	}
+</script>
+</head>
+<body jwcid="@Body">
+
+	<div id="outer">
+
+		<form jwcid="uploadInvoice@Form" delegate="ognl:beans.delegate"
+			clientValidationEnabled="ognl:true">
+
+			<div id="title">
+				<span key="leftmenu.uploadInvoice.title"></span> 
+			</div> 
+			
+			<span jwcid="notFirstLoad@Hidden" value="ognl:notFirstLoad"></span>
+			
+			<div id="title">
+			</div>
+			<table width="60%" class="uniform">
+
+				
+				<tr>
+					<td>
+						<label displayName="message:leftmenu.uploadInvoice.file">Upload File</label>
+					</td>
+					<td>
+						<input jwcid="@Upload" file="ognl:file" type= "file" id="myFavoriteDiv" style="width:300px" />
+					</td>
+				</tr>
+				
+				<tr>
+					<td>
+						<span jwcid="date1@DatePicker" value="ognl:date1" onchange="myFunction(this.value)" />
+					</td>
+					<td>
+						<span jwcid="date2@DatePicker" value="ognl:date2" />
+					</td>
+				</tr>
+				
+				<tr>
+					<td></td>
+					<td>
+						<input name="BTN_SEARCH" type="submit" class="btn" style="height:25px;"
+						id="BTN_SEARCH" jwcid="@Submit" action="listener:doUpload"
+						onclick="this.form.onsubmit=null"
+						value="message:button.upload" />
+					</td>
+				</tr>
+
+			</table>
+			
+			<span jwcid="@If" condition="ognl:uploadInvoiceDtoList!=null">
+				<div id="box" style="width: 90%">
+					<table width="99%" jwcid="@contrib:TableView" pageSize="10"
+						source="ognl:uploadInvoiceDtoList"
+						columns="!No klienId noInvoice status">
+						<tr>
+							<td align="right"><br /> <span jwcid="@TablePages" /></td>
+						</tr>
+						<tr>
+							<td>
+								<table border="0" class="data" width="99%">
+									<tr>
+										<th><span key="leftmenu.uploadInvoice.no">No</span></th>
+										<th><span key="leftmenu.uploadInvoice.klienId">Klien Id</span></th>
+										<th><span key="leftmenu.uploadInvoice.noInvoice">No Invoice</span></th>
+										<th><span key="leftmenu.uploadInvoice.status">Status</span></th>
+									</tr>
+									<tr jwcid="@contrib:TableRows" row="ognl:uploadInvoiceDto"
+										class="ognl:beans.evenOdd.next">
+										<td width="3%" style="text-align:center"><span jwcid="@Insert"
+											value="ognl:uploadInvoiceDto.no"></span></td>
+										<td width="15%" align="center"><span jwcid="@Insert"
+											value="ognl:uploadInvoiceDto.klienId"></span></td>
+										<td width="15%" align="center"><span jwcid="@Insert"
+											value="ognl:uploadInvoiceDto.invoiceNo"></span></td>
+										<td width="15%" align="center"><span jwcid="@Insert"
+											value="ognl:uploadInvoiceDto.status"></span></td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</span> 
+			
+			<span jwcid="errorShadow@TextField" autocomplete="off" value="ognl:errorValue" style="display:none"></span>
+			<span jwcid="@If" condition="ognl:delegate.hasErrors">    
+				<script>alert('<span jwcid="@Delegator" delegate="ognl:delegate.firstError">Error Message</span>');</script>
+			</span>
+
+		</form>
+	</div>
+</body>
+</html>

@@ -1,0 +1,277 @@
+<definitions name="PaymentManagerController" targetNamespace="urn:PaymentManagerControllerwsdl" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="urn:PaymentManagerControllerwsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap-enc="http://schemas.xmlsoap.org/soap/encoding/">
+   <wsdl:types>
+      <xsd:schema targetNamespace="urn:PaymentManagerControllerwsdl">
+         <xsd:complexType name="InquiryRequest">
+            <xsd:all>
+               <xsd:element name="language" type="xsd:string"/>
+               <xsd:element name="trxDateTime" type="xsd:string"/>
+               <xsd:element name="transmissionDateTime" type="xsd:string"/>
+               <xsd:element name="companyCode" type="xsd:string"/>
+               <xsd:element name="channelID" type="xsd:string"/>
+               <xsd:element name="billKey1" type="xsd:string"/>
+               <xsd:element name="billKey2" type="xsd:string"/>
+               <xsd:element name="billKey3" type="xsd:string"/>
+               <xsd:element name="reference1" type="xsd:string"/>
+               <xsd:element name="reference2" type="xsd:string"/>
+               <xsd:element name="reference3" type="xsd:string"/>
+            </xsd:all>
+         </xsd:complexType>
+         <xsd:complexType name="InquiryResult">
+            <xsd:all>
+               <xsd:element name="currency" type="xsd:string"/>
+               <xsd:element name="billInfo1" type="xsd:string"/>
+               <xsd:element name="billInfo2" type="xsd:string"/>
+               <xsd:element name="billInfo3" type="xsd:string"/>
+               <xsd:element name="billInfo4" type="xsd:string"/>
+               <xsd:element name="billInfo5" type="xsd:string"/>
+               <xsd:element name="billInfo6" type="xsd:string"/>
+               <xsd:element name="billInfo7" type="xsd:string"/>
+               <xsd:element name="billInfo8" type="xsd:string"/>
+               <xsd:element name="billInfo9" type="xsd:string"/>
+               <xsd:element name="billInfo10" type="xsd:string"/>
+               <xsd:element name="billInfo11" type="xsd:string"/>
+               <xsd:element name="billInfo12" type="xsd:string"/>
+               <xsd:element name="billInfo13" type="xsd:string"/>
+               <xsd:element name="billInfo14" type="xsd:string"/>
+               <xsd:element name="billInfo15" type="xsd:string"/>
+               <xsd:element name="billInfo16" type="xsd:string"/>
+               <xsd:element name="billInfo17" type="xsd:string"/>
+               <xsd:element name="billInfo18" type="xsd:string"/>
+               <xsd:element name="billInfo19" type="xsd:string"/>
+               <xsd:element name="billInfo20" type="xsd:string"/>
+               <xsd:element name="billInfo21" type="xsd:string"/>
+               <xsd:element name="billInfo22" type="xsd:string"/>
+               <xsd:element name="billInfo23" type="xsd:string"/>
+               <xsd:element name="billInfo24" type="xsd:string"/>
+               <xsd:element name="billInfo25" type="xsd:string"/>
+               <xsd:element name="billDetails" type="tns:ArrayOfBillDetail"/>
+               <xsd:element name="status" type="tns:Status"/>
+            </xsd:all>
+         </xsd:complexType>
+         <xsd:complexType name="ArrayOfBillDetail">
+            <xsd:all>
+               <xsd:element name="billDetails" type="tns:BillDetailArray"/>
+            </xsd:all>
+         </xsd:complexType>
+         <xsd:complexType name="BillDetailArray">
+            <xsd:sequence>
+               <xsd:element name="item" type="tns:BillDetail" minOccurs="0" maxOccurs="unbounded"/>
+            </xsd:sequence>
+         </xsd:complexType>
+         <xsd:complexType name="BillDetail">
+            <xsd:all>
+               <xsd:element name="billCode" type="xsd:string"/>
+               <xsd:element name="billName" type="xsd:string"/>
+               <xsd:element name="billShortName" type="xsd:string"/>
+               <xsd:element name="billAmount" type="xsd:string"/>
+               <xsd:element name="reference1" type="xsd:string"/>
+               <xsd:element name="reference2" type="xsd:string"/>
+               <xsd:element name="reference3" type="xsd:string"/>
+            </xsd:all>
+         </xsd:complexType>
+         <xsd:complexType name="Status">
+            <xsd:all>
+               <xsd:element name="isError" type="xsd:boolean"/>
+               <xsd:element name="errorCode" type="xsd:string"/>
+               <xsd:element name="statusDescription" type="xsd:string"/>
+            </xsd:all>
+         </xsd:complexType>
+         <xsd:complexType name="PaymentRequest">
+            <xsd:all>
+               <xsd:element name="language" type="xsd:string"/>
+               <xsd:element name="trxDateTime" type="xsd:string"/>
+               <xsd:element name="transmissionDateTime" type="xsd:string"/>
+               <xsd:element name="companyCode" type="xsd:string"/>
+               <xsd:element name="channelID" type="xsd:string"/>
+               <xsd:element name="billKey1" type="xsd:string"/>
+               <xsd:element name="billKey2" type="xsd:string"/>
+               <xsd:element name="billKey3" type="xsd:string"/>
+               <xsd:element name="paidBills" type="tns:ArrayOfString"/>
+               <xsd:element name="paymentAmount" type="xsd:string"/>
+               <xsd:element name="currency" type="xsd:string"/>
+               <xsd:element name="transactionID" type="xsd:string"/>
+               <xsd:element name="reference1" type="xsd:string"/>
+               <xsd:element name="reference2" type="xsd:string"/>
+               <xsd:element name="reference3" type="xsd:string"/>
+            </xsd:all>
+         </xsd:complexType>
+         <xsd:complexType name="ArrayOfString">
+            <xsd:all>
+               <xsd:element name="strings" type="tns:stringArray"/>
+            </xsd:all>
+         </xsd:complexType>
+         <xsd:complexType name="stringArray">
+            <xsd:sequence>
+               <xsd:element name="item" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+            </xsd:sequence>
+         </xsd:complexType>
+         <xsd:complexType name="PaymentResult">
+            <xsd:all>
+               <xsd:element name="billInfo1" type="xsd:string"/>
+               <xsd:element name="billInfo2" type="xsd:string"/>
+               <xsd:element name="billInfo3" type="xsd:string"/>
+               <xsd:element name="billInfo4" type="xsd:string"/>
+               <xsd:element name="billInfo5" type="xsd:string"/>
+               <xsd:element name="billInfo6" type="xsd:string"/>
+               <xsd:element name="billInfo7" type="xsd:string"/>
+               <xsd:element name="billInfo8" type="xsd:string"/>
+               <xsd:element name="billInfo9" type="xsd:string"/>
+               <xsd:element name="billInfo10" type="xsd:string"/>
+               <xsd:element name="billInfo11" type="xsd:string"/>
+               <xsd:element name="billInfo12" type="xsd:string"/>
+               <xsd:element name="billInfo13" type="xsd:string"/>
+               <xsd:element name="billInfo14" type="xsd:string"/>
+               <xsd:element name="billInfo15" type="xsd:string"/>
+               <xsd:element name="billInfo16" type="xsd:string"/>
+               <xsd:element name="billInfo17" type="xsd:string"/>
+               <xsd:element name="billInfo18" type="xsd:string"/>
+               <xsd:element name="billInfo19" type="xsd:string"/>
+               <xsd:element name="billInfo20" type="xsd:string"/>
+               <xsd:element name="billInfo21" type="xsd:string"/>
+               <xsd:element name="billInfo22" type="xsd:string"/>
+               <xsd:element name="billInfo23" type="xsd:string"/>
+               <xsd:element name="billInfo24" type="xsd:string"/>
+               <xsd:element name="billInfo25" type="xsd:string"/>
+               <xsd:element name="status" type="tns:Status"/>
+            </xsd:all>
+         </xsd:complexType>
+         <xsd:complexType name="ReversalRequest">
+            <xsd:all>
+               <xsd:element name="language" type="xsd:string"/>
+               <xsd:element name="trxDateTime" type="xsd:string"/>
+               <xsd:element name="origTrxDateTime" type="xsd:string"/>
+               <xsd:element name="transmissionDateTime" type="xsd:string"/>
+               <xsd:element name="origTransmissionDateTime" type="xsd:string"/>
+               <xsd:element name="companyCode" type="xsd:string"/>
+               <xsd:element name="channelID" type="xsd:string"/>
+               <xsd:element name="billKey1" type="xsd:string"/>
+               <xsd:element name="billKey2" type="xsd:string"/>
+               <xsd:element name="billKey3" type="xsd:string"/>
+               <xsd:element name="paymentAmount" type="xsd:string"/>
+               <xsd:element name="currency" type="xsd:string"/>
+               <xsd:element name="transactionID" type="xsd:string"/>
+               <xsd:element name="reference1" type="xsd:string"/>
+               <xsd:element name="reference2" type="xsd:string"/>
+               <xsd:element name="reference3" type="xsd:string"/>
+            </xsd:all>
+         </xsd:complexType>
+         <xsd:complexType name="ReversalResult">
+            <xsd:all>
+               <xsd:element name="status" type="tns:Status"/>
+            </xsd:all>
+         </xsd:complexType>
+         <xsd:element name="inquiry">
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="req" type="tns:InquiryRequest" nillable="true"/>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="inquiryResponse">
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="inquiryResult" type="tns:InquiryResult"/>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="payment">
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="req" type="tns:PaymentRequest" nillable="true"/>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="paymentResponse">
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="paymentResult" type="tns:PaymentResult"/>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="reversal">
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="req" type="tns:ReversalRequest" nillable="true"/>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="reversalResponse">
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="reversalResult" type="tns:ReversalResult"/>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+      </xsd:schema>
+   </wsdl:types>
+   <wsdl:message name="inquiryIn">
+      <wsdl:part name="parameters" element="tns:inquiry"/>
+   </wsdl:message>
+   <wsdl:message name="inquiryOut">
+      <wsdl:part name="parameters" element="tns:inquiryResponse"/>
+   </wsdl:message>
+   <wsdl:message name="paymentIn">
+      <wsdl:part name="parameters" element="tns:payment"/>
+   </wsdl:message>
+   <wsdl:message name="paymentOut">
+      <wsdl:part name="parameters" element="tns:paymentResponse"/>
+   </wsdl:message>
+   <wsdl:message name="reversalIn">
+      <wsdl:part name="parameters" element="tns:reversal"/>
+   </wsdl:message>
+   <wsdl:message name="reversalOut">
+      <wsdl:part name="parameters" element="tns:reversalResponse"/>
+   </wsdl:message>
+   <wsdl:portType name="PaymentManagerControllerPortType">
+      <wsdl:operation name="inquiry">
+         <wsdl:documentation/>
+         <wsdl:input message="tns:inquiryIn"/>
+         <wsdl:output message="tns:inquiryOut"/>
+      </wsdl:operation>
+      <wsdl:operation name="payment">
+         <wsdl:documentation/>
+         <wsdl:input message="tns:paymentIn"/>
+         <wsdl:output message="tns:paymentOut"/>
+      </wsdl:operation>
+      <wsdl:operation name="reversal">
+         <wsdl:documentation/>
+         <wsdl:input message="tns:reversalIn"/>
+         <wsdl:output message="tns:reversalOut"/>
+      </wsdl:operation>
+   </wsdl:portType>
+   <wsdl:binding name="PaymentManagerControllerBinding" type="tns:PaymentManagerControllerPortType">
+      <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+      <wsdl:operation name="inquiry">
+         <soap:operation soapAction="urn:PaymentManagerControllerwsdl#inquiry"/>
+         <wsdl:input>
+            <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+         </wsdl:input>
+         <wsdl:output>
+            <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+         </wsdl:output>
+      </wsdl:operation>
+      <wsdl:operation name="payment">
+         <soap:operation soapAction="urn:PaymentManagerControllerwsdl#payment"/>
+         <wsdl:input>
+            <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+         </wsdl:input>
+         <wsdl:output>
+            <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+         </wsdl:output>
+      </wsdl:operation>
+      <wsdl:operation name="reversal">
+         <soap:operation soapAction="urn:PaymentManagerControllerwsdl#reversal"/>
+         <wsdl:input>
+            <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+         </wsdl:input>
+         <wsdl:output>
+            <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+         </wsdl:output>
+      </wsdl:operation>
+   </wsdl:binding>
+   <wsdl:service name="PaymentManagerControllerService">
+      <wsdl:port name="PaymentManagerControllerPort" binding="tns:PaymentManagerControllerBinding">
+         <soap:address location="http://10.1.125.185/siptel-pg/web/index.php"/>
+      </wsdl:port>
+   </wsdl:service>
+</definitions>

@@ -1,0 +1,101 @@
+<html jwcid="@Shell" title="message:webapp.title">
+<body jwcid="@Body">
+<div id="outer">
+<form jwcid="addBankInput@Form" delegate="ognl:beans.delegate" clientValidationEnabled="ognl:true">
+<div id="title">
+    <span jwcid="@If" condition="ognl:entity.id eq null" >
+		<span key="addBankInput.title.add" />
+	</span>
+	<span jwcid="@Else">
+		<span key="addBankInput.title.edit"/>
+	</span>	
+</div> <br />
+<span jwcid="@ValidationErrorTop" delegate="ognl:beans.delegate" />
+
+<table width="100%" class="uniform">
+<tr jwcid="@Any" class="ognl:evenOddTable.next">
+                <td width="200px">
+                	<label class="medium" jwcid="@FieldLabel" field="component:bankCode"
+                           displayName="message:addBank.bankCode"/>
+                </td>
+                <td><input jwcid="bankCode@TextField"
+                           onkeypress="" size="40"
+                           maxlength="30"
+                           value="ognl:entity.bankCode"
+                           displayName="message:addBankCode.values"/>
+                </td>
+</tr>
+<tr jwcid="@Any" class="ognl:evenOddTable.next">
+                <td width="200px">
+                	<label class="medium" jwcid="@FieldLabel" field="component:bankName"
+                           displayName="message:addBank.bankName"/>
+                </td>
+                <td><input jwcid="bankName@TextField"
+                           onkeypress="" size="40"
+                           maxlength="30"
+                           value="ognl:entity.bankName"
+                           displayName="message:addBankName.values"/>
+                </td>
+</tr>
+<tr jwcid="@Any" class="ognl:evenOddTable.next">
+                <td width="200px">
+                	<label class="medium" jwcid="@FieldLabel" field="component:binPrefix"
+                           displayName="message:addBank.binPrefix"/>
+                </td>
+                <td><input jwcid="binPrefix@TextField"
+                           onkeypress="" size="100"
+                           maxlength="300"
+                           value="ognl:entity.binPrefix"
+                           displayName="message:addBinPrefix.values"/>
+                </td>
+</tr>
+	    	<tr jwcid="@Any" class="ognl:evenOddTable.next">
+				<td width="200px">
+                	<label class="medium" jwcid="@FieldLabel" field="component:isAlto"
+                           displayName="message:addBank.isAlto"/>
+				</td>
+				<td>
+					<select 
+						jwcid="isAlto@PropertySelection" 
+						model="ognl:isAltoOption"
+						value="ognl:entity.isAlto"
+						>
+					</select>				
+				</td>
+			</tr>
+	    	<tr jwcid="@Any" class="ognl:evenOddTable.next">
+				<td width="200px">
+                	<label class="medium" jwcid="@FieldLabel" field="component:isAtmb"
+                           displayName="message:addBank.isAtmb"/>
+				</td>
+				<td>
+					<select 
+						jwcid="isAtmb@PropertySelection" 
+						model="ognl:isAtmbOption"
+						value="ognl:entity.isAtmb"
+						>
+					</select>				
+				</td>
+			</tr>
+	    	<tr jwcid="@Any" class="ognl:evenOddTable.next">
+				<td width="200px">
+                	<label class="medium" jwcid="@FieldLabel" field="component:priority"
+                           displayName="message:addBank.priority"/>
+				</td>
+				<td>
+					<select 
+						jwcid="priority@PropertySelection" 
+						model="ognl:priorityOption"
+						value="ognl:entity.priority"
+						>
+					</select>				
+				</td>
+			</tr>
+</table>
+        <div class="button">
+            <input jwcid='@Submit' class="btn" value="message:button.continue" action="listener:doButtonNext"/>
+        </div>
+</form>
+</div>
+</body>
+</html>

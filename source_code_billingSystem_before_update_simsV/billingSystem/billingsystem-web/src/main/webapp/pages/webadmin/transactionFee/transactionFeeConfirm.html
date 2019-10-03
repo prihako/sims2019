@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>
+	<span key="webapp.title"> </span>
+</title>
+</head>
+<span jwcid="@Shell" title="message:webapp.title"> 
+<body jwcid="@Body">
+<div id="outer">
+<form	
+	jwcid="@Form" delegate="ognl:beans.delegate"
+	clientValidationEnabled="ognl:true">
+<div id="title">
+	<span jwcid="@If" condition="ognl:stateMode eq 'EDIT'">
+		<span key="transactionFeeConfirm.edit.title">Konfirmasi Edit Transaksi Fee</span> 
+	</span>
+	<span jwcid="@Else">
+		<span key="transactionFeeConfirm.delete.title">Konfirmasi Delete Transaksi Fee</span>
+	</span>
+	
+</div> <br />
+<div id="box">
+    <span jwcid="@contrib:TableView"
+		pageSize="ognl:pageSize"
+		columns="!identifierField:field.transactionFee.identifier:identifierField, 
+			!kodeTransaksiField:field.transactionFee.kodeTransaksi:kodeTransaksiField,
+			!namaTransaksiField:field.transactionFee.namaTransaksi:namaTransaksiField,
+			!namaChannelField:field.transactionFee.namaChannel:namaChannelField,
+			!nominalFeeField:field.transactionFee.nominalFee:nominalFeeField"
+		source="ognl:transactionFeeToConfirm">
+	<table class="data" width="100%">
+	    <tr>
+        	<span jwcid="@contrib:TableColumns"/>
+        </tr>
+    	<tr jwcid="tableRows@contrib:TableRows" row="ognl:loopObject" class="ognl:beans.evenOdd.next">
+		    <td width="10%" class="center" style="min-width:100px">
+		    	<span jwcid="@Insert" value="ognl:loopObject.id.identifier"/>
+		    </td>
+		    <td width="10%" class="center" style="min-width:100px">
+		    	<span jwcid="@Insert" value="ognl:loopObject.transactions.code"/>
+		    </td>
+		    <td width="20%" class="left" style="min-width:100px">
+		    	<span jwcid="@Insert" value="ognl:loopObject.transactions.name"/>               
+		    </td>
+		    <td width="10%" class="center" style="min-width:100px">
+		    	<span jwcid="@Insert" value="ognl:loopObject.endpoints.name"/>               
+		    </td>
+		    <td width="10%" class="right" style="min-width:100px">
+		    	<span jwcid="@Insert" value="ognl:loopObject.id.fee"/>               
+		    </td>
+		</tr>
+    </table>
+    </span>
+    </div>
+<br />
+<input type="hidden" jwcid="@Hidden" value="ognl:transactionFeeToConfirm" />
+<div id="button">
+	<input class="btn" type="submit" jwcid="@Submit" listener="listener:doSubmit" value="message:button.continue"/>
+	<input class="btn" type="submit" jwcid="@Submit" listener="listener:doCancel" value="message:button.cancel"/>
+</div>
+</form>
+</div>
+</body>
+</span>
+</html>

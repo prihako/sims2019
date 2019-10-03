@@ -1,0 +1,39 @@
+<html jwcid="@Shell" title="message:webapp.title">
+<body jwcid="@Body">
+<div id="outer">
+<form jwcid="addDayOffInput@Form" delegate="ognl:beans.delegate" clientValidationEnabled="ognl:true">
+<div id="title">
+    <span jwcid="@If" condition="ognl:entity.id eq null" >
+		<span key="addDayOffConfirmation.title.add" />
+	</span>
+	<span jwcid="@Else">
+		<span key="addDayOffConfirmation.title.edit"/>
+	</span>	
+</div> <br />
+<span jwcid="@ValidationErrorTop" delegate="ognl:beans.delegate" />
+
+<table width="100%" class="uniform">
+      <tr jwcid="@Any" class="ognl:evenOddTable.next">
+        <td width="150px" ><label class="short"><span key="addDayOff.nonBusinessDate"/></label></td>
+        <td><input jwcid="nonBusinessDate@Insert" value="ognl:entity.nonBusinessDate" format="ognl:dateFormat"/></td>
+      </tr>
+      <tr jwcid="@Any" class="ognl:evenOddTable.next">
+        <td width="150px" ><label class="short"><span key="addDayOff.description"/></label></td>
+        <td>
+        	<input jwcid="description@Insert" value="ognl:entity.description"/>
+        </td>
+      </tr>    
+</table>
+        <div class="button">
+            <input jwcid='@Submit' class="btn" value="message:button.continue" action="listener:doButtonSave"/>
+          <span jwcid="@If" condition="ognl:entity.id eq null" >
+              <input jwcid='@Submit' class="btn" value="message:button.cancel" action="listener:onButtonCancel"/>
+          </span>
+          <span jwcid="@Else">
+              <input jwcid='@Submit' class="btn" value="message:button.cancel" action="listener:onBack"/>
+          </span>
+        </div>
+</form>
+</div>
+</body>
+</html>

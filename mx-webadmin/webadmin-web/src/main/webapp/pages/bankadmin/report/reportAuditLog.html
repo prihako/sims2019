@@ -1,0 +1,111 @@
+<html jwcid="@Shell" title="message:webapp.title">
+<body jwcid="@Body">
+<div id="outer">
+<div id="box">
+<form  jwcid="mainForm@Form" delegate="ognl:beans.delegate" clientValidationEnabled="ognl:false">
+<div class="title" style="text-transform: capitalize; font-size: 18px;">
+	<span key="reportAuditLog.title" />
+</div> <br />
+<span jwcid="@ValidationErrorTop" delegate="ognl:beans.delegate" />
+<table width="99%" class="uniform">
+	<tr jwcid="@Any" class="ognl:evenOddTable.next" >
+		<td width="34%">
+			<label class="medium" jwcid="@FieldLabel" field="component:activityType" />
+        </td>
+		<td width="64%">
+			<select
+				jwcid="activityType@PropertySelection" 
+				model="ognl:activityTypeModel"
+				value="ognl:activityType" 				
+				displayName="message:reportAuditLog.field.activityType" />
+        </td>
+	</tr>	
+	<tr jwcid="@Any" class="ognl:evenOddTable.next" >
+		<td>
+			<label class="medium" jwcid="@FieldLabel" field="component:startDateField" />
+        </td>
+		<td>
+			<input
+				jwcid="startDateField@DatePicker" 
+				value="ognl:startDate" 
+				displayName="message:reportAuditLog.field.startDate" />
+        </td>
+	</tr>
+	<tr jwcid="@Any" class="ognl:evenOddTable.next" >
+		<td>
+			<label class="medium" jwcid="@FieldLabel" field="component:endDateField" />
+        </td>
+		<td>
+			<input
+				jwcid="endDateField@DatePicker" 
+				value="ognl:endDate" 
+				displayName="message:reportAuditLog.field.endDate" />
+        </td>
+	</tr>
+	<tr jwcid="@Any" class="ognl:evenOddTable.next" >
+		<td>
+			<label class="medium" jwcid="@FieldLabel" field="component:userField"/>
+        </td>
+		<td>
+			<select
+				jwcid="userField@TextField" 				
+				value="ognl:userName" 								
+				displayName="message:reportAuditLog.field.userName" />
+        </td>
+	</tr>
+	<tr jwcid="@Any" class="ognl:evenOddTable.next" >
+		<td></td>
+		<td>
+			<input type="button" class="btn" jwcid="@Submit" value="message:button.search" action="listener:onOk"/>
+        </td>
+	</tr>
+</table>
+    <!-- <div id="button">
+        <input type="button" class="btn" jwcid="@Submit" value="message:button.search" action="listener:onOk"/>
+    </div> -->
+</form>
+<form  jwcid="@Form" delegate="ognl:beans.delegate" clientValidationEnabled="ognl:true">
+    <table width="99%" jwcid="@contrib:TableView" pageSize="ognl:pageSize" source="ognl:tableModel" columns="literal: date:Created Date:createdDate, user:User:userName, info:Aktivitas:info">
+    	<tr>
+		    <td align="right"><span jwcid="@TablePages" /></td>
+		</tr>
+    	<tr>
+    		<td align="center">
+            	<div style="overflow: auto">
+                	<table width="99%" class="data">
+                		<tr class="headerRow">
+		                    <span jwcid="@contrib:TableColumns" arrowUpAsset="ognl:assets.upArrow" arrowDownAsset="ognl:assets.downArrow" />
+		                </tr> 
+		                <tr jwcid="@contrib:TableRows" row="ognl:row" class="ognl:beans.evenOdd.next">
+							<td class="left">
+								<span jwcid="@Insert" value="ognl:row.createdDate" format="ognl:dateTimeFormat"/>
+							</td>
+							<td class="left">
+								<span jwcid="@Insert" value="ognl:row.userName"/>
+							</td>
+							<td class="left">
+								<span jwcid="@Insert" value="ognl:row.info"/>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</td>
+		</tr>
+	</table>
+
+	<span jwcid="@If" condition="ognl:activityType neq null">
+	<span jwcid="@WindowPopUp" url="ognl:reportUrl" showAlternateLink="true"/>
+	<div id="button">
+   		<input type="button" class="btn"
+			jwcid="@Submit" value="message:button.print" action="listener:onViewReportPdf"/>
+		<input type="button" class="btn"
+			jwcid="@Submit" value="message:button.viewXls" action="listener:onViewReportXls"/>
+		<input type="button" class="btn"
+			jwcid="@Submit" value="message:button.viewCsv" action="listener:onViewReportCsv"/>		
+	</div>
+	</span>
+</form>
+</div>
+</div>
+</body>
+</html>

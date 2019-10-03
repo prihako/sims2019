@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!--  
+	<bean id="codec" class="id.co.sigma.mx.message.iso8583.Nucleus8583Codec">
+		<constructor-arg value="${packager_file}" />
+	</bean>
+
+	<bean id="processorPayment" class="id.co.sigma.mx.project.ftpreconcile.process.ProcessorPayment">
+		<property name="packagerFile" value="${packager_file}" />
+		<property name="inquiryExecutor" ref="inquiryExecutor" />
+	</bean>
+	
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+	        <list>
+	            <value>file:${ojdbc.settings_file}</value>
+	        </list>
+	    </property>
+	</bean>
+	-->
+	<bean id="ftpManager" class="id.co.sigma.mx.project.ftpreconcile.process.FTPManager">
+		<!-- <constructor-arg value="${ftp.settings_file}" />-->
+		<constructor-arg value="src/main/resources/ftp.properties" />
+	</bean>
+	
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+ 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+		<property name="url" value="jdbc:oracle:thin:@10.10.101.113:1521:cbss10g" />
+		<property name="username" value="postel" />
+		<property name="password" value="postel" />
+	</bean>
+	
+	<bean id="sequenceUtil" class="id.co.sigma.mx.project.ftpreconcile.util.SequenceUtil">
+		<property name="dataSource" ref="dataSource" />
+		<property name="orclUser" value="postel" />
+	</bean>
+	
+	<bean id="paymentUtil" class="id.co.sigma.mx.project.ftpreconcile.util.PaymentUtil">
+		<property name="dataSource" ref="dataSource" />
+		<property name="sequenceUtil" ref="sequenceUtil" />
+	</bean>
+	
+	<bean id="recoveryUtil" class="id.co.sigma.mx.project.ftpreconcile.util.RecoveryUtil">
+		<property name="dataSource" ref="dataSource" />
+		<property name="paymentUtil" ref="paymentUtil" />
+	</bean>
+	
+	<bean id="exportToXls" class="id.co.sigma.mx.project.ftpreconcile.process.ExportToXls">
+		<property name="dataSource" ref="dataSource" />
+		<property name="ftpManager" ref="ftpManager" />
+	</bean>
+	
+	<bean id="mt940Parser" class="id.co.sigma.mx.project.ftpreconcile.util.MT940Parser">
+		<property name="sequenceUtil" ref="sequenceUtil" />
+	</bean>
+	
+	<bean id="processorMessage" class="id.co.sigma.mx.project.ftpreconcile.process.ProcessorMessage">
+		<property name="mt940Parser" ref="mt940Parser" />
+		<property name="paymentUtil" ref="paymentUtil" />
+		<property name="sequenceUtil" ref="sequenceUtil" />
+	</bean>
+		
+		
+	<bean id="receiverFTP" class="id.co.sigma.mx.project.ftpreconcile.process.ReceiverFTP" >
+		<property name="ftpManager" ref="ftpManager" />
+		<property name="paymentUtil" ref="paymentUtil" />
+		<property name="sequenceUtil" ref="sequenceUtil" />
+		<property name="processorMessage" ref="processorMessage" />
+	</bean>	
+		
+	<bean id="reconcile" class="id.co.sigma.mx.project.ftpreconcile.process.ProcessorPayment" >
+		<!--<constructor-arg value="${payment.reversal_period}" />-->
+		<constructor-arg value="30" />
+		<property name="paymentUtil" ref="paymentUtil" />
+		<property name="sequenceUtil" ref="sequenceUtil" />
+		<property name="recoveryUtil" ref="recoveryUtil" />
+	</bean>
+	
+	<!-- Spring Quartz -->
+	<bean name="receiverFtpJob" class="org.springframework.scheduling.quartz.JobDetailBean"> 
+		<property name="jobClass" value="id.co.sigma.mx.project.ftpreconcile.scheduler.ReceiverFtpJob" />
+ 		<property name="jobDataAsMap">
+		  <map>
+			<entry key="receiverFTP" value-ref="receiverFTP" />
+			<entry key="exportToXls" value-ref="exportToXls" />
+		  </map>
+		</property>
+ 	</bean>
+	
+	<bean name="reconcileJob" class="org.springframework.scheduling.quartz.JobDetailBean">
+ 		<property name="jobClass" value="id.co.sigma.mx.project.ftpreconcile.scheduler.ReconcileJob" />
+ 		<property name="jobDataAsMap">
+		  <map>
+			<entry key="reconcile" value-ref="reconcile" />
+		  </map>
+		</property>
+ 	</bean>
+ 
+	<!-- FTP Cron Trigger -->
+	<bean id="ftpTrigger" 
+                class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="receiverFtpJob" />
+	<!--	<property name="cronExpression" value="${ftp.job_time}" /> -->
+		<property name="cronExpression" value="0/10 * * * * ?" />
+	</bean>
+	
+	<!-- Reconcile Cron Trigger -->
+	<bean id="reconTrigger" 
+                class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="reconcileJob" />
+	<!-- 	<property name="cronExpression" value="${recon.job_time}" />-->
+		<property name="cronExpression" value="0 1 * * * ?" /> 
+	</bean>
+ 
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="jobDetails">
+			<list>
+				<ref bean="receiverFtpJob" />
+			<!--	<ref bean="reconcileJob" />-->
+			</list>
+		</property>
+		<property name="triggers">
+			<list>
+				<ref bean="ftpTrigger" />
+			<!--	<ref bean="reconTrigger" />-->
+			</list>
+		</property>
+	</bean>
+</beans>

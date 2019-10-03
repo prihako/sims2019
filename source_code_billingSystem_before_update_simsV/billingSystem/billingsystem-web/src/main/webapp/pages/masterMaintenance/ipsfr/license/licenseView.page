@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE page-specification PUBLIC
+    "-//Apache Software Foundation//Tapestry Specification 4.0//EN"
+    "http://jakarta.apache.org/tapestry/dtd/Tapestry_4_0.dtd">
+
+<page-specification class="com.balicamp.webapp.action.mastermaintenance.ipsfr.license.LicenseView">    
+	<property name="columns" 
+    	initial-value="literal:
+			!licenceNumber:license.licenseNo.title:licenceNumber,
+			!licenceID:license.licenseId.title:licenceID,
+			!licenseYearTo:license.yearto.title:licenseYearTo, 
+			!licenceSKMDate:license.licensedate.title:licenceSKMDate,
+			!periodeIPSFRBegin:license.periodeIPSFR.mulai.title:periodeIPSFRBegin, 
+			!periodeIPSFREnd:license.periodeIPSFR.akhir.title:periodeIPSFREnd,
+			!transmitMinimum:license.transmit.min.title:transmitMinimum,
+			!transmitMaximum:license.transmit.max.title:transmitMaximum,
+			!receiveMinimum:license.receive.min.title:receiveMinimum,
+			!receiveMaximum:license.receive.max.title:receiveMaximum,
+			!totalBHP:license.bhpTotal.title:totalBHP, 
+			!paymentType:license.bhpPaymentType.title:paymentType,
+			!statusLicense:license.status.title:statusLicense"
+			
+			
+	    />
+</page-specification>

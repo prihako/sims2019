@@ -1,0 +1,20 @@
+<!--  
+	author aananto@balicamp.com
+-->
+<html>
+<head>
+	<title>Home</title>
+</head>
+<body jwcid="$content$" >
+<script type="text/javascript">
+function checkBoxAll(x) {  // check all the checkboxes in page except which name is 'sAll'
+	var bol = x.checked;
+	for(var i=1,l=x.form.length; i<l; i++)
+		if(x.form[i].type == 'checkbox' && x.form[i].name != 'sAll')
+			x.form[i].checked=bol
+}
+</script>
+<input type="checkbox" name="sAll" onclick="checkBoxAll(this)" />
+
+</body>
+</html>

@@ -1,0 +1,42 @@
+<html jwcid="@Shell" title="message:webapp.title">
+<script language="javascript" type="text/javascript"
+	src="scripts/common.js"></script>
+<body jwcid="@Body">
+	<div id="outer">
+		<form jwcid="unblockUser@Form" delegate="ognl:beans.delegate"
+			clientValidationEnabled="ognl:true">
+			<div id="title">
+				<span key="unblockUser.title" />
+			</div>
+			<br />
+			<span jwcid="@ValidationErrorTop" delegate="ognl:beans.delegate" />
+			<table class="uniform">
+				<tr jwcid="@Any" class="ognl:evenOddTable.next">
+					<td class="medium">
+						<label class="medium" jwcid="@FieldLabel"
+							field="component:userId" displayName="message:unblockUser.userId">
+						</label>
+					</td>
+					<td>
+						<input jwcid="userId@TextField"
+						type="text" id="userId" value="ognl:userId" maxlength="20"
+						translator="translator:stringUpper,trim=true" />
+					</td>
+				</tr>
+				<tr jwcid="@Any" class="ognl:evenOddTable.next">
+					<td class="medium"></td>
+					<td>
+						<input type="submit" class="btn" jwcid="block@Submit"
+							action="listener:doUnblock" value="message:button.continue" />
+					</td>
+				</tr>
+				<tr height="10px"><td colspan="2"></td></tr>
+			</table>
+			<!-- <div class="button">
+				<input type="submit" class="btn" jwcid="block@Submit"
+					action="listener:doUnblock" value="message:button.continue" />
+			</div> -->
+		</form>
+	</div>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<html jwcid="@Shell" title="message:webapp.title">
+<body jwcid="@Body">
+<div id="outer">
+<form	
+	jwcid="@Form" delegate="ognl:beans.delegate"
+	clientValidationEnabled="ognl:true">
+<div id="title">
+	<span key="addKeyConfirmation.title.delete"/>
+</div> <br />
+<div id="box">
+    <span jwcid="@contrib:TableView"
+		pageSize="ognl:pageSize"
+		columns="
+			!deleteKeyConfirmation.id,
+			!deleteKeyConfirmation.identifier,
+			!deleteKeyConfirmation.values" 
+		source="ognl:mxParmToDelete">
+	<table class="data" width="100%">
+	    <tr>
+        	<span jwcid="@contrib:TableColumns"/>
+        </tr>
+    	<tr jwcid="tableRows@contrib:TableRows" row="ognl:loopObject" class="ognl:beans.evenOdd.next">
+		    <td width="30%">
+		    	<span jwcid="@Insert" value="ognl:loopObject.id"/>
+		    </td>
+		    <td width="40%">
+		    	<span jwcid="@Insert" value="ognl:loopObject.identifier"/>
+		    </td>
+		    <td width="30%">
+		    	<span jwcid="@Insert" value="ognl:loopObject.values"/>               
+		    </td>
+		</tr>
+    </table>
+    </span>
+    </div>
+<br />
+<input type="hidden" jwcid="@Hidden" value="ognl:mxParmToDelete" />
+<div id="button">
+	<input class="btn" type="submit" jwcid="@Submit" listener="listener:doDelete" value="message:button.continue"/>
+	<input class="btn" type="submit" jwcid="@Submit" listener="listener:doCancel" value="message:button.cancel"/>
+</div>
+</form>
+</div>
+</body>
+</html>

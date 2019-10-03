@@ -1,0 +1,22 @@
+<span jwcid="$content$">
+<span jwcid="@If" condition="ognl:delegate.hasErrors">
+    <div class="error">
+    	<span
+    		jwcid="@For" source="ognl:delegate.fieldTracking"
+    		value="ognl:currentFieldTracking" 
+    	>
+    		<span jwcid="@Insert" value="ognl:debug()" />
+    		<span
+    			jwcid="@If" condition="ognl:showError" 
+    		>
+    			<img jwcid="@Any" src="ognl:assets.icon" alt="message:icon.warning" class="icon" />
+		        <span jwcid="@Delegator" delegate="ognl:currentFieldTracking.errorRenderer">
+		            Error Message
+		        </span>
+		        <br />
+    		</span>
+    	</span>
+    
+    </div>
+</span>
+</span>

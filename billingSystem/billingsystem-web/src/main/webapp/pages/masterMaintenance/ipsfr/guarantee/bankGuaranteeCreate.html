@@ -1,0 +1,371 @@
+<!-- <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> -->
+<html jwcid="@Shell" title="message:webapp.title">
+<head>
+<link rel="stylesheet" href="styles/style-Kominfo/jquery-ui-1.10.0.custom.css" type="text/css" />
+<script type="text/javascript" src="scripts/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="scripts/jquery-ui-1.10.0.custom.min.js"></script>
+<script type="text/javascript" src="scripts/mayora/tools.js"></script>
+<script type="text/javascript">	
+	function ChangeStateReceived(){
+		var bgReceivedDate = document.getElementById("bgReceivedDate");
+		var receivedCheck = document.getElementById("receivedCheck");
+		if(receivedCheck.checked){
+			bgReceivedDate.disabled=false;
+		}else{
+			bgReceivedDate.disabled=true;
+		}
+	}
+	function viewDocumentKM() {
+		popupWindow =  window.showModalDialog('<span jwcid="@Insert" value="ognl:viewDocumentKM" raw="true"/>');
+	}
+	function viewDocumentBG() {
+		popupWindow =  window.showModalDialog('<span jwcid="@Insert" value="ognl:viewDocumentBG" raw="true"/>');
+	}
+	function changeBgDueDate(val) {
+// 	    alert("The input value has changed. The new value is: " + val);
+	    document.getElementById("bgEndDate").value = val;
+	}
+// 	function uploadDocumentBG(){
+// 		popupWindow =  window.showModalDialog(host +'/billingsystem/uploadBgInBgCreate.html');
+// 	}
+</script>
+</head>
+
+<body jwcid="@Body">
+	<div id="outer">
+		<form jwcid="@Form" delegate="ognl:beans.delegate" clientValidationEnabled="ognl:true">
+			
+<!-- 			<span jwcid="license@Hidden" value="ognl:license"></span> -->
+<!-- 			<span jwcid="invoice@Hidden" value="ognl:invoice"></span> -->
+			<span jwcid="bankGuarantee@Hidden" value="ognl:bankGuarantee"></span>
+			
+			<div id="title">
+				<span key="leftMenu.operational.bg.updateBG"></span>
+				<span jwcid="notFirstLoad@Hidden" value="ognl:notFirstLoad"></span>
+			</div>
+			
+			<table width="99%" class="uniform">
+			<!-- APPLICATION/LICENSE -->
+				<tr>
+					<td colspan="2"><h2><span key="label.license"></span></h2></td>
+				</tr>
+				<tr>
+					<td width="25%"><label class="medium">
+							<span key="operational.bg.table.licenseNumber"></span>
+						</label></td>
+					<td><span jwcid="@Insert" value="ognl:bankGuarantee.license.licenceNo"></span></td>
+				</tr>
+				<tr>
+					<td><label class="medium">
+							<span key="operational.bg.table.clientName"></span>
+						</label></td>
+					<td><span jwcid="@Insert" value="ognl:bankGuarantee.license.clientName"></span></td>
+				</tr>
+				<tr>
+					<td><label class="medium">
+							<span key="operational.bg.table.clientId"></span>
+						</label></td>
+					<td><span jwcid="@Insert" value="ognl:idKlien"></span></td>
+				</tr>
+				<tr>
+					<td><label class="medium">
+							<span key="operational.bg.table.bhpMethod"></span>
+						</label></td>
+					<td><span jwcid="@Insert" value="ognl:bhpMethod"></span></td>
+				</tr>
+				<tr>
+					<td><label class="medium">
+							<span key="operational.bg.field.skmNumber"></span>
+						</label></td>
+					<td><span jwcid="@Insert" value="ognl:bankGuarantee.license.kmNo"></span>&nbsp;
+						<input type="button" class="btn" value="Lihat Dokumen KM" onclick="viewDocumentKM()" />
+					</td>
+				</tr>
+				<tr>
+					<td><label class="medium">
+							<span key="operational.bg.table.year.updateBG"></span>
+						</label></td>
+					<td><span jwcid="@Insert" value="ognl:bankGuarantee.submitYearTo"></span></td>
+				</tr>
+				
+			<!-- BANK GUARANTEE -->
+				<tr>
+					<td colspan="2"><h2><span key="label.bg"></span></h2></td>
+				</tr>
+				<tr>
+					<td><label class="medium">
+							<span key="operational.bg.field.bgRequired"></span>
+						</label></td>
+					<td><span jwcid="@Insert" value="ognl:bgRequired"></span>&nbsp;
+						<span jwcid="ifFile@If" condition='ognl:bankGuarantee.saveStatus!="S"'>
+						<input jwcid="@Upload" file="ognl:file" type= "file" style="width:300px" /></span>
+					</td>
+				</tr>
+				<tr>
+					<td><label class="medium">
+							<span key="operational.bg.field.bgSubmitDueDate"></span>
+						</label></td>
+					<td>
+						<span jwcid="@Insert" value="ognl:submitDueDate"></span>
+					</td>
+				</tr>
+<!-- 				<tr> -->
+<!-- 					<td><input class="noborder" jwcid="@Checkbox" type="checkbox" id="receivedCheck"  -->
+<!-- 							checked="checked" onclick="ChangeStateReceived()" value="ognl:bgReceived"/> -->
+<!-- 					<span key="operational.bg.field.bgReceived"></span></td> -->
+<!-- 				</tr> -->
+
+				<span jwcid="@If" condition='ognl:bankGuarantee.saveStatus=="S"'>
+					<tr>
+						<td><label class="medium">
+								<span key="operational.bg.field.bgReceivedDate"></span>
+							</label>
+						</td>
+						<td>
+							<span jwcid="@Insert" value="ognl:receivedDate"></span>
+							&nbsp;
+							<input type="button" class="btn" value="Lihat Dokumen BG" onclick="viewDocumentBG()"/>
+						</td>
+					</tr>
+					<tr>
+						<td><label class="medium">
+								<span key="operational.bg.field.bgBank.name"></span>
+							</label>
+						</td>
+						<td>
+							<span jwcid="@Insert" value="ognl:bankGuarantee.bankName"></span>
+						</td>
+					</tr>
+					<tr>
+						<td><label class="medium">
+								<span key="operational.bg.field.bgDocument"></span>
+							</label>
+						</td>
+						<td>
+							<span jwcid="@Insert" value="ognl:bankGuarantee.bgDocumentNo"></span>
+						</td>
+					</tr>
+					<tr>
+						<td><label class="medium">
+								<span key="operational.bg.field.bgBank.branch"></span>
+							</label>
+						</td>
+						<td>
+							<span jwcid="@Insert" value="ognl:bankGuarantee.bankBranch"></span>
+						</td>
+					</tr>
+					<tr>
+						<td><label class="medium">
+								<span key="operational.bg.field.bgBank.address"></span>
+							</label>
+						</td>
+						<td>
+							<span jwcid="@Insert" value="ognl:bankGuarantee.bankAddress"></span>
+						</td>
+					</tr>
+					<tr>
+						<td><label class="medium">
+								<span key="operational.bg.field.bgPublishDate"></span>
+							</label>
+						</td>
+						<td>
+							<span jwcid="@Insert" value="ognl:bgPublishDate"></span>
+						</td>
+					</tr>
+					<tr>
+						<td><label class="medium">
+								<span key="operational.bg.field.bgDueDate"></span>
+							</label>
+						</td>
+						<td>
+							<span jwcid="@Insert" value="ognl:dueDate"></span>
+						</td>
+					</tr>
+					<tr>
+						<td><label class="medium">
+								<span key="operational.bg.field.bgPeriod"></span>
+							</label>
+						</td>
+						<td>
+							<span jwcid="@Insert" value="ognl:bgBeginDate"></span>
+							&nbsp;&nbsp;
+							<span key="common.label.periode.to"></span>&nbsp;&nbsp;
+							<span jwcid="@Insert" value="ognl:bgEndDate"></span>
+						</td>
+					</tr>
+				</span>
+				<span jwcid="@Else">
+					<tr>
+						<td><label class="medium">
+								<span key="operational.bg.field.bgReceivedDate"></span>
+							</label></td>
+						<td>
+							<input jwcid="bgReceivedDate@DatePicker" id="bgReceivedDate" value="ognl:bankGuarantee.receivedDate" 
+								type="text" readonly="readonly"/>
+							&nbsp;
+							<input type="button" class="btn" value="Lihat Dokumen BG" onclick="viewDocumentBG()"/>
+						</td>
+					</tr>
+					<tr>
+						<td><label class="medium">
+								<span key="operational.bg.field.bgBank.name"></span>
+							</label></td>
+						<td>
+							<input jwcid="bgBankName@TextField" value="ognl:bankGuarantee.bankName"/>
+						</td>
+					</tr>
+					<tr>
+						<td><label class="medium">
+								<span key="operational.bg.field.bgDocument"></span>
+							</label></td>
+						<td>
+							<input jwcid="bgDocument@TextField" value="ognl:bankGuarantee.bgDocumentNo"/>
+						</td>
+					</tr>
+					<tr>
+						<td><label class="medium">
+								<span key="operational.bg.field.bgBank.branch"></span>
+							</label></td>
+						<td>
+							<input jwcid="bgBankBranch@TextField" value="ognl:bankGuarantee.bankBranch"/>
+						</td>
+					</tr>
+					<tr>
+						<td><label class="medium">
+								<span key="operational.bg.field.bgBank.address"></span>
+							</label></td>
+						<td>
+							<input jwcid="bgBankAddress@TextField" value="ognl:bankGuarantee.bankAddress"/>
+						</td>
+					</tr>
+					<tr>
+						<td><label class="medium">
+								<span key="operational.bg.field.bgPublishDate"></span>
+							</label></td>
+						<td>
+							<input jwcid="bgPublishDate@DatePicker" value="ognl:bankGuarantee.bgPublishDate" 
+								type="text" id="bgPublishDateText" readonly="readonly"/>
+						</td>
+					</tr>
+					<tr>
+						<td><label class="medium">
+								<span key="operational.bg.field.bgDueDate"></span>
+							</label></td>
+						<td>
+							<input jwcid="bgDueDate@DatePicker" value="ognl:bankGuarantee.dueDate" onchange="changeBgDueDate(this.value)" 
+								type="text" id="bgDueDate" readonly="readonly"/>
+						</td>
+					</tr>
+					<tr>
+						<td><label class="medium">
+								<span key="operational.bg.field.bgPeriod"></span>
+							</label></td>
+						<td>
+							<input jwcid="bgBeginDate@DatePicker" value="ognl:bankGuarantee.bgBeginDate" 
+								type="text" id="bgBeginDate" readonly="readonly"/>
+							&nbsp;&nbsp;
+							<span key="common.label.periode.to"></span>&nbsp;&nbsp;
+							<input jwcid="bgEndDate@DatePicker" value="ognl:bankGuarantee.bgEndDate"
+								type="text" id="bgEndDate" readonly="readonly"/>
+						</td>
+					</tr>
+				</span>
+				
+				<tr>
+					<td><label class="medium">
+							<span key="operational.bg.field.bgValue"></span>
+						</label></td>
+					<td>&nbsp;
+						<span jwcid="@InsertMoney" value="ognl:bankGuarantee.bgValue"></span>&nbsp;<br>
+						<span jwcid="ifButtonDetail@If" condition='ognl:bankGuarantee.license.bhpMethod == "VR"'>
+							<input jwcid="@Submit" type="button" class="btn" value="message:common.label.detail" onclick="this.form.submit()"
+								action="listener:showTable"/>
+						</span></td>
+				</tr>
+				<!-- detailed table -->
+				<span jwcid="ifTable@If" condition='ognl:bankGuarantee.license.bhpMethod=="VR" && detailCalculateBG!=null'>
+	   			<span jwcid="@contrib:TableView" pageSize="10" source="ognl:detailCalculateBG" 
+	   					columns="!submitYear,!biRate,!calcIndex,!annualPercentage,!bgValue">
+				<table width="99%">
+					<tr>
+						<td align="left" colspan="2"><b><span key="label.calculateBG"></span></b></td>
+					</tr>
+				    <tr>
+				    	<td>				
+							<table border="0" class="data" width="100%">
+								<tr>
+									<th> <span key="operational.bg.table.bgYear">Tahun Penyerahan</span> </th>
+									<th> <span key="operational.bg.table.bgBiRate">BI Rate</span> </th>
+									<th> <span key="operational.bg.table.bgAnnualPercentage">Index Pengali</span> </th>
+									<th> <span key="operational.bg.table.bgCalcIndex">Persentase BHP Tahunan</span> </th>
+									<th> <span key="operational.bg.table.bgEstimatedValue">Estimasi Nilai BG</span> </th>
+								</tr>
+								<tr jwcid="@contrib:TableRows" row="ognl:row" class="ognl:beans.evenOdd.next">
+									<td width="15%" align="left">	<span jwcid="@Insert" 		value="ognl:row.submitYearTo"></span></td>
+									<td width="15%" align="right">	<span jwcid="@Insert" 		value="ognl:row.biRate"></span>&nbsp;
+																	<span key="label.percent"></span></td>
+									<td width="20%" align="right">	<span jwcid="@Insert" 		value="ognl:row.calcIndex"></span></td>
+									<td width="25%" align="right">	<span jwcid="@Insert" 		value="ognl:row.bhpPercent"></span>&nbsp;
+																	<span key="label.percent"></span></td>
+									<td width="25%" align="right">	&nbsp;
+																	<span jwcid="@InsertMoney" 	value="ognl:row.bgValue"></span></td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+				</span>
+				</span>
+				<tr>
+					<td><label class="medium">
+							<span key="operational.bg.field.bgValueSubmitted"></span>
+						</label></td>
+					<td>
+						<span jwcid="ifBgValueSubmitted@If" condition='ognl:bankGuarantee.saveStatus!="S"'>
+							<span key="label.idr"></span>&nbsp;
+							<input jwcid="bgValueSubmitted@TextField" value="ognl:bankGuarantee.bgValueSubmitted" translator='translator:moneyWithoutComma'/>
+						</span>
+						<span jwcid="@Else">
+							<span jwcid="@InsertMoney" value="ognl:bankGuarantee.bgValueSubmitted"></span>
+						</span></td>
+				</tr>
+			</table>
+			
+			<!-- button -->
+			<div id="button">
+				<span jwcid="ifConfirm@If" condition="ognl:fields.CONFIRM!=null">
+					<!-- CONFIRMATION -->
+					<h2><span jwcid="@Insert" value="ognl:bgSubmitConfirmation"></span></h2>
+				</span>
+				<span jwcid="if1@If" condition='ognl:bankGuarantee.saveStatus!="S" && bankGuarantee.saveStatus!="E"'>
+					<input type="submit" class="btn" jwcid="@Submit" action="listener:doDraft" 	value="message:button.draft" />
+					<input type="submit" class="btn" jwcid="@Submit" action="listener:doConfirm" value="message:button.submit" />
+				</span>
+				
+				<span jwcid="if2@If" condition="ognl:fields.CONFIRM!=null">
+					<input type="submit" class="btn" jwcid="@Submit" action="listener:doSubmit" value="message:button.submit" />
+				</span>
+				<span jwcid="if3@If" condition='ognl:bankGuarantee.saveStatus=="S" && fields.CONFIRM==null'>
+					<input type="submit" class="btn" jwcid="@Submit" action="listener:doCancel" value="message:button.back" />
+				</span>
+				<span jwcid="@Else">
+					<span jwcid="if4@If" condition='ognl:bankGuarantee.saveStatus=="E" && fields.CONFIRM==null'>
+						<input type="submit" class="btn" jwcid="@Submit" action="listener:doCancel" value="message:button.back" />
+					</span>
+					<span jwcid="if5@Else">
+						<input type="submit" class="btn" jwcid="@Submit" action="listener:doCancel" value="message:button.cancel" />
+					</span>
+				</span>
+				
+			</div>
+
+			<span jwcid="errorShadow@TextField" autocomplete="off"
+				value="ognl:errorValue" style="display: none"></span>
+			<span jwcid="ifErrorMessage@If" condition="ognl:delegate.hasErrors"> 
+				<script>alert('<span jwcid="@Delegator" delegate="ognl:delegate.firstError">Error Message</span>');</script>
+			</span>
+
+		</form>
+	</div>
+</body>
+</html>

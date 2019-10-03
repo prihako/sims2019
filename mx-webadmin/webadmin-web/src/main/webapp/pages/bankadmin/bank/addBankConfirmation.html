@@ -1,0 +1,53 @@
+<html jwcid="@Shell" title="message:webapp.title">
+<body jwcid="@Body">
+<div id="outer">
+<form jwcid="addBankInput@Form" delegate="ognl:beans.delegate" clientValidationEnabled="ognl:true">
+<div id="title">
+    <span jwcid="@If" condition="ognl:entity.id eq null" >
+		<span key="addKeyConfirmation.title.add" />
+	</span>
+	<span jwcid="@Else">
+		<span key="addKeyConfirmation.title.edit"/>
+	</span>	
+</div> <br />
+<span jwcid="@ValidationErrorTop" delegate="ognl:beans.delegate" />
+
+<table width="100%" class="uniform">
+      <tr jwcid="@Any" class="ognl:evenOddTable.next">
+        <td width="150px" ><label class="short"><span key="addBank.bankCode"/></label></td>
+        <td><input jwcid="bankCode@Insert" value="ognl:entity.bankCode"/></td>
+      </tr>
+      <tr jwcid="@Any" class="ognl:evenOddTable.next">
+        <td width="150px" ><label class="short"><span key="addBank.bankName"/></label></td>
+        <td><input jwcid="bankName@Insert" value="ognl:entity.bankName"/></td>
+      </tr>
+      <tr jwcid="@Any" class="ognl:evenOddTable.next">
+        <td width="150px" ><label class="short"><span key="addBank.binPrefix"/></label></td>
+        <td><input jwcid="binPrefix@Insert" value="ognl:entity.binPrefix"/></td>
+      </tr>
+      <tr jwcid="@Any" class="ognl:evenOddTable.next">
+        <td width="150px" ><label class="short"><span key="addBank.isAlto"/></label></td>
+        <td><input jwcid="isAlto@Insert" value="ognl:entity.isAlto"/></td>
+      </tr>
+      <tr jwcid="@Any" class="ognl:evenOddTable.next">
+        <td width="150px" ><label class="short"><span key="addBank.isAtmb"/></label></td>
+        <td><input jwcid="isAtmb@Insert" value="ognl:entity.isAtmb"/></td>
+      </tr>
+      <tr jwcid="@Any" class="ognl:evenOddTable.next">
+        <td width="150px" ><label class="short"><span key="addBank.priority"/></label></td>
+        <td><input jwcid="priority@Insert" value="ognl:entity.priority"/></td>
+      </tr>
+</table>
+        <div class="button">
+            <input jwcid='@Submit' class="btn" value="message:button.continue" action="listener:doButtonSave"/>
+          <span jwcid="@If" condition="ognl:entity.id eq null" >
+              <input jwcid='@Submit' class="btn" value="message:button.cancel" action="listener:onButtonCancel"/>
+          </span>
+          <span jwcid="@Else">
+              <input jwcid='@Submit' class="btn" value="message:button.cancel" action="listener:onBack"/>
+          </span>
+        </div>
+</form>
+</div>
+</body>
+</html>

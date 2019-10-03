@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE page-specification PUBLIC
+    "-//Apache Software Foundation//Tapestry Specification 4.0//EN"
+    "http://jakarta.apache.org/tapestry/dtd/Tapestry_4_0.dtd">
+
+<page-specification class="com.balicamp.webapp.action.bankadmin.dashboard.Dashboard">    
+	<component id="dasboardScript" type="Script">
+		<binding name="script" value="literal:scripts/dashboard.script"/>	
+		<binding name="scriptPath" value="literal:scripts/dashboard.script"/>
+		<binding name="dashboardCurrentTime" value="dashboardCurrentTime"/>
+	</component>
+</page-specification>

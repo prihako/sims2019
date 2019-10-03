@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module id="common.web.translator" version="1.0.0" package="com.balicamp.webapp.tapestry.translator">
+	<contribution configuration-id="tapestry.form.translator.Translators">
+        <bean name="stringUpper" class="StringUpperTranslator" />
+        <bean name="money" class="MoneyTranslator" />
+        <bean name="moneyWithoutComma" class="MoneyTranslatorWithoutComma" />
+        <bean name="numbertranslator" class="NumberTranslator" />
+	</contribution>
+</module>

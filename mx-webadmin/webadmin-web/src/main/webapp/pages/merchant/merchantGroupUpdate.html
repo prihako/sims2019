@@ -1,0 +1,51 @@
+<html jwcid="@Shell" title="message:webapp.title">
+<body jwcid="@Body">
+	<div id="outer">
+		<span jwcid="@ValidationErrorTop" delegate="ognl:beans.delegate" />
+
+		<form jwcid="merchantUpdate@Form" delegate="ognl:beans.delegate"
+			clientValidationEnabled="ognl:true">
+			<div id="title">
+				<span jwcid="@Insert" value="ognl:getText('merchant.title.update')"
+					renderTag="false" />
+			</div>
+
+			<table width="100%" class="uniform">
+				<tr>
+					<td colspan="2">
+						<h2>
+							<span> Silahkan ubah data grup merchant:</span>
+						</h2>
+					</td>
+				</tr>
+				
+				<!-- transaction code -->
+				<tr jwcid="@Any" class="ognl:evenOddTable.next">
+					<td><span jwcid="@Insert"
+						value="ognl:getText('merchant.label.code')"
+						renderTag="false" /></td>
+					<td><span jwcid="@Insert" value="ognl:code" /></td>
+				</tr>
+
+				<!-- description -->
+				<tr>
+					<td><span jwcid="@Insert"
+						value="ognl:getText('merchant.label.description')"
+						renderTag="false" /></td>
+					<td><input maxlength="200" jwcid="description@TextField"
+						value="ognl:description" /></td>
+				</tr>
+			</table>
+
+			<br />
+			<div class="button">
+				<input type="submit" jwcid="@Submit" class="btn100"
+					action="listener:doSubmit" value="message:button.continue" /> <input
+					type="button" class="btn100" jwcid="cancel@Any"
+					value="message:button.cancel"
+					onclick="location.href='merchantGroupList.html'" />
+			</div>
+		</form>
+	</div>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html jwcid="@Shell" title="message:webapp.title">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title><span key="webapp.title"/></title>
+</head>
+<body jwcid="@Body">
+<div id="outer">
+<form jwcid="userEntry@Form" delegate="ognl:beans.delegate" clientValidationEnabled="ognl:true">
+<div class="title"><span key="userEntryEdit.title">Ubah Role User</span></div>
+<table class="uniform">
+<tr jwcid="@Any" class="ognl:evenOddTable.next">
+	<td width="200px">
+		<label class="medium" key="userEntryEdit.userId"> User Id </label>
+	</td>
+	<td>
+		<span jwcid="@Insert" value="ognl:userName"/>
+	</td>
+</tr>
+<tr jwcid="@Any" class="ognl:evenOddTable.next">
+	<td>
+		<label class="medium" key="userEntryEdit.name"> Nama User </label>
+	</td>
+	<td>
+		<span jwcid="@Insert" value="ognl:name"/>
+	</td>
+</tr>
+<tr jwcid="@Any" class="ognl:evenOddTable.next">
+	<td>
+		<label class="medium" key="userEntryEdit.email"> Email </label>
+	</td>
+	<td>
+		<span jwcid="@Insert" value="ognl:email" />
+	</td>
+</tr>
+<tr jwcid="@Any" class="ognl:evenOddTable.next">
+	<td>
+		<label class="medium" jwcid="@FieldLabel" field="component:role" displayName="message:userEntryEdit.role"> Role </label>
+	</td>
+	<td>
+		<select jwcid="role@PropertySelection" model="ognl:getRoleModel()" value="ognl:role">
+			<option value="1">customer</option>
+			<option value="2">developer</option>
+			<option value="3">cso</option>
+		</select>
+	</td>
+</tr>
+</table>
+<div class="button">
+	<input type="submit" jwcid="@Submit" class="btn" action="listener:doSubmit" value="message:button.continue" />
+	<input type="button" jwcid="@Any" class="btn" onclick="location.href='userList.html'" value="message:button.back" />
+</div>
+<input type="hidden" jwcid="@Hidden" value="ognl:userId" />
+<input type="hidden" jwcid="@Hidden" value="ognl:roleId" />
+<input type="hidden" jwcid="@Hidden" value="ognl:userName" />		
+<input type="hidden" jwcid="@Hidden" value="ognl:email" />
+<input type="hidden" jwcid="@Hidden" value="ognl:name" />	
+</form>
+</div>
+</body>
+</html>

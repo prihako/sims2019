@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:jms="http://www.springframework.org/schema/jms"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	                    http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+		                http://www.springframework.org/schema/aop
+		                http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+		                http://www.springframework.org/schema/tx
+		                http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+		                http://www.springframework.org/schema/context
+		                http://www.springframework.org/schema/context/spring-context-2.5.xsd
+                        http://www.springframework.org/schema/jms
+                        http://www.springframework.org/schema/jms/spring-jms-2.5.xsd">
+
+	<!-- BEGIN: ORIGINAL -->
+	<bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+		<property name="connectionFactory">
+			<ref bean="mqConnectionFactory"/>
+		</property>
+		<property name="receiveTimeout">
+			<value>20000</value>
+		</property>
+	</bean> 
+	
+	<!-- 
+	<bean id="triggerEmailSender" class="com.balicamp.iibs.service.impl.jms.sender.JmsTriggerSenderImpl">
+		<property name="destination" ref="emailQueue" />
+		<property name="jmsTemplate" ref="jmsTemplate" />
+		<property name="systemParameterManager" ref="systemParameterManager" />
+		<property name="triggerJmsRegistrationManager" ref="triggerJmsRegistrationManager" />
+	</bean>
+	 -->
+	<bean id="triggerJmsRegistrationManager" class="com.balicamp.service.impl.jms.registration.TriggerJmsRegistrationManagerImpl">
+		<property name="systemParameterManager" ref="systemParameterManager" />
+	</bean>
+    <!-- END: ORIGINAL -->
+
+	<!-- BEGIN: NEW  
+    <bean id="mqConnectionFactory" class="org.springframework.jms.connection.CachingConnectionFactory">
+        <property name="cacheProducers" value="true" />
+        <property name="sessionCacheSize" value="100" />
+
+        <property name="targetConnectionFactory">
+            <bean class="org.apache.activemq.ActiveMQConnectionFactory">
+                <property name="brokerURL" value="tcp://127.0.0.1:61616"/>
+
+                <property name="alwaysSessionAsync" value="false" />
+                <property name="useAsyncSend" value="true" />
+                <property name="copyMessageOnSend" value="false" />
+                <property name="disableTimeStampsByDefault" value="true" />
+		        <property name="userName" value="fuse" />
+		        <property name="password" value="fusePwd" />
+            </bean>
+        </property>
+    </bean>
+    -->   
+            <bean id="mqConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+                <property name="brokerURL" value="tcp://127.0.0.1:61616"/>
+
+                <property name="alwaysSessionAsync" value="false" />
+                <property name="useAsyncSend" value="true" />
+                <property name="copyMessageOnSend" value="false" />
+                <property name="disableTimeStampsByDefault" value="true" />
+		        <property name="userName" value="fuse" />
+		        <property name="password" value="fusePwd" />
+            </bean>
+            
+    <bean id="outgoingRequestQueue" class="org.apache.activemq.command.ActiveMQQueue">
+        <constructor-arg index="0" value="reqQ"/>
+    </bean>
+
+	<bean id="outgoingRequestTemplate" class="org.springframework.jms.core.JmsTemplate">
+		<property name="connectionFactory" ref="mqConnectionFactory" />
+		<property name="defaultDestination" ref="outgoingRequestQueue" />
+	</bean>
+	
+    <bean id="outgoingBypassQueue" class="org.apache.activemq.command.ActiveMQQueue">
+        <constructor-arg index="0" value="bypass"/>
+    </bean>
+	
+    <bean id="outgoingBypassTemplate" class="org.springframework.jms.core.JmsTemplate">
+        <property name="connectionFactory" ref="mqConnectionFactory" />
+        <property name="defaultDestination" ref="outgoingBypassQueue" />
+    </bean>
+    
+    <bean id="responseListener" class="com.balicamp.service.impl.jms.JmsListener">
+        <property name="mqConnectionFactory" ref="mqConnectionFactory" />
+        <property name="destinationType" value="queue" />
+        <property name="destinationName" value="resQ" />
+        <property name="transacted" value="false" />
+        <property name="reconnectDelay" value="30000" />
+        <property name="messageListener" ref="deliveryChannelResponseListener" />
+    </bean>
+    
+    <!-- 
+    <bean id="accountRegistrationHandler" class="com.balicamp.iibs.service.impl.jms.listener.handler.AccountRegistrationHandler">
+        <property name="userManager" ref="userManager" />
+        <property name="systemParameterManager" ref="systemParameterManager" />
+        <property name="userCardNumberManager" ref="userCardNumberManager" />
+        <property name="pinEncoder" ref="pinEncoder" />
+        <property name="sender" ref="deliveryChannelBypassSender" />
+    </bean>
+     -->
+     <!-- 
+    <bean id="emailQueue" class="org.apache.activemq.command.ActiveMQQueue">
+        <constructor-arg index="0" value="emailQueue"/>
+    </bean>
+     -->
+    <!-- END: NEW -->
+    
+    <bean id="deliveryChannelResponseListener" class="com.balicamp.service.impl.jms.listener.DeliveryChannelResponseListener">
+        <property name="mrm" ref="mrm" />
+        <property name="originator" value="IBS-Web-172.16.100.161" />
+    </bean>
+
+    <bean id="deliveryChannelRequestSender" class="com.balicamp.service.impl.jms.sender.DeliveryChannelRequestSender">
+        <property name="mrm" ref="mrm" />
+        <property name="jmsTemplate" ref="outgoingRequestTemplate" />
+        <property name="originator" value="IBS-Web-172.16.100.161" />
+        <property name="timeToLive" value="120000" />
+        <property name="relativeExpiredDate" value="true" />
+    </bean>
+
+    <bean id="deliveryChannelBypassSender" class="com.balicamp.service.impl.jms.sender.DeliveryChannelRequestSender">
+        <property name="jmsTemplate" ref="outgoingBypassTemplate" />
+        <property name="originator" value="IBS-Web-172.16.100.161" />
+        <property name="timeToLive" value="60000" />
+        <property name="relativeExpiredDate" value="true" />
+    </bean>
+</beans>

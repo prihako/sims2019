@@ -1,0 +1,76 @@
+<module id="app" version="4.0.0" package="com.balicamp.webapp">
+
+	<contribution configuration-id="tapestry.url.ServiceEncoders">
+        <page-service-encoder id="page" extension="html" service="page"/>
+        <direct-service-encoder id="direct" stateless-extension="direct" stateful-extension="sdirect"/>
+        <asset-encoder id="asset" path="/assets"/>
+        <extension-encoder id="extension" extension="svc" after="*"/>
+        <!-- <encoder id="report" object="instance:com.balicamp.webapp.tapestry.serviceencoder.CommonServiceEncoder"/> -->
+        <encoder id="all" object="instance:com.balicamp.webapp.tapestry.serviceencoder.CommonServiceEncoder"/>
+    </contribution>
+    
+    <!-- service -->    
+	<service-point id="ReportService" interface="org.apache.tapestry.engine.IEngineService">
+		<invoke-factory>
+			<construct class="com.balicamp.webapp.tapestry.service.ReportService">
+				<set-object property="linkFactory" value="service:tapestry.url.LinkFactory"/>
+				<set-object property="reportManager" value="spring:reportManager"/>
+			</construct>
+		</invoke-factory>
+	</service-point>
+
+	<contribution configuration-id="tapestry.services.ApplicationServices">
+		<service name="report" object="service:ReportService"/>
+	</contribution>
+	
+<!-- 	Uncomment before going to production as it displays nicer error messages to users
+	 <contribution configuration-id="tapestry.InfrastructureOverrides">
+	  	<property name="staleSessionPageName" value="error"/>
+	  	<property name="exceptionPageName" value="error"/>
+	 </contribution> -->
+    
+    <!-- 	Prihako Nambahin -->
+
+	<service-point id="ImageService" interface="org.apache.tapestry.engine.IEngineService">
+		<invoke-factory>
+			<construct class="com.balicamp.webapp.action.mastermaintenance.ipsfr.license.ImageService">
+				<set-object property="linkFactory" value="service:tapestry.url.LinkFactory"/>
+			</construct>
+		</invoke-factory>
+	</service-point>
+	
+	<contribution configuration-id="tapestry.services.ApplicationServices">
+		<service name="image" object="service:ImageService"/>
+	</contribution>
+	
+	<!-- 	Prihako Nambahin Service Pdf-->
+	
+	<service-point id="PdfService" interface="org.apache.tapestry.engine.IEngineService">
+		<invoke-factory>
+			<construct class="com.balicamp.webapp.action.mastermaintenance.ipsfr.license.PdfService">
+				<set-object property="linkFactory" value="service:tapestry.url.LinkFactory"/>
+			</construct>
+		</invoke-factory>
+	</service-point>
+	
+	<contribution configuration-id="tapestry.services.ApplicationServices">
+		<service name="pdf" object="service:PdfService"/>
+	</contribution>
+	
+	<!-- 	Prihako Nambahin Service Pdf-->
+	
+	<service-point id="DocumentService" interface="org.apache.tapestry.engine.IEngineService">
+		<invoke-factory>
+			<construct class="com.balicamp.webapp.action.mastermaintenance.ipsfr.license.DocumentService">
+				<set-object property="linkFactory" value="service:tapestry.url.LinkFactory"/>
+			</construct>
+		</invoke-factory>
+	</service-point>
+	
+	<contribution configuration-id="tapestry.services.ApplicationServices">
+		<service name="document" object="service:DocumentService"/>
+	</contribution>
+	
+    <sub-module descriptor="translatormodule.xml"/>
+
+</module>

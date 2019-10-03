@@ -1,0 +1,22 @@
+#set ( $pojoTempalate = $pojoReport )
+
+$pojoTempalate.line
+|    No   |$pojoTempalate.getColumName().toString().replaceAll(",", "|")|
+$pojoTempalate.line
+#set ($arrSparatedStr = $pojoTempalate.getSparatedDetail().toString().split("\r"))
+#set($counter = 1)
+#foreach ( $rows in $arrSparatedStr )
+|  $counter  |$rows.replaceAll(",", "|")|
+#set($counter = $counter+1)
+#end
+$pojoTempalate.line
+
+#set($counter = $counter - 1)
+Jumlah Data : $counter
+#foreach ( $summary in $pojoTempalate.summary )	
+$summary
+#end
+
+#foreach ( $rowCounts in $pojoTempalate.rowCount )	
+$rowCounts
+#end 

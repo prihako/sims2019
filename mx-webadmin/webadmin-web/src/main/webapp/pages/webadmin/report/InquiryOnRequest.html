@@ -1,0 +1,248 @@
+<html jwcid="@Shell" title="message:webapp.title">
+<head>
+<script type="text/javascript" src="scripts/jquery-1.8.3.min.js"></script>
+<script type="text/javascript"
+	src="scripts/jquery-ui-1.9.2.custom.min.js"></script>
+<script type="text/javascript" src="scripts/textAutoComplete.js"></script>
+<script type="text/javascript">
+	$(document).ready(
+			function() {
+				var invNoRadio = $("#invoiceNo");
+				var invNoUploadRadio = $("#invoiceNoUpload");
+
+				$('#invoiceNoInputText').bind(
+						'keypress',
+						function(event) {
+							var regex = new RegExp("^[a-zA-Z0-9\b]+$");
+							var key = String
+									.fromCharCode(!event.charCode ? event.which
+											: event.charCode);
+							if (!regex.test(key)) {
+								event.preventDefault();
+								return false;
+							}
+						});
+				$('#clientIdInputText').bind(
+						'keypress',
+						function(event) {
+							var regex = new RegExp("^[a-zA-Z0-9\b]+$");
+							var key = String
+									.fromCharCode(!event.charCode ? event.which
+											: event.charCode);
+							if (!regex.test(key)) {
+								event.preventDefault();
+								return false;
+							}
+						});
+
+				$('#invoiceNoInputUpload').attr('disabled', 'disabled');
+				$(".invNoRadio").change(
+						function() {
+							if (invNoRadio.attr("checked")) {
+								$('#invoiceNoInputText:input').removeAttr(
+										'disabled');
+								$('#invoiceNoInputUpload').attr('disabled',
+										'disabled');
+								$('#invoiceNoInputUpload').replaceWith(
+										$("#invoiceNoInputUpload").clone());
+								//invNoUploadRadio.removeAttr('checked');
+							} else if (invNoUploadRadio.attr("checked")) {
+								$('#invoiceNoInputText:input').attr('disabled',
+										'disabled');
+								$('#invoiceNoInputUpload').removeAttr(
+										'disabled');
+								$('#invoiceNoInputText:input').val("");
+								//invNoRadio.removeAttr('checked');
+							}
+						});
+
+			});
+</script>
+<link rel="stylesheet" type="text/css" href="styles/jquery-ui.css" />
+<STYLE TYPE="text/css" media="all">
+.ui-autocomplete {
+	position: absolute;
+	cursor: default;
+	height: 200px;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+</STYLE>
+</head>
+<body jwcid="@Body">
+	<div id="outer">
+		<form jwcid="mainForm@Form" delegate="ognl:beans.delegate"
+			clientValidationEnabled="ognl:false">
+
+			<span jwcid="notFirstLoad@Hidden" value="ognl:notFirstLoad"></span> <span
+				jwcid="settledReport@Hidden" value="ognl:settledReport"></span> <span
+				jwcid="unsettledReport@Hidden" value="ognl:notSettledReport"></span>
+			<span jwcid="time@Hidden" value="ognl:time" />
+			<span jwcid="settled@Hidden" value="ognl:settled" />
+			<span jwcid="notSettled@Hidden" value="ognl:notSettled" />
+			<div id="title">
+				<span key="lefmenu.inquiryOnRequest.title" />
+			</div>
+
+			<span jwcid="@ValidationErrorTop" delegate="ognl:beans.delegate" />
+
+			<table width="60%" class="uniform">
+				<tr jwcid="@Any" class="ognl:evenOddTable.next">
+					<td class="short"><span
+						key="lefmenu.inquiryOnRequest.channelCode"> Code Channel</span></td>
+					<td><select jwcid="channelCode@PropertySelection"
+						model="ognl:getChannelCodeModel()" value="ognl:channelCode">
+					</select></td>
+				</tr>
+				<tr>
+					<td class="short"><input type="radio" id="invoiceNo"
+						class="invNoRadio" name="invNoRadio" checked> <span
+						key="lefmenu.inquiryOnRequest.noInvoice">No Invoice</span></td>
+					<td><input jwcid="@TextField" type="text"
+						value="ognl:invoiceNo" size="30" id="invoiceNoInputText" /></td>
+				</tr>
+				<tr>
+					<td class="short"><input type="radio" id="invoiceNoUpload"
+						class="invNoRadio" name="invNoRadio"> <span
+						displayName="message:lefmenu.inquiryOnRequest.invoiceNo.upload">Upload
+							Invoice</span></td>
+					<td><input jwcid="@Upload" file="ognl:file" type="file"
+						style="width: 300px" id="invoiceNoInputUpload" /></td>
+				</tr>
+				<tr>
+					<td class="short"><span key="lefmenu.inquiryOnRequest.klienId">Client
+							Id</span></td>
+					<td><input jwcid="clientId@TextField" type="text"
+						value="ognl:clientId" size="30" id="clientIdInputText" /></td>
+				</tr>
+				<tr>
+					<td class="short"><span
+						key="lefmenu.inquiryOnRequest.reconcileStatus"> Reconcile
+							Status</span></td>
+					<td><select jwcid="reconcileStatus@PropertySelection"
+						model="ognl:getReconcileStatusModel()"
+						value="ognl:reconcileStatus">
+					</select></td>
+				</tr>
+				<tr>
+					<td class="short" colspan="2"><font size="1" color="red"><span
+							key="lefmenu.inquiryOnRequest.invoiceAndUploadMandatory">*No
+								Invoice atau Upload Invoice Harus Diisi</span></font></td>
+				</tr>
+
+				<tr>
+					<td class="short"></td>
+					<td><input class="btn" type="button"
+						jwcid="searchButton@Submit" listener="listener:doSearch"
+						value="message:lefmenu.inquiryOnRequest.button.search" />
+					</td>
+				</tr>
+
+			</table>
+
+			<span jwcid="@If" condition="ognl:inquiryReconcileList!=null">
+				<span jwcid="@If" condition="ognl:inquiryReconcileList.size > 0">
+					<div id="box" style="width: 100%">
+						<table width="99%" jwcid="@contrib:TableView" pageSize="10"
+							source="ognl:inquiryReconcileList"
+							columns="!Tanggal Penerimaan !File">
+							<tr>
+								<td align="left"><br /> <span
+									key="lefmenu.inquiryOnRequest.time" /> : <span jwcid="@Insert"
+									value="ognl:time" /> <br /> <span
+									key="lefmenu.inquiryOnRequest.settled" /> : <span
+									jwcid="@Insert" value="ognl:settled" /> <br /> <span
+									key="lefmenu.inquiryOnRequest.notSettled" /> : <span
+									jwcid="@Insert" value="ognl:notSettled" /></td>
+							</tr>
+							<tr>
+								<td align="right"><span jwcid="@TablePages" /></td>
+							</tr>
+							<tr>
+								<td>
+									<table border="0" class="data" width="99%">
+										<tr>
+											<th><span key="lefmenu.inquiryOnRequest.No">No </span></th>
+											<th><span key="lefmenu.inquiryOnRequest.bankName">Bank
+													Name</span></th>
+											<!-- 											<th><span key="lefmenu.inquiryOnRequest.trxId">Transaction -->
+											<!-- 													Id</span></th> -->
+											<th><span key="lefmenu.inquiryOnRequest.clientId">Client
+													Id</span></th>
+											<th><span key="lefmenu.inquiryOnRequest.clientName">Client
+													Name</span></th>
+											<th><span key="lefmenu.inquiryOnRequest.invoiceNo">Invoice
+													No</span></th>
+											<th><span key="lefmenu.inquiryOnRequest.transactionName">Nama
+													Transaksi</span></th>
+											<th><span key="lefmenu.inquiryOnRequest.billerResponse">Respon
+													Biller</span></th>
+											<th><span key="lefmenu.inquiryOnRequest.channelResponse">Respon
+													Channel</span></th>
+											<th><span key="lefmenu.inquiryOnRequest.simsStatus">Status
+													SIMS</span></th>
+											<th><span
+												key="lefmenu.inquiryOnRequest.transactionTimeSims">Waktu
+													Transaksi</span></th>
+											<th><span key="lefmenu.inquiryOnRequest.reconcileStatus">Status
+													Rekonsiliasi</span></th>
+										</tr>
+										<tr jwcid="@contrib:TableRows" row="ognl:inquiryReconcileDto"
+											class="ognl:beans.evenOdd.next">
+											<td width="10%" style="text-align: center"><span
+												jwcid="@Insert" value="ognl:inquiryReconcileDto.no"></span></td>
+											<td width="10%" align="center"><span jwcid="@Insert"
+												value="ognl:inquiryReconcileDto.bankName"></span></td>
+											<!-- 											<td width="10%" style="text-align: center"><span -->
+											<!-- 												jwcid="@Insert" value="ognl:inquiryReconcileDto.trxId"></span></td> -->
+											<td width="10%" align="center"><span jwcid="@Insert"
+												value="ognl:inquiryReconcileDto.clientId"></span></td>
+											<td width="10%" align="center"><span jwcid="@Insert"
+												value="ognl:inquiryReconcileDto.clientName"></span></td>
+											<td width="10%" align="right"><a href=""
+												jwcid="@DirectLink" listener="listener:detailInvoice"
+												parameters="ognl:{inquiryReconcileDto, time, settled, notSettled, channelCode, invoiceNo, clientId, reconcileStatus }"><span
+													jwcid="@Insert" value="ognl:inquiryReconcileDto.invoiceNo"></span></a>
+											</td>
+											<td width="10%" align="center"><span jwcid="@Insert"
+												value="ognl:inquiryReconcileDto.transactionName"></span></td>
+											<td width="10%" align="center"><span jwcid="@Insert"
+												value="ognl:inquiryReconcileDto.billerResponse"></span></td>
+											<td width="10%" align="center"><span jwcid="@Insert"
+												value="ognl:inquiryReconcileDto.channelResponse"></span></td>
+											<td width="10%" align="center"><span jwcid="@Insert"
+												value="ognl:inquiryReconcileDto.simsStatus"></span></td>
+											<td width="10%" align="center"><span jwcid="@Insert"
+												value="ognl:inquiryReconcileDto.transactionDate"></span></td>
+											<td width="10%" align="center"><span jwcid="@If"
+												condition='ognl:inquiryReconcileDto.reconcileStatus=="Settled"'>
+													<span jwcid="@Insert"
+													value="ognl:inquiryReconcileDto.reconcileStatus"></span>
+											</span> <span jwcid="@Else"><font color="red"><span
+														jwcid="@Insert"
+														value="ognl:inquiryReconcileDto.reconcileStatus" /></font></span></td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+						<input class="btn" type="button" id="exportButton"
+							jwcid="exportButton@Submit" listener="listener:exportToExcel"
+							value="message:lefmenu.inquiryOnRequest.button.exportToExcel" />
+						<input class="btn" type="button" id="exportButton2"
+							jwcid="exportButton2@Submit" listener="listener:exportToPdf"
+							value="message:lefmenu.inquiryOnRequest.button.exportToPdf" />
+					</div>
+			</span>
+			</span>
+
+			<!-- 			<input class="btn" type="button" id="exportButton2" -->
+			<!-- 				jwcid="exportButton3@Submit" -->
+			<!-- 				listener="listener:testEbs" value="Export Endpoints" /> -->
+
+			<span jwcid="errorShadow@TextField" autocomplete="off"
+				value="ognl:errorValue" style="display: none"></span>
+
+		</form>
+</body>
+</html>

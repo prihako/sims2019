@@ -1,0 +1,22 @@
+<html jwcid="@Shell" title="message:webapp.title">
+<body jwcid="@Body">
+<div id="outer">
+<form jwcid="keyExchangeNotification@Form" delegate="ognl:beans.delegate" clientValidationEnabled="ognl:true">
+<div id="title">
+	<span key="keyExchangeNotification.title"/>
+</div> <br />
+<span jwcid="@ValidationErrorTop" delegate="ognl:beans.delegate" />
+	<span jwcid="@If" condition="ognl:message != null">
+		<div class="message"><span jwcid="@Insert" value="ognl:message" raw="true"/></div>
+	</span>	
+<table width="100%" class="uniform">
+<tr jwcid="@Any" class="ognl:evenOddTable.next">
+	<td>
+		<input type="button" class="btn" jwcid="@Any" value="message:button.ok" onclick="location.href='wellcome.html'"/>
+	</td>
+</tr>
+</table>
+</form>
+</div>
+</body>
+</html>

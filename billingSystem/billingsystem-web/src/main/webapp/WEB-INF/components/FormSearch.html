@@ -1,0 +1,54 @@
+<span jwcid="$content$">
+	<table width="99%" class="uniform">
+		<tr>
+			<td><h4>Search :</h4></td>
+		</tr>
+		<tr jwcid="@Any" class="ognl:evenOddTable.next">
+			<td class="short">
+				<label class="short" jwcid="@FieldLabel" field="component:identifier" />
+			</td>
+			<td>
+				<input type="text" maxlength="30" width="208px"
+					cssclass="TextBox" jwcid="identifier@TextField"
+					value="ognl:identifier" translator="translator:string,trim=true"
+					displayName="message:field.transactionFee.identifier" />
+			</td>
+		</tr>
+		<tr jwcid="@Any" class="ognl:evenOddTable.next">
+			<td>
+				<label class="short" jwcid="@FieldLabel" field="component:kodeTransaksi" />
+			</td>
+			<td>
+				<input type="text" maxlength="30" width="208px"
+					cssclass="TextBox" jwcid="kodeTransaksi@TextField"
+					value="ognl:kodeTransaksi" translator="translator:string,trim=true" strKey="ognl:transactionFee"
+					displayName="message:field.transactionFee.kodeTransaksi" />
+			</td>
+		</tr>
+		<tr jwcid="@Any" class="ognl:evenOddTable.next">
+			<td>
+				<label class="short" jwcid="@FieldLabel" field="component:namaTransaksi" />
+			</td>
+			<td>
+				<input type="text" maxlength="30" width="208px"
+					cssclass="TextBox" jwcid="namaTransaksi@TextField"
+					value="ognl:namaTransaksi" translator="translator:string,trim=true"
+					displayName="message:field.transactionFee.namaTransaksi" />
+			</td>
+		</tr>
+		<tr jwcid="@Any" class="ognl:evenOddTable.next">
+			<td>
+				<label class="short" jwcid="@FieldLabel" field="component:namaChannel" />
+			</td>
+			<td>
+				<input type="text" maxlength="30" width="208px"
+					cssclass="TextBox" jwcid="namaChannel@TextField"
+					value="ognl:namaChannel" translator="translator:string,trim=true"
+					displayName="message:field.transactionFee.namaChannel" />
+			</td>
+		</tr>
+	</table>
+	<div id="button">
+		<input class="btn" type="button" jwcid="@Submit" listener="listener:onSearch" value="message:button.search" />
+	</div>
+</span>

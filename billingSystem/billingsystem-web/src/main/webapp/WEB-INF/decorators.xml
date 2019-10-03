@@ -1,0 +1,18 @@
+<decorators defaultdir="/decorators">
+    <excludes>
+		<pattern>/resources/*</pattern>
+		<pattern>/login.jsp*</pattern>
+		<pattern>/afterLogout.html*</pattern>
+		<pattern>/main.html*</pattern>
+		<pattern>/portalLink.html*</pattern>
+		<pattern>/signUpNotification*</pattern>
+		<pattern>/assets/static/dojo-0.4.3-custom-4.1.5/*</pattern>
+		<pattern>/printTransactionRecipt.html*</pattern>
+	</excludes> 
+	<decorator name="default" page="default.jsp">
+		<pattern>/*</pattern>
+	</decorator>
+	<decorator name="frame" page="frame.jsp">
+		<pattern>/frame/*</pattern>
+	</decorator>
+</decorators>

@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>KOMINFO</title>
+<script src="../js/tools.js" language="JavaScript"></script>
+<link rel="stylesheet" href="../styles/style-Kominfo/layout.css" type="text/css" />
+<link rel="stylesheet" href="../styles/style-Kominfo/jquery.mCustomScrollbar.css" type="text/css" />
+</head>
+<body>
+<div id="outer">
+  <form name="mainForm">
+    <div id="title">Variabel</div>
+    <h2>View</h2>
+    <table width="99%" class="uniform">
+      <tr>
+        <td><label class="short">Service</label></td>
+        <td><span>Land Mobile</span></td>
+      </tr>
+      <tr>
+        <td><label class="short">Sub Service</label></td>
+        <td><select class="medium">
+            <option value="">3G</option>
+            <option value="">3G Band</option>
+            <option value="" selected="selected">Bandwith</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td><label class="short">Metode BHP</label></td>
+        <td><select id="bhp" name="bhp" class="medium" disabled="disabled">
+            <option value="" id="bhp_all">All</option>
+            <option value="" id="FR">Flat Rate</option>
+            <option value="" id="VR">Varieted Rate</option>
+            <option value="" id="C" selected="selected">Convertion</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td><label class="short">Nama Klien</label></td>
+        <td><select class="medium">
+            <option value="" selected="selected">Telkomsel</option>
+            <option value="">XL</option>
+            <option value="">Indosat</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td><label class="short">Frekuensi</label></td>
+        <td><select class="medium">
+            <option value="">All</option>
+            <option value="" selected="selected">900</option>
+            <option value="">1800</option>
+          </select>
+        </td>
+      </tr>
+    </table>
+    <!-- button action -->
+    <div id="button">
+      <button type="button" class="btn" id="search" >Search</button>
+      <button type="button" class="btn" id="create" >Create</button>
+    </div><!-- button -->
+    <div id="conttable">   
+   <div id="table_result">
+    <table width="99%" class="uniform">
+      <tr>
+        <td><label class="short">Service</label></td>
+        <td><span>Land Mobile</span></td>
+      </tr>
+      <tr>
+        <td><label class="short">Sub Service</label></td>
+        <td><span>Bandwith</span></td>
+      </tr>
+      <tr>
+        <td><label class="short">Metode BHP</label></td>
+        <td><span>Convertion</span></td>
+      </tr>
+      <tr>
+        <td><label class="short">Nama Klien</label></td>
+        <td><span>Telkomsel</span></td>
+      </tr>
+      <tr>
+        <td><label class="short">Frekuensi</label></td>
+        <td><span>900 MHz</span></td>
+      </tr>
+    </table>
+    <table class="data">
+      <tr>
+        <th>Nama Variabel</th>
+        <th>Nilai Variabel</th>
+        <th>Dibuat tanggal</th>
+        <th>Diupdate Tanggal</th>
+        <th>Diupdate oleh</th>
+      </tr>
+      <tr>
+        <td>Blok (B)</td>
+        <td class="right">15</td>
+        <td class="center">dd/mm/yyyy</td>
+        <td class="center">dd/mm/yyyy</td>
+        <td>Budi</td>
+      </tr>
+      <tr>
+        <td>NxK</td>
+        <td class="right">25,29542</td>
+        <td class="center">dd/mm/yyyy</td>
+        <td class="center">dd/mm/yyyy</td>
+        <td>Budi</td>
+      </tr>
+      <tr>
+        <td>I (Rp/MHz)</td>
+        <td class="right">6202</td>
+        <td class="center">dd/mm/yyyy</td>
+        <td class="center">dd/mm/yyyy</td>
+        <td>Budi</td>
+      </tr>
+      <tr>
+        <td>C (Kilo   Populasi)</td>
+        <td class="right">241564,863</td>
+        <td class="center">dd/mm/yyyy</td>
+        <td class="center">dd/mm/yyyy</td>
+        <td>Budi</td>
+      </tr>
+    </table>
+    </div>
+    </div>
+    <div id="button">
+      <button type="button" class="btn" id="detail">Detail</button>
+      <button type="button" class="btn" id="back">Back</button>
+    </div>
+  </form>
+</div>
+<script src="../js/jquery-1.9.1.min.js"></script>
+<script src="../js/jquery.mCustomScrollbar.concat.min.js"></script>
+<script>
+    (function($){
+        $(document).ready(function (){
+            $("#outer").mCustomScrollbar({
+				verticalScroll:true,
+				horizontalScroll:false,
+				theme:"dark-thick",
+					scrollButtons:{
+						enable:true}
+				});
+        });
+            $("#conttable").mCustomScrollbar({
+				verticalScroll:false,
+				horizontalScroll:true,
+				theme:"dark-thick",
+					scrollButtons:{
+						enable:true}
+				});
+    })(jQuery);
+
+$(function(){		
+$('#conttable').show();
+$('#conttable #table_result').hide();
+	$('#button #search').click(function() {
+			$('#conttable').show();
+			$('#conttable #table_result').show();
+	
+	});
+});
+
+$(function(){		
+	$("#button #detail").on('click',function(){
+			window.location.href='pg_var_BHP_Konv_DetailEdit.html';
+	});
+	$("#button #back").on('click',function(){
+			window.location.href='pg_var_BHP_Konv_search.html';
+	});
+	$("#button #create").on('click',function(){
+			window.location.href='pg_var_BHP_Konv_create.html';
+	});
+});
+	
+</script>
+
+</body>
+</html>

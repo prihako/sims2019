@@ -1,0 +1,33 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<link rel="icon" href="images/favicon.ico" />
+	<title><span key="webapp.title"/></title>
+</head>
+<frameset cols="*,800,*" frameborder="no" border="0" framespacing="0">
+	<frame src="../frame/left.jsp" name="leftFrame1" scrolling="no" noresize="noresize" id="leftFrame1" title="leftFrame1" /> 
+	<frameset rows="105,*,28" frameborder="no" border="0" framespacing="0">
+		<frame src="frame/_header.jsp" name="topFrame" scrolling="No" noresize="noresize" id="topFrame" title="topFrame2" />
+		<frameset rows="*" cols="200,*" framespacing="0" frameborder="no" border="0">
+			<frame jwcid="@Any" src="ognl:leftMenuPage" name="leftFrame2" scrolling="auto" noresize="noresize" id="leftFrame2" title="leftFrame2" />
+			<frame jwcid="@Any" src="ognl:srcWelcome" name="mainFrame" scrolling="yes" noresize="noresize" id="mainFrame" title="mainFrame" />
+		</frameset>
+		<frame src="../frame/footer.jsp" name="bottomFrame" scrolling="No" noresize="noresize" id="bottomFrame" title="bottomFrame" /> 
+	</frameset> 
+	<frame src="../frame/right.jsp" title="rightFrame" scrolling="No" noresize="noresize" />
+	
+</frameset> 
+
+<noframes>  
+	<body>
+		<h1> HELOOO TAPESTRY XXXX</h1>
+		<br>
+			<span jwcid="@Insert" value="ognl:relativePath" > test </span>
+		
+		<br>
+			<span jwcid="@Insert" value="literal:Hello, world!" > test </span>
+		<br>
+		
+		<img src="../images/403.jpg" />
+	</body>
+</noframes>
+</html>

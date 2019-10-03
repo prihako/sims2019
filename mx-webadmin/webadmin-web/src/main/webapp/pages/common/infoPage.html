@@ -1,0 +1,46 @@
+<html>
+<head>
+	<title><span jwcid="@Insert" value="ognl:infoPageCommand.title" /></title>
+</head>
+<body>
+<div id="outer">
+	<form name="infoForm">
+	<div class="title"><span jwcid="@Insert" value="ognl:infoPageCommand.title" /></div>
+	<div class="berita">
+		<span jwcid="@For" source="ognl:infoPageCommand.messageList" value="ognl:loopObject" index="ognl:loopIndex" >
+			<span jwcid="@Insert" value="ognl:loopObject" raw="true" />
+			<span jwcid="@If" condition="ognl:!lastMessage">
+				<br />
+			</span>
+		</span>
+	</div>
+		
+	<span jwcid="@If" condition="ognl:tableMessage" renderTag="false">
+		<table class="uniform">
+			<span jwcid="@For" source="ognl:infoPageCommand.messageTableList" value="ognl:loopObject" index="ognl:loopIndex" >
+				<tr jwcid="@Any" class="ognl:evenOddTable.next">
+					<td width="30%">
+						<label class="medium">
+							<span jwcid="@Insert" value="ognl:loopObject.key" />
+						</label>
+					</td>
+					<td>
+						<span jwcid="@Insert" value="ognl:loopObject.value" />
+					</td>
+				</tr>
+			</span>			
+		</table>
+	</span>
+	
+    <br/>    
+    <div class="button">
+        <span jwcid="@For" source="ognl:infoPageCommand.infoPageButtonList" value="ognl:loopObject" >
+            <input type="button" class="btn" onclick="ognl:loopObject.JsHtmlLink"
+                jwcid="@Any" value="ognl:loopObject.value"
+            />            
+        </span>
+    </div>
+    </form>
+</div>
+</body>
+</html>

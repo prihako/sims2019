@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+            	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+
+	<bean id="filterChainProxy" class="org.acegisecurity.util.FilterChainProxy">
+		<property name="filterInvocationDefinitionSource">
+			<value>
+					CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
+					PATTERN_TYPE_APACHE_ANT
+					/**=authenticationFilter
+			</value>
+		</property>
+	</bean>
+
+	<!--  == FILTER-FILTER yang digunakan di aplikasi == -->
+	
+	<bean  id="authenticationFilter" class="com.balicamp.service.impl.security.acegi.AuthenticationProcessingFilter" >
+	
+        <property name="authenticationManager" ref="authenticationManager"/>
+        <property name="sessionRegistry" ref="sessionRegistry"/>
+        
+        <!-- <property name="authenticationFailureUrl" value="/login.jsp?loginMessage=loginStatus.fail.invalidUserNameOrPassword"/> -->
+        <property name="defaultTargetUrl" value="/main.html"/>
+        <property name="alwaysUseDefaultTargetUrl" value="true" />
+        <property name="filterProcessesUrl" value="/j_acegi_security_check"/>
+        
+        <property name="mapException">
+	        <map key-type="java.lang.String" value-type="java.lang.String">
+	        	<entry key="com.balicamp.exception.UserBlockException" value="/login.jsp?loginMessage=loginStatus.fail.userBlock" />
+				<entry key="com.balicamp.exception.UserBlockAdminException" value="/login.jsp?loginMessage=loginStatus.fail.userBlockAdmin"/>
+				<entry key="com.balicamp.exception.UserResetException" value="/login.jsp?loginMessage=loginStatus.fail.userReset"/>
+				<entry key="org.acegisecurity.concurrent.ConcurrentLoginException" value="/login.jsp?loginMessage=loginStatus.fail.concurrentLogin" />
+	        </map>
+        </property>
+        
+        <!-- <property name="exceptionMappings">
+        	<props>
+        		<prop key="com.balicamp.exception.UserBlockException">/login.jsp?loginMessage=loginStatus.fail.userBlock</prop>
+				<prop key="com.balicamp.iibs.exception.UserBlockAdminException">/login.jsp?loginMessage=loginStatus.fail.userBlockAdmin</prop>
+				<prop key="com.balicamp.iibs.exception.UserResetException">/login.jsp?loginMessage=loginStatus.fail.userReset</prop>
+				<prop key="org.acegisecurity.concurrent.ConcurrentLoginException">/login.jsp?loginMessage=loginStatus.fail.concurrentLogin</prop>
+        	</props>
+        </property> -->
+	</bean>
+	
+	<!--  ## FILTER-FILTER yang digunakan ## -->
+	
+	<bean id="concurrentSessionController" class="org.acegisecurity.concurrent.ConcurrentSessionControllerImpl">
+        <property name="maximumSessions" value="1"/>
+        <property name="sessionRegistry" ref="sessionRegistry"/>
+        <property name="exceptionIfMaximumExceeded" value="true"/>
+    </bean>
+
+    <bean id="sessionRegistry" class="org.acegisecurity.concurrent.SessionRegistryImpl"/>
+
+    <bean id="anonymousAuthenticationProvider" class="org.acegisecurity.providers.anonymous.AnonymousAuthenticationProvider">
+        <property name="key" value="anonymous"/>
+    </bean>
+    
+	    
+    <bean id="authenticationManager" class="org.acegisecurity.providers.ProviderManager">
+		<property name="providers">
+			<list>
+				<ref local="webadminProvider"/>
+                <ref local="anonymousAuthenticationProvider"/>
+            </list>
+        </property>
+        <property name="sessionController" ref="concurrentSessionController"/> 
+    </bean>
+    
+    <bean id="webadminProvider" class="com.balicamp.webapp.security.AdminSecurityProvider">
+    </bean>
+</beans>

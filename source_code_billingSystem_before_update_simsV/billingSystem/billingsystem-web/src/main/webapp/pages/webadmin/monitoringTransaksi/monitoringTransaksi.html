@@ -1,0 +1,130 @@
+<html jwcid="@Shell" title="message:webapp.title">
+<head>
+	<script type="text/javascript" src="scripts/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="scripts/jquery-ui-1.9.2.custom.min.js" ></script>
+	<script type="text/javascript" src="scripts/mayora/textAutoComplete.js" ></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			#$("#dayDateYear").datepicker({ format: 'dd/MM/yyyy', showOn: 'button' });
+			#$("#dayDateYear_0").datepicker({ format: 'dd/MM/yyyy', showOn: 'button' });
+		});
+</script>
+	
+	<link rel="stylesheet" type="text/css" href="styles/mayora/jquery-ui.css" />
+	<STYLE TYPE="text/css" media="all">
+	.ui-autocomplete {
+	    position: absolute;
+	    cursor: default;
+	    height: 200px;
+	    overflow-y: scroll;
+	    overflow-x: hidden;}
+	</STYLE>
+</head>
+<body jwcid="@Body">
+<div id="outer">
+	<form  jwcid="monitoringTxForm@Form" delegate="ognl:beans.delegate" clientValidationEnabled="ognl:true">
+		<div id="title">
+	    	<span key="monitoringTransaksi.title"/>
+	   	</div>
+		<br/>
+	    <span jwcid="@ValidationErrorTop" delegate="ognl:beans.delegate" />
+	    
+	    <table class="uniform">
+	    	<tr>
+	    		<td class="short">
+	    			<!-- <span jwcid="@Insert" value="Transactions"/> -->
+	    			<label class="short" displayName="message:common.label.transactions">Transactions</label>
+	    		</td>
+	    		<td>
+	    			<select style="width: 11em; min-width: 300px; min-height: 200px;" 
+	    				jwcid="txCode@ListBoxPropertySelectionModel"
+	    				model="ognl:selectionModel" 
+	    				selectedList="ognl:selectedTransactions">
+	    			</select>
+	    		</td>
+	    	</tr>
+	    	<!-- <tr>
+	    		<td class="short">
+	    			<label class="short" jwcid="@FieldLabel" field="component:transactionDesc" />
+	    		</td>
+	    		<td>
+	    			<input type="text" jwcid="transactionDesc@TextField" 
+	    			value="ognl:transactionName" id="transactionDesc"
+	    			displayName="message:monitoringTransaksi.txName.label" />
+	    		</td>
+	    	</tr> -->
+	    	<tr>
+	    		<td height="short">
+	    			<label class="short" jwcid="@FieldLabel" field="component:endpointCode" />
+	    		</td>
+	    		<td>
+	    			<input type="text" jwcid="endpointCode@TextField" id="endpointCode"
+	    			 value="ognl:channelCode"
+	    			 displayName="message:monitoringTransaksi.channelCode.label" />
+	    		</td>
+	    	</tr>
+	    	<tr jwcid="@Any" class="ognl:evenOddTable.next">
+				<td class="short">
+					<label class="short" displayName="message:common.label.startDate">Start Date</label>
+				</td>
+				<td>
+					<span id="startDate" jwcid="startDate@TimestampPicker" value="ognl:startDate" ></span>
+				</td>
+			</tr>
+			<tr jwcid="@Any" class="ognl:evenOddTable.next">
+				<td class="short">
+					<label class="short" displayName="message:common.label.endDate">End Date</label>
+				</td>
+				<td>
+					<span id="endDate" jwcid="endDate@TimestampPicker" value="ognl:endDate" ></span>
+				</td>
+			</tr>
+			<tr jwcid="@Any" class="ognl:evenOddTable.next">
+				<td class="short"></td>
+				<td>
+					<input class="btn" type="submit" id="searchButton" 
+						jwcid="searchButton@Submit" 
+						value="message:button.search" />
+				</td>
+			</tr>
+			<tr height="10px"><td colspan="2"></td></tr>
+	    </table>
+	    
+	    <table width="99%" id="tableView" jwcid="tableView@contrib:TableView" 
+    		source="ognl:tableModel" 
+    		columns="literal:tcode:Transaction Code:getTransactionCode(), 
+					tname:Transaction Name:getTransactionName(), 
+					ccode:Channel Code:getChannelCode(), sukses:Sukses:getSukses(),
+					gagal:Gagal:getGagal(), timeout:Timeout:getTimeout()" class="data">
+    
+	     <tr class="headerRow">
+	           <span jwcid="@contrib:TableColumns" arrowUpAsset="ognl:assets.upArrow" arrowDownAsset="ognl:assets.downArrow" />
+	     </tr> 
+         <tr jwcid="tableRows@contrib:TableRows" row="ognl:tableRow" class="ognl:beans.evenOdd.next">
+         	<td>
+         		<span jwcid="@Insert" value="ognl:tableRow.transactionCode"/>
+         	</td>
+			<td>
+				<span jwcid="@Insert" value="ognl:tableRow.transactionName"/>
+			</td>
+			<td>
+				<span jwcid="@Insert" value="ognl:tableRow.channelCode"/>
+			</td>
+			<td>
+				<span jwcid="@Insert" value="ognl:tableRow.sukses"/>
+			</td>
+			<td>
+				<span jwcid="@Insert" value="ognl:tableRow.gagal"/>
+			</td>
+			<td>
+				<span jwcid="@Insert" value="ognl:tableRow.timeout"/>
+			</td>
+        </tr>
+    	<tr>
+		    <td align="right" colspan="6" ><span jwcid="@TablePages" /></td>
+		</tr>
+    </table>
+	</form>
+</div>
+</body>
+</html>

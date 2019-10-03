@@ -1,0 +1,83 @@
+<html jwcid="@Shell" title="message:webapp.title">
+<body jwcid="@Body">
+<div id="outer">
+<span jwcid="@ValidationErrorTop" delegate="ognl:beans.delegate" />
+<form jwcid="userEntry@Form" delegate="ognl:beans.delegate" clientValidationEnabled="ognl:true">
+<div id="title"><span key="memberEntry.title">Daftar Member</span></div>
+<table width="100%" class="uniform">
+      <tr>
+		<td colspan="2"><h3><span key="memberEntry.title.pilih.induk">
+		Silahkan Pilih Username atau Nomor kartu yang akan dijadikan induk:</span></h3></td>
+	  </tr>
+	  <span jwcid="parentSourceType@RadioGroup" selected="ognl:parentSourceTypeRadio">
+	  <tr jwcid="@Any" class="ognl:evenOddTable.next">
+	    <td><label class="medium">
+          <input class="clearborder" jwcid="parentSourceTypeUsername@Radio" type="radio" id="parentSourceTypeUsername"
+                               value="ognl:@com.balicamp.iibs.webapp.action.bankadmin.MemberEntry@USERNAME"/>
+	      <span key="memberEntry.username.parent">Username Utama</span></label>
+        </td>        	
+        <td>
+				<input maxlength="25"
+					jwcid="parentUsername@TextField" 
+					value="ognl:parentUsername"
+					onclick="document.getElementById('parentSourceTypeUsername').checked=true"
+				/>	        
+        </td>
+       </tr>
+	  <tr jwcid="@Any" class="ognl:evenOddTable.next">
+      <td><label class="medium">
+          <input class="clearborder" jwcid="parentSourceTypeCardNumber@Radio" type="radio" id="parentSourceTypeCardNumber"
+                               value="ognl:@com.balicamp.iibs.webapp.action.bankadmin.MemberEntry@CARDNUMBER"/>
+          <span key="memberEntry.cardNumber.parent">Nomor Kartu Utama</span></label>
+      </td>      	
+      <td>
+				<input maxlength="25"
+					jwcid="parentCardNumber@TextField" 
+					value="ognl:parentCardNumber"
+					onclick="document.getElementById('parentSourceTypeCardNumber').checked=true"					
+				/>	      
+      </td>
+	  </tr>
+      </span>
+      <tr>
+		<td colspan="2"><h3><span key="memberEntry.title.pilih.member">
+		Silahkan Pilih Username atau Nomor kartu yang akan dijadikan Anggota:</span></h3></td>
+	  </tr>  
+	  <span jwcid="memberSourceType@RadioGroup" selected="ognl:memberSourceTypeRadio">
+	  <tr jwcid="@Any" class="ognl:evenOddTable.next">
+	    <td><label class="medium">
+          <input class="clearborder" jwcid="memberSourceTypeUsername@Radio" type="radio" id="memberSourceTypeUsername"
+                               value="ognl:@com.balicamp.iibs.webapp.action.bankadmin.MemberEntry@USERNAME"/>
+	      <span key="memberEntry.username.member">Username Anggota</span></label>
+        </td>        	
+        <td>
+				<input maxlength="25"
+					jwcid="memberUsername@TextField" 
+					value="ognl:memberUsername"
+					onclick="document.getElementById('memberSourceTypeUsername').checked=true"
+				/>	        
+        </td>
+       </tr>
+	  <tr jwcid="@Any" class="ognl:evenOddTable.next">
+      <td><label class="medium">
+          <input class="clearborder" jwcid="memberSourceTypeCardNumber@Radio" type="radio" id="memberSourceTypeCardNumber"
+                               value="ognl:@com.balicamp.iibs.webapp.action.bankadmin.MemberEntry@CARDNUMBER"/>
+          <span key="memberEntry.cardNumber.member">Nomor Kartu Anggota</span></label>
+      </td>      	
+      <td>
+				<input maxlength="25"
+					jwcid="memberCardNumber@TextField" 
+					value="ognl:memberCardNumber"
+					onclick="document.getElementById('memberSourceTypeCardNumber').checked=true"
+				/>	      
+      </td>
+	  </tr>
+      </span>	      
+</table>
+<div class="button">
+	<input type="submit" jwcid="@Submit" class="btn" action="listener:doSubmit" value="message:button.continue" />
+</div>
+</form>
+</div>
+</body>
+</html>

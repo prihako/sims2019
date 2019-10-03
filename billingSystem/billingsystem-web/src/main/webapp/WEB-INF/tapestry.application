@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!DOCTYPE application PUBLIC 
+	"-//Apache Software Foundation//Tapestry Specification 4.0//EN" 
+	"http://jakarta.apache.org/tapestry/dtd/Tapestry_4_0.dtd">
+    
+<application name="tapestry">     
+	<meta key="org.apache.tapestry.page-class-packages" 		value="com.balicamp.webapp.action" />
+	<meta key="org.apache.tapestry.namespace-properties-name" 	value="ApplicationResources" />
+	<meta key="org.apache.tapestry.servlet-path" 				value="/billing-system" />
+	<meta key="org.apache.tapestry.home-page" 					value="main" />
+	<meta key="org.apache.tapestry.accepted-locales" 			value="en,in"/>
+	
+	<library id="contrib" specification-path="classpath:/org/apache/tapestry/contrib/Contrib.library" />
+	
+	<component-type type="ValidationErrorTop" 	specification-path="/WEB-INF/components/ValidationErrorTop.jwc"/>
+	<component-type type="TablePages" 	   	    specification-path="/WEB-INF/components/TablePages.jwc"/>
+    <component-type type="TablePagesDirectLink" specification-path="/WEB-INF/components/TablePagesDirectLink.jwc"/>
+    <component-type type="TableColumnSelector"  specification-path="/WEB-INF/components/TableColumnSelector.jwc"/>
+    <component-type type="TableColumn"          specification-path="/WEB-INF/components/TableColumn.jwc"/>
+    <component-type type="TableIterator" 	   	specification-path="/WEB-INF/components/TableIterator.jwc"/>
+    <component-type type="Table"                specification-path="/WEB-INF/components/Table.jwc"/>
+    <component-type type="InsertMoney"          specification-path="/WEB-INF/components/InsertMoney.jwc"/>
+    <component-type type="InsertNumber"          specification-path="/WEB-INF/components/InsertNumber.jwc"/>
+    <component-type type="InsertTimeStamp"      specification-path="/WEB-INF/components/InsertTimeStamp.jwc"/>
+    <component-type type="CheckBoxSelectAll" 	specification-path="/WEB-INF/components/CheckBoxSelectAll.jwc"/>
+    <component-type type="BaseGrid" 			specification-path="/WEB-INF/components/BaseGrid.jwc"/>
+    <component-type type="FormSearch" 			specification-path="/WEB-INF/components/FormSearch.jwc"/>	
+    <component-type type="CustomField" 			specification-path="/WEB-INF/components/CustomField.jwc"/>
+	<component-type type="BaseCustomComponent" 	specification-path="/WEB-INF/components/BaseCustomComponent.jwc"/>	
+	<component-type type="TimestampPicker" 		specification-path="/WEB-INF/components/TimestampPicker.jwc"/>
+	<component-type type="ExtendedGrid" 		specification-path="/WEB-INF/components/ExtendedGrid.jwc"/>
+	<component-type type="WindowPopUp" 			specification-path="/WEB-INF/components/WindowPopUp.jwc"/>
+	<component-type type="ListBoxPropertySelectionModel" 
+												specification-path="/WEB-INF/components/ListBoxPropertySelection.jwc"/>
+	
+	<!-- ## COMMON ## -->
+	<page name="main" specification-path="pages/main.page"/>
+	<page name="frame/loginHeader" specification-path="pages/frame/loginHeader.page"/>
+	<page name="frame/leftMenu" specification-path="pages/frame/leftMenu.page"/>
+	<page name="frame/header" specification-path="pages/frame/header.page"/>
+	<page name="frame/footer" specification-path="pages/frame/footer.page"/>
+	<page name="frame/right" specification-path="pages/frame/right.page"/>
+	<page name="frame/left" specification-path="pages/frame/left.page"/>
+	<page name="wellcome" specification-path="pages/wellcome.page"/>
+	<page name="infoPage" specification-path="pages/common/infoPage.page"/>
+	<page name="afterLogout" specification-path="pages/common/afterLogout.page"/>		
+	<page name="tableColumnSelectorPopup"     specification-path="pages/common/tableColumnSelectorPopup.page"/>
+	
+	<!-- ## USER ## -->
+	<page name="userEntry" specification-path="pages/bankadmin/user/userEntry.page"/>
+	<page name="userDeleteConfirm" specification-path="pages/bankadmin/user/userDeleteConfirm.page"/>
+	<page name="userConfirm" specification-path="pages/bankadmin/user/userConfirm.page"/>
+	<page name="userList" specification-path="pages/bankadmin/user/userList.page"/>
+	<page name="userNotFound" specification-path="pages/bankadmin/user/userNotFound.page"/>
+	<page name="resetPasswordConfirm" specification-path="pages/bankadmin/user/resetPasswordConfirm.page" />
+	<page name="changePassword" specification-path="pages/bankadmin/user/changePassword.page" />
+	<page name="changePasswordConfirm" specification-path="pages/bankadmin/user/changePasswordConfirm.page" />
+	<page name="userEntryEdit" specification-path="pages/bankadmin/user/userEntryEdit.page" />
+	<page name="activeUsers" specification-path="pages/bankadmin/user/activeUsers.page" />
+	<page name="blockUser" specification-path="pages/customerService/blockUser.page"/>
+	<page name="confirmBlock" specification-path="pages/customerService/confirmBlock.page" />
+	<page name="unblockUser" specification-path="pages/customerService/unblockUser.page"/> 
+	<page name="confirmUnblock" specification-path="pages/customerService/confirmUnblock.page" />
+	<page name="information" specification-path="pages/customerService/information.page"/>
+	<page name="bankGuaranteeList" specification-path="pages/masterMaintenance/bankGuaranteeList.page"/>
+
+	<!-- ## ROLE ## -->
+	<page name="addRole" specification-path="pages/bankadmin/user/addRole.page" />
+	<page name="addRoleConfirmation" specification-path="pages/bankadmin/user/addRoleConfirmation.page" />
+	<page name="updateRole" specification-path="pages/bankadmin/user/updateRole.page" />
+	<page name="roleDeleteConfirm" specification-path="pages/bankadmin/user/roleDeleteConfirm.page" />
+	
+	<!-- ## PARAMETER ## -->
+	<page name="parameterCrudDirectList" specification-path="pages/parameter/parameterCrudDirectList.page" />
+	<page name="tambahParameter" specification-path="pages/parameter/tambahParameter.page"/>
+	<page name="parameterCrudDirectConfirm" specification-path="pages/parameter/parameterCrudDirectConfirm.page" />
+	
+	<!-- ## MEMBER ## -->
+	<page name="memberDeleteConfirm" specification-path="pages/bankadmin/memberDeleteConfirm.page" />
+   	<page name="memberDeleteSuccess" specification-path="pages/bankadmin/memberDeleteSuccess.page" />   
+	<page name="memberEntry" specification-path="pages/bankadmin/memberEntry.page" />
+	<page name="memberEntryEdit" specification-path="pages/bankadmin/memberEntryEdit.page" />    
+    <page name="memberList" specification-path="pages/bankadmin/memberList.page" />      
+    <page name="memberConfirm" specification-path="pages/bankadmin/memberConfirm.page" />
+    <page name="memberNotification" specification-path="pages/bankadmin/memberNotification.page" />		
+    
+    <!-- ## TRANSACTION FEE ## -->
+    <page name="transactionFeeEntry" specification-path="pages/webadmin/transactionFee/transactionFeeEntry.page" />
+	<page name="transactionFeeEntryConfirm" specification-path="pages/webadmin/transactionFee/transactionFeeEntryConfirm.page" /> 
+	<page name="transactionFeeList" specification-path="pages/webadmin/transactionFee/transactionFeeList.page" /> 
+	<page name="transactionFeeNotFound" specification-path="pages/webadmin/transactionFee/transactionFeeNotFound.page" /> 
+	<page name="transactionFeeConfirm" specification-path="pages/webadmin/transactionFee/transactionFeeConfirm.page" />
+	<page name="transactionFeeEmptyRecord" specification-path="pages/webadmin/transactionFee/transactionFeeEmptyRecord.page" />
+	<page name="transactionFeeAlreadyExists" specification-path="pages/webadmin/transactionFee/TransactionFeeAlreadyExists.page" />
+	
+	<!-- ## VIEW CONNECTIONS ## -->
+	<page name="viewConnectionList" specification-path="pages/webadmin/viewConnection/viewConnectionList.page"/>
+	<page name="connectionNotFound" specification-path="pages/webadmin/viewConnection/connectionNotFound.page"/>
+	
+	<!-- ## MESSAGE LOGS ## -->
+	<page name="messageLogsList" specification-path="pages/webadmin/messageLog/messageLogsList.page"/>
+	<page name="messageLogsDetail" specification-path="pages/webadmin/messageLog/messageLogsDetail.page"/>
+	<page name="messageLogsNotFound" specification-path="pages/webadmin/messageLog/messageLogsNotFound.page"/>
+	
+	<!-- ## REPORT ## -->
+	<page name="allReport" specification-path="pages/webadmin/report/AllReport.page"/>
+	<page name="downloadReport" specification-path="pages/webadmin/report/DownloadReport.page"/>	
+	<page name="testReport" specification-path="pages/webadmin/report/TestAllReport.page"/>
+	<page name="reportAuditLog" specification-path="pages/bankadmin/report/reportAuditLog.page" />
+	
+	<!-- ## Monitoring Transaksi ## -->
+	<page name="monitoringTransaksi" specification-path="pages/webadmin/monitoringTransaksi/monitoringTransaksi.page"/>
+
+	<!-- ## Page untuk download ## -->
+	<page name="downloadPage" specification-path="pages/webadmin/download/DownloadPage.page"/>
+	
+	<!-- ## PARAMETER MX ## -->
+	<page name="parameterMxList" specification-path="pages/webadmin/parameterMx/parameterMxList.page"/>
+	<page name="parameterMxNotification" specification-path="pages/webadmin/parameterMx/parameterMxNotification.page"/>
+	
+	<!-- ## ANALISA TRANSACTION LOG ## -->
+	<page name="analisaTransactionLogs" specification-path="pages/webadmin/analisaTransactionLogs/analisaTransactionLogs.page"/>
+	<page name="rawTransactionView" specification-path="pages/webadmin/analisaTransactionLogs/rawTransactionView.page"/>
+
+	<!-- ## MASTER MAINTENANCE - LICENSE ## -->
+	<page name="licenseEntry" specification-path="pages/masterMaintenance/ipsfr/license/licenseEntry.page"/>
+	<page name="licenseCreate" specification-path="pages/masterMaintenance/ipsfr/license/licenseCreate.page"/>
+	<page name="licenseSearch" specification-path="pages/masterMaintenance/ipsfr/license/licenseSearch.page"/>
+	<page name="licenseView" specification-path="pages/masterMaintenance/ipsfr/license/licenseView.page"/>
+	<page name="licenseEdit" specification-path="pages/masterMaintenance/ipsfr/license/licenseEdit.page"/>
+	<page name="calculateBhp" specification-path="pages/masterMaintenance/ipsfr/license/calculateBhp.page"/>
+	<page name="simulasiBHP" specification-path="pages/masterMaintenance/ipsfr/license/simulasiBHP.page"/>
+	<page name="simulasiBHP2" specification-path="pages/masterMaintenance/ipsfr/license/simulasiBHP2.page"/>
+	<page name="simulasiBGVR" specification-path="pages/masterMaintenance/ipsfr/license/simulasiBGVR.page"/>
+	<page name="simulasiBGFR" specification-path="pages/masterMaintenance/ipsfr/license/simulasiBGFR.page"/>
+	<page name="simulasiDenda" specification-path="pages/masterMaintenance/ipsfr/license/simulasiDenda.page"/>
+	<page name="uploadFR" specification-path="pages/masterMaintenance/ipsfr/license/uploadFR.page"/>
+	<page name="uploadDokumen" specification-path="pages/masterMaintenance/ipsfr/license/uploadDokumen.page"/>
+	<page name="uploadIPSFR" specification-path="pages/masterMaintenance/ipsfr/license/uploadIPSFR.page"/>
+	<page name="uploadBIRate" specification-path="pages/masterMaintenance/ipsfr/license/uploadBIRate.page"/>
+	<page name="uploadBG" specification-path="pages/masterMaintenance/ipsfr/license/uploadBG.page"/>
+	<page name="uploadBGInBgCreate" specification-path="pages/masterMaintenance/ipsfr/license/uploadBGInBgCreate.page"/>
+	<page name="uploadPencairanBG" specification-path="pages/masterMaintenance/ipsfr/license/uploadPencairanBG.page"/>
+	<page name="uploadSuratLainnya" specification-path="pages/masterMaintenance/ipsfr/license/uploadSuratLainnya.page"/>
+	<page name="uploadVerifikasiPencairanBankGaransi" specification-path="pages/masterMaintenance/ipsfr/license/uploadVerifikasiPencairanBankGaransi.page"/>
+	
+	<!-- ## MASTER MAINTENANCE - BANK GARANSI ## -->
+	<!-- <page name="bankGuaranteeCreate" specification-path="pages/masterMaintenance/ipsfr/guarantee/bankGuaranteeCreate.page"/> -->
+	<!-- <page name="bankGuaranteeLicenseSearch" specification-path="pages/masterMaintenance/ipsfr/guarantee/bankGuaranteeSearch.page"/> -->
+	
+		<!-- ## MASTER-MAINTENANCE - VARIABLE - PERSENTASE TAHUNAN BHP ## -->
+    <page name="annualPercentageBHPEntry" specification-path="pages/masterMaintenance/ipsfr/variabel/annualPercentageBHPEntry.page"/>
+    <page name="annualPercentageBHPEntryVariety" specification-path="pages/masterMaintenance/ipsfr/variabel/annualPercentageBHPEntryVariety.page"/>
+	<page name="annualPercentageBHPCreate" specification-path="pages/masterMaintenance/ipsfr/variabel/annualPercentageBHPCreate.page"/>
+	<page name="annualPercentageBHPView" specification-path="pages/masterMaintenance/ipsfr/variabel/annualPercentageBHPView.page"/>
+	<page name="annualPercentageBHPViewManage" specification-path="pages/masterMaintenance/ipsfr/variabel/annualPercentageBHPViewManage.page"/>
+	<page name="annualPercentageBHPEdit" specification-path="pages/masterMaintenance/ipsfr/variabel/annualPercentageBHPEdit.page"/>
+	<page name="annualPercentageBHPInitialVR" specification-path="pages/masterMaintenance/ipsfr/variabel/annualPercentageBHPInitialVR.page"/>
+	<page name="annualPercentageBHPViewVariety" specification-path="pages/masterMaintenance/ipsfr/variabel/annualPercentageBHPViewVariety.page"/>
+	
+	<page name="konversiBHPEntry" specification-path="pages/masterMaintenance/ipsfr/variabel/konversiBHPEntry.page"/>
+	
+		<!-- ## MASTER-MAINTENANCE - VARIABLE - RATE TAHUNAN DAN PENGALI INDEX ## -->
+	<page name="annualRateBHPEntry" specification-path="pages/masterMaintenance/ipsfr/variabel/annualRateBHPEntry.page"/>
+	<page name="annualRateBHPEntryVariety" specification-path="pages/masterMaintenance/ipsfr/variabel/annualRateBHPEntryVariety.page"/>
+	<page name="annualRateBHPCreate" specification-path="pages/masterMaintenance/ipsfr/variabel/annualRateBHPCreate.page"/>
+	<page name="annualRateBHPEdit" specification-path="pages/masterMaintenance/ipsfr/variabel/annualRateBHPEdit.page"/>
+	<page name="annualRateBHPView" specification-path="pages/masterMaintenance/ipsfr/variabel/annualRateBHPView.page"/>
+	<page name="annualRateBHPViewManage" specification-path="pages/masterMaintenance/ipsfr/variabel/annualRateBHPViewManage.page"/>
+	<page name="annualRateBHPEditVariety" specification-path="pages/masterMaintenance/ipsfr/variabel/annualRateBHPEditVariety.page"/>
+	
+	<page name="pg_AnnRate_FR_VR_search" specification-path="pages/masterMaintenance/ipsfr/variabel/pg_AnnRate_FR_VR_search.page"/>
+	<page name="pg_var_BHP_Conv_create" specification-path="pages/masterMaintenance/ipsfr/variabel/pg_var_BHP_Conv_create.page"/>
+	<page name="pg_var_BHP_FR_Conv_Edit" specification-path="pages/masterMaintenance/ipsfr/variabel/pg_var_BHP_FR_Conv_Edit.page"/>
+	<page name="pg_var_BHP_FR_Conv_View" specification-path="pages/masterMaintenance/ipsfr/variabel/pg_var_BHP_FR_Conv_View.page"/>
+	<page name="pg_var_BHP_FR_create" specification-path="pages/masterMaintenance/ipsfr/variabel/pg_var_BHP_FR_create.page"/>
+	<page name="pg_var_BHP_Konv_create" specification-path="pages/masterMaintenance/ipsfr/variabel/pg_var_BHP_Konv_create.page"/>
+	<page name="pg_var_BHP_Konv_DetailEdit" specification-path="pages/masterMaintenance/ipsfr/variabel/pg_var_BHP_Konv_DetailEdit.page"/>
+	<page name="pg_var_BHP_Konv_edit" specification-path="pages/masterMaintenance/ipsfr/variabel/pg_var_BHP_Konv_edit.page"/>
+	<page name="pg_var_BHP_Konv_search" specification-path="pages/masterMaintenance/ipsfr/variabel/pg_var_BHP_Konv_search.page"/>
+	<page name="pg_var_BHP_search" specification-path="pages/masterMaintenance/ipsfr/variabel/pg_var_BHP_search.page"/>
+	<page name="pg_var_BHP_VR_create" specification-path="pages/masterMaintenance/ipsfr/variabel/pg_var_BHP_VR_create.page"/>
+	<page name="pg_var_temp" specification-path="pages/masterMaintenance/ipsfr/variabel/pg_var_temp.page"/>
+
+
+	<!-- ## OPERASIONAL ## -->
+	<page name="inquiryHistory" 		specification-path="pages/operasional/invoice/inquiryHistory.page"/>
+	<page name="invoiceCreate" 			specification-path="pages/operasional/invoice/invoiceMain/invoiceCreate.page"/>
+	<page name="invoiceCreateDetail" 	specification-path="pages/operasional/invoice/invoiceMain/invoiceCreateDetail.page"/>
+	<page name="invoiceCancel" 			specification-path="pages/operasional/invoice/invoiceMain/invoiceCancel.page"/>
+	<page name="invoiceCancelDetail" 	specification-path="pages/operasional/invoice/invoiceMain/invoiceCancelDetail.page"/>
+	<page name="invoiceCreateFine" 		specification-path="pages/operasional/invoice/invoiceFine/invoiceCreateFine.page"/>
+	<page name="invoiceReverse" 		specification-path="pages/operasional/invoice/invoiceFine/invoiceReverse.page"/>
+	<page name="licenseStatus" 			specification-path="pages/operasional/licenseStatus.page"/>
+	<page name="suspend" 				specification-path="pages/operasional/suspend.page"/>
+	<page name="historyInvoice" 		specification-path="pages/operasional/invoice/historyInvoice.page" />
+	
+	<page name="initialInvoiceSearch" 		specification-path="pages/operasional/initialInvoiceSearch.page"/>	
+	<page name="initialInvoiceFlatCreate" 		specification-path="pages/operasional/initialInvoiceFlatCreate.page"/>
+	<page name="initialInvoiceVarietyRateCreate" 		specification-path="pages/operasional/initialInvoiceVarietyRateCreate.page"/>	
+	<page name="initialInvoiceVarietyRateSearch" 		specification-path="pages/operasional/initialInvoiceVarietyRateSearch.page"/>		
+	<page name="manageInvoiceFlatView" 		specification-path="pages/operasional/manageInvoiceFlatView.page"/>	
+	<page name="manageInvoiceFlatFine" 		specification-path="pages/operasional/manageInvoiceFlatFine.page"/>	
+	<page name="manageInvoiceFlatEdit" 		specification-path="pages/operasional/manageInvoiceFlatEdit.page"/>	
+	<page name="manageInvoiceSearch" 		specification-path="pages/operasional/manageInvoiceSearch.page"/>
+	<page name="manageInvoiceEdit" 		specification-path="pages/operasional/manageInvoiceEdit.page"/>
+	<page name="manageInvoiceView" 		specification-path="pages/operasional/manageInvoiceView.page"/>
+	<page name="manageInvoiceVarietyRateSearch" 		specification-path="pages/operasional/manageInvoiceVarietyRateSearch.page"/>
+	<page name="manageInvoiceVarietyRateView" 		specification-path="pages/operasional/manageInvoiceVarietyRateView.page"/>
+	<page name="manageInvoiceVarietyRateEdit" 		specification-path="pages/operasional/manageInvoiceVarietyRateEdit.page"/>
+	<page name="manageInvoiceVarietyRateFine" 		specification-path="pages/operasional/manageInvoiceVarietyRateFine.page"/>
+	<page name="documentNotFound" 		specification-path="pages/operasional/documentNotFound.page"/>
+	<page name="infoPageBankGuarantee" 		specification-path="pages/operasional/infoPageBankGuarantee.page"/>
+	
+	<!-- ## OPERATIONAL - BANK GUARANTEE - AFTER GAP ANALYSIS ## hendy -->
+	<page name="updateBG" 					specification-path="pages/operasional/bankGuarantee/updateBG.page"/>
+	<page name="paymentBG" 					specification-path="pages/operasional/bankGuarantee/paymentBG.page"/>
+	<page name="bankGuaranteeCreate" 		specification-path="pages/masterMaintenance/ipsfr/guarantee/bankGuaranteeCreate.page"/>
+	<page name="bankGuaranteeCreatePayment" specification-path="pages/masterMaintenance/ipsfr/guarantee/bankGuaranteeCreatePayment.page"/>
+<!-- 	<page name="bankGuaranteePaymentFR" 	specification-path="pages/operasional/bankGuarantee/bankGuaranteePaymentFR.page"/> -->
+<!-- 	<page name="bankGuaranteePaymentVR" 	specification-path="pages/operasional/bankGuarantee/bankGuaranteePaymentVR.page"/> -->
+
+	<!-- ## Download - User Manual -->
+	<page name="downloadPageUserManual" 	specification-path="pages/operasional/userManual/downloadPageUserManual.page"/>
+</application>
+

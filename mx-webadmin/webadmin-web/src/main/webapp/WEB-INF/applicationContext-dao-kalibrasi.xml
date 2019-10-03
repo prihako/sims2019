@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+
+      <bean id="dataSourceKalibrasi" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
+		<property name="url" value="jdbc:sqlserver://223.27.148.67:1433;databaseName=sip2telv3" />
+		<property name="username" value="postel" />
+		<property name="password" value="postel123" />
+	</bean>
+    
+    <!-- Hibernate SessionFactory -->
+    <bean id="kalibrasiHibernateSessionFactory" class="com.balicamp.dao.AdminHibernateSessionFactory">
+        <property name="dataSource" ref="dataSourceKalibrasi"/>
+        <property name="entityPackages">
+			<list>
+				<value>com.balicamp.model.kalibrasi</value>
+			</list>
+		</property>
+        
+		<property name="hibernateProperties">
+			<props>
+				<prop key="dialect">org.hibernate.dialect.SQLServerDialect</prop>
+				<prop key="hibernate.query.substitutions">true 'Y', false 'N'</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
+
+				<prop key="hibernate.generate_statistics">false</prop>
+				<prop key="hibernate.bytecode.use_reflection_optimizer">true</prop>
+				<prop key="hibernate.max_fetch_depth">4</prop>
+				<prop key="hibernate.jdbc.use_streams_for_binary">true</prop>
+
+				<prop key="hibernate.connection.release_mode">after_transaction</prop>
+			</props>
+		</property>
+    </bean>
+
+    <bean id="kalibrasiTransactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="kalibrasiHibernateSessionFactory" />
+	</bean>
+
+	<!-- Generic Dao - can be used when doing standard CRUD -->
+	<bean id="kalibrasiDao" class="com.balicamp.dao.hibernate.BaseDaoHibernate">
+		<property name="sessionFactory" ref="kalibrasiHibernateSessionFactory" />
+	</bean>
+
+	<context:component-scan base-package="com.balicamp.dao.hibernate" />
+</beans>
+	 

@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="ftpManager" class="id.co.sigma.mx.project.ftpreconcile.process.FTPManager">
+		<constructor-arg value="${ftp.settings_file}" />
+	</bean>
+	
+	<bean id="fileHelper" class="id.co.sigma.mx.project.ftpreconcile.process.FileHelper">
+		<constructor-arg value="${ftp.settings_file_bni}" />
+	</bean>
+	
+	<bean id="ftpManagerBni" class="id.co.sigma.mx.project.ftpreconcile.process.FTPManagerBni">
+		<constructor-arg value="${ftp.settings_file_bni}" />
+	</bean>
+	
+	<bean id="ftpManagerBri" class="id.co.sigma.mx.project.ftpreconcile.process.FTPManagerBri">
+		<constructor-arg value="${ftp.settings_file_bri}" />
+	</bean>
+	
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+ 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+		<property name="url" value="${oracle.connection_string}" />
+		<property name="username" value="${oracle.connection_username}" />
+		<property name="password" value="${oracle.connection_password}" />
+		<property name="minIdle" value="${oracle.min_idle}" />
+		<property name="maxIdle" value="${oracle.max_idle}" />
+		<property name="maxOpenPreparedStatements" value="${oracle.max_open_prepared_statements}" />
+	</bean>
+	
+	<bean id="dataSourcePostgres" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+ 		<property name="driverClassName" value="org.postgresql.Driver" />
+		<property name="url" value="${postgres.connection_string}" />
+		<property name="username" value="${postgres.connection_username}" />
+		<property name="password" value="${postgres.connection_password}" />
+		<property name="minIdle" value="${postgres.min_idle}" />
+		<property name="maxIdle" value="${postgres.max_idle}" />
+		<property name="maxOpenPreparedStatements" value="${postgres.max_open_prepared_statements}" />
+	</bean>
+	
+	<bean id="sequenceUtil" class="id.co.sigma.mx.project.ftpreconcile.util.SequenceUtil">
+		<property name="dataSource" ref="dataSource" />
+		<property name="orclUser" value="${oracle.connection_username}" />
+	</bean>
+	
+	<bean id="paymentUtil" class="id.co.sigma.mx.project.ftpreconcile.util.PaymentUtil">
+		<property name="dataSource" ref="dataSource" />
+		<property name="sequenceUtil" ref="sequenceUtil" />
+	</bean>
+	
+	<bean id="paymentUtilBni" class="id.co.sigma.mx.project.ftpreconcile.util.PaymentUtilBni">
+		<property name="dataSource" ref="dataSource" />
+		<property name="sequenceUtil" ref="sequenceUtil" />
+	</bean>
+	
+	<bean id="paymentUtilBri" class="id.co.sigma.mx.project.ftpreconcile.util.PaymentUtilBri">
+		<property name="dataSource" ref="dataSource" />
+		<property name="sequenceUtil" ref="sequenceUtil" />
+	</bean>
+	
+	<bean id="recoveryUtil" class="id.co.sigma.mx.project.ftpreconcile.util.RecoveryUtil">
+		<property name="dataSource" ref="dataSource" />
+		<property name="paymentUtil" ref="paymentUtil" />
+	</bean>
+	
+	<bean id="webadminUtil" class="id.co.sigma.mx.project.ftpreconcile.util.WebadminUtil">
+		<property name="dataSourcePostgres" ref="dataSourcePostgres" />
+	</bean>
+	
+	<bean id="webadminUtilBni" class="id.co.sigma.mx.project.ftpreconcile.util.WebadminUtilBni">
+		<property name="dataSourcePostgres" ref="dataSourcePostgres" />
+	</bean>
+	
+	<bean id="webadminUtilBri" class="id.co.sigma.mx.project.ftpreconcile.util.WebadminUtilBri">
+		<property name="dataSourcePostgres" ref="dataSourcePostgres" />
+	</bean>
+	
+	<bean id="exportToXls" class="id.co.sigma.mx.project.ftpreconcile.process.ExportToXls">
+		<property name="dataSource" ref="dataSource" />
+		<property name="webadminUtil" ref="webadminUtil" />
+		<property name="ftpManager" ref="ftpManager" />
+	</bean>
+	
+	<bean id="exportToXlsBni" class="id.co.sigma.mx.project.ftpreconcile.process.ExportToXlsBni">
+		<property name="dataSource" ref="dataSource" />
+		<property name="webadminUtil" ref="webadminUtilBni" />
+		<property name="ftpManager" ref="ftpManagerBni" />
+	</bean>
+	
+	<bean id="exportToXlsBri" class="id.co.sigma.mx.project.ftpreconcile.process.ExportToXlsBri">
+		<property name="dataSource" ref="dataSource" />
+		<property name="webadminUtil" ref="webadminUtilBri" />
+		<property name="ftpManager" ref="ftpManagerBri" />
+	</bean>
+	
+	<bean id="mt940Parser" class="id.co.sigma.mx.project.ftpreconcile.util.MT940Parser">
+		<property name="sequenceUtil" ref="sequenceUtil" />
+		<property name="paymentUtil" ref="paymentUtil" />
+	</bean>
+	
+	<bean id="mt940ParserBni" class="id.co.sigma.mx.project.ftpreconcile.util.MT940ParserBni">
+		<property name="sequenceUtil" ref="sequenceUtil" />
+		<property name="paymentUtil" ref="paymentUtilBni" />
+	</bean>
+	
+	<bean id="mt940ParserBri" class="id.co.sigma.mx.project.ftpreconcile.util.MT940ParserBri">
+		<property name="sequenceUtil" ref="sequenceUtil" />
+		<property name="paymentUtil" ref="paymentUtilBri" />
+	</bean>
+	
+	<bean id="processorMessage" class="id.co.sigma.mx.project.ftpreconcile.process.ProcessorMessage">
+		<property name="mt940Parser" ref="mt940Parser" />
+		<property name="paymentUtil" ref="paymentUtil" />
+		<property name="sequenceUtil" ref="sequenceUtil" />
+	</bean>
+	
+	<bean id="processorMessageBni" class="id.co.sigma.mx.project.ftpreconcile.process.ProcessorMessageBni">
+		<property name="mt940Parser" ref="mt940ParserBni" />
+		<property name="paymentUtil" ref="paymentUtilBni" />
+		<property name="sequenceUtil" ref="sequenceUtil" />
+	</bean>
+	
+	<bean id="processorMessageBri" class="id.co.sigma.mx.project.ftpreconcile.process.ProcessorMessageBri">
+		<property name="mt940Parser" ref="mt940ParserBri" />
+		<property name="paymentUtil" ref="paymentUtilBri" />
+		<property name="sequenceUtil" ref="sequenceUtil" />
+	</bean>
+		
+	<bean id="receiverFTP" class="id.co.sigma.mx.project.ftpreconcile.process.ReceiverFTP" >
+		<property name="ftpManager" ref="ftpManager" />
+		<property name="paymentUtil" ref="paymentUtil" />
+		<property name="sequenceUtil" ref="sequenceUtil" />
+		<property name="processorMessage" ref="processorMessage" />
+	</bean>	
+	
+	<bean id="receiverFTPBni" class="id.co.sigma.mx.project.ftpreconcile.process.ReceiverFTPBni" >
+		<property name="ftpManager" ref="ftpManagerBni" />
+<!-- 		<property name="fileHelper" ref="fileHelper" /> -->
+		<property name="paymentUtil" ref="paymentUtilBni" />
+		<property name="sequenceUtil" ref="sequenceUtil" />
+		<property name="processorMessage" ref="processorMessageBni" />
+	</bean>
+	
+	<bean id="receiverFTPBri" class="id.co.sigma.mx.project.ftpreconcile.process.ReceiverFTPBri" >
+		<property name="ftpManager" ref="ftpManagerBri" />
+		<property name="paymentUtil" ref="paymentUtilBri" />
+		<property name="sequenceUtil" ref="sequenceUtil" />
+		<property name="processorMessage" ref="processorMessageBri" />
+	</bean>
+	
+	<!-- Spring Quartz Mandiri-->
+	<bean name="receiverFtpJob" class="org.springframework.scheduling.quartz.JobDetailBean"> 
+		<property name="jobClass" value="id.co.sigma.mx.project.ftpreconcile.scheduler.ReceiverFtpJob" />
+ 		<property name="jobDataAsMap">
+		  <map>
+			<entry key="receiverFTP" value-ref="receiverFTP" />
+			<entry key="exportToXls" value-ref="exportToXls" />
+			<entry key="dataSource" value-ref="dataSource" /> 
+		  </map>
+		</property>
+ 	</bean>
+ 	
+ 	<!-- Spring Quartz BNI-->
+	<bean name="receiverFtpJobBni" class="org.springframework.scheduling.quartz.JobDetailBean"> 
+		<property name="jobClass" value="id.co.sigma.mx.project.ftpreconcile.scheduler.ReceiverFtpJobBni" />
+ 		<property name="jobDataAsMap">
+		  <map>
+			<entry key="receiverFTP" value-ref="receiverFTPBni" />
+			<entry key="exportToXls" value-ref="exportToXlsBni" />
+			<entry key="dataSource" value-ref="dataSource" /> 
+		  </map>
+		</property>
+ 	</bean>
+ 	
+ 	<!-- Spring Quartz Bri-->
+	<bean name="receiverFtpJobBri" class="org.springframework.scheduling.quartz.JobDetailBean"> 
+		<property name="jobClass" value="id.co.sigma.mx.project.ftpreconcile.scheduler.ReceiverFtpJobBri" />
+ 		<property name="jobDataAsMap">
+		  <map>
+			<entry key="receiverFTP" value-ref="receiverFTPBri" />
+			<entry key="exportToXls" value-ref="exportToXlsBri" />
+			<entry key="dataSource" value-ref="dataSource" /> 
+		  </map>
+		</property>
+ 	</bean>
+ 	
+	<!-- FTP Cron Trigger Mandiri -->
+	<bean id="ftpTrigger" 
+                class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="receiverFtpJob" />
+		<property name="cronExpression" value="${ftp.job_time}" /> 
+	<!--	<property name="cronExpression" value="0/5 * * * * ?" />-->
+	</bean>
+	
+	<!-- FTP Cron Trigger Bni -->
+	<bean id="ftpTriggerBni" 
+                class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="receiverFtpJobBni" />
+		<property name="cronExpression" value="${ftp.job_time_bni}" /> 
+	</bean>
+	
+	<!-- FTP Cron Trigger Bri -->
+	<bean id="ftpTriggerBri" 
+                class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="receiverFtpJobBri" />
+		<property name="cronExpression" value="${ftp.job_time_bri}" /> 
+	<!--	<property name="cronExpression" value="0/5 * * * * ?" />-->
+	</bean>
+ 
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="jobDetails">
+			<list>
+				<ref bean="receiverFtpJob" />
+				<ref bean="receiverFtpJobBni" />
+				<ref bean="receiverFtpJobBri" />
+			</list>
+		</property>
+		<property name="triggers">
+			<list>
+				<ref bean="ftpTrigger" />
+				<ref bean="ftpTriggerBni" />
+				<ref bean="ftpTriggerBri" />
+			</list>
+		</property>
+	</bean>
+</beans>

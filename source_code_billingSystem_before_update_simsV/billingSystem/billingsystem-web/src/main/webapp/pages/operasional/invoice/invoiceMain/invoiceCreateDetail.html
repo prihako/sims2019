@@ -1,0 +1,258 @@
+<html jwcid="@Shell" title="message:webapp.title">
+<head>
+	<script type="text/javascript" src="scripts/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="scripts/jquery-ui-1.9.2.custom.min.js" ></script>
+	<script type="text/javascript" src="scripts/mayora/textAutoComplete.js" ></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			#$("#dayDateYear").datepicker({ format: 'dd/MM/yyyy', showOn: 'button' });
+			#$("#dayDateYear_0").datepicker({ format: 'dd/MM/yyyy', showOn: 'button' });
+		});
+	</script>
+	<link rel="stylesheet" type="text/css" href="styles/mayora/jquery-ui.css" />
+</head>
+
+<body jwcid="@Body">
+  
+<div id="outer">
+
+	<form  jwcid="invoiceCreateDetail@Form" delegate="ognl:beans.delegate" clientValidationEnabled="ognl:true">
+		
+		<span jwcid="licenses@Hidden" value="ognl:licenses"></span>
+		<span jwcid="services@Hidden" value="ognl:services"></span>
+		<span jwcid="subServices@Hidden" value="ognl:subServices"></span>
+		<span jwcid="invoices@Hidden" value="ognl:invoices"></span>
+		
+
+		<div id="title">
+	    	<span key="operational.invoice.create.title"></span>
+	    	<!--<span jwcid="notFirstLoad@Hidden" value="ognl:notFirstLoad"></span>-->
+	   	</div>
+		<br/>
+	    <span jwcid="@ValidationErrorTop" delegate="ognl:beans.delegate" ></span>
+	    
+	    <table class="uniform">
+	    	<tr>
+				<td><label class="medium"><span key="field.invoice.type2"></span></label></td>
+				<td>
+					<input 	jwcid="invoiceType@PropertySelection" model="ognl:invoiceTypeModel" value="ognl:invoiceType"/>
+				</td>
+			</tr>
+			<tr>
+				<td><label class="medium"><span key="license.licenseNo.title"></span></label></td>
+				<td>
+					<input 	jwcid="licenceNo@TextField" value="ognl:licenses.licenceNo" size="20" readonly="readonly"/>
+					<input type="submit" class="btn" jwcid="@Submit" action="listener:search" 
+							value="message:button.masterMaintenance.ipsfr.license.search"/>
+				</td>
+			</tr>
+			<tr>
+				<td><label class="medium"><span key="masterMaintenance.ipsfr.license.licenseId.title"></span></label></td>
+				<td>
+					<input 	jwcid="licenceId@TextField" value="ognl:licenses.licenceId" size="20" readonly="readonly"/>
+				</td>
+			</tr>
+	    	<tr>
+				<td><label class="medium"><span key="masterMaintenance.ipsfr.license.service.title"></span></label></td>
+				<td>
+					<input jwcid="serviceName@TextField" type="text" size="20" id="serviceName" 
+							value="ognl:services.serviceName" readonly="readonly"/>
+				</td>
+			</tr>
+			<tr>
+				<td><label class="medium"><span key="masterMaintenance.ipsfr.license.subService.title"></span></label></td>
+				<td>
+					<input jwcid="subServiceName@TextField" type="text" size="20" id="subServiceName" 
+							value="ognl:subServices.subserviceName" readonly="readonly"/>
+				</td>
+			</tr>
+	    	<tr>
+				<td><label class="medium" span key="masterMaintenance.ipsfr.license.methodBHP.title"></label></td>
+				<td>
+					<input 	jwcid="methodBhp@TextField" value="ognl:methodBhp" size="20" readonly="readonly"/>
+				</td>
+			</tr>
+	    	<tr>
+				<td><label class="medium"><span key="masterMaintenance.ipsfr.license.clientName.title"></span></label></td>
+				<td>
+					<input 	jwcid="clientName@TextField" value="ognl:licenses.clientName" size="35" readonly="readonly"/>
+				</td>
+			</tr>
+	    	
+			<tr>
+				<td>&nbsp;</td>
+			</tr>
+			
+			<tr>
+				<td colspan="2"><h2><span key="field.invoice.allocation"></span></h2></td>
+				<td>
+					&nbsp;
+				</td>
+			</tr>
+			<tr>
+				<td><label class="medium"><span key="field.invoice.allocation.transmit"></span></label></td>
+				<td>
+					<span class="add-on-first">Min </span> 
+					<input type="text" jwcid="transmitMin@TextField" id="transmitMin" value="ognl:licenses.transmitMin" class="xshort" readonly="readonly"/> 
+					<span class="add-on-last"> MHz</span>
+				</td>
+				<td>
+					<span class="add-on-first">Max </span> 
+					<input type="text" jwcid="transmitMax@TextField" id="transmitMax" value="ognl:licenses.transmitMax" class="xshort" readonly="readonly"/> 
+					<span class="add-on-last"> MHz</span>
+				</td>
+			</tr>
+			<tr>
+				<td><label class="medium"><span key="field.invoice.allocation.receive"></span></label></td>
+				<td>
+					<span class="add-on-first">Min </span> 
+					<input type="text" jwcid="receiveMin@TextField" id="receiveMin" value="ognl:licenses.receiveMin" class="xshort" readonly="readonly"/> 
+					<span class="add-on-last"> MHz</span>
+				</td>
+				<td>
+					<span class="add-on-first">Max </span> 
+					<input type="text" jwcid="receiveMax@TextField" id="receiveMax" value="ognl:licenses.receiveMax" class="xshort" readonly="readonly"/> 
+					<span class="add-on-last"> MHz</span>
+				</td>
+			</tr>
+			
+			<tr>
+				<td>&nbsp;</td>
+			</tr>
+			
+			<tr>
+				<td><label class="medium"><span key="field.invoice.number"></span></label></td>
+				<td>
+					<input 	jwcid="invoiceNo@TextField" value="ognl:invoices.invoiceNo" size="20" readonly="readonly"/>
+				</td>
+			</tr>
+			<tr>
+				<td><label class="medium"><span key="field.invoice.type"></span></label></td>
+				<td>
+					<input 	jwcid="invoiceMainType@PropertySelection" model="ognl:invoiceMainTypeModel" value="ognl:invoices.invoiceType"/>
+				</td>
+			</tr>
+			<tr>
+				<td><label class="medium"><span key="field.invoice.periode"></span></label></td>
+				<td>
+					<span class="add-on-first">Mulai </span> 
+					<input type="text" jwcid="licenceBegin@TextField" id="licenceBegin" value="ognl:licenseBegin" class="xshort" readonly="readonly"/> 
+				</td>
+				<td>
+					<span class="add-on-first">Akhir </span> 
+					<input type="text" jwcid="licenceEnd@TextField" id="licenceEnd" value="ognl:licenseEnd" class="xshort" readonly="readonly"/>
+				</td>
+			</tr>
+			<tr>
+				<td><label class="medium"><span key="field.invoice.year"></span></label></td>
+				<td>
+					<input 	jwcid="year@TextField" value="ognl:licenses.yearTo" size="5" readonly="readonly"/>
+				</td>
+			</tr>
+			<tr>
+				<td><label class="medium"><span key="field.invoice.dueDate"></span></label></td>
+				<td>
+					<input 	jwcid="dueDate@TextField" value="ognl:invoiceDueDate" size="20" readonly="readonly"/>
+				</td>
+			</tr>
+			
+			<tr>
+				<td>&nbsp;</td>
+			</tr>
+			
+			<tr>
+				<td colspan="2"><h2><span key="field.invoice.bhp"></span></h2></td>
+				<td>
+					&nbsp;
+				</td>
+			</tr>
+			<tr>
+				<td><label class="medium"><span key="field.invoice.bhp.upFrontFee"></span></label></td>
+				<td>
+					<input 	jwcid="bhpUpfrontFee@TextField" value="ognl:licenses.bhpUpfrontFee" size="20" readonly="readonly"/>
+				</td>
+			</tr>
+			<tr>
+				<td><label class="medium"><span key="field.invoice.bhp.rate"></span></label></td>
+				<td>
+					<input 	jwcid="bhpRate@TextField" value="ognl:licenses.bhpRate" size="20" readonly="readonly"/>
+				</td>
+			</tr>
+			<tr>
+				<td><label class="medium"><span key="field.invoice.bhp.index"></span></label></td>
+				<td>
+					<input 	jwcid="bhpCalcIndex@TextField" value="ognl:licenses.bhpCalcIndex" size="20" readonly="readonly"/>
+				</td>
+			</tr>
+			<tr>
+				<td><label class="medium"><span key="field.invoice.bhp.phl"></span></label></td>
+				<td>
+					<input 	jwcid="bhpPhl@TextField" value="ognl:licenses.bhpPhl" size="20" readonly="readonly"/>
+				</td>
+			</tr>
+			<tr>
+				<td><label class="medium"><span key="field.invoice.bhp.annualRate"></span></label></td>
+				<td>
+					<input 	jwcid="bhpAnnualPercent@TextField" value="ognl:licenses.bhpAnnualPercent" size="20" readonly="readonly"/>
+				</td>
+			</tr>
+			<tr>
+				<td><label class="medium"><span key="field.invoice.bhp.annualValue"></span></label></td>
+				<td>
+					<input 	jwcid="bhpAnnualValue@TextField" value="ognl:licenses.bhpAnnualValue" size="20" readonly="readonly"/>
+				</td>
+			</tr>
+			<tr>
+				<td><label class="medium"><span key="field.invoice.bhp.totalPayment"></span></label></td>
+				<td>
+					<input 	jwcid="bhpTotal@TextField" value="ognl:licenses.bhpTotal" size="20" readonly="readonly"/>
+				</td>
+			</tr>
+			
+			<tr>
+				<td>&nbsp;</td>
+			</tr>
+			
+			<tr>
+				<td><label class="medium"><span key="field.invoice.paymentMethod"></span></label></td>
+				<td>
+					<input 	jwcid="bhpPaymentType@TextField" value="ognl:licenses.bhpPaymentType" size="20" readonly="readonly"/>
+				</td>
+			</tr>
+			
+			
+			<tr height="10px"><td colspan="2"></td></tr>
+	    </table>
+	    
+	    <!-- button action -->
+			<div id="button">
+				<table width="99%" class="uniform">
+			    	<tr>
+			        	<td colspan="3" class="clearborder center">
+			        		<span jwcid="@If" condition='ognl:fields.SUCCESS == null'>
+				        		<input jwcid="@Submit" class="btn" value="message:button.invoice.create" 
+				        				action="listener:createInvoice" onclick="return validationExec(document.Form)" />
+				        		&nbsp;&nbsp;
+				        		<input jwcid="@Submit" class="btn" value="message:button.invoice.cancel" 
+			        				action="listener:cancelInvoice" />
+				        	</span>
+				        	<span jwcid="@Else">
+			        			<input jwcid="@Submit" class="btn" value="message:button.invoice.ok" 
+			        				action="listener:cancelInvoice" />
+			        		</span>
+			        	</td>
+			      	</tr>
+				</table>
+			</div>
+		<!-- button -->
+	    
+    	
+    	<span jwcid="errorShadow@TextField" autocomplete="off" value="ognl:errorValue" style="display:none"></span>
+		<span jwcid="@If" condition="ognl:delegate.hasErrors">    
+			<script>alert('<span jwcid="@Delegator" delegate="ognl:delegate.firstError">Error Message</span>');</script>
+		</span>
+			
+	</form>
+</div>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<html jwcid="@Shell" title="message:webapp.title">
+<body jwcid="@Body">
+<div id="outer">
+<span jwcid="@ValidationErrorTop" delegate="ognl:beans.delegate" />
+<div class="title"><span key="memberList.title">DAFTAR USER MEMBER</span></div>
+<form jwcid="searchForm@Form" delegate="ognl:beans.delegate" clientValidationEnabled="ognl:true">
+	<table class="uniform">
+	<tr jwcid="@Any" class="ognl:evenOddTable.next">
+		<td width="200px">
+			<label class="medium" jwcid="@FieldLabel" field="component:userNameField" />
+		</td>
+		<td width="74%">
+			<input class="short" type="text" maxlength="30"
+				jwcid="userNameField@TextField" 
+				value="ognl:searchUser.userName"
+				translator="translator:stringUpper,trim=true"
+				displayName="message:userEntry.userId"
+			 />
+            &nbsp;&nbsp;&nbsp;
+            <input class="btn80" type="button" jwcid="@Submit" listener="listener:onSearch" value="message:button.search" />
+        </td>
+	</tr>
+	<tr>
+		<td colspan="2" align="center">
+			&nbsp;
+		</td>
+	</tr>
+	</table>
+</form>
+
+<form	
+	jwcid="@Form" delegate="ognl:beans.delegate"
+	clientValidationEnabled="ognl:true">
+    <div id="box">
+    <span jwcid="@contrib:TableView"
+		pageSize="ognl:pageSize" 
+		columns="
+			!userList.userId, 
+			!userList.name, 			
+			!userList.cardNumber,
+			!userList.userParentId
+			"
+		source="ognl:tableModel"
+	>
+    <span jwcid="@TablePages"/>
+	<table class="data" width="100%">
+	    <tr>
+        	<th width="10%" align="left"><span jwcid="@CheckBoxSelectAll"/></th>
+        	<span jwcid="@contrib:TableColumns"/>
+        </tr>
+    	<tr jwcid="tableRows@contrib:TableRows" row="ognl:loopObject" class="ognl:beans.evenOdd.next">
+		    <td class="center" width="10%">
+		    	<input jwcid="@Checkbox" type="checkbox" value="ognl:loopObject.selected" class="noborder"/>
+                <span jwcid="@InvokeListener" listener="listener:checkSelect"/>                	                      
+		    </td>
+		    <td width="25%">
+		    	<a href="" jwcid="@DirectLink" listener="listener:doEdit" parameters="ognl:{loopObject.userId, loopObject.userName, loopObject.parentUsername}">
+		    	<span jwcid="@Insert" value="ognl:loopObject.userName"/>
+		    	</a>               
+		    </td>
+		    <td width="35%">
+		    	<span jwcid="@Insert" value="ognl:loopObject.name"/>               
+		    </td>
+		    <td width="30%">
+		    	<span jwcid="@Insert" value="ognl:loopObject.cardNumber"/>               
+		    </td>
+		    <td width="30%">
+				<span jwcid="@Insert" value="ognl:loopObject.parentUsername"/> 
+		    </td>
+		</tr>    	    	    	
+    </table>
+    </span>
+    </div>
+    <div>
+	<div class="button">
+	<input class="btn" jwcid="@Submit" listener="listener:doDelete" value="message:button.delete" type="button"/>
+	</div>
+</div>	
+</form>
+</div>
+</body>
+</html>

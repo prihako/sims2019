@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE component-specification PUBLIC
+    "-//Apache Software Foundation//Tapestry Specification 4.0//EN"
+    "http://jakarta.apache.org/tapestry/dtd/Tapestry_4_0.dtd">
+
+<component-specification class="com.balicamp.webapp.tapestry.component.BaseCustomComponent"  
+	allow-informal-parameters="yes" allow-body="false">
+	<parameter name="initFilter" required="yes" />
+	<parameter name="strFilter" required="yes" />
+	<parameter name="filterCriteria" required="yes"/>
+	<parameter name="columns" required="yes"/>
+	<parameter name="gridRowCount" required="yes"/>
+  	<parameter name="gridData" required="yes"/>
+  	<parameter name="additionalLinkListener" required="no"/>
+  	<parameter name="additionalLinkType" default-value="literal:anchor" required="no"/>
+  	<parameter name="additionalLinkLabel" default-value="literal:Edit" required="no"/>
+  	<parameter name="selectorType" default-value="literal:checkbox" required="no"/>
+  	<parameter name="gridActionButtonListener" required="no"/>
+  	<parameter name="gridActionButtonLabel" default-value="literal:Hapus" required="no"/>
+  	<parameter name="showDatePicker" default-value="false" required="no" />
+</component-specification>

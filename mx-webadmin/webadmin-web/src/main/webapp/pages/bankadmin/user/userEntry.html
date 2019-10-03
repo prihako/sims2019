@@ -1,0 +1,74 @@
+<html jwcid="@Shell" title="message:webapp.title">
+<body jwcid="@Body">
+	<div id="outer">
+		<form jwcid="userEntry@Form" delegate="ognl:beans.delegate"
+			clientValidationEnabled="ognl:true">
+			<div id="title">
+				<span key="userEntry.title">Daftar User</span>
+			</div>
+			<br /> <span jwcid="@ValidationErrorTop"
+				delegate="ognl:beans.delegate" />
+
+
+			<table width="100%" class="uniform">
+
+				<tr jwcid="@Any" class="ognl:evenOddTable.next">
+					<td width="200px"><label> *User Id </label></td>
+					<td><input class="medium" jwcid="userId@TextField" type="text"
+						value="ognl:userName"
+						validators="validators:required[%userEntry.userId.required]"
+						translator="translator:stringUpper,trim=true" maxlength="30" /></td>
+				</tr>
+				<tr jwcid="@Any" class="ognl:evenOddTable.next">
+					<td><label> *Nama User </label></td>
+					<td><input class="medium" jwcid="name@TextField" type="text"
+						value="ognl:name"
+						validators="validators:required[%userEntry.name.required]"
+						translator="translator:stringUpper,trim=true" maxlength="50" /></td>
+				</tr>
+				<tr jwcid="@Any" class="ognl:evenOddTable.next">
+					<td><label> *Email </label></td>
+					<td><input class="medium" jwcid="email@TextField" type="text"
+						value="ognl:email"
+						validators="validators:required[%userEntry.email.required],
+                	email[%userEntry.email.format]"
+						translator="translator:string,trim=true" maxlength="255" /></td>
+				</tr>
+				<tr jwcid="@Any" class="ognl:evenOddTable.next">
+					<td><label> *Role </label></td>
+					<td><select jwcid="role@PropertySelection"
+						model="ognl:getRoleModel()" value="ognl:role">
+							<option value="1">customer</option>
+							<option value="2">developer</option>
+							<option value="3">cso</option>
+					</select></td>
+				</tr>
+				<!-- 				<tr jwcid="@Any" class="ognl:evenOddTable.next"> -->
+				<!-- 					<td><label class="medium" jwcid="@FieldLabel" -->
+				<!-- 						field="component:userParent" -->
+				<!-- 						displayName="message:userEntry.supervisor"> Supervisor </label></td> -->
+				<!-- 					<td><select jwcid="userParent@PropertySelection" -->
+				<!-- 						model="ognl:getUserParentModel()" value="ognl:userParent"> -->
+				<!-- 					</select></td> -->
+				<!-- 				</tr> -->
+				<tr>
+
+					<td><font size="1" color="red">(*) Data harus diisi!</font></td>
+					<td></td>
+				</tr>
+
+				<tr jwcid="@Any" class="ognl:evenOddTable.next">
+					<td></td>
+					<td><input type="submit" jwcid="@Submit" class="btn"
+						action="listener:doSubmit" value="message:button.continue" /></td>
+				</tr>
+
+			</table>
+			<!-- <div class="button">
+	<input type="submit" jwcid="@Submit" class="btn100" action="listener:doSubmit" value="message:button.continue" />
+</div>
+ -->
+		</form>
+	</div>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+
+	<bean id="reportFileCleaningTask" class="com.balicamp.webapp.scheduler.CleanTemporaryFileTask">
+	</bean>
+	
+	<bean id="logFileCleaningTask" class="com.balicamp.webapp.scheduler.CleanLogFileTask">
+	</bean>
+	
+	<bean id="reportFileCleaningJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="reportFileCleaningTask" />
+		<property name="targetMethod" value="runCleaner" />
+	</bean>
+	
+	<bean id="logFileCleaningJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="logFileCleaningTask" />
+		<property name="targetMethod" value="runCleaner" />
+	</bean>
+	
+	
+	<bean id="cronTriggerReportFileCleaning" 	class="org.springframework.scheduling.quartz.CronTriggerBean"> 
+		<property name="jobDetail" ref="reportFileCleaningJob" />
+		<property name="cronExpression" value="0 0 * * * ? " />		
+	</bean>
+	
+	<bean id="cronTriggerLogFileCleaning" 	class="org.springframework.scheduling.quartz.CronTriggerBean"> 
+		<property name="jobDetail" ref="logFileCleaningJob" />
+		<property name="cronExpression" value="0 0 0 * * ? " />		
+	</bean>
+	
+	
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+			<property name="jobDetails">
+			   <list>
+			      <ref bean="reportFileCleaningJob" />
+			      <ref bean="logFileCleaningJob" />
+			   </list>
+			</property>
+		 
+			<property name="triggers">
+			    <list>
+					<ref bean="cronTriggerReportFileCleaning" />
+					<ref bean="cronTriggerLogFileCleaning" />
+			    </list>
+			</property>
+   </bean>
+	
+</beans>

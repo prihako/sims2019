@@ -1,0 +1,413 @@
+<!-- <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> -->
+<html jwcid="@Shell" title="message:webapp.title">
+
+<head>
+	<script src="scripts/jquery-1.8.3.min.js"></script>
+	<script src="scripts/jquery-ui-1.10.0.custom.min.js"></script>
+	<script src="scripts/mayora/tools.js"></script>
+	<script src="scripts/inputValidation.js"></script>
+	<link rel="stylesheet"
+		href="styles/style-Kominfo/jquery-ui-1.10.0.custom.css" type="text/css" />
+	<script type="text/javascript"></script>
+	<script>
+	
+		function isNumberWithComma(evt) {
+		    evt = (evt) ? evt : window.event;
+		    var charCode = (evt.which) ? evt.which : evt.keyCode;
+		    if (charCode > 31 && (charCode < 48 || charCode > 57) && (charCode != 46)) {
+		        return false;
+		    }
+		    return true;
+		}
+		function isNumberWithoutComma(evt) {
+		    evt = (evt) ? evt : window.event;
+		    var charCode = (evt.which) ? evt.which : evt.keyCode;
+		    if (charCode > 31 && (charCode < 48 || charCode > 57))  {
+		        return false;
+		    }
+		    return true;
+		}
+		function validateQty(evt) {
+			evt = (evt) ? evt : window.event;
+			var charCode = (evt.which) ? evt.which : evt.keyCode;
+			if (charCode  == 46) {
+				return true;
+			}else if ( charCode  < 48 || charCode  > 57 ) {
+				return false;
+			}else return true;
+		}
+	</script>
+</head>
+<body jwcid="@Body">
+	<div id="outer">
+	
+		<form jwcid="@Form" delegate="ognl:beans.delegate" clientValidationEnabled="ognl:true" refresh='listener:refresh'>
+			
+			<div id="title">
+		    	<span key="calculateBhp.title"></span>
+		    	<span jwcid="@Hidden" value="ognl:notFirstLoad"></span>
+		   	</div>
+
+			<table class="uniform">
+
+				<tr>
+					<td>
+						<label class="medium">
+							<span key="calculateBhp.field.upfrontFee"></span>
+						</label>
+					</td>
+					<td>
+						<input jwcid="@TextField" type="text" size="35" value="ognl:bhpUpfrontFee" translator='translator:moneyWithoutComma' 
+						class="numberWithoutComma" style="text-align: right" ></input>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label class="medium">
+							<span key="calculateBhp.field.phl"></span>
+						</label>
+					</td>
+					<td>
+						<input jwcid="@TextField" type="text" size="35" value="ognl:bhpPhl" translator='translator:moneyWithoutComma'
+						 class="numberWithoutComma" style="text-align: right" />
+					</td>
+				</tr>
+				
+			</table>
+		
+			<br /><br />
+			
+			
+			<table  width="90%" class="uniform" >
+			
+				<tr>
+<td>
+						<table >
+						
+				<tr>
+					<td colspan="2"><h3>BI Rate</h3></td>
+				</tr>
+
+				<tr>
+					<td style="width:25%;">
+						<label >
+							Tahun     
+						</label>
+					</td>
+					<td >
+						<label >
+							BI Rate
+						</label>
+					</td>
+				</tr>
+				
+				<tr>
+					<td>
+						<label >
+							1
+						</label>
+					</td>
+					<td>
+						<input jwcid="@TextField" type="text" size="30" value="ognl:biRate1" class="testWithComma" style="text-align: right" /> %
+					</td>
+				</tr>
+				
+				<tr>
+					<td>
+						<label >
+							2
+						</label>
+					</td>
+					<td>
+						<input jwcid="@TextField" type="text" size="30" value="ognl:biRate2" class="testWithComma" style="text-align: right" />%
+					</td>
+				</tr>
+				
+				<tr>
+					<td>
+						<label >
+							3
+						</label>
+					</td>
+					<td>
+						<input jwcid="@TextField" type="text" size="30" value="ognl:biRate3" class="testWithComma" style="text-align: right" />%
+					</td>
+				</tr>
+				
+				<tr>
+					<td>
+						<label >
+							4
+						</label>
+					</td>
+					<td>
+						<input jwcid="@TextField" type="text" size="30" value="ognl:biRate4" class="testWithComma" style="text-align: right" />%
+					</td>
+				</tr>
+				
+				<tr>
+					<td>
+						<label >
+							5
+						</label>
+					</td>
+					<td>
+						<input jwcid="@TextField" type="text" size="30" value="ognl:biRate5" class="testWithComma" style="text-align: right" />%
+					</td>
+				</tr>
+				
+				<tr>
+					<td>
+						<label >
+							6
+						</label>
+					</td>
+					<td>
+						<input jwcid="@TextField" type="text" size="30" value="ognl:biRate6" class="testWithComma" style="text-align: right" />%
+					</td>
+				</tr>
+				
+				<tr>
+					<td>
+						<label >
+							7
+						</label>
+					</td>
+					<td>
+						<input jwcid="@TextField" type="text" size="30" value="ognl:biRate7" class="testWithComma" style="text-align: right" />%
+					</td>
+				</tr>
+				
+				<tr>
+					<td>
+						<label >
+							8
+						</label>
+					</td>
+					<td>
+						<input jwcid="@TextField" type="text" size="30" value="ognl:biRate8" class="testWithComma" style="text-align: right" />%
+					</td>
+				</tr>
+				
+				<tr>
+					<td>
+						<label >
+							9
+						</label>
+					</td>
+					<td>
+						<input jwcid="@TextField" type="text" size="30" value="ognl:biRate9" class="testWithComma" style="text-align: right"/>%
+					</td>
+				</tr>
+				
+				<tr>
+					<td>
+						<label >
+							10
+						</label>
+					</td>
+					<td>
+						<input jwcid="@TextField" type="text" size="30" value="ognl:biRate10" class="testWithComma" style="text-align: right" />%
+					</td>
+				</tr>
+				
+			</table>	
+</td>
+									
+					
+<td>
+				<table >
+				<tr>
+					<td colspan="2"><h3>Persentase Tahunan</h3></td>
+				</tr>
+				<tr>
+					<td style="width:25%;">
+						<label>
+							Tahun    
+						</label>
+					</td>
+					<td >
+						<label >
+							Persentase
+						</label>
+					</td>
+				</tr>
+				
+				<tr>
+					<td >
+						<label >
+							1
+						</label>
+					</td>
+					<td>
+						<input jwcid="@TextField" type="text" size="30" value="ognl:annualRate1" class="numberWithoutComma" style="text-align: right" />%
+					</td>
+				</tr>
+				
+				<tr>
+					<td>
+						<label >
+							2
+						</label>
+					</td>
+					<td>
+						<input jwcid="@TextField" type="text" size="30" value="ognl:annualRate2" class="numberWithoutComma" style="text-align: right" />%
+					</td>
+				</tr>
+				
+				<tr>
+					<td>
+						<label >
+							3
+						</label>
+					</td>
+					<td>
+						<input jwcid="@TextField" type="text" size="30" value="ognl:annualRate3" class="numberWithoutComma"  style="text-align: right" />%
+					</td>
+				</tr>
+				
+				<tr>
+					<td>
+						<label >
+							4
+						</label>
+					</td>
+					<td>
+						<input jwcid="@TextField" type="text" size="30" value="ognl:annualRate4" class="numberWithoutComma" style="text-align: right" />%
+					</td>
+				</tr>
+				
+				<tr>
+					<td>
+						<label >
+							5
+						</label>
+					</td>
+					<td>
+						<input jwcid="@TextField" type="text" size="30" value="ognl:annualRate5" class="numberWithoutComma" style="text-align: right" />%
+					</td>
+				</tr>
+				
+				<tr>
+					<td>
+						<label >
+							6
+						</label>
+					</td>
+					<td>
+						<input jwcid="@TextField" type="text" size="30" value="ognl:annualRate6" class="numberWithoutComma" style="text-align: right" />%
+					</td>
+				</tr>
+				
+				<tr>
+					<td>
+						<label >
+							7
+						</label>
+					</td>
+					<td>
+						<input jwcid="@TextField" type="text" size="30" value="ognl:annualRate7" class="numberWithoutComma" style="text-align: right" />%
+					</td>
+				</tr>
+				
+				<tr>
+					<td>
+						<label >
+							8
+						</label>
+					</td>
+					<td>
+						<input jwcid="@TextField" type="text" size="30" value="ognl:annualRate8" class="numberWithoutComma" style="text-align: right" />%
+					</td>
+				</tr>
+				
+				<tr>
+					<td>
+						<label >
+							9
+						</label>
+					</td>
+					<td>
+						<input jwcid="@TextField" type="text" size="30" value="ognl:annualRate9" class="numberWithoutComma" style="text-align: right" />%
+					</td>
+				</tr>
+				
+				<tr>
+					<td>
+						<label >
+							10
+						</label>
+					</td>
+					<td>
+						<input jwcid="@TextField" type="text" size="30" value="ognl:annualRate10" class="numberWithoutComma" style="text-align: right" />%
+					</td>
+				</tr>
+				
+				<tr>
+					<td colspan="3" class="clearborder center">
+			        	<input jwcid="@Submit" class="btn" value="Hitung" 
+			        				action="listener:hitungBhp" onclick="return validationExec(document.Form)" /><br/>
+			        </td>
+					<td>
+						&nbsp;
+					</td>
+				</tr>
+				
+			</table>
+</td>
+
+
+				</tr>
+			</table>
+			
+			
+	
+			<span jwcid="@If" condition="ognl:bhpList!=null">
+				<div id="box">
+	   				<span jwcid="@contrib:TableView" pageSize="10"
+	    				columns="!TahunPembayaran,!UpfrontFee,!Rate,!Index,!PersentaseBhp,!BhpAnnual,!RoundUp,!Total" 
+	    				source="ognl:bhpList">
+						
+						<tr><td>
+						  	<table border="0" class="data" width="100%">
+							  	
+								<tr>
+									<th> <span key="calculateBhp.table.year">Year</span> </th>
+									<th>Biaya Izin Awal (Upfront<br /> Fee)</th>
+									<th> <span key="calculateBhp.table.rate">Rate</span> </th>
+									<th>Index Pengali<br /> (In) (Index Tahun <br />Lalu * (1+Rate)) </th>
+									<th> <span key="calculateBhp.table.persentaseBhp">Persentase BHP</span> </th>
+									<th> <span key="calculateBhp.table.bhpAmount">IPSFR</span> <br>
+									 <span key="calculateBhp.rumus.bhpAmount">Rumus IPFR</span> </th>
+									 <th> Round Up IPFR 
+									 Tahunan </th>
+									<th> <span key="calculateBhp.table.pembayaran">Total Pembayaran</span> <br>
+									 <span key="calculateBhp.rumus.pembayaran">Rumus Total Pembayaran</span> </th>
+								</tr>
+								<tr jwcid="@contrib:TableRows" row="ognl:row" class="ognl:beans.evenOdd.next">
+									<td align="right"><span jwcid="@Insert" 						value="ognl:row.yearTo"/></td>
+									<td align="right"><span jwcid="@InsertMoney" 					value="ognl:row.bhpUpfrontFee"/></td>
+					  				<td align="right"><span jwcid="@Insert" 		value="ognl:row.bhpRate"/>&nbsp;%</td>
+					  				<td align="right"><span jwcid="@Insert" 		value="ognl:row.bhpCalcIndex"/></td>
+					  				<td align="right"><span jwcid="@Insert" 		value="ognl:row.bhpAnnualPercent"/>&nbsp;%</td>
+					  				<td align="right"><span jwcid="@InsertMoney" 	value="ognl:row.bhpAnnualValue"/></td>
+					  				<td align="right"><span jwcid="@InsertMoney" 	value="ognl:row.bhpNK"/></td>
+					  				<td align="right"><span jwcid="@InsertMoney" 	value="ognl:row.bhpTotal"/></td>
+								</tr>
+							</table>
+						</td></tr>
+					</span>
+					<input jwcid="@Submit" class="btn" value="Reset" action="listener:reset" />
+				</div>
+			</span>
+			
+			<span jwcid="errorShadow@TextField" autocomplete="off" value="ognl:errorValue" style="display:none"></span>
+			<span jwcid="@If" condition="ognl:delegate.hasErrors">    
+				<script>alert('<span jwcid="@Delegator" delegate="ognl:delegate.firstError">Error Message</span>');</script>
+			</span>
+			
+		</form>
+	</div>
+
+</body>
+</html>

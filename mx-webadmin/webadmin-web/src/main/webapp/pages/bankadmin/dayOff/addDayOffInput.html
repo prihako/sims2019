@@ -1,0 +1,48 @@
+<html jwcid="@Shell" title="message:webapp.title">
+<body jwcid="@Body">
+<div id="outer">
+<form jwcid="addDayOffInput@Form" delegate="ognl:beans.delegate" clientValidationEnabled="ognl:true">
+<div id="title">
+    <span jwcid="@If" condition="ognl:entity.id eq null" >
+		<span key="addDayOffInput.title.add" />
+	</span>
+	<span jwcid="@Else">
+		<span key="addDayOffInput.title.edit"/>
+	</span>	
+</div> <br />
+<span jwcid="@ValidationErrorTop" delegate="ognl:beans.delegate" />
+
+<table width="100%" class="uniform">
+<tr jwcid="@Any" class="ognl:evenOddTable.next">
+                <td width="200px">
+                	<label class="medium" jwcid="@FieldLabel" field="component:nonBusinessDate"
+                           displayName="message:addDayOff.nonBusinessDate"/>
+                </td>
+                <td>
+                <input
+				jwcid="nonBusinessDate@DatePicker" 
+				value="ognl:entity.nonBusinessDate" 
+				displayName="message:addDayOff.nonBusinessDate" />
+                </td>
+</tr>
+<tr jwcid="@Any" class="ognl:evenOddTable.next">
+                <td width="200px">
+                	<label class="medium" jwcid="@FieldLabel" field="component:description"
+                           displayName="message:addDayOff.description"/>
+                </td>
+                <td><input jwcid="description@TextField"
+                           onkeypress="" size="40"
+                           maxlength="30"
+                           value="ognl:entity.description"
+                           displayName="message:addDayOffName.values"/>
+                </td>
+</tr>
+</table>
+	<span key="addDayOffInput.note"/><br>
+        <div class="button">
+            <input jwcid='@Submit' class="btn" value="message:button.continue" action="listener:doButtonNext"/>
+        </div>
+</form>
+</div>
+</body>
+</html>

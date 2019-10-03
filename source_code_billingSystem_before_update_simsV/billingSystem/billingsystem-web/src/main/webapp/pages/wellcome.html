@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title><span key="webapp.title" /></title>
+<style>
+	.peringatan{
+		font-size:250%;
+		color: red;
+	}
+</style>
+</head>
+
+<body>
+	<div id="outer">
+		<form name="mainForm">
+			<span jwcid="@If" condition="ognl:lastLogin neq null">
+				<div id="berita">
+					<span key="wellcome.info.lastLogin" /> 
+					<span jwcid="@Insert" value="ognl:lastLogin" format="ognl:dateFormatWellcome" />
+				</div>
+			</span> 
+			<span jwcid="@Else"><br></br>
+			</span>
+			<p class="note">
+				<span jwcid="@Insert" value="ognl:userLoginFromSession.userFullName" />
+			</p>
+			<span jwcid="@If" condition="ognl:isCustomer()" renderTag="false">
+				<div id="title">
+					<span key="wellcome.info.greeting" />
+				</div>
+			</span> 
+			<span jwcid="@Else">
+				<div id="title">
+					<span key="wellcome.info.greetingAdmin" />
+				</div>
+			</span><br></br> 
+			<span jwcid="userNotification@Insert" value="ognl:notification"></span>
+			<p>
+				<a jwcid="@DirectLink" listener="listener:gotoCHP"><span
+					jwcid="@Insert" value="ognl:MCHP" /></a>
+			</p>
+			
+<!-- 			Prihako yang nambahin, gunanya untuk memberi tahu user jika bi rate tahun berjalan belum aktif -->
+			<br />
+			<br />
+			<p class="peringatan">
+				<span jwcid="@Insert" value="ognl:newsBiRate" />
+				
+				<span jwcid="@If" condition="ognl:invoiceList!=null">
+				<div id="box">
+					<span jwcid="@contrib:TableView" pageSize="10"
+						columns="!Nama Klien, !Klien Id, !Metode BHP, !No. Aplikasi" source="ognl:invoiceList">
+
+						<table width="95%">
+							<tr>
+								<td colspan="2"><h3>SPP Yang Akan Jatuh Tempo</h3></td>
+							</tr>
+							<tr>
+								<td>
+									<table border="0" class="data" width="99%">
+										<tr>
+											<th>Nama Klien</th>
+											<th>Klien Id</th>
+											<th>Metode BHP</th>
+											<th>Tahun Ke</th>
+											<th>Tahun</th>
+											<th>No. Invoice</th>
+											<th>Invoice Type</th>
+											<th>Denda<br>Bulan ke -</th>
+											<th>Tanggal Jatuh Tempo Bayar<br />(dd-mm-yyyy)</th>
+											<th>Nilai BHP Frekuensi</th>
+											<th>Invoice Status</th>
+										</tr>
+								
+										<tr jwcid="@contrib:TableRows" row="ognl:data"
+											class="ognl:beans.evenOdd.next">
+											<td width="25%" align="left"><span jwcid="@Insert" value="ognl:data[0]"></span></td>
+											<td width="5%" align="center"><span jwcid="@Insert" value="ognl:data[1]"></span></td>
+											<td width="10%" align="center">
+												<span jwcid="@If" condition='ognl:data[2] == "FR"'>Flat BHP</span> 
+												<span jwcid="@If" condition='ognl:data[2] == "VR"'>Variety Rate</span></td>
+											<td width="5%" align="center">
+												<span jwcid="@Insert" value="ognl:data[3]"></span></td>
+											<td width="5%" align="center">
+												<span jwcid="@Insert" value="ognl:data[4]"></span></td>
+											<td width="10%" align="center"><font color="red">
+												<span jwcid="@Insert" value="ognl:data[5]"></span></font></td>
+											<td width="5%" align="center">
+												<span jwcid="@If" condition='ognl:data[6] == "1"'> <b><label key="label.invoiceType.pokok">Pokok</label></b></span>
+												<span jwcid="@If" condition='ognl:data[6] == "2"'> <font color="red"><b><label key="label.invoiceType.denda">Pokok + Denda</label></b></font></span>
+												<span jwcid="@If" condition='ognl:data[6] == "3"'> <b><label key="label.invoiceType.pokokBG">Pokok BG</label></b></span>
+												<span jwcid="@If" condition='ognl:data[6] == "4"'> <font color="red"><b><label key="label.invoiceType.dendaTanpaBG">Pokok + Denda</label></b></font></span>
+												<span jwcid="@If" condition='ognl:data[6] == "5"'> <b><label key="label.invoiceType.pokokSelisihBG">Pokok Selisih BG</label></b></span>
+												<span jwcid="@If" condition='ognl:data[6] == "6"'> <font color="red"><b><label key="label.invoiceType.pokokSelisihBGDenda">Pokok Selisih BG + Denda</label></b></font></span>
+											<td width="5%" align="center">
+												<span jwcid="@Insert" value="ognl:data[7]"></span></td>
+											<td width="15%" align="center">
+												<span jwcid="@Insert" value="ognl:data[8]"></span></td>
+											<td width="10%" align="right">
+												<span jwcid="@InsertMoney" value="ognl:data[9]"></span></td>
+											<td width="10%" align="center">
+												<span jwcid="@If" condition='ognl:data[10] == "U"'><font color="red"><b>Unpaid</b></font></span>
+												<span jwcid="@If" condition='ognl:data[10] == "P"'>Paid</span>
+												<span jwcid="@If" condition='ognl:data[10] == "D"'>Draft</span>
+												<span jwcid="@If" condition='ognl:data[10] == "C"'>Cancel</span>
+												<span jwcid="@If" condition='ognl:data[10] == "BD"'>Bad Debt</span></td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+					</span>
+				</div>
+				</span>
+			</p>
+		</form>
+	</div>
+</body>
+</html>

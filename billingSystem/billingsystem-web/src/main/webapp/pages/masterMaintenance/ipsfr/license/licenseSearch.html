@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html jwcid="@Shell" title="message:webapp.title">
+<head>
+<script src="/scripts/jquery-1.8.3.min.js"></script>
+<script>
+	function close_window() {
+		//window.opener.document.formCreate.events.refresh();
+		//window.opener.location.reload();
+		//window.opener.document.form.s();
+
+		window.close();
+	}
+
+	// 	$(document).ready(function() {
+
+	// 		$("#button1").click(function() {
+
+	// 			window.close();
+
+	// 		});
+
+	// 	});
+</script>
+</head>
+<body jwcid="@Body">
+	<div id="outer" style="height: 50%">
+
+		<form jwcid="@Form" delegate="ognl:beans.delegate"
+			clientValidationEnabled="ognl:true">
+
+
+
+			<span jwcid="licenses@Hidden" value="ognl:licenses"></span> <span
+				jwcid="services@Hidden" value="ognl:services"></span> <span
+				jwcid="subServices@Hidden" value="ognl:subServices"></span> <span
+				jwcid="invoiceType@Hidden" value="ognl:invoiceType"></span>
+
+			<div id="title">
+				<span key="masterMaintenance.ipsfr.license.title"></span>
+				<!--<span jwcid="notFirstLoad@Hidden" value="ognl:notFirstLoad"></span>-->
+			</div>
+			<table width="50%" class="uniform">
+				<span jwcid="@If" condition='ognl:fields.PAGE == "INVOICE"'>
+					<tr>
+						<td><label class="medium"><span
+								key="field.invoice.type2"></span></label></td>
+						<td><span jwcid="@If" condition='ognl:invoiceType == "INIT"'>
+								<span key="invoice.invoiceType.initial"></span>
+						</span> <span jwcid="@If" condition='ognl:invoiceType == "MANUAL"'>
+								<span key="invoice.invoiceType.manual"></span>
+						</span></td>
+					</tr>
+				</span>
+				<tr>
+					<td><label class="medium"><span
+							key="masterMaintenance.ipsfr.license.service.title"></span></label></td>
+					<td><input jwcid="service@PropertySelection"
+						model="ognl:serviceModel" value="ognl:serviceId" /></td>
+				</tr>
+				<tr>
+					<td><label class="medium"><span
+							key="masterMaintenance.ipsfr.license.subService.title"></span></label></td>
+					<td><input jwcid="subService@PropertySelection"
+						model="ognl:subServiceModel" value="ognl:subServiceId" /></td>
+				</tr>
+
+				<tr>
+					<td><label><span
+							key="masterMaintenance.ipsfr.license.clientName.title"></span></label></td>
+					<td><input jwcid="clientName@TextField" autocomplete="off"
+						value="ognl:clientName" size="30" /></td>
+				</tr>
+				<!-- 				<tr> -->
+				<!-- 					<td><label><span key="masterMaintenance.ipsfr.license.licenseId.title"></span></label></td> -->
+				<!-- 					<td> -->
+				<!-- 						<input 	jwcid="licenceNumber@TextField" autocomplete="off" value="ognl:licenceNumber" size="30"/> -->
+				<!-- 					</td> -->
+				<!-- 				</tr> -->
+				<tr>
+					<td><label><span
+							key="masterMaintenance.ipsfr.license.licenseId.title"></span></label></td>
+					<td><input jwcid="apRefNumber@TextField" autocomplete="off"
+						value="ognl:apRefNumber" size="30" /></td>
+				</tr>
+			</table>
+			<!-- button action -->
+			<div id="button">
+				<input jwcid="@Submit" type="button" class="btn"
+					value="message:button.masterMaintenance.ipsfr.license.search"
+					action="listener:doSearch" /> <input jwcid="@Submit" type="button"
+					class="btn"
+					value="message:button.masterMaintenance.ipsfr.license.back"
+					action="listener:back" onclick="this.form.onsubmit=null" />
+			</div>
+			<!-- button -->
+
+			<span jwcid="@If" condition="ognl:licenseList!=null"> <span
+				jwcid="@contrib:TableView" pageSize="10" source="ognl:licenseList"
+				columns="!License Number,!License Id,!Transmit Min,!Transmit Max,!Receive Min,!Receive Max">
+					<table width="99%">
+						<tr>
+							<td align="right"><br /> <span jwcid="@TablePages" /></td>
+						</tr>
+						<tr>
+							<td>
+
+								<table border="0" class="data" width="99%">
+									<tr>
+										<th>&nbsp;</th>
+										<th><span key="license.clientId.title">Client Name</span>
+										</th>
+										<th><span key="license.licenseNo.title">Nomor SKM</span>
+										</th>
+										<th><span key="license.licenseId.title">License ID</span>
+										</th>
+										<th><span key="license.transmit.min.title">Transmit
+												Minimum</span></th>
+										<th><span key="license.transmit.max.title">Transmit
+												Maximum</span></th>
+										<th><span key="license.receive.min.title">Receive
+												Minimum</span></th>
+										<th><span key="license.receive.max.title">Receive
+												Maximum</span></th>
+									</tr>
+									<span jwcid="license@RadioGroup"
+										selected="ognl:selectedLicense">
+										<tr jwcid="@contrib:TableRows" row="ognl:row"
+											class="ognl:beans.evenOdd.next">
+											<td class="center" width="10%"><input jwcid="@Radio"
+												type="radio" value="ognl:row" class="noborder" /></td>
+											<td width="20%" align="left"><span jwcid="@Insert"
+												value="ognl:row.addressCompany"></span></td>
+											<td width="20%" align="left"><span jwcid="@Insert"
+												value="ognl:row.apRefNumber"></span></td>
+											<td width="20%" align="left"><span jwcid="@Insert"
+												value="ognl:row.licenceNumber"></span></td>
+											<td width="10%" align="right"><span jwcid="@Insert"
+												value="ognl:row.eqFreqRangeMinEtx"></span></td>
+											<td width="10%" align="right"><span jwcid="@Insert"
+												value="ognl:row.eqFreqRangeMaxEtx"></span></td>
+											<td width="10%" align="right"><span jwcid="@Insert"
+												value="ognl:row.eqFreqRangeMinErx"></span></td>
+											<td width="10%" align="right"><span jwcid="@Insert"
+												value="ognl:row.eqFreqRangeMaxErx"></span></td>
+										</tr>
+									</span>
+								</table>
+
+							</td>
+						</tr>
+					</table>
+			</span> <input jwcid="@Submit" type="button" class="btn"
+				value="message:button.masterMaintenance.ipsfr.license.select"
+				action="listener:doSelect" />
+
+			</span> <span jwcid="@If" condition="ognl:invoiceList!=null"> <span
+				jwcid="@contrib:TableView" pageSize="10" source="ognl:invoiceList"
+				columns="!License Number,!License Id,!Transmit Min,!Transmit Max,!Receive Min,!Receive Max">
+					<table width="99%">
+						<tr>
+							<td align="right"><br /> <span jwcid="@TablePages" /></td>
+						</tr>
+						<tr>
+							<td>
+
+								<table border="0" class="data" width="99%">
+									<tr>
+										<th>&nbsp;</th>
+										<th><span key="license.licenseNo.title">Nomor SKM</span>
+										</th>
+										<th><span key="license.licenseId.title">License ID</span>
+										</th>
+										<th><span key="license.yearto.title">Tahun</span></th>
+										<th><span key="license.transmit.min.title">Transmit
+												Minimum</span></th>
+										<th><span key="license.transmit.max.title">Transmit
+												Maximum</span></th>
+										<th><span key="license.receive.min.title">Receive
+												Minimum</span></th>
+										<th><span key="license.receive.max.title">Receive
+												Maximum</span></th>
+									</tr>
+									<span jwcid="invoice@RadioGroup"
+										selected="ognl:selectedLicenseForInvoice">
+										<tr jwcid="@contrib:TableRows" row="ognl:licensesRow"
+											class="ognl:beans.evenOdd.next">
+											<td class="center" width="10%"><input jwcid="@Radio"
+												type="radio" value="ognl:licensesRow" class="noborder" /></td>
+											<td width="25%" align="left"><span jwcid="@Insert"
+												value="ognl:licensesRow.licenceNo"></span></td>
+											<td width="25%" align="left"><span jwcid="@Insert"
+												value="ognl:licensesRow.licenceId"></span></td>
+											<td width="10%" align="left"><span jwcid="@Insert"
+												value="ognl:licensesRow.yearTo"></span></td>
+											<td width="10%" align="right"><span jwcid="@Insert"
+												value="ognl:licensesRow.transmitMin"></span></td>
+											<td width="10%" align="right"><span jwcid="@Insert"
+												value="ognl:licensesRow.transmitMax"></span></td>
+											<td width="10%" align="right"><span jwcid="@Insert"
+												value="ognl:licensesRow.receiveMin"></span></td>
+											<td width="10%" align="right"><span jwcid="@Insert"
+												value="ognl:licensesRow.receiveMax"></span></td>
+										</tr>
+									</span>
+								</table>
+
+							</td>
+						</tr>
+					</table>
+			</span> <input jwcid="@Submit" type="button" class="btn"
+				value="message:button.masterMaintenance.ipsfr.license.select"
+				action="listener:doSelectForInvoice" />
+
+			</span> <span jwcid="errorShadow@TextField" autocomplete="off"
+				value="ognl:errorValue" style="display: none"></span> <span
+				jwcid="@If" condition="ognl:delegate.hasErrors"> <script>
+					alert('<span jwcid="@Delegator" delegate="ognl:delegate.firstError">Error Message</span>');
+				</script>
+			</span>
+
+			<input type="hidden" jwcid="@Hidden" value="ognl:closed" /> 
+
+		</form>
+
+		<span jwcid="@If" condition="ognl:closedStatus!=null"> 
+		<script>
+			//window.opener.document.formCreate.events.refresh();
+			window.opener.document.forms[0].submit();
+			//window.opener.document.location.reload();
+ 			window.close();
+		</script></span>
+	</div>
+</body>
+</html>

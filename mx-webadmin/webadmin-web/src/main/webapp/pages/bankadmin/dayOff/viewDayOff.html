@@ -1,0 +1,84 @@
+<html jwcid="@Shell" title="message:webapp.title">
+<body jwcid="@Body">
+<div id="outer">
+	<div id="title"><span key="viewDayOff.title.list" /></div>
+	<br />
+	<span jwcid="@ValidationErrorTop" delegate="ognl:beans.delegate" />
+	<form jwcid="searchForm@Form" delegate="ognl:beans.delegate" clientValidationEnabled="ognl:false">
+		<table class="uniform">
+			<tr jwcid="@Any" class="ognl:evenOddTable.next">
+                <td width="200px">
+                	<label class="medium" jwcid="@FieldLabel" field="component:nonBusinessDateField"
+                           displayName="message:addDayOff.nonBusinessDate"/>
+                </td>
+				<td>
+				
+                <input
+				jwcid="nonBusinessDateField@DatePicker" 
+				value="ognl:searchDayOff.nonBusinessDate" 
+				displayName="message:addDayOff.nonBusinessDate" />
+	            </td>
+			</tr>
+			<tr jwcid="@Any" class="ognl:evenOddTable.next">
+                <td width="200px">
+                	<label class="medium" jwcid="@FieldLabel" field="component:descriptionField"
+                           displayName="message:addDayOff.description"/>
+                </td>
+				<td>
+					<input class="short" type="text" maxlength="30"
+						jwcid="descriptionField@TextField" 
+						value="ognl:searchDayOff.description"
+						displayName="message:addDayOff.description"
+					 />
+	            </td>
+			</tr>	
+			<tr jwcid="@Any" class="ognl:evenOddTable.next">
+				<td width="200px"></td>
+				<td>
+					<input class="btn" type="button" jwcid="@Submit" listener="listener:onSearch" value="message:button.search" />
+	            </td>
+			</tr>
+		</table>
+	</form>
+	
+    <form jwcid="@Form">
+	    <table width="99%" jwcid="@contrib:TableView" pageSize="ognl:pageSize" source="ognl:tableModel"
+	           columns="literal:nonBusinessDate:addDayOff.nonBusinessDate:nonBusinessDate,
+                                description:addDayOff.description:description">
+	    	<tr>
+			    <td align="right"><span jwcid="@TablePages" /></td>
+			</tr>
+	    	<tr>
+	    		<td align="center">
+	            	<div style="overflow: auto">
+	                	<table width="99%" class="data">
+	                		<tr class="headerRow">
+	                			<th align="center"> <span jwcid="@CheckBoxSelectAll"/> </th>
+			                    <span jwcid="@contrib:TableColumns" arrowUpAsset="ognl:assets.upArrow" arrowDownAsset="ognl:assets.downArrow" />
+			                </tr> 
+			                <tr jwcid="@contrib:TableRows" row="ognl:loopObject" class="ognl:beans.evenOdd.next">                              
+								<td class="center" width="5%">
+									<input jwcid="@Checkbox" type="checkbox" value="ognl:loopObject.selected" class="noborder"/>
+									<span jwcid="@InvokeListener" listener="listener:checkSelect"/>
+								</td>
+								<td jwcid="nonBusinessDate@TableColumn" width="10%">
+									<a jwcid="@DirectLink" listener="ognl:listeners.onViewDetail" parameters="ognl:loopObject.id">
+										<span jwcid="@Insert" value="ognl:loopObject.nonBusinessDate" format="ognl:dateFormat"/>
+									</a>
+								</td>
+								<td jwcid="description@TableColumn" width="30%" class="left">
+									<span jwcid="@Insert" value="ognl:loopObject.description"/>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</td>
+			</tr>
+		</table>
+		<div class="button">
+			<input jwcid="@Submit" type="button" value="message:button.delete"  class="btn" action="listener:doDelete"/>
+		</div>
+	</form>
+</div>
+</body>
+</html>

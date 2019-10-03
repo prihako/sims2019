@@ -1,0 +1,17 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link rel="icon" href="images/favicon.ico" />
+<title><span key="webapp.title" /></title>
+</head>
+<frameset rows="60,*,60" frameborder="no" border="0" framespacing="0">
+	<frame src="frame/header.html" name="topFrame" scrolling="no" noresize="noresize" id="topFrame" title="topFrame" />
+	<frameset cols="25%,*" frameborder="no" border="0" framespacing="0" >
+			<frame jwcid="@Any" src="ognl:leftMenuPage" name="leftFrame1" scrolling="no" noresize="noresize" id="leftFrame" title="leftFrame" />
+			<frame jwcid="@Any" src="ognl:srcWelcome" name="mainFrame" id="mainFrame" title="mainFrame" scrolling="yes" noresize="resize"/>
+	</frameset>
+	<frame src="frame/footer.jsp" name="bottomFrame" scrolling="no" noresize="noresize" id="bottomFrame" title="bottomFrame" />
+</frameset>
+<noframes><body OnLoad="parent.left.location.href='left.html'"OnScroll="ScrollLeftToo()">
+</html>

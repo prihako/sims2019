@@ -1,0 +1,50 @@
+<html jwcid="@Shell" title="message:webapp.title">
+<body jwcid="@Body">
+<div id="outer">
+<span jwcid="@ValidationErrorTop" delegate="ognl:beans.delegate" />
+<form  jwcid="mainForm@Form" delegate="ognl:beans.delegate" clientValidationEnabled="ognl:true">
+<div id="box">
+    <div class="title">
+    <span jwcid="@If" condition="ognl:entity.id eq null" >
+		<span key="addRoleConfirmation.title.add">TAMBAH GRUP</span>
+	</span>
+	<span jwcid="@Else">
+		<span key="addRoleConfirmation.title.edit">UBAH GRUP</span>
+	</span>	
+    </div>    
+    <table class="uniform">
+      <tr jwcid="@Any" class="ognl:evenOddTable.next">
+        <td width="200px" ><label class="medium"><span key="addRole.name">Nama Role</span></label></td>
+        <td><input jwcid="roleName@Insert" value="ognl:entity.name"/></td>
+      </tr>
+      <tr jwcid="@Any" class="ognl:evenOddTable.next">
+          <td width="200px"><label class="medium"><span key="addRole.description">Deskripsi</span></label></td>
+          <td><input jwcid="roleDescription@Insert" value="ognl:entity.description"/></td>
+      </tr>
+      <tr jwcid="@Any" class="ognl:evenOddTable.next">
+          <td width="200px"><label class="medium"><span key="addRole.function">Fungsi</span></label></td>
+          <td>
+              <ol>
+                  <span jwcid="@For" source="ognl:selectedFunction" value="ognl:row">
+                    <li><span jwcid="@Insert" value="ognl:row.description" /></li>
+                  </span>
+              </ol>
+          </td>
+      </tr>
+      </table>
+      <div class="button">
+          <input jwcid='@Submit' class="btn" value="message:button.continue" action="listener:doButtonSave"/>
+          <span jwcid="@If" condition="ognl:entity.id eq null" >
+              <input jwcid='@Submit' class="btn" value="message:button.cancel" action="listener:onButtonCancel"/>
+          </span>
+          <span jwcid="@Else">
+              <input jwcid='@Submit' class="btn" value="message:button.cancel" action="listener:onBack"/>
+          </span>
+      </div>
+<input type="hidden" jwcid="@Hidden" value="ognl:selectedFunction"/>
+<input type="hidden" jwcid="@Hidden" value="ognl:entity"/>
+</div>
+</form>
+</div>
+</body>
+</html>

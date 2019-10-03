@@ -1,0 +1,163 @@
+<html jwcid="@Shell" title="message:webapp.title">
+<head>
+<script type="text/javascript" src="/scripts/jquery-1.8.3.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+	    resetForms();
+	});
+	
+	function resetForms() {
+		alert('f***ing onchange');
+		document.myform.submit();
+// 	    location.reload();
+	}
+	function viewDocumentKM(docName) {
+		popupWindow = window.showModalDialog('./document.svc?imageId=' + docName);
+	}
+</script>
+</head>
+<body jwcid="@Body">
+	<div id="outer" style="height: 50%">
+		<form id="mainForm" name="mainForm" jwcid="@Form" clientValidationEnabled="true" delegate="ognl:beans.delegate" refresh="listener:refresh">
+<!-- 			<span jwcid="license@Hidden" value="ognl:license"></span> -->
+<!-- 			<span jwcid="invoice@Hidden" value="ognl:invoice"></span> -->
+			<span jwcid="bankGuarantee@Hidden" value="ognl:bankGuarantee"></span>
+
+			<div id="title">
+				<span key="leftMenu.operational.bg.updateBG"></span>
+				<span jwcid="notFirstLoad@Hidden" value="ognl:notFirstLoad"></span>
+			</div>
+			
+			<table width="100%" class="uniform">
+				<tr>
+					<td align="left" width="10%">
+						<label class="medium">
+							<span key="operational.bg.search"></span>
+						</label>
+					</td>
+					<td align="left" width="90%">
+						<input id="searchMethod" jwcid="search@PropertySelection" model="ognl:searchModel" value="ognl:searchMethod"
+							onchange="this.form.submit()"/>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label class="medium" id="keywordLabel">
+							<span key="operational.bg.keyword"></span>
+						</label>
+					</td>
+					<td>
+						<span jwcid="@If" condition='ognl:searchMethod!="BHP_METHOD"'>
+							<input id="searchKeyword" jwcid="searchKeyword@TextField" autocomplete="off" value="ognl:searchKeyword" size="30"/>
+						</span>
+						<span jwcid="@Else">
+							<input id="bhp" jwcid="bhp@PropertySelection" model="ognl:bhpModel" value="ognl:searchKeyword"/>
+						</span>
+					</td>
+				</tr>
+			</table>
+			
+			<!-- button action -->
+			<div id="button">
+				<input jwcid="@Submit" type="button" class="btn" value="message:operational.bg.button.search" 
+						action="listener:doSearch" onclick="this.form.onsubmit=null"/>
+			</div>
+			<!-- button -->
+
+			<span jwcid="@If" condition="ognl:bgList!=null">
+	
+   			<span jwcid="@contrib:TableView" pageSize="10" source="ognl:bgList" 
+   				columns="!clientName,!clientId,!bhpMethod,!year,!licenseNo,!bgRequired,!dueDate,!submit,!bhpFrequency,!bgValue,!bgYear">
+			<table width="99%">
+				<tr>
+					<td align="right">
+				    	<br/>
+				    	<span jwcid="@TablePages"></span>
+					</td>
+				</tr>
+			    <tr>
+			    	<td>				
+						<table border="0" class="data" width="99%">
+							<tr>
+								<!--/**
+								 *     <li>license id 			: [0]	</li>
+								 *     <li>nama klien 			: [1]	</li>
+								 *     <li>klien id				: [2]	</li>
+								 *     <li>metode bhp			: [3]	</li>
+								 *     <li>tahun ke				: [4]	</li>
+								 *     <li>no lisensi			: [5]	</li>
+								 *     <li>kewajiban BG			: [6]	</li>
+								 *     <li>jatuh tempo			: [7]	</li>
+								 *     <li>penyerahan			: [8]	</li>
+								 *     <li>bhp frekuensi		: [9]	</li>
+								 *     <li>nilai BG				: [10]	</li>
+								 *     <li>tahun BG				: [11]	</li>
+								 *     <li>no invoice			: [12]	</li>
+								 *     <li>tipe invoice			: [13]	</li>
+								 *     <li>no dokumen BG		: [14]	</li>
+								 *     <li>status penyerahan BG	: [15]	</li>
+								 *     <li>BG ID				: [16]	</li>
+								 *     <li>BG save status		: [17]	</li>
+								 *     <li>BG status description: [18]	</li>
+								 
+								 */-->
+								<th> <span key="operational.bg.table.clientName">Nama Klien</span> </th>
+								<th> <span key="operational.bg.table.clientId">Id Klien</span> </th>
+								<th> <span key="operational.bg.table.bhpMethod">Metode BHP</span> </th>
+								<th> <span key="operational.bg.table.year.updateBG">Tahun Ke</span> </th>
+								<th> <span key="operational.bg.table.licenseNumber">No. Aplikasi</span> </th>
+<!-- 								<th> <span key="operational.bg.table.bgRequired">Kewajiban BG</span> </th> -->
+								<th> <span key="operational.bg.table.bgDueDate">Jatuh Tempo Penyerahan BG</span> </th>
+								<th> <span key="operational.bg.table.bgDate">Penyerahan BG</span> </th>
+								<th> <span key="operational.bg.table.bhpFrequency">Nilai BHP Frekuensi</span> </th>
+								<th> <span key="operational.bg.table.bgValue">Nilai BG</span> </th>
+<!-- 								<th> <span key="operational.bg.table.attachment">Lampiran</span> </th> -->
+								<th> <span key="operational.bg.table.status">Status</span> </th>
+								<th>  </th>
+							</tr>
+							<tr jwcid="@contrib:TableRows" row="ognl:row" class="ognl:beans.evenOdd.next">
+				 	 			<td width="20%" align="left">	<span jwcid="@Insert" value="ognl:row[1]">	</span></td>
+								<td width="5%" 	align="left">	<span jwcid="@Insert" value="ognl:row[2]">	</span></td>
+								<td width="5%" 	align="center">	
+									<span jwcid="@If" condition='ognl:row[3] == "VR"'><label key="label.bhpMethod.VR">Variety Rate</label></span>
+									<span jwcid="@If" condition='ognl:row[3] == "FR"'><label key="label.bhpMethod.FR">Flat BHP</label></span>
+									<span jwcid="@If" condition='ognl:row[3] == "C"'><label key="label.bhpMethod.C">Conversion</label></span>
+								</td>
+				  				<td width="5%" 	align="right">	<span jwcid="@Insert" value="ognl:row[4]">	</span></td>
+				  				<td width="10%" align="right">	<span jwcid="@Insert" value="ognl:row[5]">	</span></td>
+<!-- 				  				<td width="5%" 	align="center">	<span jwcid="@Insert" value="ognl:row[6]">	</span></td> -->
+				  				<td width="10%" align="right">	<span jwcid="@Insert" value="ognl:row[7]">	</span></td>
+				  				<td width="10%" align="right">	<span jwcid="@Insert" value="ognl:row[8]">	</span></td>
+				  				<td width="10%" align="right">	<span jwcid="@InsertMoney" value="ognl:row[9]">	</span></td>
+				  				<td width="10%" align="right">	<span jwcid="@InsertMoney" value="ognl:row[10]">	</span></td>
+<!-- 				  				<td width="5%" align="center"> -->
+<!-- 				  					<a jwcid="@DirectLink" listener="listener:viewDocument" parameters="ognl:{row[16], row[5]}"> -->
+<!-- 										<span key="operational.bg.table.view"></span> -->
+<!-- 									</a> -->
+<!-- 								</td> -->
+								<td width="10%" align="right">	<span jwcid="@Insert" value="ognl:row[18]">	</span></td>
+								<td width="10%" align="center">	
+				  					<a jwcid="@DirectLink" listener="listener:updateData" parameters="ognl:{row[16]}">
+				  						<span jwcid="@If" condition='ognl:row[15]=="1" || row[17]=="E"'>
+											<span key="operational.bg.table.viewBG"></span></span>
+										<span jwcid="@Else">
+											<span key="operational.bg.table.update"></span></span>
+									</a>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+			</span>
+			</span>
+			
+			<span jwcid="errorShadow@TextField" autocomplete="off" value="ognl:errorValue" style="display:none"></span>
+			<span jwcid="@If" condition="ognl:delegate.hasErrors">    
+				<script>alert('<span jwcid="@Delegator" delegate="ognl:delegate.firstError">Error Message</span>');</script>
+			</span>
+
+		</form>
+	</div>
+</body>
+</html>

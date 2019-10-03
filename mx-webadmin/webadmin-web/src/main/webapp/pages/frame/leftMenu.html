@@ -1,0 +1,30 @@
+<html jwcid="@Shell" title="message:common.title">
+<head>
+	<span key="html.common.css.menu" raw="true"/>
+	<span key="html.common.script.flip" raw="true"/>
+	<script language="JavaScript">
+		function viewPage(pAction){
+			document.mainForm.action= pAction;
+			document.mainForm.target= "mainFrame" ;
+			document.mainForm.submit();
+		}
+	</script>
+	
+	<!-- HTTP 1.1 -->
+    <meta http-equiv="Cache-Control" content="no-store"/>
+    <!-- HTTP 1.0 -->
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <!-- Prevents caching at the Proxy Server -->
+    <meta http-equiv="Expires" content="0"/>
+</head>
+
+<body jwcid="@Body">
+	<form method="post" id="mainForm" name="mainForm" >
+	<div id="menu">
+		<span jwcid="@Insert" value="ognl:menu" raw="true">
+			Menu
+		</span>
+	</div>
+	</form>
+</body>
+</html>

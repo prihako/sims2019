@@ -1,0 +1,190 @@
+<html jwcid="@Shell" title="message:webapp.title">
+<head>
+	<script type="text/javascript" src="scripts/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="scripts/jquery-ui-1.9.2.custom.min.js" ></script>
+	<script type="text/javascript" src="scripts/mayora/textAutoComplete.js" ></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			#$("#dayDateYear").datepicker({ dateFormat: 'dd-MM-yyyy', showOn: 'button' });
+			#$("#dayDateYear_0").datepicker({ dateFormat: 'dd-MM-yyyy', showOn: 'button' });
+		});
+</script>
+	<link rel="stylesheet" type="text/css" href="styles/mayora/jquery-ui.css" />
+	<STYLE TYPE="text/css" media="all">
+	.ui-autocomplete {
+	    position: absolute;
+	    cursor: default;
+	    height: 200px;
+	    overflow-y: scroll;
+	    overflow-x: hidden;}
+	</STYLE>
+</head>
+<body jwcid="@Body">
+<div id="outer">
+	<form  jwcid="monitoringTxForm@Form" delegate="ognl:beans.delegate" clientValidationEnabled="ognl:true">
+		<div id="title">
+	    	<span key="analisaTxLog.title"/>
+	   	</div>
+		<br/>
+	    <span jwcid="@ValidationErrorTop" delegate="ognl:beans.delegate" />
+	    
+	    <table class="uniform">
+	    	<tr jwcid="@Any" class="ognl:evenOddTable.next">
+				<td class="short">
+					<label class="short" jwcid="@FieldLabel" field="component:transactionCode" />
+				</td>
+				<td>
+					<input jwcid="transactionCode@TextField" 
+						value="ognl:transactionCode" 
+	    				displayName="message:analisaTxLog.txCode.label" />
+				</td>
+			</tr>
+			<tr jwcid="@Any" class="ognl:evenOddTable.next">
+				<td class="short">
+					<label class="short" jwcid="@FieldLabel" field="component:transactionDesc" />
+				</td>
+				<td>
+					<input type="text" jwcid="transactionDesc@TextField" 
+	    				value="ognl:transactionName"
+	    				displayName="message:analisaTxLog.txName.label" />
+				</td>
+			</tr>
+	    	<tr jwcid="@Any" class="ognl:evenOddTable.next">
+				<td class="short">
+					<label class="short" jwcid="@FieldLabel" field="component:endpointCode" />
+				</td>
+				<td>
+					<input type="text" jwcid="endpointCode@TextField"
+	    			 	value="ognl:channelCode"
+	    			 	displayName="message:analisaTxLog.channelCode.label" />
+				</td>
+			</tr>
+			<tr jwcid="@Any" class="ognl:evenOddTable.next">
+				<td class="short">
+					<label class="short" jwcid="@FieldLabel" field="component:txId" />
+				</td>
+				<td>
+					<input type="text" jwcid="txId@TextField"
+	    			 	value="ognl:transactionId"
+	    			 	displayName="message:analisaTxLog.txId.label" />
+				</td>
+			</tr>
+			<tr jwcid="@Any" class="ognl:evenOddTable.next">
+				<td class="short">
+					<label class="short" jwcid="@FieldLabel" field="component:rawKey" />
+				</td>
+				<td>
+					<input type="text" jwcid="rawKey@TextField"
+	    			 	value="ognl:rawKey"
+	    			 	displayName="message:analisaTxLog.rawKey" />
+				</td>
+			</tr>
+	    	<tr jwcid="@Any" class="ognl:evenOddTable.next">
+				<td class="short">
+					<label class="short" displayName="message:common.label.startDate">Start Date</label>
+				</td>
+				<td>
+					<span jwcid="startDate@TimestampPicker" value="ognl:startDate" ></span>
+				</td>
+			</tr>
+			<tr jwcid="@Any" class="ognl:evenOddTable.next">
+				<td class="short">
+					<label class="short" displayName="message:common.label.endDate">End Date</label>
+				</td>
+				<td>
+					<span jwcid="endDate@TimestampPicker" value="ognl:endDate" ></span>
+				</td>
+			</tr>
+			<tr jwcid="@Any" class="ognl:evenOddTable.next">
+				<td class="short"></td>
+				<td>
+					<input class="btn" type="button" id="searchButton" 
+						jwcid="searchButton@Submit" 
+						listener="listener:doSearch"
+						value="message:button.search" />
+				</td>
+			</tr>
+			<tr height="10px"><td colspan="2"></td></tr>
+	    </table>
+	    
+	    <!-- <div id="button">
+					<input class="btn" type="button" id="searchButton" 
+				jwcid="searchButton@Submit" 
+				listener="listener:doSearch"
+				value="message:button.search" />
+		</div> -->	    
+	    
+		<div style="overflow-x: auto; width:550px;">
+		   <table width="99%" jwcid="tableList@contrib:TableView" 
+	    		source="ognl:tableModel" 
+	    		columns="literal:tid:Trx Id:trxId,ttime:Trx Time:trxTime, tcode:Trx Code:trxCode, 
+						tname:Trx Name:trxDesc, 
+						ccode:Channel Code:channelCode, crc:Channel RC:channelRc,
+						rcdesc:RC Desc:rcDesc, :Raw:" class="data">	    
+	    	<tr>
+			    <td align="right" colspan="8" ><span jwcid="@TablePages" /></td>
+			</tr>
+		     <tr class="headerRow">
+		           <span jwcid="@contrib:TableColumns" arrowUpAsset="ognl:assets.upArrow" arrowDownAsset="ognl:assets.downArrow" />
+		     </tr> 
+	         <tr jwcid="tableRows@contrib:TableRows" row="ognl:tableRow" class="ognl:beans.evenOdd.next">
+	         	<td width="15%" class="center" style="min-width: 150px">
+	         		 <a jwcid="@DirectLink" listener="listener:additionalLinkListener" 
+	         		 parameters="ognl:{tableRow.trxId}">
+	         			<span jwcid="@Insert" value="ognl:tableRow.trxId"/>
+	         		</a>
+	         	</td>
+	         	<td width="10%" class="left" style="min-width: 125px">
+	         		<span jwcid="@Insert" value="ognl:tableRow.trxTime"/>
+	         	</td>
+	         	<td width="15%" class="left" style="min-width: 100px">
+	         		<span jwcid="@Insert" value="ognl:tableRow.trxCode"/>
+	         	</td>
+				<td width="15%" class="left" style="min-width: 200px">
+					<span jwcid="@Insert" value="ognl:tableRow.trxDesc"/>
+				</td>
+				<td width="10%" class="center" style="min-width: 85px">
+					<span jwcid="@Insert" value="ognl:tableRow.channelCode"/>
+				</td>
+				<td width="10%" class="center" style="min-width: 75px">
+					<span jwcid="@Insert" value="ognl:tableRow.channelRc"/>
+				</td>
+				<td width="15%" class="left" style="min-width: 250px">
+					<span jwcid="@Insert" value="ognl:tableRow.rcDesc"/>
+				</td>
+				<td width="10%" class="center" style="min-width: 50px">
+					<a jwcid="@DirectLink" listener="listener:viewRawData" parameters="ognl:{tableRow.trxId}" onclick="return replaceList(this);">
+						View
+					</a>
+				</td>
+	        </tr>
+	    </table>
+	    </div>
+	</form>
+	<div id="rawData">
+	</div>
+</div>
+<script type="text/javascript">
+	var backHtml; 
+	function replaceList(anchor) {
+		$.ajax( {
+			url: anchor.href,
+			success: function(data) {
+				backHtml = $("#tableList").html();
+				$("#tableList").html("");
+				$("#rawData").html(data);
+				$("#backButtonTop").click(function() {
+					$("#tableList").html(backHtml);
+					$("#rawData").html("");
+				});
+				$("#backButtonBottom").click(function() {
+					$("#tableList").html(backHtml);
+					$("#rawData").html("");
+				});
+			}
+		});
+		return false;
+	}
+</script>
+</body>
+</html>

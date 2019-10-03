@@ -1,0 +1,70 @@
+<html jwcid="@Shell" title="message:transactionFee.title"> 
+<body jwcid="@Body">
+<div id="outer">
+<span jwcid="@ValidationErrorTop" delegate="ognl:beans.delegate" />
+<form jwcid="searchForm@Form" delegate="ognl:beans.delegate" clientValidationEnabled="ognl:true">
+	<div id="title">
+    	<span key="paramMx.title"/>
+   	</div>
+	<br/>
+    <table class="uniform">
+		<tr jwcid="@Any" class="ognl:evenOddTable.next">
+			<td class="short">
+				<label class="short" jwcid="@FieldLabel" field="component:description" />
+		       </td>
+		       <td>
+				<input type="text" maxlength="30" width="208px" cssclass="TextBox"
+				       jwcid="description@TextField" 
+					   value="ognl:description"
+					   translator="translator:string,trim=true"
+					   displayName="message:paramMx.desc.label" />
+		    </td>
+		</tr>
+		<tr jwcid="@Any" class="ognl:evenOddTable.next">
+			<td class="short"></td>
+		    <td>
+				<input class="btn" type="button" jwcid="@Submit" listener="listener:onSearch" value="message:button.search" />
+		    </td>
+		</tr>
+		<tr height="10px"><td colspan="2"></td></tr>
+	</table>
+	<!-- <div id="button">
+		<input class="btn" type="button" jwcid="@Submit" listener="listener:onSearch" value="message:button.search" />	
+	</div> -->
+
+	<div id="box">
+    	<table width="99%" jwcid="@contrib:TableView" 
+    		source="ognl:tableModel" 
+    		columns="literal:desc:Description:desc, valueLama:Value Lama:valueLama, valueBaru:Value Baru:valueBaru"
+    		class="data">
+    
+	     <tr class="headerRow">
+	           <span jwcid="@contrib:TableColumns" arrowUpAsset="ognl:assets.upArrow" arrowDownAsset="ognl:assets.downArrow" />
+	     </tr> 
+         <tr jwcid="tableRows@contrib:TableRows" row="ognl:tableRow" class="ognl:beans.evenOdd.next">
+         	<td>
+         		<span jwcid="@Insert" value="ognl:tableRow.descriptions"/>
+         	</td>
+         	<td>
+         		<span jwcid="@Insert" value="ognl:tableRow.valueLama"/>
+         	</td>
+			<td>
+				<span jwcid="@TextField" 
+					validators="validators:required[%common.message.validation.required]"
+					translator="translator:string, trim=true"
+					value="ognl:tableRow.valueBaru" />
+				<span jwcid="@InvokeListener" listener="listener:isValueChange"/>
+			</td>
+        </tr>
+    	<tr>
+		    <td align="right" colspan="3" ><span jwcid="@TablePages" /></td>
+		</tr>
+    </table>
+    <div class="button">
+		<input class="btn" jwcid="@Submit" listener="listener:doEdit" value="message:button.edit" type="button"/>
+	</div>
+	
+</form>
+</div>
+</body>
+</html>

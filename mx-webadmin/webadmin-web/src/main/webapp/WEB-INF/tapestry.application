@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!DOCTYPE application PUBLIC 
+	"-//Apache Software Foundation//Tapestry Specification 4.0//EN" 
+	"http://jakarta.apache.org/tapestry/dtd/Tapestry_4_0.dtd">
+    
+<application name="tapestry">     
+	<meta key="org.apache.tapestry.page-class-packages" value="com.balicamp.webapp.action" />
+	<meta key="org.apache.tapestry.namespace-properties-name" value="ApplicationResources" /> 
+	<meta key="org.apache.tapestry.servlet-path" value="/mx-webadmin" /> 
+	<meta key="org.apache.tapestry.home-page" value="main" /> 
+	<library id="contrib" specification-path="classpath:/org/apache/tapestry/contrib/Contrib.library" />
+	
+	<component-type type="ValidationErrorTop" 	specification-path="/WEB-INF/components/ValidationErrorTop.jwc"/>
+	<component-type type="TablePages" 	   	    specification-path="/WEB-INF/components/TablePages.jwc"/>
+    <component-type type="TablePagesDirectLink" specification-path="/WEB-INF/components/TablePagesDirectLink.jwc"/>
+    <component-type type="TableColumnSelector"  specification-path="/WEB-INF/components/TableColumnSelector.jwc"/>
+    <component-type type="TableColumn"          specification-path="/WEB-INF/components/TableColumn.jwc"/>
+    <component-type type="TableIterator" 	   	specification-path="/WEB-INF/components/TableIterator.jwc"/>
+    <component-type type="Table"                specification-path="/WEB-INF/components/Table.jwc"/>
+    <component-type type="CheckBoxSelectAll" 	specification-path="/WEB-INF/components/CheckBoxSelectAll.jwc"/>
+    <component-type type="BaseGrid" 			specification-path="/WEB-INF/components/BaseGrid.jwc"/>
+    <component-type type="FormSearch" 	specification-path="/WEB-INF/components/FormSearch.jwc"/>	
+    <component-type type="CustomField" 	specification-path="/WEB-INF/components/CustomField.jwc"/>
+	<component-type type="BaseCustomComponent" 	specification-path="/WEB-INF/components/BaseCustomComponent.jwc"/>	
+	<component-type type="TimestampPicker" 	specification-path="/WEB-INF/components/TimestampPicker.jwc"/>
+	<component-type type="ExtendedGrid" 			specification-path="/WEB-INF/components/ExtendedGrid.jwc"/>
+	<component-type type="WindowPopUp" 			specification-path="/WEB-INF/components/WindowPopUp.jwc"/>
+	<component-type type="ListBoxPropertySelectionModel" specification-path="/WEB-INF/components/ListBoxPropertySelection.jwc"/>
+	
+	<!-- ## COMMON ## -->
+	<page name="main" specification-path="pages/main.page"/>
+	<page name="frame/loginHeader" specification-path="pages/frame/loginHeader.page"/>
+	<page name="frame/leftMenu" specification-path="pages/frame/leftMenu.page"/>
+	<page name="frame/header" specification-path="pages/frame/header.page"/>
+	<page name="frame/footer" specification-path="pages/frame/footer.page"/>
+	<page name="frame/right" specification-path="pages/frame/right.page"/>
+	<page name="frame/left" specification-path="pages/frame/left.page"/>
+	<page name="wellcome" specification-path="pages/wellcome.page"/>
+	<page name="infoPage" specification-path="pages/common/infoPage.page"/>
+	<page name="afterLogout" specification-path="pages/common/afterLogout.page"/>		
+	<page name="tableColumnSelectorPopup"     specification-path="pages/common/tableColumnSelectorPopup.page"/>
+    <page name="waitingPage" 		specification-path="pages/common/waitingPage.page"/>
+	
+	<!-- ## USER ## -->
+	<page name="userEntry" specification-path="pages/bankadmin/user/userEntry.page"/>
+	<page name="userDeleteConfirm" specification-path="pages/bankadmin/user/userDeleteConfirm.page"/>
+	<page name="userConfirm" specification-path="pages/bankadmin/user/userConfirm.page"/>
+	<page name="userList" specification-path="pages/bankadmin/user/userList.page"/>
+	<page name="userNotFound" specification-path="pages/bankadmin/user/userNotFound.page"/>
+	<page name="resetPasswordConfirm" specification-path="pages/bankadmin/user/resetPasswordConfirm.page" />
+	<page name="changePassword" specification-path="pages/bankadmin/user/changePassword.page" />
+	<page name="changePasswordConfirm" specification-path="pages/bankadmin/user/changePasswordConfirm.page" />
+	<page name="userEntryEdit" specification-path="pages/bankadmin/user/userEntryEdit.page" />
+	<page name="activeUsers" specification-path="pages/bankadmin/user/activeUsers.page" />
+	<page name="blockUser" specification-path="pages/customerService/blockUser.page"/>
+	<page name="confirmBlock" specification-path="pages/customerService/confirmBlock.page" />
+	<page name="unblockUser" specification-path="pages/customerService/unblockUser.page"/> 
+	<page name="confirmUnblock" specification-path="pages/customerService/confirmUnblock.page" />
+	<page name="information" specification-path="pages/customerService/information.page"/> 
+	
+	<!-- ## ROLE ## -->
+	<page name="addRole" specification-path="pages/bankadmin/user/addRole.page" />
+	<page name="addRoleConfirmation" specification-path="pages/bankadmin/user/addRoleConfirmation.page" />
+	<page name="updateRole" specification-path="pages/bankadmin/user/updateRole.page" />
+	<page name="roleDeleteConfirm" specification-path="pages/bankadmin/user/roleDeleteConfirm.page" />
+	
+	<!-- ## PARAMETER ## -->
+	<page name="parameterCrudDirectList" specification-path="pages/parameter/parameterCrudDirectList.page" />
+	<page name="tambahParameter" specification-path="pages/parameter/tambahParameter.page"/>
+	<page name="parameterCrudDirectConfirm" specification-path="pages/parameter/parameterCrudDirectConfirm.page" />
+	
+	<!-- ## MEMBER ## -->
+	<page name="memberDeleteConfirm" specification-path="pages/bankadmin/memberDeleteConfirm.page" />
+   	<page name="memberDeleteSuccess" specification-path="pages/bankadmin/memberDeleteSuccess.page" />   
+	<page name="memberEntry" specification-path="pages/bankadmin/memberEntry.page" />
+	<page name="memberEntryEdit" specification-path="pages/bankadmin/memberEntryEdit.page" />    
+    <page name="memberList" specification-path="pages/bankadmin/memberList.page" />      
+    <page name="memberConfirm" specification-path="pages/bankadmin/memberConfirm.page" />
+    <page name="memberNotification" specification-path="pages/bankadmin/memberNotification.page" />		
+    
+    <!-- ## TRANSACTION FEE ## -->
+    <page name="transactionFeeEntry" specification-path="pages/webadmin/transactionFee/transactionFeeEntry.page" />
+	<page name="transactionFeeEntryConfirm" specification-path="pages/webadmin/transactionFee/transactionFeeEntryConfirm.page" />
+	<page name="transactionFeeEntryNotification" specification-path="pages/webadmin/transactionFee/transactionFeeEntryNotification.page" /> 
+	<page name="transactionFeeList" specification-path="pages/webadmin/transactionFee/transactionFeeList.page" /> 
+	<page name="transactionFeeNotFound" specification-path="pages/webadmin/transactionFee/transactionFeeNotFound.page" /> 
+	<page name="transactionFeeConfirm" specification-path="pages/webadmin/transactionFee/transactionFeeConfirm.page" />
+	<page name="transactionFeeEmptyRecord" specification-path="pages/webadmin/transactionFee/transactionFeeEmptyRecord.page" />
+	<page name="transactionFeeAlreadyExists" specification-path="pages/webadmin/transactionFee/TransactionFeeAlreadyExists.page" />
+		
+	<!-- ## VIEW CONNECTIONS ## -->
+	<page name="viewConnectionList" specification-path="pages/webadmin/viewConnection/viewConnectionList.page"/>
+	<page name="connectionNotFound" specification-path="pages/webadmin/viewConnection/connectionNotFound.page"/>
+		<page name="viewConnectionMonitoring" specification-path="pages/webadmin/viewConnection/viewConnectionMonitoring.page"/>
+	
+	<!-- ## MESSAGE LOGS ## -->
+	<page name="messageLogsList" specification-path="pages/webadmin/messageLog/messageLogsList.page"/>
+	<page name="messageLogsDetail" specification-path="pages/webadmin/messageLog/messageLogsDetail.page"/>
+	<page name="messageLogsListViaUpload" specification-path="pages/webadmin/messageLog/messageLogsListViaUpload.page"/>
+	<page name="messageLogsDetailViaUpload" specification-path="pages/webadmin/messageLog/messageLogsDetailViaUpload.page"/>
+	<page name="messageLogsNotFound" specification-path="pages/webadmin/messageLog/messageLogsNotFound.page"/>
+	
+	<!-- ## REPORT ## -->
+	<page name="transactionReport" specification-path="pages/webadmin/report/transactionReport.page"/>
+	<page name="allReport" specification-path="pages/webadmin/report/AllReport.page"/>
+	<page name="downloadReport" specification-path="pages/webadmin/report/DownloadReport.page"/>	
+	<page name="testReport" specification-path="pages/webadmin/report/TestAllReport.page"/>
+	<page name="reportAuditLog" specification-path="pages/bankadmin/report/reportAuditLog.page" />
+	<page name="inquiryOnRequest" specification-path="pages/webadmin/report/InquiryOnRequest.page"/>
+	<page name="detailTransactionInquiryOnRequest" specification-path="pages/webadmin/report/DetailTransactionInquiryOnRequest.page"/>
+	
+	<!-- ## Monitoring Transaksi ## -->
+	<page name="monitoringTransaksi" specification-path="pages/webadmin/monitoringTransaksi/monitoringTransaksi.page"/>
+
+	<!-- ## Page untuk download ## -->
+	<page name="downloadPage" specification-path="pages/webadmin/download/DownloadPage.page"/>
+	
+	<!-- ## PARAMETER MX ## -->
+	<page name="parameterMxList" specification-path="pages/webadmin/parameterMx/parameterMxList.page"/>
+	<page name="parameterMxNotification" specification-path="pages/webadmin/parameterMx/parameterMxNotification.page"/>
+	
+	<!-- ## ANALISA TRANSACTION LOG ## -->
+	<page name="transactionLogDetail" specification-path="pages/webadmin/analisaTransactionLogs/transactionLogDetail.page"/>
+	<page name="transactionLogMonitoring" specification-path="pages/webadmin/analisaTransactionLogs/transactionLogMonitoring.page"/>
+	<page name="analisaTransactionLogs" specification-path="pages/webadmin/analisaTransactionLogs/analisaTransactionLogs.page"/>
+	<page name="rawTransactionView" specification-path="pages/webadmin/analisaTransactionLogs/rawTransactionView.page"/>
+	<page name="analisaTransactionLogsViaUploadInvoice" specification-path="pages/webadmin/analisaTransactionLogs/analisaTransactionLogsViaUploadInvoice.page"/>
+	
+	<!-- ## PRIORITY ROUTING ## -->
+	<page name="priorityEntry" specification-path="pages/priority/priorityEntry.page"/>
+	<page name="priorityConfirm" specification-path="pages/priority/priorityConfirm.page"/>
+	<page name="priorityNotification" specification-path="pages/priority/priorityNotification.page"/>
+	<page name="priorityList" specification-path="pages/priority/priorityList.page"/>
+	<page name="priorityDeleteConfirm" specification-path="pages/priority/priorityDeleteConfirm.page"/>
+	<page name="priorityCommonNotif" specification-path="pages/priority/priorityCommonNotif.page"/>
+	<page name="priorityUpdate" specification-path="pages/priority/priorityUpdate.page"/>
+	<page name="priorityNotFound" specification-path="pages/priority/priorityNotFound.page"/>	
+	<page name="priorityAppList" specification-path="pages/priority/priorityAppList.page"/>	
+	<page name="priorityAppConfirm" specification-path="pages/priority/priorityAppConfirm.page"/>
+	<page name="priorityUserAppList" specification-path="pages/priority/priorityUserAppList.page"/>
+		
+	<!-- ## PRICING SCHEME ## -->
+	<page name="merchantGroupAdd" specification-path="pages/merchant/merchantGroupAdd.page"/>
+	<page name="merchantGroupConfirm" specification-path="pages/merchant/merchantGroupConfirm.page"/>
+	<page name="merchantGroupList" specification-path="pages/merchant/merchantGroupList.page"/>
+	<page name="merchantDeleteConfirm" specification-path="pages/merchant/merchantDeleteConfirm.page"/>
+	<page name="merchantGroupUpdate" specification-path="pages/merchant/merchantGroupUpdate.page"/>
+	
+	<!-- ## MERCHANT DETAILDETAILS ## -->
+	<page name="detailEntry" specification-path="pages/merchant/detailEntry.page"/>
+	<page name="detailConfirm" specification-path="pages/merchant/detailConfirm.page"/>
+	<page name="detailList" specification-path="pages/merchant/detailList.page"/>
+	<page name="detailDeleteConfirm" specification-path="pages/merchant/detailDeleteConfirm.page"/>
+	<page name="detailUpdate" specification-path="pages/merchant/detailUpdate.page"/>
+	
+	<!--  ## PRICING SCHEME ADDITIONAL ## -->
+	<page name="pricingSchemeList" specification-path="pages/webadmin/transactionFee/pricingSchemeList.page" />
+	<page name="pricingSchemeEntry" specification-path="pages/webadmin/transactionFee/pricingSchemeEntry.page" />
+	<page name="pricingSchemeEntrySearch" specification-path="pages/webadmin/transactionFee/pricingSchemeEntrySearch.page" />
+	<page name="pricingSchemeConfirm" specification-path="pages/webadmin/transactionFee/pricingSchemeConfirm.page" />
+	<page name="pricingSchemeDeleteConfirm" specification-path="pages/webadmin/transactionFee/pricingSchemeDeleteConfirm.page" />
+	<page name="pricingAppList" specification-path="pages/webadmin/transactionFee/pricingAppList.page" />
+	<page name="pricingAppConfirm" specification-path="pages/webadmin/transactionFee/pricingAppConfirm.page" />	
+	<page name="pricingUserAppList" specification-path="pages/webadmin/transactionFee/pricingUserAppList.page" />
+	
+	<!-- ## COMMON ## -->
+	<page name="notificationPage" specification-path="pages/common/notificationPage.page"/>
+	
+	<!-- KEY EXCHANGE ATMB -->
+	<page name="keyExchangeInput" specification-path="pages/bankadmin/user/keyExchangeInput.page"/>
+	<page name="keyExchangeConfirmation" specification-path="pages/bankadmin/user/keyExchangeConfirmation.page"/>
+	<page name="keyExchangeNotification" specification-path="pages/bankadmin/user/keyExchangeNotification.page"/>
+
+	<!-- KEY MANAGEMENT -->
+	<page name="addKeyInput" specification-path="pages/bankadmin/user/addKeyInput.page"/>
+	<page name="addKeyConfirmation" specification-path="pages/bankadmin/user/addKeyConfirmation.page"/>
+	<page name="deleteKeyConfirmation" specification-path="pages/bankadmin/user/deleteKeyConfirmation.page"/>
+	<page name="viewKey" specification-path="pages/bankadmin/user/viewKey.page"/>
+	
+	<!-- BANK MANAGEMENT -->
+	<page name="addBankInput" specification-path="pages/bankadmin/bank/addBankInput.page"/>
+	<page name="addBankConfirmation" specification-path="pages/bankadmin/bank/addBankConfirmation.page"/>
+	<page name="deleteBankConfirmation" specification-path="pages/bankadmin/bank/deleteBankConfirmation.page"/>
+	<page name="viewBank" specification-path="pages/bankadmin/bank/viewBank.page"/>
+	
+	<!-- LOG FILE VIEWER -->
+	<page name="textfileLog" specification-path="pages/bankadmin/user/textfileLog.page"/>
+	
+	<!-- HARI LIBUR MANAGEMENT -->
+	<page name="addDayOffInput" specification-path="pages/bankadmin/dayOff/addDayOffInput.page"/>
+	<page name="addDayOffConfirmation" specification-path="pages/bankadmin/dayOff/addDayOffConfirmation.page"/>
+	<page name="deleteDayOffConfirmation" specification-path="pages/bankadmin/dayOff/deleteDayOffConfirmation.page"/>
+	<page name="viewDayOff" specification-path="pages/bankadmin/dayOff/viewDayOff.page"/>
+	
+	<!-- DASHBOARD -->
+	<page name="dashboard" specification-path="pages/bankadmin/dashboard/dashboard.page"/>
+	
+	<!-- UPLOAD INVOICE -->
+	<page name="uploadInvoice" specification-path="pages/webadmin/uploadInvoice/uploadInvoice.page"/>
+	
+	<!-- ## REKONSILIASI ## -->
+	<page name="reconcile" specification-path="pages/webadmin/reconcile.page"/>
+	<page name="detailTransactionReconcile" specification-path="pages/webadmin/detailTransactionReconcile.page"/>
+	<page name="reconcileEod" specification-path="pages/webadmin/reconcileEod.page"/>
+	<page name="reconcileWeekly" specification-path="pages/webadmin/reconcileWeekly.page"/>
+	<page name="reconcileMonthly" specification-path="pages/webadmin/reconcileMonthly.page"/>
+</application>

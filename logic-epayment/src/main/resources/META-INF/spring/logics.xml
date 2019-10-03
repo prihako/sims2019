@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!--	<bean id="reversalCreator" class="id.co.sigma.mx.project.epayment.ReversalCreator"-->
+<!--		p:codec-ref="codec" p:logDao-ref="logDao" />-->
+
+	<bean id="codec" class="id.co.sigma.mx.message.iso8583.Nucleus8583Codec">
+		<constructor-arg value="${packager_file}" />
+	</bean>
+
+		
+	<bean id="stanGenerator" class="id.co.sigma.mx.stan.impl.StanGeneratorImpl"
+		p:stanCounterDao-ref="stanCounterDao" p:slotSize="100" />
+
+	<bean id="stanCounterDao" class="id.co.sigma.mx.stan.dao.StanCounterDaoJdbcImpl"
+		p:dataSource-ref="dataSource" />
+
+	<bean id="billerHelper" class="id.co.sigma.mx.project.epayment.BillerHelper" />
+	
+	<bean id="channelHelper" class="id.co.sigma.mx.project.epayment.ChannelHelper" />
+	
+	<bean id="rrnGenerator" class="id.co.sigma.mx.project.epayment.RrnGenerator" 
+		p:stanGenerator-ref="stanGenerator" />
+		
+	
+</beans>

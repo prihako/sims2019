@@ -1,0 +1,145 @@
+<html jwcid="@Shell" title="message:webapp.title">
+<head>
+<script src="../scripts/jquery-1.8.3.min.js"></script>
+</head>
+<body jwcid="@Body">
+	<div id="outer" style="height: 50%">
+		<form jwcid="@Form" delegate="ognl:beans.delegate"
+			clientValidationEnabled="ognl:true">
+			<div id="title">
+				<span key="masterMaintenance.ipsfr.license.title"></span>
+			</div>
+			<table width="50%" class="uniform">
+				<tr>
+					<td><label jwcid="@FieldLabel" class="medium"
+						field="component:service"
+						displayName="message:masterMaintenance.ipsfr.license.service.title"></label></td>
+					<td><select style="width: 200px"
+						jwcid="service@PropertySelection" model="ognl:serviceModel"
+						value="ognl:service">
+					</select></td>
+				</tr>
+				<tr>
+					<td><label class="medium" jwcid="@FieldLabel"
+						field="component:subServices"
+						displayName="message:masterMaintenance.ipsfr.license.subService.title">
+					</label></td>
+					<td><select style="width: 200px"
+						jwcid="subServices@PropertySelection"
+						model="ognl:subServicesModel" value="ognl:subServices">
+					</select></td>
+				</tr>
+				<tr>
+					<td><label class="medium" jwcid="@FieldLabel"
+						field="component:bhpMethod"
+						displayName="message:masterMaintenance.ipsfr.license.methodBHP.title"></label></td>
+					<td><select style="width: 200px"
+						jwcid="bhpMethod@PropertySelection"
+						model="ognl:getMethodBHPModel()" value="ognl:bhpMethod">
+					</select></td>
+				</tr>
+				<!-- 				<tr> -->
+				<!-- 					<td><label jwcid="@FieldLabel" field="component:clientID" -->
+				<!-- 						displayName="message:masterMaintenance.ipsfr.license.clientID.title"></label></td> -->
+				<!-- 					<td><select style="width: 200px" jwcid="clientID@TextField" -->
+				<!-- 						type="text" size="33" value="ognl:clientID"> -->
+
+				<!-- 					</select></td> -->
+				<!-- 				</tr> -->
+				<tr>
+					<td><label jwcid="@FieldLabel" field="component:clientName"
+						displayName="message:masterMaintenance.ipsfr.license.clientName.title"></label></td>
+					<td><select style="width: 200px" jwcid="clientName@TextField"
+						type="text" size="33" value="ognl:clientName">
+
+					</select></td>
+				</tr>
+				<!-- 				<tr> -->
+				<!-- 					<td><label jwcid="@FieldLabel" field="component:licenceId" -->
+				<!-- 						displayName="message:masterMaintenance.ipsfr.license.licenseId.title"></label></td> -->
+				<!-- 					<td><input jwcid="licenceId@TextField" type="text" size="33" -->
+				<!-- 						value="ognl:licenceId" /></td> -->
+				<!-- 				</tr> -->
+				<tr>
+					<td><label jwcid="@FieldLabel" field="component:licenceNo"
+						displayName="message:masterMaintenance.ipsfr.license.licenseNo.title"></label></td>
+					<td><input jwcid="licenceNo@TextField" type="text" size="33"
+						value="ognl:licenceNo" /></td>
+				</tr>
+			</table>
+			<!-- button action -->
+			<div id="button">
+				<input name="BTN_SEARCH" type="button" class="btn" id="BTN_SEARCH"
+					jwcid="@Submit" action="listener:doSearch"
+					onclick="this.form.onsubmit=null"
+					value="message:button.masterMaintenance.ipsfr.license.search" />
+			</div>
+			<!-- button -->
+
+
+
+			<!-- License Detail Result -->
+			<span jwcid="@If" condition="ognl:licenseList!=null">
+
+				<div id="box">
+					<span jwcid="@contrib:TableView" pageSize="10"
+						source="ognl:licenseList" columns="ognl:columns"">
+						<table width="99%">
+							<tr>
+								<td align="right"><br /> <span jwcid="@TablePages" /></td>
+							</tr>
+							<tr>
+								<td>
+									<div id="conttable">
+										<table border="0" class="data" width="99%">
+											<tr>
+												<th>&nbsp;</th>
+												<th>Nomor SKM</th>
+												<th>License ID</th>
+												<th>Tahun Ke</th>
+												<th>Tanggal SKM</th>
+												<th>Tipe Pembayaran</th>
+												<th>Status</th>
+											</tr>
+											<span jwcid="license@RadioGroup"
+												selected="ognl:selectedLicense">
+												<tr jwcid="@contrib:TableRows" row="ognl:row"
+													class="ognl:beans.evenOdd.next">
+													<td class="center" width="10%"><input jwcid="@Radio"
+														type="radio" value="ognl:row" class="noborder" /></td>
+													<td width="15%" align="left"><span jwcid="@Insert"
+														value="ognl:row.licenceNo"></span></td>
+													<td width="15%" align="left"><span jwcid="@Insert"
+														value="ognl:row.licenceId"></span></td>
+													<td width="15%" align="right"><span jwcid="@Insert"
+														value="ognl:row.yearTo"></span></td>
+													<td width="15%" align="right"><span jwcid="@Insert"
+														value="ognl:row.licenceDate"></span></td>
+													<td width="15%" align="right"><span jwcid="@Insert"
+														value="ognl:row.bhpPaymentType"></span></td>
+													<td width="15%" align="right"><span jwcid="@Insert"
+														value="ognl:row.licenceStatus"></span></td>
+												</tr>
+											</span>
+										</table>
+									</div>
+								</td>
+							</tr>
+						</table>
+					</span>
+				</div> <input jwcid="@Submit" type="button" class="btn"
+				value="message:button.masterMaintenance.ipsfr.license.select"
+				action="listener:doSelect" onclick="this.form.onsubmit=null" />
+
+
+			</span> <span jwcid="errorShadow@TextField" autocomplete="off"
+				value="ognl:errorValue" style="display: none"></span> <span
+				jwcid="@If" condition="ognl:delegate.hasErrors"> <script>
+					alert('<span jwcid="@Delegator" delegate="ognl:delegate.firstError">Error Message</span>');
+				</script>
+			</span>
+
+		</form>
+	</div>
+</body>
+</html>

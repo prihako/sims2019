@@ -1,0 +1,64 @@
+<html jwcid="@Shell" title="message:webapp.title">
+<head>
+	<script type="text/javascript" src="scripts/util.js">
+	</script>
+	<script type="text/javascript" src="scripts/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="scripts/jquery-ui-1.9.2.custom.min.js" ></script>
+	<link rel="stylesheet" type="text/css" href="styles/mayora/jquery-ui.css" />
+	
+	<script type="text/javascript">
+	$(document).ready(function() {
+		$("#tglAwal").datepicker({ format: 'dd/MM/yyyy', showOn: 'button' });
+		$("#tglAkhir").datepicker({ format: 'dd/MM/yyyy', showOn: 'button' });
+	});
+	</script>
+</head>
+<body jwcid="@Body">
+<div id="outer">
+	<form  jwcid="mainForm@Form" delegate="ognl:beans.delegate" clientValidationEnabled="ognl:false">
+		<span jwcid="@ValidationErrorTop" delegate="ognl:beans.delegate" />
+		<table class="uniform">
+			<tr>
+				<td colspan="3" >Daftar Report </td>
+			</tr>					
+			<tr jwcid="@For" source="ognl:reports" value="ognl:report" element="tr">
+				<td colspan="2" aligment="left" >&nbsp; - &nbsp;</td>
+				<td><span jwcid="@Insert" value="ognl:report.namaReport" /></td>
+			</tr>
+
+			<tr>
+				<td>Tanggal Awal</td>
+				<td>&nbsp; : &nbsp;</td>
+				<td>
+					<input style="margin-left: 2px;" type="text" 
+					id="tglAwal" jwcid="tglAwal@TextField"
+					value="ognl:tglAwal" 
+					onchange="this.value=formatDate(this);"/>
+				</td>
+			</tr>
+			<tr>
+				<td>Tanggal Akhir</td>
+				<td>&nbsp; : &nbsp;</td>
+				<td>
+					<input style="margin-left: 2px;" type="text" 
+					id="tglAkhir" jwcid="tglAkhir@TextField"
+					value="ognl:tglAkhir"
+					onchange="this.value=formatDate(this);"/>
+				</td>
+			</tr>
+			<tr>
+				<td>Format : &nbsp;&nbsp; </td>
+				<td><span id="cbTxt" jwcid="cbTxt@Checkbox" value="ognl:txt" /> TXT &nbsp;&nbsp;</td>
+				<td><span id="cbCsv" jwcid="cbCsv@Checkbox" value="ognl:csv" /> CSV &nbsp;&nbsp;</td>
+			</tr>										
+
+			<tr>		
+				<td><span class="btn" jwcid="@Submit" listener="listener:download"  label="Generate" onclick="return validateForm();"/></td>
+			</tr>										
+		</table>		
+		
+	</form>
+	
+</div>
+</body>
+</html>

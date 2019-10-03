@@ -1,0 +1,20 @@
+<html jwcid="@Shell" title="message:webapp.title">
+<body jwcid="@Body">
+<div id="outer">
+<form jwcid="keyExchangeInput@Form" delegate="ognl:beans.delegate" clientValidationEnabled="ognl:true">
+<div id="title">
+	<span key="keyExchangeInput.title"/>
+</div> <br />
+<span jwcid="@ValidationErrorTop" delegate="ognl:beans.delegate" />
+
+<table width="100%" class="uniform">
+<tr jwcid="@Any" class="ognl:evenOddTable.next">
+	<td>
+		<input type="submit" jwcid="@Submit" class="btn" action="listener:onNext" value="message:keyExchange.button.continue" />
+	</td>
+</tr>
+</table>
+</form>
+</div>
+</body>
+</html>

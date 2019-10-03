@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html jwcid="@Shell" title="message:webapp.title">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title><span key="webapp.title"> </span></title>
+<script type="text/javascript" src="scripts/jquery-1.8.3.min.js"></script>
+</head>
+<body jwcid="@Body">
+	<div id="outer">
+		<form jwcid="messageLogDetails@Form" delegate="ognl:beans.delegate"
+			clientValidationEnabled="ognl:true" cancel="listener:onBack">
+			<div id="title">
+				<span key="messageLogDetails.title">Detail Message Log</span>
+			</div>
+			<br />
+			<table class="uniform">
+				<tr jwcid="@Any" class="ognl:evenOddTable.next">
+					<td width="200px"><label class="medium" key="messageLogDetails.transactionId"> Transaction ID </label></td>
+					<td><span jwcid="@Insert" value="ognl:transactionId" /></td>
+				</tr>
+				<tr jwcid="@Any" class="ognl:evenOddTable.next">
+					<td><label class="medium" key="messageLogDetails.transactionCode"> Transaction Code</label></td>
+					<td><span jwcid="@Insert" value="ognl:transactionCode" /></td>
+				</tr>
+				<tr jwcid="@Any" class="ognl:evenOddTable.next">
+					<td><label class="medium" key="messageLogDetails.transactionDesc"> Transaction Description </label></td>
+					<td><span jwcid="@Insert" value="ognl:transactionDesc" /></td>
+				</tr>
+				<tr jwcid="@Any" class="ognl:evenOddTable.next">
+					<td><label class="medium" key="messageLogDetails.endpointCode"> Endpoint </label></td>
+					<td><span jwcid="@Insert" value="ognl:endpoint" /></td>
+				</tr>
+				<tr jwcid="@Any" class="ognl:evenOddTable.next">
+					<td><label class="medium" key="messageLogDetails.transactionDate"> Transaction Date </label></td>
+					<td><span jwcid="@Insert" value="ognl:transactionDate" /></td>
+				</tr>
+				<tr jwcid="@Any" class="ognl:evenOddTable.next">
+					<td><label class="medium" key="messageLogDetails.responseCode"> Response Code </label></td>
+					<td><span jwcid="@Insert" value="ognl:responseCode" /></td>
+				</tr>
+				<tr jwcid="@Any" class="ognl:evenOddTable.next">
+					<td><label class="medium" key="messageLogDetails.responseCodeDesc"> Response Code Description </label></td>
+					<td><span jwcid="@Insert" value="ognl:responseCodeDesc" /></td>
+				</tr>
+				<tr jwcid="@Any" class="ognl:evenOddTable.next">
+					<td><label class="medium" key="messageLogDetails.rawMessage"> Raw Message </label></td>
+					<td><span jwcid="@Insert" value="ognl:rawMessage" /></td>
+				</tr>
+				<tr jwcid="@Any" class="ognl:evenOddTable.next">
+					<td><label class="medium" key="messageLogDetails.formatedMessage"> Fromated Message </label></td>
+					<td><span jwcid="@If" condition="ognl:formatedMessage != null" renderTag="false">
+								<input type="hidden" id="msgVal" jwcid="@Hidden" value="ognl:formatedMessage" encode="false"/>
+							</span>
+							<span jwcid="@Else" renderTag="false">
+								<input type="hidden" id="msgVal" jwcid="@Hidden" value="message:messageLogDetails.ErrorFormatedMessage" encode="false"/>
+							</span>
+							<div class="medium" id="formatedMsg"/>
+					</td>
+				</tr>
+			</table>
+			<div class="button">
+				<input type="button" jwcid="@Any" class="btn" value="message:button.back" onclick="goBack()" />
+				<!-- <input type="button" jwcid="@Any" class="btn" value="message:button.back" onclick="tapestry.form.cancel('messageLogDetails')" /> -->
+			</div>
+		</form>
+	</div>
+	
+	<script type="text/javascript">
+	$(document).ready(function() {
+		$("#formatedMsg").html(document.getElementById("msgVal").value);
+	});
+		
+		function goBack(){
+		  window.history.back()
+		}
+	</script>
+	
+</body>
+</html>

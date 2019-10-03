@@ -1,0 +1,84 @@
+<html jwcid="@Shell" title="message:webapp.title">
+
+<body jwcid="@Body">
+
+<div id="outer">
+<form jwcid="mainForm@Form" delegate="ognl:beans.delegate" clientValidationEnabled="ognl:true">
+<div id="box">
+	<div id="title">
+		<span key="activeUsers.title"/>
+	</div>
+	<br/>
+	<span key="activeUsers.message" /> 
+    <span jwcid="@ValidationErrorTop" delegate="ognl:beans.delegate" />
+    
+    <table class="uniform">
+		    <tr jwcid="@Any" class="ognl:evenOddTable.next">
+				<td width="34%">
+					<label class="medium" jwcid="@FieldLabel" field="component:selectedServerField" style="display:none"/>
+				</td>
+				<td width="64%">
+					<select jwcid="selectedServerField@PropertySelection"
+					        model="ognl:serverSelectionModel"
+						    value="ognl:selectedServer" 
+						    displayName="message:activeUsers.field.role" style="display:none"></select>
+				</td>
+			</tr>	
+	    <tr jwcid="@Any" class="ognl:evenOddTable.next">
+			<td width="34%">
+				<label class="medium" jwcid="@FieldLabel" field="component:searchUserNameField" />
+			</td>
+			<td width="64%">
+				<input type="text" maxlength="12" width="208px" cssclass="TextBox"
+					   jwcid="searchUserNameField@TextField" value="ognl:searchUserName"
+					   translator="translator:stringUpper, trim=true"
+					   displayName="User Id" />
+			</td>
+		</tr>
+	    <tr jwcid="@Any" class="ognl:evenOddTable.next">
+			<td width="34%" />
+			<td width="64%">
+				<input type="button" class="btn" jwcid="@Submit" value="message:button.search" id="save" action="listener:onOk" />
+			</td>
+		</tr>
+    </table>
+    <!-- <div id="button">
+    	<input type="button" class="btn" jwcid="@Submit" value="message:button.search" id="save" action="listener:onOk" />
+    </div> -->
+    <table width="99%" jwcid="@contrib:TableView" pageSize="ognl:pageSize" source="ognl:getActiveUsers()"
+           columns="literal:!lUserName:activeUsers.userName:lUserName, 
+                            !lFullName:activeUsers.fullName:lFullName, 
+                            !lKick:activeUsers.kick:lKick">
+    	<tr>
+		    <td align="right"><span jwcid="@TablePages" /></td>
+		</tr>
+    	<tr>
+    		<td align="center">
+            	<div style="overflow: auto">
+                	<table width="99%" class="data">
+                		<tr class="headerRow">
+		                    <span jwcid="@contrib:TableColumns" arrowUpAsset="ognl:assets.upArrow" arrowDownAsset="ognl:assets.downArrow" />
+		                </tr> 
+		                <tr jwcid="@contrib:TableRows" row="ognl:loopObject" class="ognl:beans.evenOdd.next">
+							<td jwcid="lUserName@TableColumn" width="30%" class="left">
+								<span jwcid="@Insert" value="ognl:loopObject"/>
+							</td>
+							<td jwcid="lFullName@TableColumn" width="40%" class="left">
+								<span jwcid="@Insert" value="ognl:userFullName"/>
+							</td>
+							<td jwcid="lKick@TableColumn" width="30%" class="center">
+								<a jwcid="@DirectLink" listener="ognl:listeners.onKick" parameters="ognl:{loopObject, selectedServer}">
+									<span key="activeUsers.kick"/>
+						  		</a>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</td>
+		</tr>
+	</table>
+</div>
+</form>
+</div>
+</body>
+</html>

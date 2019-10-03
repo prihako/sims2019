@@ -1,0 +1,497 @@
+<!-- <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> -->
+<html jwcid="@Shell" title="message:webapp.title">
+
+<head>
+	<script src="scripts/jquery-1.8.3.min.js"></script>
+	<script src="scripts/jquery-ui-1.10.0.custom.min.js"></script>
+	<script src="scripts/mayora/tools.js"></script>
+	<link rel="stylesheet"
+		href="styles/style-Kominfo/jquery-ui-1.10.0.custom.css" type="text/css" />
+	<script>
+		function serviceLink2() {
+			popupWindow =  window.showModalDialog('<span jwcid="@Insert" value="ognl:showDocument" raw="true"/>');
+		}
+	</script>
+	<script>
+		$(document).ready(function() {
+
+			$('#select').on('change', function() {
+				$("#mainDiv").hide();
+			})
+			
+		});
+	</script>
+</head>
+
+<body jwcid="@Body">
+	<div id="outer" width="100%">
+	
+		<form jwcid="@Form" delegate="ognl:beans.delegate" clientValidationEnabled="ognl:true" refresh='listener:refresh'>
+			
+			<div id="title">
+		    	<span key="pengaturanAplikasi.uploadDokumen"></span>
+		   	</div>
+		   	
+			<span jwcid="@Hidden" value="ognl:notFirstLoad"></span>
+			<span jwcid="@Hidden" value="ognl:activeKM"></span>
+			<span jwcid="@Hidden" value="ognl:activeBI"></span>
+			<span jwcid="@Hidden" value="ognl:activeBG"></span>
+			<span jwcid="@Hidden" value="ognl:activePBG"></span>
+			<span jwcid="@Hidden" value="ognl:activeVPBG"></span>
+			<span jwcid="@Hidden" value="ognl:activeSKL"></span>
+			
+			<table class="uniform" >
+				
+				<tr>
+					<td><label class="medium"><span key="leftMenu.masterMaintenance.ipsfr.uploadDokumen.jenisDokumen">
+						Jenis Dokumen/File</span></label>
+					</td>
+					<td><select style="width: 200px" id="select"
+						jwcid="@PropertySelection" model="ognl:jenisDokumenModel"
+						value="ognl:jenisDokumen">
+					</select></td>
+					<td><input jwcid="@Submit" class="btn" value="Search" action="listener:doSearch" /></td>
+				</tr>
+				
+			</table>
+		
+			<br /><br />
+			
+			<div id="mainDiv">
+			
+			<span jwcid="@If" condition="ognl:activeKM == true">
+				<div id="SKMIPSFR">
+					<table class="uniform" >
+					
+						<tr>
+							<td><label class="medium"><span key="leftMenu.masterMaintenance.ipsfr.uploadDokumen.cari">Cari</span>
+								</label>
+							</td>
+							<td><select style="width: 100px" id="select"
+								jwcid="@PropertySelection" model="ognl:jenisKmModel"
+								value="ognl:jenisKM">
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td><label class="medium"><span key="masterMaintenance.ipsfr.uploadDokumen.keteranganKriteria">Keterangan Kriteria</span>
+								</label>
+							</td>
+							<td><input jwcid="@TextField" type="text" size="35" value="ognl:kriteriaKM" ></input>
+								<input jwcid="@Submit" class="btn" value="Cari" action="listener:doSearchKM" />
+							</td>
+						</tr>
+						
+					</table>
+					
+					<span jwcid="@If" condition="ognl:dataIPSFR!=null">
+					<div id="box">
+		   				<span jwcid="@contrib:TableView" pageSize="10"
+		    				columns="ClientName,LicenseNo,YearTo,PercentYear,BhpMethod,DocType,FileName" 
+		    				source="ognl:dataIPSFR">
+							
+							<tr>
+								<td align="right">
+									<br/><span jwcid="@TablePages"></span>
+								</td>
+							</tr>
+							<tr><td>
+							  	<table border="0" class="data" width="100%">
+								  	 
+									<tr>
+										<th> <span key="leftMenu.masterMaintenance.ipsfr.uploadDokumen.clientName">Nama Klien</span> </th>
+										<th> <span key="leftMenu.masterMaintenance.ipsfr.uploadDokumen.noAplikasi">No Aplikasi</span> </th>
+										<th> <span key="leftMenu.masterMaintenance.ipsfr.uploadDokumen.tahunKe">Tahun Ke</span> </th>
+										<th> <span key="leftMenu.masterMaintenance.ipsfr.uploadDokumen.tahun">Tahun</span> </th>
+										<th> <span key="leftMenu.masterMaintenance.ipsfr.uploadDokumen.bhpMethod">Metode BHP</span> </th>
+										<th> <span key="leftMenu.masterMaintenance.ipsfr.uploadDokumen.jenisDokumen">Jenis Dokumen</span> </th>
+										<th> <span key="leftMenu.masterMaintenance.ipsfr.uploadDokumen.namaDokumen">Nama Dokumen</span> </th>
+									</tr>
+									<tr jwcid="@contrib:TableRows" row="ognl:row" class="ognl:beans.evenOdd.next">
+										<td><span jwcid="@Insert" 						value="ognl:row.clientName"/></td>
+						  				<td><a href="" jwcid="@LinkSubmit" listener="listener:doInputKM"
+						  						parameters="ognl:{row.vUploadId, row.licenseNo, row.year, row.yearTo}">
+						  					<span jwcid="@Insert" value="ognl:row.licenseNo"/></a>
+						  				</td>
+						  				<td><span jwcid="@Insert" 						value="ognl:row.yearTo"/></td>
+						  				<td><span jwcid="@Insert" 						value="ognl:row.year"/></td>
+						  				<td><span jwcid="@Insert" 						value="ognl:row.bhp"/></td>
+						  				<td><span jwcid="@Insert" 						value="ognl:row.type"/></td>
+						  				<td><a href="" jwcid="@LinkSubmit" listener="listener:doDownload" parameters="ognl:{row.referenceId, row.licenseNo, row.vUploadId, 'KM'}">
+						  					<span jwcid="@Insert" 						value="ognl:row.fileName"/></a>
+						  				</td>
+									</tr>
+								</table>
+							</td></tr>
+						</span>
+					</div>
+				</span>
+					
+				</div>
+			</span>
+			
+			
+			<span jwcid="@If" condition="ognl:activeBI == true">
+				<div id="SKMBIRATE">
+					<table class="uniform" >
+					
+						<tr>
+							<td><label class="medium"><span key="leftMenu.masterMaintenance.ipsfr.uploadDokumen.cari">Cari</span>
+								</label>
+							</td>
+							<td><select style="width: 100px" id="select"
+								jwcid="@PropertySelection" model="ognl:biRateModel"
+								value="ognl:biRate">
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td><label class="medium"><span key="masterMaintenance.ipsfr.uploadDokumen.keteranganKriteria">Keterangan Kriteria</span>
+								</label>
+							</td>
+							<td><input jwcid="@TextField" type="text" size="35" value="ognl:kriteriaBi" ></input>
+								<input jwcid="@Submit" class="btn" value="Cari" action="listener:doSearchBi" />
+							</td>
+						</tr>
+						
+					</table>
+					
+					<span jwcid="@If" condition="ognl:dataBiRate!=null">
+					<div id="box">
+		   				<span jwcid="@contrib:TableView" pageSize="10"
+		    				columns="year,licenseNo,FileName" 
+		    				source="ognl:dataBiRate">
+							
+							<tr><td>
+							  	<table border="0" class="data" width="100%">
+								  	
+									<tr>
+										<th> <span key="leftMenu.masterMaintenance.ipsfr.uploadDokumen.tahun">Tahun</span> </th>
+										<th> <span key="leftMenu.masterMaintenance.ipsfr.uploadDokumen.noKMBIRate">No. KM Penetapan BI Rate
+											</span>
+										</th>
+										<th> <span key="leftMenu.masterMaintenance.ipsfr.uploadDokumen.namaDokumen">Nama Dokumen</span> </th>
+									</tr>
+									<tr jwcid="@contrib:TableRows" row="ognl:rowBi" class="ognl:beans.evenOdd.next">
+						  				<td>
+<!-- 						  					<span jwcid="@If" condition="ognl:rowBi.fileName != null"> -->
+							  					<a href="" jwcid="@LinkSubmit" listener="listener:doInputBI" parameters="ognl:{rowBi.vUploadId, rowBi.licenseNo, rowBi.year, rowBi.yearTo}">
+							  					<span jwcid="@Insert" 						value="ognl:rowBi.year"/></a>
+<!-- 							  				</span> -->
+<!-- 							  				<span jwcid="@Else"> -->
+<!-- 							  					<span jwcid="@Insert" 						value="ognl:rowBi.year"/> -->
+<!-- 							  				</span> -->
+						  				</td>
+						  				<td><span jwcid="@Insert" 						value="ognl:rowBi.docName"/></td>
+						  				<td><a href="" jwcid="@LinkSubmit" listener="listener:doDownloadBi" parameters="ognl:{rowBi.referenceId, rowBi.vUploadId, 'BI'}">
+						  					<span jwcid="@Insert" 						value="ognl:rowBi.fileName"/></a>
+						  				</td>
+									</tr>
+								</table>
+							</td></tr>
+						</span>
+					</div>
+				</span>
+				
+				<span jwcid="@Hidden" value="ognl:disableButtonNewBi"></span>
+				<span jwcid="@If" condition="ognl:disableButtonNewBi == false ">
+					<div align="right"><input jwcid="@Submit" class="btn" value="Upload BI Rate Baru" action="listener:doUploadNewBi" /></div>
+				</span>
+					
+				</div>
+			</span>
+			
+			
+			<span jwcid="@If" condition="ognl:activeBG == true">
+				<div id="BG" >
+					
+					<table class="uniform" >
+					
+						<tr>
+							<td><label class="medium"><span key="leftMenu.masterMaintenance.ipsfr.uploadDokumen.cari">Cari</span>
+								</label>
+							</td>
+							<td><select style="width: 100px" id="select"
+								jwcid="@PropertySelection" model="ognl:jenisBGModel"
+								value="ognl:jenisBG">
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td><label class="medium"><span key="masterMaintenance.ipsfr.uploadDokumen.keteranganKriteria">Keterangan Kriteria</span>
+								</label>
+							</td>
+							<td><input jwcid="@TextField" type="text" size="35" value="ognl:kriteriaBG"></input>
+								<input jwcid="@Submit" class="btn" value="Cari" action="listener:doSearchBG" />
+							</td>
+						</tr>
+						
+					</table>
+					
+					<span jwcid="@If" condition="ognl:dataBG!=null">
+						<div id="box">
+			   				<span jwcid="@contrib:TableView" pageSize="10"
+			    				columns="ClientName,LicenseNo,YearTo,PercentYear,BhpMethod,DocType,FileName" 
+			    				source="ognl:dataBG">
+								
+								<tr>
+									<td align="right">
+										<br/><span jwcid="@TablePages"></span>
+									</td>
+								</tr>
+								<tr><td>
+								  	<table border="0" class="data" width="100%">
+									  	
+										<tr>
+											<th> <span key="leftMenu.masterMaintenance.ipsfr.uploadDokumen.clientName">Nama Klien</span> </th>
+											<th> <span key="leftMenu.masterMaintenance.ipsfr.uploadDokumen.noAplikasi">No Aplikasi</span> </th>
+											<th> <span key="leftMenu.masterMaintenance.ipsfr.uploadDokumen.tahunKe">Tahun Ke</span> </th>
+											<th> <span key="leftMenu.masterMaintenance.ipsfr.uploadDokumen.tahun">Tahun</span> </th>
+											<th> <span key="leftMenu.masterMaintenance.ipsfr.uploadDokumen.bhpMethod">Metode BHP</span> </th>
+											<th width="40%"> <span key="leftMenu.masterMaintenance.ipsfr.uploadDokumen.jenisDokumen">Jenis Dokumen</span> </th>
+											<th> <span key="leftMenu.masterMaintenance.ipsfr.uploadDokumen.namaDokumen">Nama Dokumen</span> </th>
+										</tr>
+										<tr jwcid="@contrib:TableRows" row="ognl:rowBG" class="ognl:beans.evenOdd.next">
+											<td><span jwcid="@Insert" 						value="ognl:rowBG.clientName"/></td>
+							  				<td><a href="" jwcid="@LinkSubmit" listener="listener:doInputBG" parameters="ognl:{rowBG.vUploadId, rowBG.licenseNo, rowBG.year, rowBG.yearTo, rowBG.referenceId}">
+							  					<span jwcid="@Insert" value="ognl:rowBG.licenseNo"/></a>
+							  				</td>
+							  				<td><span jwcid="@Insert" 						value="ognl:rowBG.yearTo"/></td>
+							  				<td><span jwcid="@Insert" 						value="ognl:rowBG.year"/></td>
+							  				<td><span jwcid="@Insert" 						value="ognl:rowBG.bhp"/></td>
+							  				<td><span jwcid="@Insert" 						value="ognl:rowBG.type"/></td>
+							  				<td><a href="" jwcid="@LinkSubmit" listener="listener:doDownload" parameters="ognl:{rowBG.referenceId, rowBG.licenseNo, rowBG.vUploadId, 'BG'}">
+							  					<span jwcid="@Insert" 						value="ognl:rowBG.fileName"/></a>
+							  				</td>
+										</tr>
+									</table>
+								</td></tr>
+							</span>
+						</div>
+					</span>
+				
+				</div>
+			</span>
+			
+			<span jwcid="@If" condition="ognl:activePBG == true">
+				<div id="SBPBG">
+				
+					<table class="uniform" >
+					
+						<tr>
+							<td><label class="medium"><span key="leftMenu.masterMaintenance.ipsfr.uploadDokumen.cari">Cari</span>
+								</label>
+							</td>
+							<td><select style="width: 100px" id="select"
+								jwcid="@PropertySelection" model="ognl:jenisPBGModel"
+								value="ognl:jenisPBG">
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td><label class="medium"><span key="masterMaintenance.ipsfr.uploadDokumen.keteranganKriteria">Keterangan Kriteria</span>
+								</label>
+							</td>
+							<td><input jwcid="@TextField" type="text" size="35" value="ognl:kriteriaPBG"></input>
+								<input jwcid="@Submit" class="btn" value="Cari" action="listener:doSearchPBG" />
+							</td>
+						</tr>
+						
+					</table>
+					
+					<span jwcid="@If" condition="ognl:dataPBG!=null">
+						<div id="box">
+			   				<span jwcid="@contrib:TableView" pageSize="10"
+			    				columns="ClientName,LicenseNo,YearTo,PercentYear,BhpMethod,DocType,FileName" 
+			    				source="ognl:dataPBG">
+								
+								<tr>
+									<td align="right">
+										<br/><span jwcid="@TablePages"></span>
+									</td>
+								</tr>
+								<tr><td>
+								  	<table border="0" class="data" width="100%">
+									  	
+										<tr>
+											<th> <span key="leftMenu.masterMaintenance.ipsfr.uploadDokumen.clientName">Nama Klien</span> </th>
+											<th> <span key="leftMenu.masterMaintenance.ipsfr.uploadDokumen.noAplikasi">No Aplikasi</span> </th>
+											<th> <span key="leftMenu.masterMaintenance.ipsfr.uploadDokumen.tahunKe">Tahun Ke</span> </th>
+											<th> <span key="leftMenu.masterMaintenance.ipsfr.uploadDokumen.tahun">Tahun</span> </th>
+											<th> <span key="leftMenu.masterMaintenance.ipsfr.uploadDokumen.bhpMethod">Metode BHP</span> </th>
+											<th> <span key="leftMenu.masterMaintenance.ipsfr.uploadDokumen.jenisDokumen">Jenis Dokumen</span> </th>
+											<th> <span key="leftMenu.masterMaintenance.ipsfr.uploadDokumen.namaDokumen">Nama Dokumen</span> </th>
+										</tr>
+										<tr jwcid="@contrib:TableRows" row="ognl:rowPBG" class="ognl:beans.evenOdd.next">
+											<td><span jwcid="@Insert" 						value="ognl:rowPBG.clientName"/></td>
+							  				<td><a href="" jwcid="@LinkSubmit" listener="listener:doInputPBG" parameters="ognl:{rowPBG.vUploadId, rowPBG.licenseNo, rowPBG.year, rowPBG.yearTo}">
+							  					<span jwcid="@Insert" value="ognl:rowPBG.licenseNo"/></a>
+							  				</td>
+							  				<td><span jwcid="@Insert" 						value="ognl:rowPBG.yearTo"/></td>
+							  				<td><span jwcid="@Insert" 						value="ognl:rowPBG.year"/></td>
+							  				<td><span jwcid="@Insert" 						value="ognl:rowPBG.bhp"/></td>
+							  				<td><span jwcid="@Insert" 						value="ognl:rowPBG.type"/></td>
+							  				<td><a href="" jwcid="@LinkSubmit" listener="listener:doDownload" parameters="ognl:{rowPBG.referenceId, rowPBG.licenseNo, rowPBG.vUploadId, 'PBG'}">
+							  					<span jwcid="@Insert" 						value="ognl:rowPBG.fileName"/></a>
+							  				</td>
+										</tr>
+									</table>
+								</td></tr>
+							</span>
+						</div>
+					</span>
+			
+				</div>
+			</span>
+			
+			<span jwcid="@If" condition="ognl:activeVPBG == true">
+				<div id="SVPBG">
+					<table class="uniform" >
+					
+						<tr>
+							<td><label class="medium"><span key="leftMenu.masterMaintenance.ipsfr.uploadDokumen.cari">Cari</span>
+								</label>
+							</td>
+							<td><select style="width: 100px" id="select"
+								jwcid="@PropertySelection" model="ognl:jenisVPBGModel"
+								value="ognl:jenisVPBG">
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td><label class="medium"><span key="masterMaintenance.ipsfr.uploadDokumen.keteranganKriteria">Keterangan Kriteria</span>
+								</label>
+							</td>
+							<td><input jwcid="@TextField" type="text" size="35" value="ognl:kriteriaVPBG"></input>
+								<input jwcid="@Submit" class="btn" value="Cari" action="listener:doSearchVPBG" />
+							</td>
+						</tr>
+						
+					</table>
+					
+					<span jwcid="@If" condition="ognl:dataVPBG!=null">
+						<div id="box">
+			   				<span jwcid="@contrib:TableView" pageSize="10"
+			    				columns="ClientName,LicenseNo,YearTo,PercentYear,BhpMethod,DocType,FileName" 
+			    				source="ognl:dataVPBG">
+								
+								<tr>
+									<td align="right">
+										<br/><span jwcid="@TablePages"></span>
+									</td>
+								</tr>
+								<tr><td>
+								  	<table border="0" class="data" width="100%">
+									  	
+										<tr>
+											<th> <span key="leftMenu.masterMaintenance.ipsfr.uploadDokumen.clientName">Nama Klien</span> </th>
+											<th> <span key="leftMenu.masterMaintenance.ipsfr.uploadDokumen.noAplikasi">No Aplikasi</span> </th>
+											<th> <span key="leftMenu.masterMaintenance.ipsfr.uploadDokumen.tahunKe">Tahun Ke</span> </th>
+											<th> <span key="leftMenu.masterMaintenance.ipsfr.uploadDokumen.tahun">Tahun</span> </th>
+											<th> <span key="leftMenu.masterMaintenance.ipsfr.uploadDokumen.bhpMethod">Metode BHP</span> </th>
+											<th> <span key="leftMenu.masterMaintenance.ipsfr.uploadDokumen.jenisDokumen">Jenis Dokumen</span> </th>
+											<th> <span key="leftMenu.masterMaintenance.ipsfr.uploadDokumen.namaDokumen">Nama Dokumen</span> </th>
+										</tr>
+										<tr jwcid="@contrib:TableRows" row="ognl:rowVPBG" class="ognl:beans.evenOdd.next">
+											<td><span jwcid="@Insert" 						value="ognl:rowVPBG.clientName"/></td>
+							  				<td><a href="" jwcid="@LinkSubmit" listener="listener:doInputVPBG" parameters="ognl:{rowVPBG.vUploadId, rowVPBG.licenseNo, rowVPBG.year, rowVPBG.yearTo}">
+							  					<span jwcid="@Insert" value="ognl:rowVPBG.licenseNo"/></a>
+							  				</td>
+							  				<td><span jwcid="@Insert" 						value="ognl:rowVPBG.yearTo"/></td>
+							  				<td><span jwcid="@Insert" 						value="ognl:rowVPBG.year"/></td>
+							  				<td><span jwcid="@Insert" 						value="ognl:rowVPBG.bhp"/></td>
+							  				<td><span jwcid="@Insert" 						value="ognl:rowVPBG.type"/></td>
+							  				<td><a href="" jwcid="@LinkSubmit" listener="listener:doDownload" parameters="ognl:{rowVPBG.referenceId, rowVPBG.licenseNo, rowVPBG.vUploadId, 'VPBG'}">
+							  					<span jwcid="@Insert" 						value="ognl:rowVPBG.fileName"/></a>
+							  				</td>
+										</tr>
+									</table>
+								</td></tr>
+							</span>
+						</div>
+					</span>
+				</div>
+			</span>
+			
+			<span jwcid="@If" condition="ognl:activeSKL == true">
+				<div id="SKL">
+				
+					<table class="uniform" >
+					
+						<tr>
+							<td><label class="medium"><span key="leftMenu.masterMaintenance.ipsfr.uploadDokumen.cari">Cari</span>
+								</label>
+							</td>
+							<td><select style="width: 100px" id="select"
+								jwcid="@PropertySelection" model="ognl:jenisSKLModel"
+								value="ognl:jenisSKL">
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td><label class="medium"><span key="masterMaintenance.ipsfr.uploadDokumen.keteranganKriteria">Keterangan Kriteria</span>
+								</label>
+							</td>
+							<td><input jwcid="@TextField" type="text" size="35" value="ognl:kriteriaSKL"></input>
+								<input jwcid="@Submit" class="btn" value="Cari" action="listener:doSearchSKL" />
+							</td>
+						</tr>
+						
+					</table>
+					
+					<span jwcid="@If" condition="ognl:dataSKL!=null">
+						<div id="box">
+			   				<span jwcid="@contrib:TableView" pageSize="10"
+			    				columns="ClientName,LicenseNo,YearTo,PercentYear,BhpMethod,DocType,FileName" 
+			    				source="ognl:dataSKL">
+								
+								<tr>
+									<td align="right">
+										<br/><span jwcid="@TablePages"></span>
+									</td>
+								</tr>
+								<tr><td>
+								  	<table border="0" class="data" width="100%">
+									  	
+										<tr>
+											<th> <span key="leftMenu.masterMaintenance.ipsfr.uploadDokumen.clientName">Nama Klien</span> </th>
+											<th> <span key="leftMenu.masterMaintenance.ipsfr.uploadDokumen.noAplikasi">No Aplikasi</span> </th>
+											<th> <span key="leftMenu.masterMaintenance.ipsfr.uploadDokumen.tahunKe">Tahun Ke</span> </th>
+											<th> <span key="leftMenu.masterMaintenance.ipsfr.uploadDokumen.tahun">Tahun</span> </th>
+											<th> <span key="leftMenu.masterMaintenance.ipsfr.uploadDokumen.bhpMethod">Metode BHP</span> </th>
+											<th> <span key="leftMenu.masterMaintenance.ipsfr.uploadDokumen.jenisDokumen">Jenis Dokumen</span> </th>
+											<th> <span key="leftMenu.masterMaintenance.ipsfr.uploadDokumen.namaDokumen">Nama Dokumen</span> </th>
+										</tr>
+										<tr jwcid="@contrib:TableRows" row="ognl:rowSKL" class="ognl:beans.evenOdd.next">
+											<td><span jwcid="@Insert" 						value="ognl:rowSKL.clientName"/></td>
+							  				<td><a href="" jwcid="@LinkSubmit" listener="listener:doInputSKL" parameters="ognl:{rowSKL.vUploadId, rowSKL.licenseNo, rowSKL.year, rowSKL.yearTo}">
+							  					<span jwcid="@Insert" value="ognl:rowSKL.licenseNo"/></a>
+							  				</td>
+							  				<td><span jwcid="@Insert" 						value="ognl:rowSKL.yearTo"/></td>
+							  				<td><span jwcid="@Insert" 						value="ognl:rowSKL.year"/></td>
+							  				<td><span jwcid="@Insert" 						value="ognl:rowSKL.bhp"/></td>
+							  				<td><span jwcid="@Insert" 						value="ognl:rowSKL.type"/></td>
+							  				<td><a href="" jwcid="@LinkSubmit" listener="listener:doDownload" parameters="ognl:{rowSKL.referenceId, rowSKL.licenseNo, rowSKL.vUploadId, 'SKL'}">
+							  					<span jwcid="@Insert" 						value="ognl:rowSKL.fileName"/></a>
+							  				</td>
+										</tr>
+									</table>
+								</td></tr>
+							</span>
+						</div>
+					</span>
+				
+				</div>
+			</span>
+			
+			<span jwcid="errorShadow@TextField" autocomplete="off" value="ognl:errorValue" style="display:none"></span>
+			<span jwcid="@If" condition="ognl:delegate.hasErrors">    
+				<script>alert('<span jwcid="@Delegator" delegate="ognl:delegate.firstError">Error Message</span>');</script>
+			</span>
+         	
+         	</div>
+         	
+		</form>
+	</div>
+</body>
+</html>

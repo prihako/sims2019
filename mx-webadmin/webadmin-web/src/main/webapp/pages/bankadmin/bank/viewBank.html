@@ -1,0 +1,113 @@
+<html jwcid="@Shell" title="message:webapp.title">
+<body jwcid="@Body">
+<div id="outer">
+	<div id="title"><span key="viewBank.title.list" /></div>
+	<br />
+	<span jwcid="@ValidationErrorTop" delegate="ognl:beans.delegate" />
+	<form jwcid="searchForm@Form" delegate="ognl:beans.delegate" clientValidationEnabled="ognl:false">
+		<table class="uniform">
+			<tr jwcid="@Any" class="ognl:evenOddTable.next">
+                <td width="200px">
+                	<label class="medium" jwcid="@FieldLabel" field="component:bankCodeField"
+                           displayName="message:addBank.bankCode"/>
+                </td>
+				<td>
+					<input class="short" type="text" maxlength="30"
+						jwcid="bankCodeField@TextField" 
+						value="ognl:searchBank.bankCode"
+						displayName="message:addBank.bankCode"
+					 />
+	            </td>
+			</tr>
+			<tr jwcid="@Any" class="ognl:evenOddTable.next">
+                <td width="200px">
+                	<label class="medium" jwcid="@FieldLabel" field="component:bankNameField"
+                           displayName="message:addBank.bankName"/>
+                </td>
+				<td>
+					<input class="short" type="text" maxlength="30"
+						jwcid="bankNameField@TextField" 
+						value="ognl:searchBank.bankName"
+						displayName="message:addBank.bankName"
+					 />
+	            </td>
+			</tr>
+			<tr jwcid="@Any" class="ognl:evenOddTable.next">
+                <td width="200px">
+                	<label class="medium" jwcid="@FieldLabel" field="component:binPrefixField"
+                           displayName="message:addBank.binPrefix"/>
+                </td>
+				<td>
+					<input class="short" type="text" maxlength="300"
+						jwcid="binPrefixField@TextField" 
+						value="ognl:searchBank.binPrefix"
+						displayName="message:addBank.binPrefix"
+					 />
+	            </td>
+			</tr>
+			<tr jwcid="@Any" class="ognl:evenOddTable.next">
+				<td width="200px"></td>
+				<td>
+					<input class="btn" type="button" jwcid="@Submit" listener="listener:onSearch" value="message:button.search" />
+	            </td>
+			</tr>
+		</table>
+	</form>
+	
+    <form jwcid="@Form">
+	    <table width="99%" jwcid="@contrib:TableView" pageSize="ognl:pageSize" source="ognl:tableModel"
+	           columns="literal:bankCode:addBank.bankCode:bankCode,
+                                bankName:addBank.bankName:bankName,
+                                binPrefix:addBank.binPrefix:binPrefix,
+                                isAlto:addBank.isAlto:isAlto,
+                                isAtmb:addBank.isAtmb:isAtmb,
+                                priority:addBank.priority:priority">
+	    	<tr>
+			    <td align="right"><span jwcid="@TablePages" /></td>
+			</tr>
+	    	<tr>
+	    		<td align="center">
+	            	<div style="overflow: auto">
+	                	<table width="99%" class="data">
+	                		<tr class="headerRow">
+	                			<th align="center"> <span jwcid="@CheckBoxSelectAll"/> </th>
+			                    <span jwcid="@contrib:TableColumns" arrowUpAsset="ognl:assets.upArrow" arrowDownAsset="ognl:assets.downArrow" />
+			                </tr> 
+			                <tr jwcid="@contrib:TableRows" row="ognl:loopObject" class="ognl:beans.evenOdd.next">                              
+								<td class="center" width="5%">
+									<input jwcid="@Checkbox" type="checkbox" value="ognl:loopObject.selected" class="noborder"/>
+									<span jwcid="@InvokeListener" listener="listener:checkSelect"/>
+								</td>
+								<td jwcid="bankCode@TableColumn" width="10%">
+									<a jwcid="@DirectLink" listener="ognl:listeners.onViewDetail" parameters="ognl:loopObject.id">
+										<span jwcid="@Insert" value="ognl:loopObject.bankCode"/>
+									</a>
+								</td>
+								<td jwcid="bankName@TableColumn" width="30%" class="left">
+									<span jwcid="@Insert" value="ognl:loopObject.bankName"/>
+								</td>
+								<td jwcid="binPrefix@TableColumn" width="30%" class="left">
+									<span jwcid="@Insert" value="ognl:loopObject.binPrefix"/>
+								</td>
+								<td jwcid="isAlto@TableColumn" width="5%" class="left">
+									<span jwcid="@Insert" value="ognl:loopObject.isAlto"/>
+								</td>
+								<td jwcid="isAtmb@TableColumn" width="5%" class="left">
+									<span jwcid="@Insert" value="ognl:loopObject.isAtmb"/>
+								</td>
+								<td jwcid="priority@TableColumn" width="15%" class="left">
+									<span jwcid="@Insert" value="ognl:loopObject.priority"/>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</td>
+			</tr>
+		</table>
+		<div class="button">
+			<input jwcid="@Submit" type="button" value="message:button.delete"  class="btn" action="listener:doDelete"/>
+		</div>
+	</form>
+</div>
+</body>
+</html>

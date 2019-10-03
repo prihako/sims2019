@@ -1,0 +1,302 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>KOMINFO</title>
+<script src="../js/tools.js" language="JavaScript"></script>
+<link rel="stylesheet" href="../styles/style-Kominfo/layout.css" type="text/css" />
+<link rel="stylesheet" href="../styles/style-Kominfo/jquery.mCustomScrollbar.css" type="text/css" />
+</head>
+<body>
+<div id="outer">
+  <form name="mainForm">
+    <div id="title">Variabel</div>
+    <h2>Rate Tahunan dan Index Pengali</h2>
+    <table width="99%" class="uniform">
+      <tr>
+        <td><label class="short">Service</label></td>
+        <td><span>Land Mobile</span></td>
+      </tr>
+      <tr>
+        <td><label class="short">Sub Service</label></td>
+        <td><select class="medium">
+            <option value="">3G</option>
+            <option value="">3G Band</option>
+            <option value="" selected="selected">Bandwith</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td><label class="short">Metode BHP</label></td>
+        <td><select id="bhp" name="bhp" class="medium">
+            <option value="" id="FR" selected="selected">Flat Rate</option>
+            <option value="" id="VR">Varieted Rate</option>
+            <option value="" id="C">Convertion</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td><label class="short">Nama Klien</label></td>
+        <td><select id="client" name="bhp" class="medium">
+            <option value="">Telkomsel</option>
+            <option value="" selected="selected">XL</option>
+            <option value="">Indosat</option>
+          </select>
+        </td>
+      </tr>  
+    </table>
+    <!-- button action -->
+    <div id="button">
+      <button type="button" class="btn" id="search" >Search</button>
+    </div><!-- button -->
+    <div id="conttable">  
+    <div id="table_FR" > 
+    <table width="99%" class="uniform">
+      <tr>
+        <td><label class="short">Service</label></td>
+        <td><span>Land Mobile</span></td>
+      </tr>
+      <tr>
+        <td><label class="short">Sub Service</label></td>
+        <td><span>Bandwith</span></td>
+      </tr>
+      <tr>
+        <td><label class="short">Metode BHP</label></td>
+        <td><span>Flat Rate</span></td>
+      </tr>
+      <tr>
+        <td><label class="short">Nama Klien</label></td>
+        <td><span>XL</span></td>
+      </tr>  
+    </table>
+    <table class="data">
+      <tr>
+        <th>No.SKM   Penetapan BI Rate</th>
+        <th>No.SKM Lisensi</th>
+        <th>BI Rate Tahun ke</th>
+        <th>Nilai BI Rate   (%)</th>
+        <th>Index Pengali   (In)</th>
+      </tr>
+      <tr>
+        <td class="center">14/2010</td>
+        <td class="center">047/TIMSEL3G/02/2012</td>
+        <td class="center">1</td>
+        <td class="right">5</td>
+        <td class="right">1,05 </td>
+      </tr>
+      <tr>
+        <td class="center">14/2010</td>
+        <td class="center">047/TIMSEL3G/02/2012</td>
+        <td class="center">2</td>
+        <td class="right">5</td>
+        <td class="right">1,103 </td>
+      </tr>
+      <tr>
+        <td class="center">14/2010</td>
+        <td class="center">047/TIMSEL3G/02/2012</td>
+        <td class="center">3</td>
+        <td class="right">5</td>
+        <td class="right">1,158 </td>
+      </tr>
+      <tr>
+        <td class="center">14/2010</td>
+        <td class="center">047/TIMSEL3G/02/2012</td>
+        <td class="center">4</td>
+        <td class="right">5</td>
+        <td class="right">1,216 </td>
+      </tr>
+      <tr>
+        <td class="center">14/2010</td>
+        <td class="center">047/TIMSEL3G/02/2012</td>
+        <td class="center">5</td>
+        <td class="right">5</td>
+        <td class="right">1,276 </td>
+      </tr>
+      <tr>
+        <td class="center">35/2005</td>
+        <td class="center">047/TIMSEL3G/02/2006</td>
+        <td class="center">1</td>
+        <td class="right">7,5</td>
+        <td class="right">1,075 </td>
+      </tr>
+      <tr>
+        <td class="center">35/2005</td>
+        <td class="center">047/TIMSEL3G/02/2006</td>
+        <td class="center">2</td>
+        <td class="right">7,5</td>
+        <td class="right">1,129 </td>
+      </tr>
+      <tr>
+        <td class="center">35/2005</td>
+        <td class="center">047/TIMSEL3G/02/2006</td>
+        <td class="center">3</td>
+        <td class="right">7,5</td>
+        <td class="right">1,185 </td>
+      </tr>
+      <tr>
+        <td class="center">35/2005</td>
+        <td class="center">047/TIMSEL3G/02/2006</td>
+        <td class="center">4</td>
+        <td class="right">7,5</td>
+        <td class="right">1,244 </td>
+      </tr>
+      <tr>
+        <td class="center">35/2005</td>
+        <td class="center">047/TIMSEL3G/02/2006</td>
+        <td class="center">5</td>
+        <td class="right">7,5</td>
+        <td class="right">1,307 </td>
+      </tr>
+    </table>
+    </div>
+    <div id="table_VR" > 
+    <table width="99%" class="uniform">
+      <tr>
+        <td><label class="short">Service</label></td>
+        <td><span>Land Mobile</span></td>
+      </tr>
+      <tr>
+        <td><label class="short">Sub Service</label></td>
+        <td><span>Bandwith</span></td>
+      </tr>
+      <tr>
+        <td><label class="short">Metode BHP</label></td>
+        <td><span>Varieted Rate</span></td>
+      </tr>
+      <tr>
+        <td><label class="short">Nama Klien</label></td>
+        <td><span>XL</span></td>
+      </tr>  
+    </table>
+    <table class="data">
+      <tr>
+        <th>No.SKM   Penetapan BI Rate</th>
+        <th>No.SKM Lisensi</th>
+        <th>BI Rate Tahun ke</th>
+        <th>Nilai BI Rate   (%)</th>
+        <th>Index Pengali   (In)</th>
+      </tr>
+      <tr>
+        <td class="center">14/2013</td>
+        <td class="center">051/TIMSEL3G/02/2014</td>
+        <td class="center">1</td>
+        <td class="right">5</td>
+        <td class="right">1,05 </td>
+      </tr>
+      <tr>
+        <td class="center">14/2014</td>
+        <td class="center">051/TIMSEL3G/02/2014</td>
+        <td class="center">2</td>
+        <td class="right">5,5</td>
+        <td class="right">1,055 </td>
+      </tr>
+      <tr>
+        <td class="center">19/2015</td>
+        <td class="center">051/TIMSEL3G/02/2014</td>
+        <td class="center">3</td>
+        <td class="right">5,75</td>
+        <td class="right">1,058 </td>
+      </tr>
+      <tr>
+        <td class="center">14/2005</td>
+        <td class="center">020/TIMSEL3G/02/2005</td>
+        <td class="center">1</td>
+        <td class="right">4</td>
+        <td class="right">1,04 </td>
+      </tr>
+      <tr>
+        <td class="center">15/2006</td>
+        <td class="center">020/TIMSEL3G/02/2005</td>
+        <td class="center">2</td>
+        <td class="right">4,25</td>
+        <td class="right">1,0425 </td>
+      </tr>
+      <tr>
+        <td class="center">30/2007</td>
+        <td class="center">020/TIMSEL3G/02/2005</td>
+        <td class="center">3</td>
+        <td class="right">4,25</td>
+        <td class="right">1,0425 </td>
+      </tr>
+      <tr>
+        <td class="center">53/2008</td>
+        <td class="center">020/TIMSEL3G/02/2005</td>
+        <td class="center">4</td>
+        <td class="right">7</td>
+        <td class="right">1,07 </td>
+      </tr>
+      <tr>
+        <td class="center">31/2009</td>
+        <td class="center">020/TIMSEL3G/02/2005</td>
+        <td class="center">5</td>
+        <td class="right">7</td>
+        <td class="right">1,07 </td>
+      </tr>
+      <tr>
+        <td class="center">23/2010</td>
+        <td class="center">020/TIMSEL3G/02/2005</td>
+        <td class="center">6</td>
+        <td class="right">6,5</td>
+        <td class="right">1,065 </td>
+      </tr>
+      <tr>
+        <td class="center">14/2011</td>
+        <td class="center">020/TIMSEL3G/02/2005</td>
+        <td class="center">7</td>
+        <td class="right">6</td>
+        <td class="right">1,06 </td>
+      </tr>
+    </table>
+    </div>
+	<div id="button">
+      <button type="button" class="btn" id="back">Back</button>
+    </div>
+  </form>
+</div>
+<script src="../js/jquery-1.9.1.min.js"></script>
+<script src="../js/jquery.mCustomScrollbar.concat.min.js"></script>
+<script>
+    (function($){
+        $(document).ready(function (){
+            $("#outer").mCustomScrollbar({
+				verticalScroll:true,
+				horizontalScroll:false,
+				theme:"dark-thick",
+					scrollButtons:{
+						enable:true}
+				});
+        });
+            $("#conttable").mCustomScrollbar({
+				verticalScroll:false,
+				horizontalScroll:true,
+				theme:"dark-thick",
+					scrollButtons:{
+						enable:true}
+				});
+    })(jQuery);
+
+	$("#button #back").on('click',function(){
+			window.location.href='pg_AnnRate_FR_VR_search.html';
+	});
+	
+$(function(){		
+	$('#conttable').show();
+	$('#conttable #table_FR').hide();
+	$('#conttable #table_VR').hide();
+	$('#button #search').click(function() {
+	
+		if ($('#bhp #FR').is(':selected')) {
+			$('#conttable #table_FR').show();
+			$('#conttable #table_VR').hide();
+		}
+		if ($('#bhp #VR').is(':selected')) {
+			$('#conttable #table_VR').show();
+			$('#conttable #table_FR').hide();
+		}
+	});
+});
+
+</script>
+
+</body>
+</html>

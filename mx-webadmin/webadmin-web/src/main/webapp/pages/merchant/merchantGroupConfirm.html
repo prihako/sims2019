@@ -1,0 +1,48 @@
+<html jwcid="@Shell" title="message:webapp.title">
+<body jwcid="@Body">
+	<div id="outer">
+		<span jwcid="@ValidationErrorTop" delegate="ognl:beans.delegate" />
+
+		<form jwcid="merchantConfirm@Form" delegate="ognl:beans.delegate"
+			clientValidationEnabled="ognl:true">
+			<div id="title">
+				<span jwcid="@Insert" value="ognl:getText('merchant.title.confirm')"
+					renderTag="false" />
+			</div>
+			
+			<table width="100%" class="uniform">
+				<tr>
+					<td colspan="2">
+						<h2>
+							<span jwcid="@Insert"
+								value="ognl:getText('merchant.msg.info.confirm')"
+								renderTag="false" />
+						</h2>
+					</td>
+				</tr>
+
+				<!-- code -->
+				<tr jwcid="@Any" class="ognl:evenOddTable.next">
+					<td><span jwcid="@Insert"
+						value="ognl:getText('merchant.label.code')" renderTag="false" /></td>
+					<td><span jwcid="@Insert" value="ognl:code" /></td>
+				</tr>
+
+				<!-- description -->
+				<tr>
+					<td><span jwcid="@Insert"
+						value="ognl:getText('merchant.label.description')"
+						renderTag="false" /></td>
+					<td><span jwcid="@Insert" value="ognl:description" /></td>
+				</tr>
+			</table>
+
+			<br />
+			<div class="button">
+				<input type="submit" jwcid="@Submit" class="btn100"	action="listener:doSubmit" value="message:button.continue" /> 
+				<input type="button" jwcid="@Submit" class="btn100" action="listener:onBack" value="message:button.cancel"  />
+			</div>
+		</form>
+	</div>
+</body>
+</html>

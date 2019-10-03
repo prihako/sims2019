@@ -1,0 +1,90 @@
+<html jwcid="@Shell" title="message:webapp.title">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title><span key="webapp.title" /></title>
+</head>
+<body jwcid="@Body">
+<div id="outer">
+<span jwcid="@ValidationErrorTop" delegate="ognl:beans.delegate" />
+<form jwcid="searchForm@Form" delegate="ognl:beans.delegate" clientValidationEnabled="ognl:true">
+	<div id="title">
+		<span key="userList.title">DAFTAR USER</span>
+	</div><br />
+	<table class="uniform">
+		<tr jwcid="@Any" class="ognl:evenOddTable.next">
+			<td width="200px">
+				<label class="medium" jwcid="@FieldLabel" field="component:userNameField" />
+			</td>
+			<td width="74%">
+				<input class="short" type="text" maxlength="30"
+					jwcid="userNameField@TextField" 
+					value="ognl:userId"
+					translator="translator:stringUpper,trim=true"
+					displayName="message:userEntry.userId"
+				 />
+	        </td>
+		</tr>
+		<tr jwcid="@Any" class="ognl:evenOddTable.next">
+			<td width="200px" />
+			<td width="74%">
+				<input name="BTN_CARI" type="button" class="btn" id="BTN_CARI" jwcid="@Submit" listener="listener:onSearch" value="message:button.search" />
+	        </td>
+		</tr>
+	</table>
+	<!-- <div id="button">
+		<input name="BTN_CARI" type="button" class="btn" id="BTN_CARI" jwcid="@Submit" listener="listener:onSearch" value="message:button.search" />
+	</div> -->
+</form>
+
+<form jwcid="@Form" delegate="ognl:beans.delegate" clientValidationEnabled="ognl:true">
+    <div id="box">
+    <table width="99%" jwcid="@contrib:TableView" pageSize="ognl:pageSize" source="ognl:tableModel" columns="ognl:columns">
+    	<tr>
+		    <td align="right"><span jwcid="@TablePages" /></td>
+		</tr>
+    	<tr>
+    		<td align="center">
+            	<div style="overflow: auto">
+                	<table width="99%" class="data">
+                		<tr class="headerRow">
+                			<th align="center" width="10%"> <span jwcid="@CheckBoxSelectAll" /> </th>
+		                    <span jwcid="@contrib:TableColumns" arrowUpAsset="ognl:assets.upArrow" arrowDownAsset="ognl:assets.downArrow" />
+		                </tr> 
+		                <tr jwcid="tableRows@contrib:TableRows" row="ognl:loopObject" class="ognl:beans.evenOdd.next">
+						    <td class="center" width="10%">
+						    	<input jwcid="@Checkbox" type="checkbox" value="ognl:loopObject.selected" class="noborder"/>
+				                <span jwcid="@InvokeListener" listener="listener:checkSelect"/>                	                      
+						    </td>
+						    <td jwcid="userId@TableColumn" width="25%">
+						    	<a href="" jwcid="@DirectLink" listener="listener:doEdit" parameters="ognl:{loopObject.userId, loopObject.roleId, loopObject.userName, loopObject.email, loopObject.name}">
+						    	<span jwcid="@Insert" value="ognl:loopObject.userName"/>
+						    	</a>               
+						    </td>
+						    <td jwcid="userListName@TableColumn" width="35%">
+						    	<span jwcid="@Insert" value="ognl:loopObject.name"/>               
+						    </td>
+						    <td jwcid="userRole@TableColumn" width="30%">
+						    	<span jwcid="@Insert" value="ognl:loopObject.roleName"/>               
+						    </td>
+						    <td jwcid="resetPass@TableColumn" width="30%">
+						    	<span jwcid="@If" condition="ognl:!resetLinkDisable" renderTag="false">
+							    	<a href="" jwcid="@DirectLink" listener="listener:onResetPassword" parameters="ognl:{loopObject.userId}" >
+								    	<span key="userList.reset" />
+							    	</a>
+						    	</span>
+						    </td>
+						</tr>    	    	    	
+				    </table>
+				</div>
+			</td>
+		</tr>
+	</table>
+    
+    </div>
+    <div class="button">
+		<input class="btn" jwcid="@Submit" listener="listener:doDelete" value="message:button.delete" type="button"/>
+	</div>
+</form>
+</div>
+</body>
+</html>

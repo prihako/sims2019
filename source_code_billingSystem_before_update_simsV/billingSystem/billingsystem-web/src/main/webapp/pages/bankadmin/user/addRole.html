@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+    <title>
+    	<span key="webapp.title"></span>
+    </title>
+    <style type="text/css">
+    <!--
+    @import url("styles/bprks/palette.css");
+    -->
+    </style>
+    <style type="text/css">
+    	/*TABLE.tapestry-palette*/ 
+   		TD.available-cell SELECT {
+   			height: 200px;
+   			width: 250px;
+   		}
+   		TD.selected-cell SELECT {
+   			height: 200px;
+   			width: 250px;
+   		}
+		TABLE.tapestry-palette TD.controls {
+			text-align: center;
+			vertical-align: middle;
+			width: 60px;
+        }
+    </style>
+</head>
+<span jwcid="@Shell" title="message:webapp.title">
+<body jwcid="@Body">
+<div id="outer">
+    <div id="title">
+    	<span jwcid="@If" condition="ognl:entity.id eq null"><span key="addRole.title" style="font-size: 18px;text-transform: capitalize;">TAMBAH ROLE</span></span>
+        <span jwcid="@Else"><span key="updateRole.title" style="font-size: 18px;text-transform: capitalize;">UBAH ROLE</span></span>
+    </div><br/>
+	<span jwcid="@ValidationErrorTop" delegate="ognl:beans.delegate" />
+    
+    <form jwcid="@Form" delegate="ognl:beans.delegate" clientValidationEnabled="ognl:true">
+        <table class="uniform">
+            <tr jwcid="@Any" class="ognl:evenOddTable.next">
+                <td width="200px">
+                	<label class="medium" jwcid="@FieldLabel" field="component:roleName"
+                           displayName="message:addRole.name">Nama Role</label>
+                </td>
+                <td><input jwcid="roleName@TextField"
+                           validators="validators:required[%addRole.name.required]"
+                           translator="translator:stringUpper, trim=true"
+                           onkeypress="" size="40"
+                           maxlength="30"
+                           value="ognl:entity.name"
+                           displayName="message:addRole.name"/>
+                </td>
+            </tr>
+            <tr jwcid="@Any" class="ognl:evenOddTable.next">
+                <td>
+                	<label class="medium" jwcid="@FieldLabel" field="component:roleDescription"
+                           displayName="message:addRole.description">Deskripsi</label>
+                </td>
+				<td>
+                	<input jwcid="roleDescription@TextField"
+                          translator="translator:stringUpper, trim=true"
+                          onkeypress="" size="50"
+                          maxlength="64"
+                          value="ognl:entity.description"
+                          displayName="message:addRole.description"/>
+                </td>
+            </tr>
+            <tr jwcid="@Any" class="ognl:evenOddTable.next">
+                <td colspan="2"><label class="medium"><span key="addRole.function">Fungsi</span></label></td>
+            </tr>
+            <tr jwcid="@Any" class="ognl:evenOddTable.next">
+            	<td colspan="2">
+		            <table width="80%" align="center">
+			            <tr jwcid="@Any" class="ognl:evenOddTable.next">
+							<td>
+								<input jwcid="functions@contrib:Palette" selected="ognl:selectedFunction"
+									model="ognl:getFunctionModel()"
+									selectImage="asset:select" selectDisabledImage="asset:select"
+									deselectImage="asset:deselect" deselectDisabledImage="asset:deselect"
+									availableTitleBlock="component:availableFunctionBlock" 
+									selectedTitleBlock="component:selectedFunctionBlock">
+			                    </input>
+								<span jwcid="availableFunctionBlock@Block">
+			    					<b><span key="common.label.available" /></b>
+								</span>
+								<span jwcid="selectedFunctionBlock@Block">
+			    					<b><span key="common.label.selected" /></b>
+								</span>
+			                </td>
+			            </tr>
+		        	</table>            	
+            	</td>
+            </tr>
+            <tr jwcid="@Any" class="ognl:evenOddTable.next">
+				<td colspan="2" align="center">
+		            <input jwcid='@Submit' class="btn" value="message:button.continue" action="listener:doButtonNext"/>
+		            <span jwcid="@If" condition="ognl:entity.id != null">
+		                <input jwcid='@Any' type="button" class="btn" value="message:button.back" onclick="location.href='updateRole.html'"/>
+	            	</span>
+                </td>
+            </tr>
+		</table>
+
+        <!-- <div class="button">
+            <input jwcid='@Submit' class="btn" value="message:button.continue" action="listener:doButtonNext"/>
+            <span jwcid="@If" condition="ognl:entity.id != null">
+                <input jwcid='@Any' type="button" class="btn" value="message:button.back" onclick="location.href='updateRole.html'"/>
+            </span>
+        </div> -->
+    </form>
+</div>
+</body>
+</span>
+</html>

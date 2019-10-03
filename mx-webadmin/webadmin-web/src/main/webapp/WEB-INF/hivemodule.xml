@@ -1,0 +1,40 @@
+<module id="app" version="4.0.0" package="com.balicamp.webapp">
+
+	<contribution configuration-id="tapestry.url.ServiceEncoders">
+        <page-service-encoder id="page" extension="html" service="page"/>
+        <direct-service-encoder id="direct" stateless-extension="direct" stateful-extension="sdirect"/>
+        <asset-encoder id="asset" path="/assets"/>
+        <extension-encoder id="extension" extension="svc" after="*"/>
+        <!-- <encoder id="report" object="instance:com.balicamp.webapp.tapestry.serviceencoder.CommonServiceEncoder"/> -->
+        <encoder id="all" object="instance:com.balicamp.webapp.tapestry.serviceencoder.CommonServiceEncoder"/>
+    </contribution>
+    
+    <!-- service -->    
+	<service-point id="ReportService" interface="org.apache.tapestry.engine.IEngineService">
+		<invoke-factory>
+			<construct class="com.balicamp.webapp.tapestry.service.ReportService">
+				<set-object property="linkFactory" value="service:tapestry.url.LinkFactory"/>
+				<set-object property="reportManager" value="spring:reportManager"/>
+			</construct>
+		</invoke-factory>
+	</service-point>
+
+	<contribution configuration-id="tapestry.services.ApplicationServices">
+		<service name="report" object="service:ReportService"/>
+	</contribution>
+	
+	<service-point id="fileService" interface="org.apache.tapestry.engine.IEngineService">
+		<invoke-factory>
+			<construct class="com.balicamp.webapp.action.report.FileService">
+				<set-object property="linkFactory" value="service:tapestry.url.LinkFactory"/>
+			</construct>
+		</invoke-factory>
+	</service-point>
+	
+	<contribution configuration-id="tapestry.services.ApplicationServices">
+		<service name="file" object="service:fileService"/>
+	</contribution>
+    
+    <sub-module descriptor="translatormodule.xml"/>
+
+</module>

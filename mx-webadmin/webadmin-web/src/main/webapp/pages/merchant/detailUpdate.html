@@ -1,0 +1,66 @@
+<html jwcid="@Shell" title="message:webapp.title">
+<body jwcid="@Body">
+	<div id="outer">
+		<span jwcid="@ValidationErrorTop" delegate="ognl:beans.delegate" />
+
+		<form jwcid="detailUpdate@Form" delegate="ognl:beans.delegate"
+			clientValidationEnabled="ognl:true">
+			<div id="title">
+				<span jwcid="@Insert" value="ognl:getText('merchant.detail.title.update')"
+					renderTag="false" />
+			</div>
+			
+			<div id="berita">
+				<span jwcid="@Insert" value="ognl:errormsg" />
+			</div>
+
+			<table width="100%" class="uniform">
+				<tr>
+					<td colspan="2">
+						<h2>
+							<span> Silahkan ubah data detail grup merchant:</span>
+						</h2>
+					</td>
+				</tr>
+
+				<!-- merchant group -->
+				<tr jwcid="@Any" class="ognl:evenOddTable.next">
+					<td><span jwcid="@Insert"
+						value="ognl:getText('merchant.label.code')" renderTag="false" /></td>
+					<td><span jwcid="@Insert" value="ognl:merchantTr" /></td>
+				</tr>
+
+				<!-- terminal Id -->
+				<tr>
+					<td><span jwcid="@Insert"
+						value="ognl:getText('merchant.label.termid')"
+						renderTag="false" /></td>
+					<td><input maxlength="50" jwcid="termid@TextField"
+						value="ognl:termid" /></td>
+				</tr>
+				
+				<!-- channel code -->
+				<tr>
+					<td><span jwcid="@Insert"
+						value="ognl:getText('merchant.label.channelCode')"
+						renderTag="false" /></td>
+					<td><select jwcid="channelModel@PropertySelection"
+						model="ognl:getChannelModel()" value="ognl:channel" /></td>	
+					<!--  
+					<td><input maxlength="50" jwcid="channelCode@TextField"
+						value="ognl:channelCode" /></td> -->
+				</tr>
+			</table>
+
+			<br />
+			<div class="button">
+				<input type="submit" jwcid="@Submit" class="btn100"
+					action="listener:doSubmit" value="message:button.continue" /> <input
+					type="button" class="btn100" jwcid="cancel@Any"
+					value="message:button.cancel"
+					onclick="location.href='detailList.html'" />
+			</div>
+		</form>
+	</div>
+</body>
+</html>

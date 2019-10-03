@@ -1,0 +1,183 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html jwcid="@Shell" title="message:webapp.title">
+<head>
+<script type="text/javascript" src="scripts/jquery-1.8.3.min.js"></script>
+<script type="text/javascript"
+	src="scripts/jquery-ui-1.10.0.custom.min.js"></script>
+<script type="text/javascript" src="scripts/mayora/tools.js"></script>
+
+<link rel="stylesheet"
+	href="styles/style-Kominfo/jquery-ui-1.10.0.custom.css" type="text/css" />
+<script>
+
+</script>
+<stle type="text/css">
+</stle>
+</head>
+<body jwcid="@Body">
+	<div id="outer">
+
+		<form jwcid="@Form" delegate="ognl:beans.delegate"
+			clientValidationEnabled="ognl:false">
+
+			<div id="title">
+				<span key="leftMenu.transactionReportSearch.title"></span> 
+			</div> 
+			
+			<span jwcid="notFirstLoad@Hidden" value="ognl:notFirstLoad"></span>
+			
+			<div id="title">
+			</div>
+			<table width="60%" class="uniform">
+
+				<tr>
+					<td><label 
+						displayName="message:leftMenu.transactionReportSearch.bankName">Nama Bank
+						</label></td>
+					<td><select jwcid="@PropertySelection"
+						model="ognl:getBankModel()"
+						value="ognl:bankName" ></select></td>
+				</tr>
+				
+				<tr>
+					<td ><label 
+						displayName="message:leftMenu.transactionReportSearch.transactionType">Tipe
+						Pembayaran</label></td>
+
+					<td><select jwcid="@PropertySelection"
+						model="ognl:getTransactionTypeModel()" value="ognl:transactionType"
+						id="transactionType" >
+					</select></td>
+				</tr>
+				
+				<tr jwcid="@Any" class="ognl:evenOddTable.next">
+					<td class="short">
+						<span key="leftmenu.transactionReport.startDate">*Start Date</span>
+					</td>
+					<td><span jwcid="startDate@DatePicker" readonly="true"
+						value="ognl:startDate"></span></td>
+					
+				</tr>
+				<tr>
+					<td></td>
+					<td>
+						<font size="1">
+							<span key="leftmenu.transactionReport.dateFormat">*DD-MMM-YYYY</span>
+						</font>
+					</td>
+				</tr>
+				<tr jwcid="@Any" class="ognl:evenOddTable.next">
+					<td class="short">
+						<span key="leftmenu.transactionReport.endDate">*End Date</span>
+					</td>
+					<td><span jwcid="endDate@DatePicker" value="ognl:endDate" 
+						readonly="true"></span></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td>
+						<font size="1">
+							<span key="leftmenu.transactionReport.dateFormat">*DD-MMM-YYYY</span>
+						</font>
+					</td>
+				</tr>
+				
+				<tr>
+					<td>
+						<font color="red" size="1">
+							<span key="leftmenu.transactionReport.warn.fieldMustFill">*Data Harus Diisi</span>
+						</font>
+					</td>
+					<td></td>
+				</tr>
+				
+				<tr>
+					<td></td>
+					<td>
+						<input name="BTN_SEARCH" type="submit" class="btn" style="height:25px;"
+						id="BTN_SEARCH" jwcid="@Submit" action="listener:doSearch"
+						value="message:button.search" />
+					</td>
+				</tr>
+
+			</table>
+			
+			<!-- Transaction Log  Result -->
+			<span jwcid="@If" condition="ognl:transactionReportList!=null">
+				<div id="box" style="width: 90%">
+					<table width="99%" jwcid="@contrib:TableView" pageSize="10"
+						source="ognl:transactionReportList"
+						columns="!Tanggal Penerimaan !File">
+						<tr>
+							<td align="right"><br /> <span jwcid="@TablePages" /></td>
+						</tr>
+						<tr>
+							<td>
+								<table border="0" class="data" width="99%">
+									<tr>
+										<th>No</th>
+										<th>Tanggal Penerimaan</th>
+										<th>Nama Bank</th>
+										<th>File</th>
+									</tr>
+									<tr jwcid="@contrib:TableRows" row="ognl:transactionReport"
+										class="ognl:beans.evenOdd.next">
+										<td width="3%" style="text-align:center">
+											<span jwcid="@Insert"
+												value="ognl:transactionReport.serialNumber"></span></td>
+										<td width="15%" align="center">
+											<span jwcid="@Insert"
+												value="ognl:transactionReport.transactionReportTime"></span></td>
+										<td width="15%" align="center" style="text-transform: uppercase;">
+											<span jwcid="@Insert"
+												value="ognl:transactionReport.bankName"  translator="translator:stringUpper"></span></td>
+										
+										<span jwcid="@If" condition="ognl:transactionReport.transactionType=='bils0'">
+											<td width="15%" align="center" style="text-transform: uppercase;">
+												BHP Frekuensi</td></span>
+										<span jwcid="@If" condition="ognl:transactionReport.transactionType=='reor01'">
+											<td width="15%" align="center" style="text-transform: uppercase;">
+												REOR</td></span>
+										<span jwcid="@If" condition="ognl:transactionReport.transactionType=='skor01'">
+											<td width="15%" align="center" style="text-transform: uppercase;">
+												SKOR</td></span>
+										<span jwcid="@If" condition="ognl:transactionReport.transactionType=='unar'">
+											<td width="15%" align="center" style="text-transform: uppercase;">
+												Amatir - UNAR</td></span>
+										<span jwcid="@If" condition="ognl:transactionReport.transactionType=='iar'">
+											<td width="15%" align="center" style="text-transform: uppercase;">
+												Amatir - IAR</td></span>
+										<span jwcid="@If" condition="ognl:transactionReport.transactionType=='ikrap'">
+											<td width="15%" align="center" style="text-transform: uppercase;">
+												IKRAP</td></span>
+										<span jwcid="@If" condition="ognl:transactionReport.transactionType=='per01'">
+											<td width="15%" align="center" style="text-transform: uppercase;">
+												Sertifikasi Perangkat</td></span>
+										<span jwcid="@If" condition="ognl:transactionReport.transactionType=='pap'">
+											<td width="15%" align="center" style="text-transform: uppercase;">
+												Pengujian Perangkat</td></span>
+											
+										<td width="15%" align="right"><a href=""
+											jwcid="@DirectLink" listener="listener:retrieveFile"
+											parameters="ognl:{transactionReport}">
+												Download
+										</a></td>
+										
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</span> 
+			
+			<span jwcid="errorShadow@TextField" autocomplete="off" value="ognl:errorValue" style="display:none"></span>
+			<span jwcid="@If" condition="ognl:delegate.hasErrors">    
+				<script>alert('<span jwcid="@Delegator" delegate="ognl:delegate.firstError">Error Message</span>');</script>
+			</span>
+
+		</form>
+	</div>
+</body>
+</html>

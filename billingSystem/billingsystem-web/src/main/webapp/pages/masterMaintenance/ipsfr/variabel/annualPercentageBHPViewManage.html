@@ -1,0 +1,80 @@
+<!-- <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> -->
+<html jwcid="@Shell" title="message:webapp.title">
+<head>
+<script type="text/javascript" src="scripts/jquery-1.8.3.min.js"></script>
+<script type="text/javascript"
+	src="scripts/jquery-ui-1.10.0.custom.min.js"></script>
+<script type="text/javascript" src="scripts/mayora/tools.js"></script>
+<script>
+	function close_popup(){
+		window.close();
+	}
+</script>
+
+<link rel="stylesheet"
+	href="styles/style-Kominfo/jquery-ui-1.10.0.custom.css" type="text/css" />
+
+
+</head>
+<body jwcid="@Body">
+	<div id="outer">
+		<form jwcid="@Form" delegate="ognl:beans.delegate"
+			clientValidationEnabled="ognl:true">
+
+			<span jwcid="@Hidden" value="ognl:notFirstLoad"></span>
+			
+			<div id="title">View Persentase Tahunan BHP</div>
+			<h2>Variable</h2>
+			<table class="uniform">
+
+				<tr>
+					<td><label class="short" >Status Variable</label></td>
+					<td><input jwcid="@Insert" value="ognl:variableAnnualPercentage.status" /></td>
+				</tr>
+				<tr>
+					<td><label class="short" >Variabel Persentase Tahunan</label></td>
+					<td><input jwcid="@Insert" value="ognl:variableAnnualPercentage.percentYear" /></td>
+				</tr>
+				<tr>
+					<td><label class="short" >Berdasarkan Dokumen</label></td>
+					<td><input jwcid="@Insert" value="ognl:variableAnnualPercentage.kmNo" /></td>
+				</tr>
+				
+			</table>
+			
+			<h2>Percentage Detail</h2>
+			
+			<span jwcid="@If" condition="ognl:annualPercentageDetailList!=null">
+				<div id="box">
+					<span jwcid="@contrib:TableView" pageSize="10"
+						columns="!TahunKe,!Persentase"
+						source="ognl:annualPercentageDetailList">
+
+						<table width="30%">
+
+							<tr>
+								<td>
+									<table border="0" class="data" width="75%">
+
+										<tr>
+											<th><span>Tahun Ke</span></th>
+											<th><span>Persentase</span></th>
+										</tr>
+										<tr jwcid="@contrib:TableRows" row="ognl:row" class="ognl:beans.evenOdd.next">
+											<td align="right"><span jwcid="@Insert" value="ognl:row.yearTo" /></td>
+											<td align="right"><span jwcid="@Insert" value="ognl:row.percentage" />%</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+					</span>
+				</div>
+			</span>
+
+			<input type="button" class="btn" value="Close" onclick="close_popup()"/>
+
+		</form>
+	</div>
+</body>
+</html>
