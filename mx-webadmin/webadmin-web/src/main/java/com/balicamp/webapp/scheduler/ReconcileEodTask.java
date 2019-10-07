@@ -93,8 +93,7 @@ public class ReconcileEodTask extends HttpServlet {
 		String[] fileNames = ftpManager.listFileNames(null);
 		log.info("---------List Of Files-----------");
 		for (int i = 0; i < fileNames.length; i++) {
-			System.out.println("-----------" + fileNames[i] + "---------");
-			log.info(fileNames[i]);
+			log.info("-----------" + fileNames[i] + "---------");
 		}
 		log.info("---------End Of List Of Files-----------");
 	}
@@ -159,12 +158,12 @@ public class ReconcileEodTask extends HttpServlet {
 		} finally {
 			con.close();
 		}
-		System.out.println("RECONCILE EOD START");
+		log.info("RECONCILE EOD START");
 		Iterator<String> billerIterator = billerList.iterator();
 		while (billerIterator.hasNext()) {
 			doGetReconcileListByMt940EodNew(billerIterator.next(), channelList);
 		}
-		System.out.println("RECONCILE EOD FINISH");
+		log.info("RECONCILE EOD FINISH");
 	}
 
 /*	public void doGetReconcileListByMt940Eod(List<String> channelList, String transactionCode) throws FileNotFoundException, JRException, IOException, SQLException {
@@ -454,12 +453,12 @@ public class ReconcileEodTask extends HttpServlet {
 			mxData.putAll(trxLogManager.
 					findAllTransactionLogsWebadminReconcileByDate(channelCode[1], trxCode, new String[] { "00" }, new String[] { "00" }, trxDate));
 			mt940Data.putAll(armgmtManagerImpl.getMT940(trxDate, null, paymentType, channelCode[0]));
-			System.out.println("trxDate : " + trxDate);
-			System.out.println("paymentType : " + paymentType);
-			System.out.println("channelCode[0] : " + channelCode[0]);
+			log.info("trxDate : " + trxDate);
+			log.info("paymentType : " + paymentType);
+			log.info("channelCode[0] : " + channelCode[0]);
 			
 			if(mt940Data.isEmpty() && mxData.isEmpty()) {
-				System.out.println("DATA IS EMPTY");
+				log.info("DATA IS EMPTY");
 			}else{
 				if(!mt940Data.isEmpty()){
 					listInvoiceCode = mt940Data.keySet();
@@ -523,7 +522,7 @@ public class ReconcileEodTask extends HttpServlet {
 			if (reconciledList.get(i).getMt940Status().equalsIgnoreCase("Paid") && (reconciledList.get(i).getSimsStatus().equalsIgnoreCase("Unpaid") || reconciledList.get(i).getSimsStatus().equalsIgnoreCase("Cancelled"))
 					&& (reconciledList.get(i).getTrxId() != null && reconciledList.get(i).getTrxId().equalsIgnoreCase("-"))) {
 
-				System.out.println("Auto Reconcile Invoice No : " + reconciledList.get(i).getInvoiceNo());
+				log.info("Auto Reconcile Invoice No : " + reconciledList.get(i).getInvoiceNo());
 				
 				if(billerCode.equalsIgnoreCase(Constants.BillerConstants.BHP_CODE)){
 					externalBillingSystem.updateInvoiceEod(reconciledList.get(i).getInvoiceNo(), cal.getTime(), "Auto Reconcile By WebAdmin");
@@ -572,7 +571,7 @@ public class ReconcileEodTask extends HttpServlet {
 			}
 		}
 
-		System.out.println("Auto Reconcile SUCCESS !");
+		log.info("Auto Reconcile SUCCESS !");
 		mapCount.put("settled", mapCount.get("settled") + newSettled);
 		mapCount.put("notSettled", mapCount.get("notSettled") - newSettled);
 		mapCount.put("settledReport", mapCount.get("settled") + newSettled);
@@ -593,13 +592,13 @@ public class ReconcileEodTask extends HttpServlet {
 		mapCountAmount.put("amountUnconfirmedReport", mapCountAmount.get("amountUnconfirmed") + amountNewUnconfirmed);
 		mapCountAmount.put("amountNotSettledReport", mapCountAmount.get("amountNotSettled") - amountNewUnconfirmed);
 
-		System.out.println("Settled: " + mapCount.get("settled"));
-		System.out.println("Unsettled: " + mapCount.get("notSettled"));
-		System.out.println("Need Confirmation: " + mapCount.get("unconfirmed"));
+		log.info("Settled: " + mapCount.get("settled"));
+		log.info("Unsettled: " + mapCount.get("notSettled"));
+		log.info("Need Confirmation: " + mapCount.get("unconfirmed"));
 
-		System.out.println("Amount Settled: Rp " + mapCountAmount.get("amountSettled"));
-		System.out.println("Amount Unsettled: Rp " + mapCountAmount.get("amountNotSettled"));
-		System.out.println("Amount Need Confirmation: Rp " + mapCountAmount.get("amountUnconfirmed"));
+		log.info("Amount Settled: Rp " + mapCountAmount.get("amountSettled"));
+		log.info("Amount Unsettled: Rp " + mapCountAmount.get("amountNotSettled"));
+		log.info("Amount Need Confirmation: Rp " + mapCountAmount.get("amountUnconfirmed"));
 
 		return reconciledList;
 	}
@@ -625,7 +624,7 @@ public class ReconcileEodTask extends HttpServlet {
 			ps.setString(3, trxType);
 			rs = ps.executeQuery();
 			if (rs.next()) {
-				System.out.println(new Date () + "Data already exist");
+				log.info(new Date () + "Data already exist");
 				log.info("Data already exist");
 			} else {
 				s = con.prepareStatement(sql);
@@ -652,7 +651,7 @@ public class ReconcileEodTask extends HttpServlet {
 
 		if (!file.exists()) {
 			errorMessage = "File MT940 " + transactionType + " pada bank " + bankName + " Tidak Ditemukan Pada Path : " + filepath;
-			System.out.println(errorMessage);
+			log.info(errorMessage);
 			return false;
 		}
 

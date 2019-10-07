@@ -126,7 +126,7 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 			}
 		}
 
-		System.out.println("TransactionLogsManagerImpl RESULT Size " + result.size());
+		log.info("TransactionLogsManagerImpl RESULT Size " + result.size());
 		return result;
 	}
 
@@ -356,17 +356,17 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 			dto.setEndpoint((String) row[7], (String) row[5], (String) row[2]);
 
 			if (dto.getEndpoint().equals(endpoint) && dto.getChannelRc().equals(responseCode)) {
-				System.out.println("endpoint & response ->" + responseCode);
+				log.info("endpoint & response ->" + responseCode);
 
 				result.add(dto);
 
 			} else if (dto.getEndpoint().equals(endpoint) && !dto.getChannelRc().equals(responseCode)) {
-				System.out.println("endpoint & response all->" + responseCode);
+				log.info("endpoint & response all->" + responseCode);
 
 				result.add(dto);
 
 			} else {
-				System.out.println("endpoint & response null" + responseCode);
+				log.info("endpoint & response null" + responseCode);
 
 				result.add(new AnalisaTransactionLogsDto());
 			}
@@ -380,7 +380,7 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 	public Object findTransactionsByTransactionID(String txId) {
 		// TODO Auto-generated method stub
 
-		System.out.println("transactionObject txId " + txId);
+		log.info("transactionObject txId " + txId);
 
 		Object transactionObject = transactionLogDao.findTransactionsByTransactionID(txId);
 
@@ -1535,7 +1535,7 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 		}
 	}
 
-	private static void bubbleSortReconcileDtoList(ReconcileDto[] unsortedListArray) {
+	private void bubbleSortReconcileDtoList(ReconcileDto[] unsortedListArray) {
 
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 		int n = unsortedListArray.length;
@@ -1556,8 +1556,8 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 						}
 					}
 				} catch (ParseException e) {
-					System.out.println((new Date() + ", unsortedListArray[j - 1].getPaymentChannel() : " + unsortedListArray[j - 1].getPaymentChannel()));
-					System.out.println((new Date() + ", unsortedListArray[j].getPaymentChannel() : " + unsortedListArray[j].getPaymentChannel()));
+					log.info((new Date() + ", unsortedListArray[j - 1].getPaymentChannel() : " + unsortedListArray[j - 1].getPaymentChannel()));
+					log.info((new Date() + ", unsortedListArray[j].getPaymentChannel() : " + unsortedListArray[j].getPaymentChannel()));
 					e.printStackTrace();
 				}
 			}
