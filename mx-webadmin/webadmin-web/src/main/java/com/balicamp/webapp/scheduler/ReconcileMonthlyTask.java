@@ -245,6 +245,7 @@ public class ReconcileMonthlyTask extends HttpServlet {
 			String[] channelCode = channelCodeListIterator.next().split("-");
 			
 			for (int j = 1; j <= maxDay; j++) {
+				HashMap<String, Object[]> mxData 	= new HashMap<String, Object[]>();
 				HashMap<String, Object[]> mt940Data = new HashMap<String, Object[]>();
 				listInvoiceCode = new HashSet<String>();
 				reconcileCalendar.set(Calendar.DAY_OF_MONTH, j);
@@ -291,19 +292,20 @@ public class ReconcileMonthlyTask extends HttpServlet {
 				}
 
 				mt940Data.putAll(armgmtManagerImpl.getMT940(trxDate, null, paymentType, channelCode[0]));
+				mxData.putAll(trxLogManager.
+						findAllTransactionLogsWebadminReconcileByDate(channelCode[1], trxCode, new String[] { "00" }, new String[] { "00" }, trxDate));
 
 				if (mt940Data.isEmpty()) {
 					System.out.println("DATA IS EMPTY");
 				} else {
 					listInvoiceCode = mt940Data.keySet();
-
-					searchResultSettled.addAll(trxLogManager.findTransactionLogsWebadmin(
-							mt940Data, channelCode[1], listInvoiceCode, null, trxCode, trxDate, "Settled", mapCountSettled, mapCountAmountSettled));
+					searchResultSettled.addAll(trxLogManager.
+							findTransactionLogsWebadmin(mt940Data, mxData, channelCode[1], listInvoiceCode, null, trxCode, trxDate, "Settled", mapCountSettled, mapCountAmountSettled));
 					searchResultUnsettled.addAll(trxLogManager.findTransactionLogsWebadmin(
-							mt940Data, channelCode[1], listInvoiceCode, null, trxCode, trxDate, "Unsettled/Need Confirmation", mapCountUnsettled, mapCountAmountUnsettled));
+							mt940Data, mxData, channelCode[1], listInvoiceCode, null, trxCode, trxDate, "Unsettled/Need Confirmation", mapCountUnsettled, mapCountAmountUnsettled));
 					
 					searchResultAll.addAll(trxLogManager.findTransactionLogsWebadmin(
-							mt940Data, channelCode[1], listInvoiceCode, null, trxCode, trxDate, "All", mapCount, mapCountAmount));
+							mt940Data, mxData, channelCode[1], listInvoiceCode, null, trxCode, trxDate, "All", mapCount, mapCountAmount));
 				}
 			}
 

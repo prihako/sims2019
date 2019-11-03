@@ -314,8 +314,9 @@ public abstract class Reconcile extends AdminBasePage implements PageBeginRender
 		String channelCode 	= null;
 		String trxCode 		= null;
 
+		HashMap<String, Object[]> mxData 	= new HashMap<String, Object[]>();
 		HashMap<String, Object[]> mt940Data = new HashMap<String, Object[]>();
-		List<ReconcileDto> searchResult = new ArrayList<ReconcileDto>();
+		List<ReconcileDto> searchResult 	= new ArrayList<ReconcileDto>();
 
 		Map<String, Integer> mapCount = new HashMap<String, Integer>();
 		mapCount.put("settled", 0);
@@ -397,12 +398,16 @@ public abstract class Reconcile extends AdminBasePage implements PageBeginRender
 			} else {
 				mt940Data.putAll(getArmgmt().getMT940(trxDate, trxEndDate, paymentType, channelCodeToBankName(channelCode)));
 			}
+			
+			mxData.putAll(getTransactionLogsManager().
+					findAllTransactionLogsWebadminReconcileByDate(channelCode, trxCode, new String[] { "00" }, new String[] { "00" }, trxDate));
 
 			System.out.println("listInvoiceCode : " + listInvoiceCode.size());
 
 			if (!mt940Data.isEmpty()) {
 				listInvoiceCode = mt940Data.keySet();
-				searchResult.addAll(getTransactionLogsManager().findTransactionLogsWebadmin(mt940Data, channelCode, listInvoiceCode, getClientId(), trxCode, getTrxDate(), getReconcileStatus(), mapCount, mapCountAmount));
+				searchResult.addAll(getTransactionLogsManager().
+						findTransactionLogsWebadmin(mt940Data, mxData, channelCode, listInvoiceCode, getClientId(), trxCode, getTrxDate(), getReconcileStatus(), mapCount, mapCountAmount));
 			}
 //		}
 

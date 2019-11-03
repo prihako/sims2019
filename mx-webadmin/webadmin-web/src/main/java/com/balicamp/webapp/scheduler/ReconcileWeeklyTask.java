@@ -237,6 +237,7 @@ public class ReconcileWeeklyTask extends HttpServlet {
 
 			for (int x = 0; x < 7; x++) { // Mundur dari Hari Jumat sampai dengan Hari Senin
 
+				HashMap<String, Object[]> mxData 	= new HashMap<String, Object[]>();
 				HashMap<String, Object[]> mt940Data = new HashMap<String, Object[]>();
 				Set<String> listInvoiceCode = new HashSet<String>();
 				reconcileCalendar.add(Calendar.DATE, -1);
@@ -284,6 +285,8 @@ public class ReconcileWeeklyTask extends HttpServlet {
 				}
 
 				mt940Data.putAll(armgmtManagerImpl.getMT940(trxDate, null, paymentType, channelCode[0]));
+				mxData.putAll(trxLogManager.
+						findAllTransactionLogsWebadminReconcileByDate(channelCode[1], trxCode, new String[] { "00" }, new String[] { "00" }, trxDate));
 				
 				if (mt940Data.isEmpty()) {
 					System.out.println("DATA IS EMPTY");
@@ -291,12 +294,12 @@ public class ReconcileWeeklyTask extends HttpServlet {
 					listInvoiceCode = mt940Data.keySet();
 
 					searchResultSettled.addAll(trxLogManager.findTransactionLogsWebadmin(
-							mt940Data, channelCode[1], listInvoiceCode, null, trxCode, trxDate, "Settled", mapCountSettled, mapCountAmountSettled));
+							mt940Data, mxData, channelCode[1], listInvoiceCode, null, trxCode, trxDate, "Settled", mapCountSettled, mapCountAmountSettled));
 					searchResultUnsettled.addAll(trxLogManager.findTransactionLogsWebadmin(
-							mt940Data, channelCode[1], listInvoiceCode, null, trxCode, trxDate, "Unsettled/Need Confirmation", mapCountUnsettled, mapCountAmountUnsettled));
+							mt940Data, mxData, channelCode[1], listInvoiceCode, null, trxCode, trxDate, "Unsettled/Need Confirmation", mapCountUnsettled, mapCountAmountUnsettled));
 
 					searchResultAll.addAll(trxLogManager.findTransactionLogsWebadmin(
-							mt940Data, channelCode[1], listInvoiceCode, null, trxCode, trxDate, "All", mapCount, mapCountAmount));
+							mt940Data, mxData, channelCode[1], listInvoiceCode, null, trxCode, trxDate, "All", mapCount, mapCountAmount));
 					
 				}
 			}
