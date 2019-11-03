@@ -36,8 +36,12 @@ import com.balicamp.model.mx.ReconcileDto;
 import com.balicamp.service.TransactionLogsManager;
 import com.balicamp.service.impl.armgmt.ArmgmtManagerImpl;
 import com.balicamp.service.impl.ebs.ExternalBillingSystemManagerImpl;
+import com.balicamp.service.impl.iar.IarManagerImpl;
+import com.balicamp.service.impl.ikrap.IkrapManagerImpl;
+import com.balicamp.service.impl.kalibrasi.KalibrasiManagerImpl;
 import com.balicamp.service.impl.pengujian.PengujianManagerImpl;
 import com.balicamp.service.impl.pengujian.SertifikasiManagerImpl;
+import com.balicamp.service.impl.reor.ReorManagerImpl;
 import com.balicamp.service.parameter.SystemParameterManager;
 import com.balicamp.util.DateUtil;
 import com.balicamp.webapp.action.report.ReportReconcileAction;
@@ -56,18 +60,30 @@ public class ReconcileEodTask extends HttpServlet {
 
 	@Autowired
 	public TransactionLogsManager trxLogManager;
+	
+	@Autowired
+	public ArmgmtManagerImpl armgmtManagerImpl;
 
 	@Autowired
 	public ExternalBillingSystemManagerImpl externalBillingSystem;
 	
 	@Autowired
-	public ArmgmtManagerImpl armgmtManagerImpl;
+	public ReorManagerImpl reorManagerImpl;
+	
+	@Autowired
+	public IarManagerImpl iarManagerImpl;
+	
+	@Autowired
+	public IkrapManagerImpl ikrapManagerImpl;
 	
 	@Autowired
 	public SertifikasiManagerImpl sertifikasiManagerImpl;
 	
 	@Autowired
 	public PengujianManagerImpl pengujianManagerImpl;
+	
+	@Autowired
+	public KalibrasiManagerImpl kalibrasiManagerImpl;
 
 	@SuppressWarnings("unused")
 	private XlstoStringConverter xlsFile;
@@ -330,10 +346,18 @@ public class ReconcileEodTask extends HttpServlet {
 				
 				if(billerCode.equalsIgnoreCase(Constants.BillerConstants.BHP_CODE)){
 					externalBillingSystem.updateInvoiceEod(reconciledList.get(i).getInvoiceNo(), cal.getTime(), "Auto Reconcile By WebAdmin");
+				}else if(billerCode.equalsIgnoreCase(Constants.BillerConstants.REOR_CODE)){
+					reorManagerImpl.updateInvoiceEodSertifikasi(reconciledList.get(i), cal.getTime(), "Auto Reconcile By WebAdmin");
+				}else if(billerCode.equalsIgnoreCase(Constants.BillerConstants.IAR_CODE)){
+					iarManagerImpl.updateInvoiceEodSertifikasi(reconciledList.get(i), cal.getTime(), "Auto Reconcile By WebAdmin");
+				}else if(billerCode.equalsIgnoreCase(Constants.BillerConstants.IKRAP_CODE)){
+					ikrapManagerImpl.updateInvoiceEodSertifikasi(reconciledList.get(i), cal.getTime(), "Auto Reconcile By WebAdmin");
 				}else if(billerCode.equalsIgnoreCase(Constants.BillerConstants.PERANGKAT_CODE)){
 					sertifikasiManagerImpl.updateInvoiceEodSertifikasi(reconciledList.get(i), cal.getTime(), "Auto Reconcile By WebAdmin");
 				}else if(billerCode.equalsIgnoreCase(Constants.BillerConstants.PAP_CODE)){
 					pengujianManagerImpl.updateInvoiceEodPengujian(reconciledList.get(i), cal.getTime(), "Auto Reconcile By WebAdmin");
+				}else if(billerCode.equalsIgnoreCase(Constants.BillerConstants.KALIBRASI_CODE)){
+					kalibrasiManagerImpl.updateInvoiceEodPengujian(reconciledList.get(i), cal.getTime(), "Auto Reconcile By WebAdmin");
 				}
 
 				if (reconciledList.get(i).getInvoiceDendaNo() != null && !reconciledList.get(i).getInvoiceDendaNo().equalsIgnoreCase("-")) {

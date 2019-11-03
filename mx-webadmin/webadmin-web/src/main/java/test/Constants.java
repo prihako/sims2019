@@ -547,6 +547,8 @@ public abstract class Constants {
 		public static final String IKRAP_CODE = "ikrap";
 
 		public static final String PAP_CODE = "pap";
+		
+		public static final String KALIBRASI_CODE = "klbsi";
 	}
 
 	static public class DirectoryFTPConstants {
@@ -566,6 +568,8 @@ public abstract class Constants {
 		public static final String IKRAP_DIR = "ikrap";
 
 		public static final String PAP_DIR = "pap";
+		
+		public static final String KALIBRASI_DIR = "kalibrasi";
 
 	}
 
@@ -574,6 +578,8 @@ public abstract class Constants {
 		public static final String MANDIRI = "chws";
 
 		public static final String BNI = "chws2";
+		
+		public static final String BRI = "chws3";
 
 	}
 
@@ -602,6 +608,8 @@ public abstract class Constants {
 		public static final String IKRAP_CODE = "60";
 
 		public static final String PAP_CODE = "80";
+		
+		public static final String KALIBRASI_CODE = "90";
 
 	}
 
@@ -622,6 +630,8 @@ public abstract class Constants {
 		public static final String IKRAP_CODE = "IKRAP";
 
 		public static final String PAP_CODE = "PAP";
+		
+		public static final String KALIBRASI_CODE = "KLBSI";
 
 	}
 }
