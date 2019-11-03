@@ -22,6 +22,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.balicamp.Constants;
+import com.balicamp.dao.iar.IarDao;
+import com.balicamp.dao.ikrap.IkrapDao;
+import com.balicamp.dao.kalibrasi.KalibrasiDao;
 import com.balicamp.dao.mx.EndpointRcsDao;
 import com.balicamp.dao.mx.TransactionLogDao;
 import com.balicamp.dao.mx.TransactionLogHousekeepingDao;
@@ -29,6 +32,7 @@ import com.balicamp.dao.mx.TransactionsDao;
 import com.balicamp.dao.parameter.SystemParameterDao;
 import com.balicamp.dao.pengujian.PengujianDao;
 import com.balicamp.dao.pengujian.SertifikasiDao;
+import com.balicamp.dao.reor.ReorDao;
 import com.balicamp.dao.sims.BillingDao;
 import com.balicamp.model.mx.AnalisaTransactionLogsDto;
 import com.balicamp.model.mx.EndpointRcs;
@@ -78,10 +82,22 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 	private BillingDao billingDao;
 	
 	@Autowired
+	private ReorDao reorDao;
+	
+	@Autowired
+	private IarDao iarDao;
+	
+	@Autowired
+	private IkrapDao ikrapDao;
+	
+	@Autowired
 	private PengujianDao pengujianDao;
 	
 	@Autowired
 	private SertifikasiDao sertifikasiDao;
+	
+	@Autowired
+	private KalibrasiDao kalibrasiDao;
 
 	@Override
 	public Object getDefaultDao() {
@@ -891,8 +907,6 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 		Map<String, Object[]> resultBilling 	= new HashMap<String, Object[]>();
 //		reconcile item - REOR (20) - hnd
 		Map<String, Object[]> resultReor 		= new HashMap<String, Object[]>();
-//		reconcile item - UNAR (40) - hnd
-		Map<String, Object[]> resultUnar 		= new HashMap<String, Object[]>();
 //		reconcile item - IAR (50) - hnd
 		Map<String, Object[]> resultIar 		= new HashMap<String, Object[]>();
 //		reconcile item - IKRAP (60) - hnd
@@ -915,6 +929,99 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 
 		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 		
+		//KALIBRASI-90
+		if(transactionCode.equals(Constants.EndpointCode.KALIBRASI_CODE)){
+			Object[] kalibrasi 		= null;
+			Object[] kalibrasiRecon = null;
+			Object[] mt940Data 		= null;
+			Object[] mxData			= null;
+			Object[] mxDataAbnormal	= null;
+				
+			if(invoiceNo.size()>0 && !mt940Map.isEmpty()){
+				for (String invoice : invoiceNo) {
+					mt940Data = mt940Map.get(invoice);
+					kalibrasi = kalibrasiDao.x();
+					resultKalibrasi.put(invoice, kalibrasi);
+				}
+			}else if(invoiceNo.size()>0 && !mxMap.isEmpty()){
+				for (String invoice : invoiceNo) {
+					mxDataAbnormal 	= mxMap.get(invoice);
+					kalibrasi 		= kalibrasiDao.x();
+					resultKalibrasi.put(invoice, kalibrasi);
+				}
+			}
+			
+			resultMx = transactionLogDao.findAllTransactionLogsWebadminReconcile(
+					channel, resultKalibrasi.keySet(), clientId, transactionCode, 
+					new String[] { "00" }, new String[] { "00" }, trxDate);
+			 
+			for (String keys : resultKalibrasi.keySet()) {
+				no++;
+				ReconcileDto dto 	= new ReconcileDto();
+				mxData				= resultMx.get(keys);
+				kalibrasiRecon		= resultKalibrasi.get(keys);
+				
+				if (reconcileStatus.equalsIgnoreCase("unsettled")
+						|| reconcileStatus.equalsIgnoreCase("unsettled/need confirmation")
+						|| reconcileStatus.equalsIgnoreCase("all")) {
+							
+					if (mt940Map.keySet().contains(keys) && kalibrasiRecon == null) { //MT940 ada, CORE ga ada
+						String paymentAmount 			= mt940Data[7] != null ? mt940Data[7].toString() : "0L";
+						String invoiceMt940Status 		= "Paid";
+						String invoiceReconcileStatus 	= "Unsettled";
+						dto = saveToReconcileDto(
+								no, keys, kalibrasiRecon, mt940Data, mxData, invoiceMt940Status, "Unpaid", 
+								invoiceReconcileStatus, channel, transactionCode);
+						amountNotSettled = amountNotSettled + (long) Double.parseDouble(paymentAmount);
+						resultTemp.add(dto);
+						notSettled++;
+					}else if (!mt940Map.keySet().contains(keys) && mxMap != null) { //MT940 ga ada, MX ada
+						String paymentAmount 			= mxData[15] != null ? mxData[15].toString() : "0L";
+						String invoiceMt940Status 		= "Unpaid";
+						String invoiceReconcileStatus 	= "Unsettled";
+						dto = saveToReconcileDto(
+								no, keys, kalibrasiRecon, mt940Data, mxData, invoiceMt940Status, "Unpaid", 
+								invoiceReconcileStatus, channel, transactionCode);
+						amountNotSettled = amountNotSettled + (long) Double.parseDouble(paymentAmount);
+						resultTemp.add(dto);
+						notSettled++;
+					}
+				}
+				
+				if (reconcileStatus.equalsIgnoreCase("settled")
+						|| reconcileStatus.equalsIgnoreCase("all")) {
+//					MT940 ada, CORE ada
+					if (mt940Map.keySet().contains(keys) && kalibrasiRecon != null) {
+						String paymentAmount 			= mt940Data[7] != null ? mt940Data[7].toString() : "0L";
+						String invoiceMt940Status 		= "Paid";
+						String invoiceReconcileStatus 	= "Settled";
+						dto = saveToReconcileDto(
+								no, keys, kalibrasiRecon, mt940Data, mxData, invoiceMt940Status, "Paid", 
+								invoiceReconcileStatus, channel, transactionCode);
+						amountSettled = amountSettled + (long) Double.parseDouble(paymentAmount);
+						resultTemp.add(dto);
+						settled++;
+					}
+				}
+			}
+			// Sort By Time
+			try {
+				result.addAll(sortingDataByTransactionTime(resultTemp));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			resultTemp.clear();
+			
+			totalAmount = (amountSettled + amountNotSettled + amountUnconfirmed);
+			mapCountAmount.put	("totalAmount", mapCountAmount.get("totalAmount") + totalAmount);
+			mapCount.put		("settled", mapCount.get("settled") + settled);
+			mapCount.put		("notSettled", mapCount.get("notSettled") + notSettled);
+			mapCount.put		("unconfirmed", mapCount.get("unconfirmed") + unconfirmed);
+			mapCountAmount.put	("amountSettled", mapCountAmount.get("amountSettled") + amountSettled);
+			mapCountAmount.put	("amountNotSettled", mapCountAmount.get("amountNotSettled") + amountNotSettled);
+			mapCountAmount.put	("amountUnconfirmed", mapCountAmount.get("amountUnconfirmed") + amountUnconfirmed);
+		}
+		
 		//PENGUJIAN-80
 		if(transactionCode.equals(Constants.EndpointCode.PAP_CODE)){
 			Object[] pengujian 		= null;
@@ -935,7 +1042,6 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 					pengujian 		= pengujianDao.findBillingByInvoiceAndDate(invoice, trxDate, mxDataAbnormal);
 					resultPengujian.put(invoice, pengujian);
 				}
-				
 			}
 			
 			resultMx = transactionLogDao.findAllTransactionLogsWebadminReconcile(
@@ -1134,6 +1240,285 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 			mapCountAmount.put("amountUnconfirmed", mapCountAmount.get("amountUnconfirmed") + amountUnconfirmed);
 			mapCountAmount.put("totalAmount", mapCountAmount.get("totalAmount") + totalAmount);
 //			mapCountAmount.put("totalAmountDenda", mapCountAmount.get("totalAmountDenda") + totalAmountDenda);
+		}
+
+		//IKRAP-60
+		if(transactionCode.equals(Constants.EndpointCode.IKRAP_CODE)){
+			Object[] ikrap 			= null;
+			Object[] ikrapRecon 	= null;
+			Object[] mt940Data 		= null;
+			Object[] mxData			= null;
+			Object[] mxDataAbnormal	= null;
+				
+			if(invoiceNo.size()>0 && !mt940Map.isEmpty()){
+				for (String invoice : invoiceNo) {
+					mt940Data 	= mt940Map.get(invoice);
+					ikrap 		= ikrapDao.x();
+					resultIkrap.put(invoice, ikrap);
+				}
+			}else if(invoiceNo.size()>0 && !mxMap.isEmpty()){
+				for (String invoice : invoiceNo) {
+					mxDataAbnormal 	= mxMap.get(invoice);
+					ikrap 		= ikrapDao.x();
+					resultIkrap.put(invoice, ikrap);
+				}
+			}
+			
+			resultMx = transactionLogDao.findAllTransactionLogsWebadminReconcile(
+					channel, resultIkrap.keySet(), clientId, transactionCode, 
+					new String[] { "00" }, new String[] { "00" }, trxDate);
+			 
+			for (String keys : resultIkrap.keySet()) {
+				no++;
+				ReconcileDto dto 	= new ReconcileDto();
+				mxData				= resultMx.get(keys);
+				ikrapRecon			= resultIkrap.get(keys);
+				
+				if (reconcileStatus.equalsIgnoreCase("unsettled")
+						|| reconcileStatus.equalsIgnoreCase("unsettled/need confirmation")
+						|| reconcileStatus.equalsIgnoreCase("all")) {
+							
+					if (mt940Map.keySet().contains(keys) && ikrapRecon == null) { //MT940 ada, CORE ga ada
+						String paymentAmount 			= mt940Data[7] != null ? mt940Data[7].toString() : "0L";
+						String invoiceMt940Status 		= "Paid";
+						String invoiceReconcileStatus 	= "Unsettled";
+						dto = saveToReconcileDto(
+								no, keys, ikrapRecon, mt940Data, mxData, invoiceMt940Status, "Unpaid", 
+								invoiceReconcileStatus, channel, transactionCode);
+						amountNotSettled = amountNotSettled + (long) Double.parseDouble(paymentAmount);
+						resultTemp.add(dto);
+						notSettled++;
+					}else if (!mt940Map.keySet().contains(keys) && mxMap != null) { //MT940 ga ada, MX ada
+						String paymentAmount 			= mxData[15] != null ? mxData[15].toString() : "0L";
+						String invoiceMt940Status 		= "Unpaid";
+						String invoiceReconcileStatus 	= "Unsettled";
+						dto = saveToReconcileDto(
+								no, keys, ikrapRecon, mt940Data, mxData, invoiceMt940Status, "Unpaid", 
+								invoiceReconcileStatus, channel, transactionCode);
+						amountNotSettled = amountNotSettled + (long) Double.parseDouble(paymentAmount);
+						resultTemp.add(dto);
+						notSettled++;
+					}
+				}
+				
+				if (reconcileStatus.equalsIgnoreCase("settled")
+						|| reconcileStatus.equalsIgnoreCase("all")) {
+//					MT940 ada, CORE ada
+					if (mt940Map.keySet().contains(keys) && ikrapRecon != null) {
+						String paymentAmount 			= mt940Data[7] != null ? mt940Data[7].toString() : "0L";
+						String invoiceMt940Status 		= "Paid";
+						String invoiceReconcileStatus 	= "Settled";
+						dto = saveToReconcileDto(
+								no, keys, ikrapRecon, mt940Data, mxData, invoiceMt940Status, "Paid", 
+								invoiceReconcileStatus, channel, transactionCode);
+						amountSettled = amountSettled + (long) Double.parseDouble(paymentAmount);
+						resultTemp.add(dto);
+						settled++;
+					}
+				}
+			}
+			// Sort By Time
+			try {
+				result.addAll(sortingDataByTransactionTime(resultTemp));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			resultTemp.clear();
+			
+			totalAmount = (amountSettled + amountNotSettled + amountUnconfirmed);
+			mapCountAmount.put	("totalAmount", mapCountAmount.get("totalAmount") + totalAmount);
+			mapCount.put		("settled", mapCount.get("settled") + settled);
+			mapCount.put		("notSettled", mapCount.get("notSettled") + notSettled);
+			mapCount.put		("unconfirmed", mapCount.get("unconfirmed") + unconfirmed);
+			mapCountAmount.put	("amountSettled", mapCountAmount.get("amountSettled") + amountSettled);
+			mapCountAmount.put	("amountNotSettled", mapCountAmount.get("amountNotSettled") + amountNotSettled);
+			mapCountAmount.put	("amountUnconfirmed", mapCountAmount.get("amountUnconfirmed") + amountUnconfirmed);
+		}
+		
+		//IAR-50
+		if(transactionCode.equals(Constants.EndpointCode.IAR_CODE)){
+			Object[] iar 			= null;
+			Object[] iarRecon 		= null;
+			Object[] mt940Data 		= null;
+			Object[] mxData			= null;
+			Object[] mxDataAbnormal	= null;
+				
+			if(invoiceNo.size()>0 && !mt940Map.isEmpty()){
+				for (String invoice : invoiceNo) {
+					mt940Data 	= mt940Map.get(invoice);
+					iar 		= iarDao.x();
+					resultIar.put(invoice, iar);
+				}
+			}else if(invoiceNo.size()>0 && !mxMap.isEmpty()){
+				for (String invoice : invoiceNo) {
+					mxDataAbnormal 	= mxMap.get(invoice);
+					iar 		= iarDao.x();
+					resultIar.put(invoice, iar);
+				}
+			}
+			
+			resultMx = transactionLogDao.findAllTransactionLogsWebadminReconcile(
+					channel, resultIar.keySet(), clientId, transactionCode, 
+					new String[] { "00" }, new String[] { "00" }, trxDate);
+			 
+			for (String keys : resultIar.keySet()) {
+				no++;
+				ReconcileDto dto 	= new ReconcileDto();
+				mxData				= resultMx.get(keys);
+				iarRecon			= resultIar.get(keys);
+				
+				if (reconcileStatus.equalsIgnoreCase("unsettled")
+						|| reconcileStatus.equalsIgnoreCase("unsettled/need confirmation")
+						|| reconcileStatus.equalsIgnoreCase("all")) {
+							
+					if (mt940Map.keySet().contains(keys) && iarRecon == null) { //MT940 ada, CORE ga ada
+						String paymentAmount 			= mt940Data[7] != null ? mt940Data[7].toString() : "0L";
+						String invoiceMt940Status 		= "Paid";
+						String invoiceReconcileStatus 	= "Unsettled";
+						dto = saveToReconcileDto(
+								no, keys, iarRecon, mt940Data, mxData, invoiceMt940Status, "Unpaid", 
+								invoiceReconcileStatus, channel, transactionCode);
+						amountNotSettled = amountNotSettled + (long) Double.parseDouble(paymentAmount);
+						resultTemp.add(dto);
+						notSettled++;
+					}else if (!mt940Map.keySet().contains(keys) && mxMap != null) { //MT940 ga ada, MX ada
+						String paymentAmount 			= mxData[15] != null ? mxData[15].toString() : "0L";
+						String invoiceMt940Status 		= "Unpaid";
+						String invoiceReconcileStatus 	= "Unsettled";
+						dto = saveToReconcileDto(
+								no, keys, iarRecon, mt940Data, mxData, invoiceMt940Status, "Unpaid", 
+								invoiceReconcileStatus, channel, transactionCode);
+						amountNotSettled = amountNotSettled + (long) Double.parseDouble(paymentAmount);
+						resultTemp.add(dto);
+						notSettled++;
+					}
+				}
+				
+				if (reconcileStatus.equalsIgnoreCase("settled")
+						|| reconcileStatus.equalsIgnoreCase("all")) {
+//					MT940 ada, CORE ada
+					if (mt940Map.keySet().contains(keys) && iarRecon != null) {
+						String paymentAmount 			= mt940Data[7] != null ? mt940Data[7].toString() : "0L";
+						String invoiceMt940Status 		= "Paid";
+						String invoiceReconcileStatus 	= "Settled";
+						dto = saveToReconcileDto(
+								no, keys, iarRecon, mt940Data, mxData, invoiceMt940Status, "Paid", 
+								invoiceReconcileStatus, channel, transactionCode);
+						amountSettled = amountSettled + (long) Double.parseDouble(paymentAmount);
+						resultTemp.add(dto);
+						settled++;
+					}
+				}
+			}
+			// Sort By Time
+			try {
+				result.addAll(sortingDataByTransactionTime(resultTemp));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			resultTemp.clear();
+			
+			totalAmount = (amountSettled + amountNotSettled + amountUnconfirmed);
+			mapCountAmount.put	("totalAmount", mapCountAmount.get("totalAmount") + totalAmount);
+			mapCount.put		("settled", mapCount.get("settled") + settled);
+			mapCount.put		("notSettled", mapCount.get("notSettled") + notSettled);
+			mapCount.put		("unconfirmed", mapCount.get("unconfirmed") + unconfirmed);
+			mapCountAmount.put	("amountSettled", mapCountAmount.get("amountSettled") + amountSettled);
+			mapCountAmount.put	("amountNotSettled", mapCountAmount.get("amountNotSettled") + amountNotSettled);
+			mapCountAmount.put	("amountUnconfirmed", mapCountAmount.get("amountUnconfirmed") + amountUnconfirmed);
+		}
+		
+		//REOR-20
+		if(transactionCode.equals(Constants.EndpointCode.REOR_CODE)){
+			Object[] reor 			= null;
+			Object[] reorRecon 		= null;
+			Object[] mt940Data 		= null;
+			Object[] mxData			= null;
+			Object[] mxDataAbnormal	= null;
+				
+			if(invoiceNo.size()>0 && !mt940Map.isEmpty()){
+				for (String invoice : invoiceNo) {
+					mt940Data 	= mt940Map.get(invoice);
+					reor 		= reorDao.x();
+					resultReor.put(invoice, reor);
+				}
+			}else if(invoiceNo.size()>0 && !mxMap.isEmpty()){
+				for (String invoice : invoiceNo) {
+					mxDataAbnormal 	= mxMap.get(invoice);
+					reor 		= reorDao.x();
+					resultReor.put(invoice, reor);
+				}
+			}
+			
+			resultMx = transactionLogDao.findAllTransactionLogsWebadminReconcile(
+					channel, resultReor.keySet(), clientId, transactionCode, 
+					new String[] { "00" }, new String[] { "00" }, trxDate);
+			 
+			for (String keys : resultReor.keySet()) {
+				no++;
+				ReconcileDto dto 	= new ReconcileDto();
+				mxData				= resultMx.get(keys);
+				reorRecon			= resultReor.get(keys);
+				
+				if (reconcileStatus.equalsIgnoreCase("unsettled")
+						|| reconcileStatus.equalsIgnoreCase("unsettled/need confirmation")
+						|| reconcileStatus.equalsIgnoreCase("all")) {
+							
+					if (mt940Map.keySet().contains(keys) && reorRecon == null) { //MT940 ada, CORE ga ada
+						String paymentAmount 			= mt940Data[7] != null ? mt940Data[7].toString() : "0L";
+						String invoiceMt940Status 		= "Paid";
+						String invoiceReconcileStatus 	= "Unsettled";
+						dto = saveToReconcileDto(
+								no, keys, reorRecon, mt940Data, mxData, invoiceMt940Status, "Unpaid", 
+								invoiceReconcileStatus, channel, transactionCode);
+						amountNotSettled = amountNotSettled + (long) Double.parseDouble(paymentAmount);
+						resultTemp.add(dto);
+						notSettled++;
+					}else if (!mt940Map.keySet().contains(keys) && mxMap != null) { //MT940 ga ada, MX ada
+						String paymentAmount 			= mxData[15] != null ? mxData[15].toString() : "0L";
+						String invoiceMt940Status 		= "Unpaid";
+						String invoiceReconcileStatus 	= "Unsettled";
+						dto = saveToReconcileDto(
+								no, keys, reorRecon, mt940Data, mxData, invoiceMt940Status, "Unpaid", 
+								invoiceReconcileStatus, channel, transactionCode);
+						amountNotSettled = amountNotSettled + (long) Double.parseDouble(paymentAmount);
+						resultTemp.add(dto);
+						notSettled++;
+					}
+				}
+				
+				if (reconcileStatus.equalsIgnoreCase("settled")
+						|| reconcileStatus.equalsIgnoreCase("all")) {
+//					MT940 ada, CORE ada
+					if (mt940Map.keySet().contains(keys) && reorRecon != null) {
+						String paymentAmount 			= mt940Data[7] != null ? mt940Data[7].toString() : "0L";
+						String invoiceMt940Status 		= "Paid";
+						String invoiceReconcileStatus 	= "Settled";
+						dto = saveToReconcileDto(
+								no, keys, reorRecon, mt940Data, mxData, invoiceMt940Status, "Paid", 
+								invoiceReconcileStatus, channel, transactionCode);
+						amountSettled = amountSettled + (long) Double.parseDouble(paymentAmount);
+						resultTemp.add(dto);
+						settled++;
+					}
+				}
+			}
+			// Sort By Time
+			try {
+				result.addAll(sortingDataByTransactionTime(resultTemp));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			resultTemp.clear();
+			
+			totalAmount = (amountSettled + amountNotSettled + amountUnconfirmed);
+			mapCountAmount.put	("totalAmount", mapCountAmount.get("totalAmount") + totalAmount);
+			mapCount.put		("settled", mapCount.get("settled") + settled);
+			mapCount.put		("notSettled", mapCount.get("notSettled") + notSettled);
+			mapCount.put		("unconfirmed", mapCount.get("unconfirmed") + unconfirmed);
+			mapCountAmount.put	("amountSettled", mapCountAmount.get("amountSettled") + amountSettled);
+			mapCountAmount.put	("amountNotSettled", mapCountAmount.get("amountNotSettled") + amountNotSettled);
+			mapCountAmount.put	("amountUnconfirmed", mapCountAmount.get("amountUnconfirmed") + amountUnconfirmed);
 		}
 		
 		//BILLING-10
