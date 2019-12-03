@@ -50,6 +50,7 @@
 		    /WEB-INF/applicationContext-dao-kalibrasi.xml 		   
    		    /WEB-INF/applicationContext-rpc.xml
    		    /WEB-INF/applicationContext-report.xml
+   		    /WEB-INF/applicationContext-channel.xml
 <!--    		    /WEB-INF/applicationContext-jms.xml -->
         </param-value>
 	</context-param>

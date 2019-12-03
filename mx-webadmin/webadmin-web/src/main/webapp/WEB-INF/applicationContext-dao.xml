@@ -9,8 +9,8 @@
    <!-- MX DEV -->
       <bean id="dataSource" class="org.postgresql.ds.PGPoolingDataSource">
 <!--         <property name="serverName" value="10.1.1.22" /> -->
-        <!--<property name="serverName" value="localhost" />-->
-        <property name="serverName" value="10.1.1.22" /> 
+        <property name="serverName" value="localhost" />
+<!--         <property name="serverName" value="10.1.1.22" />  -->
         <property name="portNumber" value="5432" />
         <property name="databaseName" value="mx_webadmin" />
         <property name="user" value="mx_usr" />
@@ -128,8 +128,8 @@
 	
 	<bean id="cronTriggerReconcileEod" class="org.springframework.scheduling.quartz.CronTriggerBean">
 		<property name="jobDetail" ref="runReconcileEodJob" />
-		<!--<property name="cronExpression" value="0 38 9 * * ?" />  -->
-		<property name="cronExpression" value="0 0 8 1/1 * ? *"/>
+		<property name="cronExpression" value="0 21 23 * * ?" /> 
+<!-- 		<property name="cronExpression" value="0 0 8 1/1 * ? *"/> -->
 		<!--<property name="cronExpression" value="0 0 4 ? * FRI *" />-->
 		<!--<property name="cronExpression" value="0 0 4 1/1 * ? *" />-->
 	</bean>

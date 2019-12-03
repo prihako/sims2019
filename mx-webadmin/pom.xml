@@ -204,6 +204,14 @@
 			<artifactId>jpos</artifactId>
 			<version>1.9.0</version>
 		</dependency>
+		
+		<!-- GSON -->
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.2.4</version>
+		</dependency>
+		
 	</dependencies>
 	<modules>
 		<module>webadmin-dao</module>

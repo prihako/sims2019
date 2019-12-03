@@ -9,9 +9,9 @@
 
       <bean id="dataSourcePengujian" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
-		<property name="url" value="jdbc:sqlserver://223.27.148.67:1433;databaseName=sip2telv3" />
-		<property name="username" value="postel" />
-		<property name="password" value="postel123" />
+		<property name="url" value="jdbc:sqlserver://10.1.125.137:1433;databaseName=siptel-dev" />
+		<property name="username" value="balaiuji" />
+		<property name="password" value="J0j0rL4h" />
 	</bean>
     
     <!-- Hibernate SessionFactory -->

@@ -43,6 +43,7 @@ import com.balicamp.service.impl.pengujian.PengujianManagerImpl;
 import com.balicamp.service.impl.pengujian.SertifikasiManagerImpl;
 import com.balicamp.service.impl.reor.ReorManagerImpl;
 import com.balicamp.service.parameter.SystemParameterManager;
+import com.balicamp.soap.ws.channel.ReorChannel;
 import com.balicamp.util.DateUtil;
 import com.balicamp.webapp.action.report.ReportReconcileAction;
 import com.balicamp.webapp.action.report.XlstoStringConverter;
@@ -84,6 +85,9 @@ public class ReconcileEodTask extends HttpServlet {
 	
 	@Autowired
 	public KalibrasiManagerImpl kalibrasiManagerImpl;
+	
+	@Autowired
+	private ReorChannel reorChannel;
 
 	@SuppressWarnings("unused")
 	private XlstoStringConverter xlsFile;
@@ -126,6 +130,8 @@ public class ReconcileEodTask extends HttpServlet {
 		// (dateFormat.format(cal.getTime())).toString();
 
 		// Get All Channel
+		
+		
 		init();
 		String sql = "SELECT * FROM endpoints WHERE type = 'channel'";
 		Connection con = null;
@@ -180,6 +186,7 @@ public class ReconcileEodTask extends HttpServlet {
 			doGetReconcileListByMt940EodNew(billerIterator.next(), channelList);
 		}
 		log.info("RECONCILE EOD FINISH");
+		
 	}
 
 	public void doGetReconcileListByMt940EodNew(String billerCode, List<String> channelList) throws FileNotFoundException, JRException, IOException, SQLException {
@@ -347,17 +354,17 @@ public class ReconcileEodTask extends HttpServlet {
 				if(billerCode.equalsIgnoreCase(Constants.BillerConstants.BHP_CODE)){
 					externalBillingSystem.updateInvoiceEod(reconciledList.get(i).getInvoiceNo(), cal.getTime(), "Auto Reconcile By WebAdmin");
 				}else if(billerCode.equalsIgnoreCase(Constants.BillerConstants.REOR_CODE)){
-					reorManagerImpl.updateInvoiceEodSertifikasi(reconciledList.get(i), cal.getTime(), "Auto Reconcile By WebAdmin");
+//					reorManagerImpl.updateInvoiceEodSertifikasi(reconciledList.get(i), cal.getTime(), "Auto Reconcile By WebAdmin");
 				}else if(billerCode.equalsIgnoreCase(Constants.BillerConstants.IAR_CODE)){
-					iarManagerImpl.updateInvoiceEodSertifikasi(reconciledList.get(i), cal.getTime(), "Auto Reconcile By WebAdmin");
+//					iarManagerImpl.updateInvoiceEodSertifikasi(reconciledList.get(i), cal.getTime(), "Auto Reconcile By WebAdmin");
 				}else if(billerCode.equalsIgnoreCase(Constants.BillerConstants.IKRAP_CODE)){
-					ikrapManagerImpl.updateInvoiceEodSertifikasi(reconciledList.get(i), cal.getTime(), "Auto Reconcile By WebAdmin");
+//					ikrapManagerImpl.updateInvoiceEodSertifikasi(reconciledList.get(i), cal.getTime(), "Auto Reconcile By WebAdmin");
 				}else if(billerCode.equalsIgnoreCase(Constants.BillerConstants.PERANGKAT_CODE)){
 					sertifikasiManagerImpl.updateInvoiceEodSertifikasi(reconciledList.get(i), cal.getTime(), "Auto Reconcile By WebAdmin");
 				}else if(billerCode.equalsIgnoreCase(Constants.BillerConstants.PAP_CODE)){
 					pengujianManagerImpl.updateInvoiceEodPengujian(reconciledList.get(i), cal.getTime(), "Auto Reconcile By WebAdmin");
 				}else if(billerCode.equalsIgnoreCase(Constants.BillerConstants.KALIBRASI_CODE)){
-					kalibrasiManagerImpl.updateInvoiceEodPengujian(reconciledList.get(i), cal.getTime(), "Auto Reconcile By WebAdmin");
+//					kalibrasiManagerImpl.updateInvoiceEodPengujian(reconciledList.get(i), cal.getTime(), "Auto Reconcile By WebAdmin");
 				}
 
 				if (reconciledList.get(i).getInvoiceDendaNo() != null && !reconciledList.get(i).getInvoiceDendaNo().equalsIgnoreCase("-")) {
