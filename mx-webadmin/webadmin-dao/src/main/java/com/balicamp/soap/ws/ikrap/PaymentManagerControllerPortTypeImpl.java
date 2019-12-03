@@ -26,7 +26,7 @@ import javax.xml.ws.ResponseWrapper;
                       serviceName = "PaymentManagerControllerService",
                       portName = "PaymentManagerControllerPort",
                       targetNamespace = "urn:PaymentManagerControllerwsdl",
-                      wsdlLocation = "file:/F:/sims2019/sims_git/sims2019/mx-webadmin/webadmin-dao/src/main/resources/wsdl/IKRAP.wsdl",
+                      wsdlLocation = "classpath:wsdl/IKRAP.wsdl",
                       endpointInterface = "paymentmanagercontrollerwsdl.PaymentManagerControllerPortType")
                       
 public class PaymentManagerControllerPortTypeImpl implements PaymentManagerControllerPortType {

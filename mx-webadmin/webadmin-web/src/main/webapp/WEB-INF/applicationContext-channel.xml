@@ -7,20 +7,26 @@
             http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
             http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
 
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location">
+			<value>classpath:channel.properties</value>
+		</property>
+	</bean>
+	
     <bean id="reorChannel" class="com.balicamp.soap.ws.channel.ReorChannel">
-        <property name="address" value="http://103.17.164.52:8282/index.php?r=paymentManager/index&amp;ws=1"/>
+        <property name="address" value="${reor_url}"/>
     </bean>
     
     <bean id="iarChannel" class="com.balicamp.soap.ws.channel.IarChannel">
-        <property name="address" value="http://103.17.164.185:8282/amatir/ws/index.php?r=paymentManager/index&amp;ws=1"/>
+        <property name="address" value="${iar_url}"/>
     </bean>
     
     <bean id="ikrapChannel" class="com.balicamp.soap.ws.channel.IkrapChannel">
-        <property name="address" value="http://103.17.164.185:8282/ikrap/ws/index.php?r=paymentManager/index&amp;ws=1"/>
+        <property name="address" value="${ikrap_url}"/>
     </bean>
     
     <bean id="klbsiChannel" class="com.balicamp.soap.ws.channel.KlbsiChannel">
-        <property name="address" value="http://10.1.125.185/kalibrasi-pg/web/index.php"/>
+        <property name="address" value="${klbsi_url}"/>
     </bean>
 
 </beans>

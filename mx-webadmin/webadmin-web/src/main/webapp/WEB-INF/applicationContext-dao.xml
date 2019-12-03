@@ -128,7 +128,7 @@
 	
 	<bean id="cronTriggerReconcileEod" class="org.springframework.scheduling.quartz.CronTriggerBean">
 		<property name="jobDetail" ref="runReconcileEodJob" />
-		<property name="cronExpression" value="0 21 23 * * ?" /> 
+		<property name="cronExpression" value="0 25 14 * * ?" /> 
 <!-- 		<property name="cronExpression" value="0 0 8 1/1 * ? *"/> -->
 		<!--<property name="cronExpression" value="0 0 4 ? * FRI *" />-->
 		<!--<property name="cronExpression" value="0 0 4 1/1 * ? *" />-->

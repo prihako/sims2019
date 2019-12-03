@@ -131,6 +131,12 @@ public class ReconcileEodTask extends HttpServlet {
 
 		// Get All Channel
 		
+		/* Keperluan Testing
+		ReconcileDto dto = new ReconcileDto();
+		dto.setInvoiceNo("1111");
+		dto.setClientId("2222");
+		reorChannel.payment(dto, null, null);
+		*/
 		
 		init();
 		String sql = "SELECT * FROM endpoints WHERE type = 'channel'";
