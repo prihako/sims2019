@@ -24,7 +24,8 @@ public class ReorDaoHibernate extends ReorGenericDaoHibernate<BaseAdminModel, St
 	@Override
 	public Object[] findBillingByInvoiceAndDate(String invoice, Date trxDate,
 			Object[] mt940Data) {
-		// TODO Auto-generated method stub
+		Character type = invoice.charAt(0);
+		
 		String sql = "select "
 					+ "cast(TicketID AS varchar), "
 					+ "cast(StateActivityId AS varchar), "

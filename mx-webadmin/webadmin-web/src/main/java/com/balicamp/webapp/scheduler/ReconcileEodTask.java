@@ -43,6 +43,9 @@ import com.balicamp.service.impl.pengujian.PengujianManagerImpl;
 import com.balicamp.service.impl.pengujian.SertifikasiManagerImpl;
 import com.balicamp.service.impl.reor.ReorManagerImpl;
 import com.balicamp.service.parameter.SystemParameterManager;
+import com.balicamp.soap.ws.channel.IarChannel;
+import com.balicamp.soap.ws.channel.IkrapChannel;
+import com.balicamp.soap.ws.channel.KlbsiChannel;
 import com.balicamp.soap.ws.channel.ReorChannel;
 import com.balicamp.util.DateUtil;
 import com.balicamp.webapp.action.report.ReportReconcileAction;
@@ -88,6 +91,15 @@ public class ReconcileEodTask extends HttpServlet {
 	
 	@Autowired
 	private ReorChannel reorChannel;
+	
+	@Autowired
+	private IarChannel iarChannel;
+	
+	@Autowired
+	private KlbsiChannel klbsiChannel;
+	
+	@Autowired
+	private IkrapChannel ikrapChannel;
 
 	@SuppressWarnings("unused")
 	private XlstoStringConverter xlsFile;
@@ -131,13 +143,16 @@ public class ReconcileEodTask extends HttpServlet {
 
 		// Get All Channel
 		
-		/* Keperluan Testing
+		/* Keperluan Testing */
 		ReconcileDto dto = new ReconcileDto();
 		dto.setInvoiceNo("1111");
 		dto.setClientId("2222");
 		reorChannel.payment(dto, null, null);
-		*/
+		iarChannel.payment(dto, null, null);
+		ikrapChannel.payment(dto, null, null);
+		klbsiChannel.payment(dto, null, null);
 		
+		/*
 		init();
 		String sql = "SELECT * FROM endpoints WHERE type = 'channel'";
 		Connection con = null;
@@ -192,7 +207,7 @@ public class ReconcileEodTask extends HttpServlet {
 			doGetReconcileListByMt940EodNew(billerIterator.next(), channelList);
 		}
 		log.info("RECONCILE EOD FINISH");
-		
+		*/
 	}
 
 	public void doGetReconcileListByMt940EodNew(String billerCode, List<String> channelList) throws FileNotFoundException, JRException, IOException, SQLException {
