@@ -143,7 +143,7 @@ public class ReconcileEodTask extends HttpServlet {
 
 		// Get All Channel
 		
-		/* Keperluan Testing */
+		/* Keperluan Testing 
 		ReconcileDto dto = new ReconcileDto();
 		dto.setInvoiceNo("1111");
 		dto.setClientId("2222");
@@ -151,8 +151,8 @@ public class ReconcileEodTask extends HttpServlet {
 		iarChannel.payment(dto, null, null);
 		ikrapChannel.payment(dto, null, null);
 		klbsiChannel.payment(dto, null, null);
+		*/
 		
-		/*
 		init();
 		String sql = "SELECT * FROM endpoints WHERE type = 'channel'";
 		Connection con = null;
@@ -207,7 +207,7 @@ public class ReconcileEodTask extends HttpServlet {
 			doGetReconcileListByMt940EodNew(billerIterator.next(), channelList);
 		}
 		log.info("RECONCILE EOD FINISH");
-		*/
+		
 	}
 
 	public void doGetReconcileListByMt940EodNew(String billerCode, List<String> channelList) throws FileNotFoundException, JRException, IOException, SQLException {
