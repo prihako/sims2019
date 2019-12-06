@@ -375,17 +375,17 @@ public class ReconcileEodTask extends HttpServlet {
 				if(billerCode.equalsIgnoreCase(Constants.BillerConstants.BHP_CODE)){
 					externalBillingSystem.updateInvoiceEod(reconciledList.get(i).getInvoiceNo(), cal.getTime(), "Auto Reconcile By WebAdmin");
 				}else if(billerCode.equalsIgnoreCase(Constants.BillerConstants.REOR_CODE)){
-//					reorManagerImpl.updateInvoiceEodSertifikasi(reconciledList.get(i), cal.getTime(), "Auto Reconcile By WebAdmin");
+					reorChannel.payment(reconciledList.get(i), cal.getTime(), "Auto Reconcile By WebAdmin");
 				}else if(billerCode.equalsIgnoreCase(Constants.BillerConstants.IAR_CODE)){
-//					iarManagerImpl.updateInvoiceEodSertifikasi(reconciledList.get(i), cal.getTime(), "Auto Reconcile By WebAdmin");
+					iarChannel.payment(reconciledList.get(i), cal.getTime(), "Auto Reconcile By WebAdmin");
 				}else if(billerCode.equalsIgnoreCase(Constants.BillerConstants.IKRAP_CODE)){
-//					ikrapManagerImpl.updateInvoiceEodSertifikasi(reconciledList.get(i), cal.getTime(), "Auto Reconcile By WebAdmin");
+					ikrapChannel.payment(reconciledList.get(i), cal.getTime(), "Auto Reconcile By WebAdmin");
 				}else if(billerCode.equalsIgnoreCase(Constants.BillerConstants.PERANGKAT_CODE)){
 					sertifikasiManagerImpl.updateInvoiceEodSertifikasi(reconciledList.get(i), cal.getTime(), "Auto Reconcile By WebAdmin");
 				}else if(billerCode.equalsIgnoreCase(Constants.BillerConstants.PAP_CODE)){
 					pengujianManagerImpl.updateInvoiceEodPengujian(reconciledList.get(i), cal.getTime(), "Auto Reconcile By WebAdmin");
 				}else if(billerCode.equalsIgnoreCase(Constants.BillerConstants.KALIBRASI_CODE)){
-//					kalibrasiManagerImpl.updateInvoiceEodPengujian(reconciledList.get(i), cal.getTime(), "Auto Reconcile By WebAdmin");
+					klbsiChannel.payment(reconciledList.get(i), cal.getTime(), "Auto Reconcile By WebAdmin");
 				}
 
 				if (reconciledList.get(i).getInvoiceDendaNo() != null && !reconciledList.get(i).getInvoiceDendaNo().equalsIgnoreCase("-")) {
