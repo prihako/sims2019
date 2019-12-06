@@ -426,7 +426,14 @@ public class MT940ParserBni {
     				invoiceId = strDescriptions[2].substring(0,7);
     				transactionCode = strDescriptions[2].substring(7,9);
     				clientId = strDescriptions[2].substring(9);
-    			}else if(endpointCode.equals(PostelConstant.PER01) || endpointCode.equals(PostelConstant.PAP)){
+    			}else if(endpointCode.equals(PostelConstant.PER01) ||
+    					endpointCode.equals(PostelConstant.PAP)|| 
+    					endpointCode.equals(PostelConstant.REOR) ||
+    					endpointCode.equals(PostelConstant.IAR) ||
+    					endpointCode.equals(PostelConstant.IKRAP) ||
+    					endpointCode.equals(PostelConstant.KLBSI) ||
+    					endpointCode.equals(PostelConstant.UNAR) ||
+    					endpointCode.equals(PostelConstant.SKOR)){
     				Date now = new Date();
     				SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
     				String year = sdf.format(now);

@@ -26,26 +26,41 @@ public class ReorDaoHibernate extends ReorGenericDaoHibernate<BaseAdminModel, St
 			Object[] mt940Data) {
 		Character type = invoice.charAt(0);
 		
-		String sql = "select "
-					+ "cast(TicketID AS varchar), "
-					+ "cast(StateActivityId AS varchar), "
-					+ "cast(NoInvoice AS varchar), "
-					+ "cast(TanggalBayar AS varchar), "
-					+ "cast(TotalBiaya AS varchar), "
-					+ "cast(Bank AS varchar), "
-					+ "cast(PerusahaanName AS varchar), "
-					+ "cast(NoPermohonan AS varchar), "
-					+ "cast(Month AS varchar), "
-					+ "cast(Year AS varchar), "
-					+ "cast(TanggalPendaftaranPengujian AS varchar) "
-					+ "from sip2telv3.dbo.siptel_Ticket where cast(TicketID AS varchar) = cast(:ticketID AS varchar)";
+		String sql = null; 
+		
+		String sql_1 = "select "
+				+ "inv.invoice_number, "
+				+ "lemdiks.id_lemdik client_id, "
+				+ "inv.payment_date, "
+				+ "inv.due_date, "
+				+ "lemdiks.nama_lemdik, "
+				+ "inv.amount "
+				+ "from invoices inv, exams exams, lemdiks lemdiks where "
+				+ "inv.id_exam = exams.id_exam "
+				+ "and lemdiks.id_lemdik = lemdiks.id_lemdik "
+				+ "and inv.invoice_number = :invoiceNo ";
+		
+		String sql_2 = "select "
+				+"inv.invoice_number, "
+				+"pay.id_payment client_id, "
+				+"inv.payment_date, "
+				+"inv.due_date, "
+				+"reg.nama_registrant, "
+				+"inv.amount "
+				+"from "
+				+"invoices inv, payments pay, registrants reg "
+				+"where inv.id_invoice = pay.id_invoice "
+				+"and pay.id_registrant = reg.id_registrant"
+				+ "and inv.invoice_number = :invoiceNo ";
+		
+		if(type.equals('1')) {
+			sql = sql_1;
+		}else {
+			sql = sql_2;
+		}
 		
 		Query query = getSessionFactory().getCurrentSession().createSQLQuery(sql);
-		if(invoice.length() > 6) {
-			query.setParameter("ticketID", invoice.substring(0,invoice.length()-6));
-		}else {
-			query.setParameter("ticketID", invoice);
-		}
+		query.setParameter("invoiceNo", invoice);
 			
 		Object obj = new Object();
 		Object[] objectArray = null;

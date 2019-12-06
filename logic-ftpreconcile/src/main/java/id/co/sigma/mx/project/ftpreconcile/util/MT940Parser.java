@@ -608,7 +608,14 @@ public class MT940Parser {
     			if(endpointCode.equals(PostelConstant.BILS0)){
     				invoiceId = strSecond.substring(20,27);
     				clientId = strSecond.substring(27,strSecond.length());
-    			}else if(endpointCode.equals(PostelConstant.PER01) || endpointCode.equals(PostelConstant.PAP)){    				
+    			}else if(endpointCode.equals(PostelConstant.PER01) || 
+    					endpointCode.equals(PostelConstant.PAP) || 
+    					endpointCode.equals(PostelConstant.REOR) ||
+    					endpointCode.equals(PostelConstant.IAR) ||
+    					endpointCode.equals(PostelConstant.IKRAP) ||
+    					endpointCode.equals(PostelConstant.KLBSI) ||
+    					endpointCode.equals(PostelConstant.UNAR) ||
+    					endpointCode.equals(PostelConstant.SKOR)){    				
     				Date now = new Date();
     				SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
     				String year = sdf.format(now);

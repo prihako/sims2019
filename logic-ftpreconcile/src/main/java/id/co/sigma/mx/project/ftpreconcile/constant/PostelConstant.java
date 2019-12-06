@@ -59,6 +59,17 @@ public class PostelConstant {
     public static final String PER01 = "70";
     
     public static final String PAP = "80";
+    
+    public static final String REOR = "20";
+    
+    public static final String SKOR = "30";
 
+    public static final String UNAR = "40";
+    
+    public static final String IAR = "50";
+    
+    public static final String IKRAP = "60";
+    
+    public static final String KLBSI = "90";
 }
 

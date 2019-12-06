@@ -31,7 +31,7 @@ public class IkrapDaoHibernate extends IkrapGenericDaoHibernate<BaseAdminModel, 
 		// TODO Auto-generated method stub
 		String sql = "select "
 					+"inv.invoice_number, "
-					+"pay.payment_date, "
+					+"reg.id_registrant client_Id, "
 					+"pay.due_date, "
 					+"pay.payment_date, "
 					+"nama_registrant, "

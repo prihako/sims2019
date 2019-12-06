@@ -35,6 +35,7 @@ public class IarDaoHibernate extends IarGenericDaoHibernate<BaseAdminModel, Stri
 		// TODO Auto-generated method stub
 		String sql = "select "
 					+"inv.invoice_number, "
+					+"reg.id_registrant client_Id, "
 					+"pay.payment_date, "
 					+"pay.due_date, "
 					+"pay.payment_date, "
