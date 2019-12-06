@@ -1253,13 +1253,13 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 			if(invoiceNo.size()>0 && !mt940Map.isEmpty()){
 				for (String invoice : invoiceNo) {
 					mt940Data 	= mt940Map.get(invoice);
-//					ikrap 		= ikrapDao.x();
+					ikrap 		= ikrapDao.findBillingByInvoiceAndDate(invoice, trxDate, mt940Data);
 					resultIkrap.put(invoice, ikrap);
 				}
 			}else if(invoiceNo.size()>0 && !mxMap.isEmpty()){
 				for (String invoice : invoiceNo) {
 					mxDataAbnormal 	= mxMap.get(invoice);
-//					ikrap 		= ikrapDao.x();
+					ikrap 		= ikrapDao.findBillingByInvoiceAndDate(invoice, trxDate, mt940Data);
 					resultIkrap.put(invoice, ikrap);
 				}
 			}
@@ -1346,13 +1346,13 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 			if(invoiceNo.size()>0 && !mt940Map.isEmpty()){
 				for (String invoice : invoiceNo) {
 					mt940Data 	= mt940Map.get(invoice);
-//					iar 		= iarDao.x();
+					iar 		= iarDao.findBillingByInvoiceAndDate(invoice, trxDate, mt940Data);
 					resultIar.put(invoice, iar);
 				}
 			}else if(invoiceNo.size()>0 && !mxMap.isEmpty()){
 				for (String invoice : invoiceNo) {
 					mxDataAbnormal 	= mxMap.get(invoice);
-//					iar 		= iarDao.x();
+					iar 		= iarDao.findBillingByInvoiceAndDate(invoice, trxDate, mt940Data);
 					resultIar.put(invoice, iar);
 				}
 			}
@@ -1439,13 +1439,13 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 			if(invoiceNo.size()>0 && !mt940Map.isEmpty()){
 				for (String invoice : invoiceNo) {
 					mt940Data 	= mt940Map.get(invoice);
-//					reor 		= reorDao.x();
+					reor 		= reorDao.findBillingByInvoiceAndDate(invoice, trxDate, mt940Data);
 					resultReor.put(invoice, reor);
 				}
 			}else if(invoiceNo.size()>0 && !mxMap.isEmpty()){
 				for (String invoice : invoiceNo) {
 					mxDataAbnormal 	= mxMap.get(invoice);
-//					reor 		= reorDao.x();
+					reor 		= reorDao.findBillingByInvoiceAndDate(invoice, trxDate, mt940Data);
 					resultReor.put(invoice, reor);
 				}
 			}
