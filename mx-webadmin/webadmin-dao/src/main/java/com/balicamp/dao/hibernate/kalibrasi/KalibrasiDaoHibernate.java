@@ -23,7 +23,6 @@ public class KalibrasiDaoHibernate extends KalibrasiGenericDaoHibernate<BaseAdmi
 	@Override
 	public Object[] findBillingByInvoiceAndDate(String invoice, Date trxDate,
 			Object[] mt940Data) {
-		// TODO Auto-generated method stub
 		String sql = "select " 
 				+ "SP2.SP2_NO, "
 				+ "CUS.CUST_ID, " 
@@ -39,10 +38,9 @@ public class KalibrasiDaoHibernate extends KalibrasiGenericDaoHibernate<BaseAdmi
 				+ "WHERE SP2.APL_ID = APL.APL_ID "
 				+ "AND SP2.SP2_ID = BIAYA.SP2_ID "
 				+ "AND APL.CUST_ID = CUS.CUST_ID "
-				+"where inv.invoice_number = :invoice "; 
+				+ likeClauseGenerator(invoice);
 		
 		Query query = getSessionFactory().getCurrentSession().createSQLQuery(sql);
-		query.setParameter("invoice", invoice);
 			
 		Object obj = new Object();
 		Object[] objectArray = null;
@@ -59,4 +57,51 @@ public class KalibrasiDaoHibernate extends KalibrasiGenericDaoHibernate<BaseAdmi
 	public boolean updateInvoice(ReconcileDto reconcile, Date paymentDate, String remarks) {
 		return false;
 	}
+	
+	private String likeClauseGenerator(String invoiceNo){
+		
+		String sequence, month, year;
+		
+		if(invoiceNo.length() == 10){
+			sequence   = invoiceNo.substring(0, 4);
+			month      = invoiceNo.substring(4, 6);
+			year       = invoiceNo.substring(invoiceNo.length()-4);
+		}else{
+			sequence   = invoiceNo.substring(0, 5);
+			month      = invoiceNo.substring(5, 7);
+			year       = invoiceNo.substring(invoiceNo.length()-4);
+		}
+
+		String romanMonth = "";
+		if(month.equals("01")) {
+			romanMonth = "I";
+		}else if(month.equals("02")) {
+			romanMonth = "II";
+		}else if(month.equals("03")) {
+			romanMonth = "III";
+		}else if(month.equals("04")) {
+			romanMonth = "IV";
+		}else if(month.equals("05")) {
+			romanMonth = "V";
+		}else if(month.equals("06")) {
+			romanMonth = "VI";
+		}else if(month.equals("07")) {
+			romanMonth = "VII";
+		}else if(month.equals("08")) {
+			romanMonth = "VIII";
+		}else if(month.equals("09")) {
+			romanMonth = "IX";
+		}else if(month.equals("10")) {
+			romanMonth = "X";
+		}else if(month.equals("11")) {
+			romanMonth = "XI";
+		}else if(month.equals("12")) {
+			romanMonth = "XII";
+		}
+		
+		String like1 = "SP2_NO LIKE '%" + sequence + "/SP2.KAL/BBPPT";
+		String like2 = "SP2_NO LIKE '%/" + romanMonth + "/" + year;
+				
+		return like1 + " AND " + like2;
+    }
 }
