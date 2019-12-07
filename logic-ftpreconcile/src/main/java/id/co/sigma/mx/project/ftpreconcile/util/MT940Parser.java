@@ -317,6 +317,7 @@ public class MT940Parser {
                 		
                 		if(paymentUtil.getTransactionCode(accountNo, transactionCode)){
 		                	transaction.setTransactionCode(transactionCode);
+							endpointCode = transactionCode;
 		                }else{
 		                	isErrorTransactionCode = true;
 		                	transaction.setTransactionCode(transactionCode);
@@ -324,7 +325,6 @@ public class MT940Parser {
 		                	transaction.setErrorDesc(PostelConstant.UNKNOWN_TRANSACTION_CODE + ", code : " + transactionCode);
 		                }
                 		
-                		endpointCode = transactionCode;
                 	}
                 }
 
