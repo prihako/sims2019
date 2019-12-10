@@ -1896,14 +1896,13 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 		log.info("dto 2 : " + dto.toString());
 		
 //		Pengujian guide:
-//		0 TicketID,			1 StateActivityId, 	2 NoInvoice, 	3 TanggalBayar, 4 TotalBiaya, 					5 Bank,
-//		6 PerusahaanName, 	7 NoPermohonan, 	8 Month, 		9 Year, 		10 TanggalPendaftaranPengujian
+//		0 Invoice No H2H,	1 TglBayar, 	2 JmlBayar, 	3 CustName, 	4 CustID,		5 SP2/Remarks
 		if(transactionCode.equals(Constants.EndpointCode.PAP_CODE) && coreData != null){
-			dto.setClientId			(coreData[0]  != null ? coreData[0].toString() : "-");
-			dto.setClientName		(coreData[6]  != null ? coreData[6].toString() : "-");
-			dto.setRemarks			(coreData[10] != null ? coreData[10].toString() : "-");
-			dto.setPaymentDateSims	(dto.getPaymentDateSims() 	== null && coreData[3]  != null ? coreData[3].toString() : "-");
-			dto.setTrxAmount		(dto.getTrxAmount() 		== null && coreData[4]  != null ? numFormat.format(coreData[4]) : "-");
+			dto.setClientId			(coreData[4]  != null ? coreData[4].toString() : "-");
+			dto.setClientName		(coreData[3]  != null ? coreData[3].toString() : "-");
+			dto.setRemarks			(coreData[5] != null ? coreData[5].toString() : "-");
+			dto.setPaymentDateSims	(dto.getPaymentDateSims() 	== null && coreData[1]  != null ? coreData[1].toString() : "-");
+			dto.setTrxAmount		(dto.getTrxAmount() 		== null && coreData[2]  != null ? numFormat.format(coreData[2]) : "-");
 		}
 		
 		log.info("dto 3 : " + dto.toString());

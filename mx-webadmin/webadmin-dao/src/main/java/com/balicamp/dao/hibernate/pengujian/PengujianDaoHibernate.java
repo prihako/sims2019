@@ -27,25 +27,26 @@ public class PengujianDaoHibernate extends
 			Object[] mt940Data) {
 		// TODO Auto-generated method stub
 			String sql = "select "
-					+ "cast(TicketID AS varchar), "
-					+ "cast(StateActivityId AS varchar), "
-					+ "cast(NoInvoice AS varchar), "
-					+ "cast(TanggalBayar AS varchar), "
-					+ "cast(TotalBiaya AS varchar), "
-					+ "cast(Bank AS varchar), "
-					+ "cast(PerusahaanName AS varchar), "
-					+ "cast(NoPermohonan AS varchar), "
-					+ "cast(Month AS varchar), "
-					+ "cast(Year AS varchar), "
-					+ "cast(TanggalPendaftaranPengujian AS varchar) "
-					+ "from sip2telv3.dbo.siptel_Ticket where cast(TicketID AS varchar) = cast(:ticketID AS varchar)";
+					+ "cast(sp2.SP2_NO_H2H AS varchar), "
+					+ "cast(info.TGL_BAYAR AS varchar), "
+					+ "cast(info.JUMLAH_BAYAR AS varchar), "
+					+ "cast(cust.CUST_NAME AS varchar), "
+					+ "cast(sp2.SP2_NO AS varchar) "
+					+ "from T_SP2 sp2, T_INFO_BAYAR info, T_APLIKASI apl, T_CUSTOMER cust "
+					+ "where "
+					+ "cast(sp2.SP2_ID AS varchar)=cast(info.SP2_ID AS varchar) "
+					+ "and cast(sp2.APL_ID AS varchar)=cast(apl.APL_ID AS varchar) "
+					+ "and cast(apl.CUST_ID AS varchar)=cast(cust.CUST_ID AS varchar) "
+					+ "and cast(sp2.SP2_NO_H2H AS varchar) = :ticketID";
 		
 		Query query = getSessionFactory().getCurrentSession().createSQLQuery(sql);
-		if(invoice.length() > 6) {
-			query.setParameter("ticketID", invoice.substring(0,invoice.length()-6));
-		}else {
-			query.setParameter("ticketID", invoice);
-		}
+		query.setParameter("ticketID", invoice);
+		
+//		if(invoice.length() > 6) {
+//			query.setParameter("ticketID", invoice.substring(0,invoice.length()-6));
+//		}else {
+//			query.setParameter("ticketID", invoice);
+//		}
 			
 		Object obj = new Object();
 		Object[] objectArray = null;

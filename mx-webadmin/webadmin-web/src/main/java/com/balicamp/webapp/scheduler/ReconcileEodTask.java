@@ -391,7 +391,8 @@ public class ReconcileEodTask extends HttpServlet {
 				}else if(billerCode.equalsIgnoreCase(Constants.BillerConstants.PERANGKAT_CODE)){
 					sertifikasiManagerImpl.updateInvoiceEodSertifikasi(reconciledList.get(i), cal.getTime(), "Auto Reconcile By WebAdmin");
 				}else if(billerCode.equalsIgnoreCase(Constants.BillerConstants.PAP_CODE)){
-					pengujianManagerImpl.updateInvoiceEodPengujian(reconciledList.get(i), cal.getTime(), "Auto Reconcile By WebAdmin");
+					pengujianChannel.payment(reconciledList.get(i), cal.getTime(), "Auto Reconcile By WebAdmin");
+//					pengujianManagerImpl.updateInvoiceEodPengujian(reconciledList.get(i), cal.getTime(), "Auto Reconcile By WebAdmin");
 				}else if(billerCode.equalsIgnoreCase(Constants.BillerConstants.KALIBRASI_CODE)){
 					klbsiChannel.payment(reconciledList.get(i), cal.getTime(), "Auto Reconcile By WebAdmin");
 				}
