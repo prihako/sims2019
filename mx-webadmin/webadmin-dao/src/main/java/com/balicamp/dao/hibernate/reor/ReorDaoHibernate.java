@@ -48,8 +48,11 @@ public class ReorDaoHibernate extends ReorGenericDaoHibernate<BaseAdminModel, St
 				+"reg.nama_registrant, "
 				+"inv.amount "
 				+"from "
-				+"invoices inv, payments pay, registrants reg "
-				+"where inv.id_invoice = pay.id_invoice "
+				+"invoices inv, "
+				+"payments pay, "
+				+"tbl_old_certificate reg  "
+				+"where "
+				+"inv.id_invoice = pay.id_invoice  "
 				+"and pay.id_registrant = reg.id_registrant "
 				+"and inv.invoice_number = :invoiceNo ";
 		

@@ -29,19 +29,24 @@ public class IkrapDaoHibernate extends IkrapGenericDaoHibernate<BaseAdminModel, 
 	public Object[] findBillingByInvoiceAndDate(String invoice, Date trxDate,
 			Object[] mt940Data) {
 		// TODO Auto-generated method stub
-		String sql = "select "
+		String sql = "select, "
 					+"inv.invoice_number, "
-					+"reg.id_registrant, "
+					+"reg.id_ikrap, "
 					+"pay.due_date, "
 					+"pay.payment_date, "
 					+"nama_registrant, "
-					+"inv.amount "
+					+"inv.amount  "
 					+"from "
-					+"invoices inv join payments pay on "
-					+"inv.id_invoice = pay.id_invoice "
-					+"join registrants reg "
-					+"on pay.id_registrant = reg.id_registrant "
+					+"invoices inv "
+					+"join "
+					+"payments pay  "
+					+"on inv.id_invoice = pay.id_invoice  "
+					+"join "
+					+"ikrap reg  "
+					+"on pay.id_ikrap = reg.id_ikrap  "
 					+"where inv.invoice_number = :invoice "; 
+		
+		
 		
 		Query query = getSessionFactory().getCurrentSession().createSQLQuery(sql);
 		query.setParameter("invoice", invoice);
