@@ -46,6 +46,7 @@ import com.balicamp.service.parameter.SystemParameterManager;
 import com.balicamp.soap.ws.channel.IarChannel;
 import com.balicamp.soap.ws.channel.IkrapChannel;
 import com.balicamp.soap.ws.channel.KlbsiChannel;
+import com.balicamp.soap.ws.channel.PengujianChannel;
 import com.balicamp.soap.ws.channel.ReorChannel;
 import com.balicamp.util.DateUtil;
 import com.balicamp.webapp.action.report.ReportReconcileAction;
@@ -100,6 +101,9 @@ public class ReconcileEodTask extends HttpServlet {
 	
 	@Autowired
 	private IkrapChannel ikrapChannel;
+	
+	@Autowired
+	private PengujianChannel pengujianChannel;
 
 	@SuppressWarnings("unused")
 	private XlstoStringConverter xlsFile;

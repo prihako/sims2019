@@ -28,6 +28,10 @@
     <bean id="klbsiChannel" class="com.balicamp.soap.ws.channel.KlbsiChannel">
         <property name="address" value="${klbsi_url}"/>
     </bean>
+    
+    <bean id="pengujianChannel" class="com.balicamp.soap.ws.channel.PengujianChannel">
+        <property name="address" value="${pengujian_url}"/>
+    </bean>
 
 </beans>
 	 
