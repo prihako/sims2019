@@ -37,7 +37,7 @@ public class PengujianDaoHibernate extends
 					+ "cast(sp2.SP2_ID AS varchar)=cast(info.SP2_ID AS varchar) "
 					+ "and cast(sp2.APL_ID AS varchar)=cast(apl.APL_ID AS varchar) "
 					+ "and cast(apl.CUST_ID AS varchar)=cast(cust.CUST_ID AS varchar) "
-					+ "and cast(sp2.SP2_NO_H2H AS varchar) = :ticketID";
+					+ "and cast(sp2.SP2_NO_H2H AS varchar)=:ticketID";
 		
 		Query query = getSessionFactory().getCurrentSession().createSQLQuery(sql);
 		query.setParameter("ticketID", invoice);
