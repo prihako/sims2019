@@ -1450,7 +1450,9 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 			Object[] mt940Data 		= null;
 			Object[] mxData			= null;
 			Object[] mxDataAbnormal	= null;
-				
+			
+			log.info("invoiceNo : " + LogHelper.toString(invoiceNo));
+			
 			if(invoiceNo.size()>0 && !mt940Map.isEmpty()){
 				for (String invoice : invoiceNo) {
 					mt940Data 	= mt940Map.get(invoice);
@@ -1474,6 +1476,10 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 				ReconcileDto dto 	= new ReconcileDto();
 				mxData				= resultMx.get(keys);
 				reorRecon			= resultReor.get(keys);
+				
+				log.info("mxData : " + LogHelper.toString(mxData));
+				log.info("resultReor : " + LogHelper.toString(reorRecon));
+				log.info("mt940Map : " + LogHelper.toString(mt940Map));
 				
 				if (reconcileStatus.equalsIgnoreCase("unsettled")
 						|| reconcileStatus.equalsIgnoreCase("unsettled/need confirmation")
@@ -1807,6 +1813,10 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 	private ReconcileDto saveToReconcileDto(int no, String invoiceNo, Object[] mxData, Object[] coreData, Object[] mt940Data, 
 			String channelCode,  String mt940Status, String coreStatus, String reconcileStatus, String transactionCode) {
 		
+		log.info("mxData : " + LogHelper.toString(mxData));
+		log.info("coreData : " + LogHelper.toString(coreData));
+		log.info("mt940Data : " + LogHelper.toString(mt940Data));
+		
 		ReconcileDto dto 		= new ReconcileDto();
 		DecimalFormat numFormat = new DecimalFormat("Rp #,###,###");
 
@@ -1833,8 +1843,11 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 				}else{
 					dto.setPaymentChannel("-");
 				}
+				
+				if(dto.getPaymentChannel() == null) {
+					dto.setPaymentChannel("Unknown");
+				}
 			}
-			log.info("mxData : " + LogHelper.toString(mxData));
 			dto.setTransactionTime	(mxData[8] == null  || mxData[8].equals("")  ? "-" : mxData[8].toString());
 			dto.setBankName			(mxData[9] == null  || mxData[9].equals("")  ? "-" : mxData[9].toString().toUpperCase());					
 			dto.setBillerRc			(mxData[10] == null || mxData[10].equals("") ? "-" : mxData[10].toString());
@@ -1854,6 +1867,8 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 			dto.setBankBranch("-");
 		}
 
+		log.info("dto 1 : " + dto.toString());
+		
 //		MT940 guide:
 //		0 - filename		1 - parse date			2 - trx date			3 - client id		
 //		4 - invoice id		5 - payment channel		6 - branch code			7 - trx amount			
@@ -1878,6 +1893,8 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 		dto.setSimsStatus(coreStatus);
 		dto.setReconcileStatus(reconcileStatus);
 
+		log.info("dto 2 : " + dto.toString());
+		
 //		Pengujian guide:
 //		0 TicketID,			1 StateActivityId, 	2 NoInvoice, 	3 TanggalBayar, 4 TotalBiaya, 					5 Bank,
 //		6 PerusahaanName, 	7 NoPermohonan, 	8 Month, 		9 Year, 		10 TanggalPendaftaranPengujian
@@ -1888,6 +1905,8 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 			dto.setPaymentDateSims	(dto.getPaymentDateSims() 	== null && coreData[3]  != null ? coreData[3].toString() : "-");
 			dto.setTrxAmount		(dto.getTrxAmount() 		== null && coreData[4]  != null ? numFormat.format(coreData[4]) : "-");
 		}
+		
+		log.info("dto 3 : " + dto.toString());
 		
 //		Sertifikasi guide:
 //		0. SP2_NO		1. CUST_ID		2. CUST_NAME

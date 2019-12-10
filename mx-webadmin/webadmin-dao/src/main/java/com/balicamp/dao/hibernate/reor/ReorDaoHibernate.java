@@ -42,7 +42,7 @@ public class ReorDaoHibernate extends ReorGenericDaoHibernate<BaseAdminModel, St
 		
 		String sql_2 = "select "
 				+"inv.invoice_number, "
-				+"pay.id_payment client_id, "
+				+"pay.id_payment, "
 				+"inv.payment_date, "
 				+"inv.due_date, "
 				+"reg.nama_registrant, "
@@ -50,8 +50,8 @@ public class ReorDaoHibernate extends ReorGenericDaoHibernate<BaseAdminModel, St
 				+"from "
 				+"invoices inv, payments pay, registrants reg "
 				+"where inv.id_invoice = pay.id_invoice "
-				+"and pay.id_registrant = reg.id_registrant"
-				+ "and inv.invoice_number = :invoiceNo ";
+				+"and pay.id_registrant = reg.id_registrant "
+				+"and inv.invoice_number = :invoiceNo ";
 		
 		if(type.equals('1')) {
 			sql = sql_1;

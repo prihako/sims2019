@@ -296,34 +296,6 @@ public class ReconcileDto extends BaseAdminModel {
 		this.transactionTime = transactionTime;
 	}
 
-	@Override
-	public String toString() {
-		return "ReconcileDto ["
-				+ "invoiceNo=" + invoiceNo 
-				+ ", trxId=" + trxId 
-				+ ", trxType=" + trxType 
-				+ ", clientId=" + clientId
-				+ ", clientName=" + clientName
-				+ ", paymentChannel=" + paymentChannel
-				+ ", billerRc=" + billerRc 
-				+ ", channelRc=" + channelRc
-				+ ", mt940Status=" + mt940Status 
-				+ ", simsStatus=" + simsStatus
-				+ ", paymentDateSims=" + paymentDateSims 
-				+ ", reconcileStatus="+ reconcileStatus  
-				+ ", delivChannel="+ delivChannel 
-				+ ", invoiceDueDate="+ invoiceDueDate 
-				+ ", invoiceDendaNo="+ invoiceDendaNo 
-				+ ", transactionTime="+ transactionTime 
-				+ ", paymentChannel="+ paymentChannel 
-				+ ", statusDenda="+ statusDenda 
-				+ ", remarks="+ remarks  
-				+ ", reconFlag="+ reconFlag 
-				+ ", trxAmount="+ trxAmount 
-				+ ", trxAmountDenda="+ trxAmountDenda + 
-				" ]";
-	}
-
 	public String getPaymentDateSims() {
 		return paymentDateSims;
 	}
@@ -430,6 +402,19 @@ public class ReconcileDto extends BaseAdminModel {
 
 	public void setRawData(String rawData) {
 		this.rawData = rawData;
+	}
+
+	@Override
+	public String toString() {
+		return "ReconcileDto [no=" + no + ", invoiceNo=" + invoiceNo + ", trxId=" + trxId + ", trxType=" + trxType
+				+ ", transactionName=" + transactionName + ", clientId=" + clientId + ", clientName=" + clientName
+				+ ", billerRc=" + billerRc + ", channelRc=" + channelRc + ", mt940Status=" + mt940Status
+				+ ", simsStatus=" + simsStatus + ", paymentDateSims=" + paymentDateSims + ", reconcileStatus="
+				+ reconcileStatus + ", delivChannel=" + delivChannel + ", invoiceDueDate=" + invoiceDueDate
+				+ ", invoiceDendaNo=" + invoiceDendaNo + ", transactionTime=" + transactionTime + ", paymentChannel="
+				+ paymentChannel + ", statusDenda=" + statusDenda + ", remarks=" + remarks + ", reconFlag=" + reconFlag
+				+ ", trxAmount=" + trxAmount + ", trxAmountDenda=" + trxAmountDenda + ", bankName=" + bankName
+				+ ", bankBranch=" + bankBranch + ", rawData=" + rawData + "]";
 	}
 
 }
