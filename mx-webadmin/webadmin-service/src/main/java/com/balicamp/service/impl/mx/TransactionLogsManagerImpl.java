@@ -48,6 +48,7 @@ import com.balicamp.service.TransactionLogsManager;
 import com.balicamp.service.impl.AbstractManager;
 import com.balicamp.util.DateUtil;
 import com.balicamp.util.InquiryPaymentStatusUtil;
+import com.balicamp.util.LogHelper;
 import com.balicamp.util.mx.WriteToWord;
 import com.lowagie.text.Cell;
 import com.lowagie.text.Font;
@@ -893,9 +894,21 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 	}
 
 	@Override
-	public List<ReconcileDto> findTransactionLogsWebadmin(HashMap<String, Object[]> mt940Map, HashMap<String, Object[]> mxMap, String channel,
+	public List<ReconcileDto> findTransactionLogsWebadmin(HashMap<String, Object[]> mt940Map, HashMap<String, Object[]> mxMap, 
+			String channel,
 			Set<String> invoiceNo, String clientId, String transactionCode, Date trxDate, String reconcileStatus,
 			Map<String, Integer> mapCount, Map<String, Long> mapCountAmount) {
+		log.info("mt940Map : " + mt940Map.size());
+		log.info("mxMap : " + mxMap.size());
+		log.info("channel : " + channel);
+		log.info("invoiceNo : " + invoiceNo.size());
+		log.info("clientId : " + clientId);
+		log.info("transactionCode : " + transactionCode);
+		log.info("trxDate : " + trxDate);
+		log.info("reconcileStatus : " + reconcileStatus);
+		log.info("mapCount : " + mapCount);
+		log.info("mapCountAmount : " + mapCountAmount);
+		
 
 		/* Randhi */
 		List<ReconcileDto> result 		= new ArrayList<ReconcileDto>();
@@ -1172,11 +1185,15 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 			resultMx = transactionLogDao.findAllTransactionLogsWebadminReconcile(
 					channel, resultSertifikasi.keySet(), clientId, transactionCode, new String[] { "00" }, new String[] { "00" }, trxDate);
 			
+			log.info("resultSertifikasi : " + resultSertifikasi);
+			log.info("resultMx : " + resultMx);
 			for (String keys : resultSertifikasi.keySet()) {
 				no++;
 				ReconcileDto dto 	= new ReconcileDto();
 				mxData 				= resultMx.get(keys);
 				sertifikasiRecon	= resultSertifikasi.get(keys);
+				
+				log.info("mxData : " + LogHelper.toString(mxData));
 				
 				if (reconcileStatus.equalsIgnoreCase("unsettled")
 						|| reconcileStatus.equalsIgnoreCase("unsettled/need confirmation")

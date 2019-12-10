@@ -313,8 +313,11 @@ public class ReconcileEodTask extends HttpServlet {
 				}else if(!mxData.isEmpty()){
 					listInvoiceCode = mxData.keySet();
 				}
-				searchResult.addAll(trxLogManager.findTransactionLogsWebadmin(mt940Data, mxData, channelCode[1], listInvoiceCode, null, trxCode, trxDate, "all", mapCount, mapCountAmount));
+				searchResult.addAll(trxLogManager.findTransactionLogsWebadmin(mt940Data, mxData, channelCode[1], 
+						listInvoiceCode, null, trxCode, trxDate, "all", mapCount, mapCountAmount));
 			}
+
+			log.info("searchResult : " + searchResult.size());
 	
 //			String reportDir = trxLogManager.findParamValueByParamName("reconcileEod.report.path") + billerCode;
 			String reportDir = trxLogManager.findParamValueByParamName("reconcileEod.report.path") + channelCode[0].toLowerCase() + "/" + billerCode;
@@ -341,6 +344,7 @@ public class ReconcileEodTask extends HttpServlet {
 			paymentAmountNeedConfirmation += mapCountAmount.get("amountUnconfirmed");
 	
 			if (!(settled == 0 && unSettled == 0 && needConfirmation == 0)) {
+				log.info("Send email, please wait ........");
 				sendMail(listFile, settled, unSettled, needConfirmation, paymentAmountSettled, paymentAmountUnSettled, paymentAmountNeedConfirmation, billerCode);
 			}
 		}

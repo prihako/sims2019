@@ -595,14 +595,14 @@ public abstract class Constants {
 	}
 
 	static public class EndpointCode {
-		public static final String BHP_CODE 		= "BILL";
-		public static final String REOR_CODE 		= "REOR";
-		public static final String SKOR_CODE 		= "SKOR";
-		public static final String UNAR_CODE 		= "UNAR";
-		public static final String IAR_CODE 		= "IAR";
-		public static final String IKRAP_CODE 		= "IKRAP";
-		public static final String PERANGKAT_CODE 	= "PER";
-		public static final String PAP_CODE 		= "PAP";
-		public static final String KALIBRASI_CODE 	= "KLBSI";
+		public static final String BHP_CODE 		= "BILL.PAY";
+		public static final String REOR_CODE 		= "REOR.PAY";
+		public static final String SKOR_CODE 		= "SKOR.PAY";
+		public static final String UNAR_CODE 		= "UNAR.PAY";
+		public static final String IAR_CODE 		= "IAR.PAY";
+		public static final String IKRAP_CODE 		= "IKRAP.PAY";
+		public static final String PERANGKAT_CODE 	= "PER.PAY";
+		public static final String PAP_CODE 		= "PAP.PAY";
+		public static final String KALIBRASI_CODE 	= "KLBSI.PAY";
 	}
 }

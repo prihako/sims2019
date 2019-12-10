@@ -9,8 +9,8 @@
    <!-- MESIN DEV --> 
       <bean id="mxDataSource" class="org.postgresql.ds.PGPoolingDataSource">
 <!--       	<property name="serverName" value="10.1.125.24" /> -->
-<!--         <property name="serverName" value="10.1.1.22" /> -->
-		<property name="serverName" value="localhost" />
+        <property name="serverName" value="10.1.1.22" /> 
+<!-- 		<property name="serverName" value="localhost" />-->
         <property name="databaseName" value="mx2" />
         <property name="user" value="mx_usr" />
         <property name="password" value="mx_pwd" />
@@ -47,8 +47,9 @@
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
 				<prop key="hibernate.query.substitutions">true 'Y', false 'N'</prop>
-				<prop key="hibernate.show_sql">false</prop>
-				<prop key="hibernate.format_sql">false</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.use_sql_comments">true</prop>
 				
 				<prop key="hibernate.generate_statistics">false</prop>
 				<prop key="hibernate.bytecode.use_reflection_optimizer">true</prop>
