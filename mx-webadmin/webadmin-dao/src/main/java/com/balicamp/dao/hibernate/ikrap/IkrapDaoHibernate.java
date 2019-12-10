@@ -29,7 +29,7 @@ public class IkrapDaoHibernate extends IkrapGenericDaoHibernate<BaseAdminModel, 
 	public Object[] findBillingByInvoiceAndDate(String invoice, Date trxDate,
 			Object[] mt940Data) {
 		// TODO Auto-generated method stub
-		String sql = "select, "
+		String sql = "select "
 					+"inv.invoice_number, "
 					+"reg.id_ikrap, "
 					+"pay.due_date, "
