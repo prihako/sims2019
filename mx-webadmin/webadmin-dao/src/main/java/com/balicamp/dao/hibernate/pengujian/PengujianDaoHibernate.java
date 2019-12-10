@@ -33,22 +33,15 @@ public class PengujianDaoHibernate extends
 					+ "cast(cust.CUST_NAME AS varchar), "
 					+ "cast(cust.CUST_ID AS varchar), "
 					+ "cast(sp2.SP2_NO AS varchar) "
-					+ "from T_SP2 sp2, T_INFO_BAYAR info, T_APLIKASI apl, T_CUSTOMER cust "
+					+ "from siptel-dev.dbo.T_SP2 sp2, siptel-dev.dbo.T_INFO_BAYAR info, siptel-dev.dbo.T_APLIKASI apl, siptel-dev.dbo.T_CUSTOMER cust "
 					+ "where "
 					+ "cast(sp2.SP2_ID AS varchar)=cast(info.SP2_ID AS varchar) "
 					+ "and cast(sp2.APL_ID AS varchar)=cast(apl.APL_ID AS varchar) "
 					+ "and cast(apl.CUST_ID AS varchar)=cast(cust.CUST_ID AS varchar) "
-					+ "and cast(sp2.SP2_NO_H2H AS varchar)=:ticketID";
+					+ "and cast(sp2.SP2_NO_H2H AS varchar)='"+invoice+"'";
 		
 		Query query = getSessionFactory().getCurrentSession().createSQLQuery(sql);
-		query.setParameter("ticketID", invoice);
-		
-//		if(invoice.length() > 6) {
-//			query.setParameter("ticketID", invoice.substring(0,invoice.length()-6));
-//		}else {
-//			query.setParameter("ticketID", invoice);
-//		}
-			
+
 		Object obj = new Object();
 		Object[] objectArray = null;
 		
