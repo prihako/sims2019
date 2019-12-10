@@ -36,7 +36,6 @@ public class IarDaoHibernate extends IarGenericDaoHibernate<BaseAdminModel, Stri
 		String sql = "select "
 					+"inv.invoice_number, "
 					+"reg.id_registrant, "
-					+"pay.payment_date, "
 					+"pay.due_date, "
 					+"pay.payment_date, "
 					+"nama_registrant, "
