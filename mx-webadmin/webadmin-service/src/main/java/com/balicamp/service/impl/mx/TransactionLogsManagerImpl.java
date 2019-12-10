@@ -1193,8 +1193,6 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 				mxData 				= resultMx.get(keys);
 				sertifikasiRecon	= resultSertifikasi.get(keys);
 				
-				log.info("mxData : " + LogHelper.toString(mxData));
-				
 				if (reconcileStatus.equalsIgnoreCase("unsettled")
 						|| reconcileStatus.equalsIgnoreCase("unsettled/need confirmation")
 						|| reconcileStatus.equalsIgnoreCase("all")) {
@@ -1231,8 +1229,8 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 						String invoiceMt940Status 		= "Paid";
 						String invoiceReconcileStatus 	= "Settled";
 						dto = saveToReconcileDto(
-								no, keys, sertifikasiRecon, mt940Data, mxData, invoiceMt940Status, "Paid", 
-								invoiceReconcileStatus, channel, transactionCode);
+								no, keys, mxData, sertifikasiRecon, mt940Data, channel, invoiceMt940Status, 
+								"Paid", invoiceReconcileStatus,  transactionCode);
 						amountSettled = amountSettled + (long) Double.parseDouble(paymentAmount);
 						resultTemp.add(dto);
 						settled++;
@@ -1836,6 +1834,7 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 					dto.setPaymentChannel("-");
 				}
 			}
+			log.info("mxData : " + LogHelper.toString(mxData));
 			dto.setTransactionTime	(mxData[8] == null  || mxData[8].equals("")  ? "-" : mxData[8].toString());
 			dto.setBankName			(mxData[9] == null  || mxData[9].equals("")  ? "-" : mxData[9].toString().toUpperCase());					
 			dto.setBillerRc			(mxData[10] == null || mxData[10].equals("") ? "-" : mxData[10].toString());
