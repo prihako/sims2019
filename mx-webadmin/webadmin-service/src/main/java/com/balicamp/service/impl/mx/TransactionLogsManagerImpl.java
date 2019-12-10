@@ -1917,7 +1917,40 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 			dto.setTrxAmount		(coreData[5] != null ? numFormat.format(coreData[5]) : "-");
 			dto.setRemarks			(coreData[0] != null ? coreData[0].toString() : "-");
 		}
-		return dto;
+		
+//		Ikrap guide:
+//		0. InvoiceNumber	1. IdRegistrant		2. DueDate
+//		3. PaymentDate		4. NameRegistrant	5. InvoiceAmount
+		if(transactionCode.equals(Constants.EndpointCode.IKRAP_CODE) && coreData != null){
+			dto.setClientId			(coreData[1] != null ? coreData[1].toString() : "-");
+			dto.setClientName		(coreData[4] != null ? coreData[4].toString() : "-");
+			dto.setPaymentDateSims	(coreData[3] != null ? coreData[3].toString() : "-");
+			dto.setTrxAmount		(coreData[5] != null ? numFormat.format(coreData[5]) : "-");
+			dto.setRemarks			(coreData[0] != null ? coreData[0].toString() : "-");
+		}
+		
+//		Iar guide:
+//		0. InvoiceNumber	1. IdRegistrant		2. DueDate
+//		3. PaymentDate		4. NameRegistrant	5. InvoiceAmount
+		if(transactionCode.equals(Constants.EndpointCode.IAR_CODE) && coreData != null){
+			dto.setClientId			(coreData[1] != null ? coreData[1].toString() : "-");
+			dto.setClientName		(coreData[4] != null ? coreData[4].toString() : "-");
+			dto.setPaymentDateSims	(coreData[3] != null ? coreData[3].toString() : "-");
+			dto.setTrxAmount		(coreData[5] != null ? numFormat.format(coreData[5]) : "-");
+			dto.setRemarks			(coreData[0] != null ? coreData[0].toString() : "-");
+		}
+		
+//		Reor guide:
+//		0. InvoiceNumber	1. IdRegistrant		2. DueDate
+//		3. PaymentDate		4. NameRegistrant	5. InvoiceAmount
+		if(transactionCode.equals(Constants.EndpointCode.REOR_CODE) && coreData != null){
+			dto.setClientId			(coreData[1] != null ? coreData[1].toString() : "-");
+			dto.setClientName		(coreData[4] != null ? coreData[4].toString() : "-");
+			dto.setPaymentDateSims	(coreData[3] != null ? coreData[3].toString() : "-");
+			dto.setTrxAmount		(coreData[5] != null ? numFormat.format(coreData[5]) : "-");
+			dto.setRemarks			(coreData[0] != null ? coreData[0].toString() : "-");
+		}		
+		return dto;		
 	}
 	
 	private String biTypeToSimsStatus(String biType) {
