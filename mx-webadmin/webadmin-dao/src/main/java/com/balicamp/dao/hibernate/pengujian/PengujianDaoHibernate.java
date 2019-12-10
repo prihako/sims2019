@@ -31,6 +31,7 @@ public class PengujianDaoHibernate extends
 					+ "cast(info.TGL_BAYAR AS varchar), "
 					+ "cast(info.JUMLAH_BAYAR AS varchar), "
 					+ "cast(cust.CUST_NAME AS varchar), "
+					+ "cast(cust.CUST_ID AS varchar), "
 					+ "cast(sp2.SP2_NO AS varchar) "
 					+ "from T_SP2 sp2, T_INFO_BAYAR info, T_APLIKASI apl, T_CUSTOMER cust "
 					+ "where "
