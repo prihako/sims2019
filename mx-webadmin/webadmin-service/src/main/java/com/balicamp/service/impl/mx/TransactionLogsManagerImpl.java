@@ -985,7 +985,7 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 						dto = saveToReconcileDto(
 								no, keys, mxData, kalibrasiRecon, mt940Data, invoiceMt940Status, "Unpaid", 
 								invoiceReconcileStatus, channel, transactionCode);
-						amountNotSettled = amountNotSettled + Long.valueOf(paymentAmount);
+						amountNotSettled = amountNotSettled + Double.valueOf(paymentAmount).longValue();
 						resultTemp.add(dto);
 						notSettled++;
 					}else if (!mt940Map.keySet().contains(keys) && mxMap != null) { //MT940 ga ada, MX ada
@@ -995,7 +995,7 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 						dto = saveToReconcileDto(
 								no, keys, mxData, kalibrasiRecon, mt940Data, invoiceMt940Status, "Unpaid", 
 								invoiceReconcileStatus, channel, transactionCode);
-						amountNotSettled = amountNotSettled + Long.valueOf(paymentAmount);
+						amountNotSettled = amountNotSettled + Double.valueOf(paymentAmount).longValue();
 						resultTemp.add(dto);
 						notSettled++;
 					}
@@ -1011,7 +1011,7 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 						dto = saveToReconcileDto(
 								no, keys, mxData, kalibrasiRecon, mt940Data, invoiceMt940Status, "Paid", 
 								invoiceReconcileStatus, channel, transactionCode);
-						amountSettled = amountSettled + Long.valueOf(paymentAmount);
+						amountSettled = amountSettled + Double.valueOf(paymentAmount).longValue();
 						resultTemp.add(dto);
 						settled++;
 					}
@@ -1078,7 +1078,7 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 						dto = saveToReconcileDto(
 								no, keys, mxData, pengujianRecon, mt940Data, invoiceMt940Status, "Unpaid", 
 								invoiceReconcileStatus, channel, transactionCode);
-						amountNotSettled = amountNotSettled + Long.valueOf(paymentAmount);
+						amountNotSettled = amountNotSettled + Double.valueOf(paymentAmount).longValue();;
 						resultTemp.add(dto);
 						notSettled++;
 					}else if (!mt940Map.keySet().contains(keys) && mxMap != null) { //MT940 ga ada, MX ada
@@ -1088,7 +1088,7 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 						dto = saveToReconcileDto(
 								no, keys, mxData, pengujianRecon, mt940Data, invoiceMt940Status, "Unpaid", 
 								invoiceReconcileStatus, channel, transactionCode);
-						amountNotSettled = amountNotSettled + Long.valueOf(paymentAmount);
+						amountNotSettled = amountNotSettled + Double.valueOf(paymentAmount).longValue();
 						resultTemp.add(dto);
 						notSettled++;
 					}
@@ -1105,7 +1105,7 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 						dto = saveToReconcileDto(
 								no, keys, mxData, pengujianRecon, mt940Data, invoiceMt940Status, "Paid", 
 								invoiceReconcileStatus, channel, transactionCode);
-						amountSettled = amountSettled + Long.valueOf(paymentAmount);
+						amountSettled = amountSettled + Double.valueOf(paymentAmount).longValue();
 						resultTemp.add(dto);
 						settled++;
 					}
@@ -1204,7 +1204,7 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 						dto = saveToReconcileDto(
 								no, keys, mxData, sertifikasiRecon, mt940Data, invoiceMt940Status, "Unpaid", 
 								invoiceReconcileStatus, channel, transactionCode);
-						amountNotSettled = amountNotSettled + Long.valueOf(paymentAmount);
+						amountNotSettled = amountNotSettled + Double.valueOf(paymentAmount).longValue();
 						resultTemp.add(dto);
 						notSettled++;
 					}else if (!mt940Map.keySet().contains(keys) && mxData != null) { // MT940 ga ada, MX ada
@@ -1214,7 +1214,7 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 						dto = saveToReconcileDto(
 								no, keys, mxData, sertifikasiRecon, mt940Data, invoiceMt940Status, "Unpaid", 
 								invoiceReconcileStatus, channel, transactionCode);
-						amountNotSettled = amountNotSettled + Long.valueOf(paymentAmount);
+						amountNotSettled = amountNotSettled + Double.valueOf(paymentAmount).longValue();
 						resultTemp.add(dto);
 						notSettled++;
 					}					
@@ -1231,7 +1231,7 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 						dto = saveToReconcileDto(
 								no, keys, mxData, sertifikasiRecon, mt940Data, channel, invoiceMt940Status, 
 								"Paid", invoiceReconcileStatus,  transactionCode);
-						amountSettled = amountSettled + Long.valueOf(paymentAmount);
+						amountSettled = amountSettled + Double.valueOf(paymentAmount).longValue();
 						resultTemp.add(dto);
 						settled++;
 					}
@@ -1300,7 +1300,7 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 						dto = saveToReconcileDto(
 								no, keys, mxData, ikrapRecon, mt940Data, invoiceMt940Status, "Unpaid", 
 								invoiceReconcileStatus, channel, transactionCode);
-						amountNotSettled = amountNotSettled + Long.valueOf(paymentAmount);
+						amountNotSettled = amountNotSettled + Double.valueOf(paymentAmount).longValue();
 						resultTemp.add(dto);
 						notSettled++;
 					}else if (!mt940Map.keySet().contains(keys) && mxMap != null) { //MT940 ga ada, MX ada
@@ -1310,7 +1310,7 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 						dto = saveToReconcileDto(
 								no, keys, mxData, ikrapRecon, mt940Data, invoiceMt940Status, "Unpaid", 
 								invoiceReconcileStatus, channel, transactionCode);
-						amountNotSettled = amountNotSettled + Long.valueOf(paymentAmount);
+						amountNotSettled = amountNotSettled + Double.valueOf(paymentAmount).longValue();
 						resultTemp.add(dto);
 						notSettled++;
 					}
@@ -1326,7 +1326,7 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 						dto = saveToReconcileDto(
 								no, keys, mxData, ikrapRecon, mt940Data, invoiceMt940Status, "Paid", 
 								invoiceReconcileStatus, channel, transactionCode);
-						amountSettled = amountSettled + Long.valueOf(paymentAmount);
+						amountSettled = amountSettled + Double.valueOf(paymentAmount).longValue();
 						resultTemp.add(dto);
 						settled++;
 					}
@@ -1393,7 +1393,7 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 						dto = saveToReconcileDto(
 								no, keys, mxData, iarRecon, mt940Data, invoiceMt940Status, "Unpaid", 
 								invoiceReconcileStatus, channel, transactionCode);
-						amountNotSettled = amountNotSettled + Long.valueOf(paymentAmount);
+						amountNotSettled = amountNotSettled + Double.valueOf(paymentAmount).longValue();
 						resultTemp.add(dto);
 						notSettled++;
 					}else if (!mt940Map.keySet().contains(keys) && mxMap != null) { //MT940 ga ada, MX ada
@@ -1403,7 +1403,7 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 						dto = saveToReconcileDto(
 								no, keys, mxData, iarRecon, mt940Data, invoiceMt940Status, "Unpaid", 
 								invoiceReconcileStatus, channel, transactionCode);
-						amountNotSettled = amountNotSettled + Long.valueOf(paymentAmount);
+						amountNotSettled = amountNotSettled + Double.valueOf(paymentAmount).longValue();
 						resultTemp.add(dto);
 						notSettled++;
 					}
@@ -1419,7 +1419,7 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 						dto = saveToReconcileDto(
 								no, keys, mxData, iarRecon, mt940Data, invoiceMt940Status, "Paid", 
 								invoiceReconcileStatus, channel, transactionCode);
-						amountSettled = amountSettled + Long.valueOf(paymentAmount);
+						amountSettled = amountSettled + Double.valueOf(paymentAmount).longValue();
 						resultTemp.add(dto);
 						settled++;
 					}
@@ -1492,7 +1492,7 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 						dto = saveToReconcileDto(
 								no, keys, mxData, reorRecon, mt940Data, invoiceMt940Status, "Unpaid", 
 								invoiceReconcileStatus, channel, transactionCode);
-						amountNotSettled = amountNotSettled + Long.valueOf(paymentAmount);
+						amountNotSettled = amountNotSettled + Double.valueOf(paymentAmount).longValue();
 						resultTemp.add(dto);
 						notSettled++;
 					}else if (!mt940Map.keySet().contains(keys) && mxMap != null) { //MT940 ga ada, MX ada
@@ -1502,7 +1502,7 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 						dto = saveToReconcileDto(
 								no, keys, mxData, reorRecon, mt940Data, invoiceMt940Status, "Unpaid", 
 								invoiceReconcileStatus, channel, transactionCode);
-						amountNotSettled = amountNotSettled + Long.valueOf(paymentAmount);
+						amountNotSettled = amountNotSettled + Double.valueOf(paymentAmount).longValue();
 						resultTemp.add(dto);
 						notSettled++;
 					}
@@ -1518,7 +1518,7 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 						dto = saveToReconcileDto(
 								no, keys, mxData, reorRecon, mt940Data, invoiceMt940Status, "Paid", 
 								invoiceReconcileStatus, channel, transactionCode);
-						amountSettled = amountSettled + Long.valueOf(paymentAmount);
+						amountSettled = amountSettled + Double.valueOf(paymentAmount).longValue();
 						resultTemp.add(dto);
 						settled++;
 					}
@@ -1595,7 +1595,7 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 						dto = saveToReconcileDto(
 								no, keys, mxData, billingRecon, mt940Data, invoiceMt940Status, "Unpaid", 
 								invoiceReconcileStatus, channel, transactionCode);
-						amountNotSettled = amountNotSettled + Long.valueOf(paymentAmount);
+						amountNotSettled = amountNotSettled + Double.valueOf(paymentAmount).longValue();
 						resultTemp.add(dto);
 						notSettled++;
 					}else if (!mt940Map.keySet().contains(keys) && mxData != null) { // MT940 ga ada, MX ada
@@ -1605,7 +1605,7 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 						dto = saveToReconcileDto(
 								no, keys, mxData, billingRecon, mt940Data, invoiceMt940Status, "Unpaid", 
 								invoiceReconcileStatus, channel, transactionCode);
-						amountNotSettled = amountNotSettled + Long.valueOf(paymentAmount);
+						amountNotSettled = amountNotSettled + Double.valueOf(paymentAmount).longValue();
 						resultTemp.add(dto);
 						notSettled++;
 					}
@@ -1622,7 +1622,7 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 						dto = saveToReconcileDto(
 								no, keys, mxData, billingRecon, mt940Data, invoiceMt940Status, "Paid", 
 								invoiceReconcileStatus, channel, transactionCode);
-						amountSettled = amountSettled + Long.valueOf(paymentAmount);
+						amountSettled = amountSettled + Double.valueOf(paymentAmount).longValue();
 						resultTemp.add(dto);
 						settled++;
 					}
