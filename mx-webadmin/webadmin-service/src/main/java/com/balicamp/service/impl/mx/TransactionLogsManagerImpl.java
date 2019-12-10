@@ -979,7 +979,7 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 						|| reconcileStatus.equalsIgnoreCase("all")) {
 							
 					if (mt940Map.keySet().contains(keys) && kalibrasiRecon == null) { //MT940 ada, CORE ga ada
-						String paymentAmount 			= mt940Data[7] != null ? mt940Data[7].toString() : "0L";
+						String paymentAmount 			= mt940Data[7] != null ? mt940Data[7].toString() : "0";
 						String invoiceMt940Status 		= "Paid";
 						String invoiceReconcileStatus 	= "Unsettled";
 						dto = saveToReconcileDto(
@@ -989,7 +989,7 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 						resultTemp.add(dto);
 						notSettled++;
 					}else if (!mt940Map.keySet().contains(keys) && mxMap != null) { //MT940 ga ada, MX ada
-						String paymentAmount 			= (mxData!=null && mxData[15] != null) ? mxData[15].toString() : "0L";
+						String paymentAmount 			= (mxData!=null && mxData[15] != null) ? mxData[15].toString() : "0";
 						String invoiceMt940Status 		= "Unpaid";
 						String invoiceReconcileStatus 	= "Unsettled";
 						dto = saveToReconcileDto(
@@ -1005,7 +1005,7 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 						|| reconcileStatus.equalsIgnoreCase("all")) {
 //					MT940 ada, CORE ada
 					if (mt940Map.keySet().contains(keys) && kalibrasiRecon != null) {
-						String paymentAmount 			= mt940Data[7] != null ? mt940Data[7].toString() : "0L";
+						String paymentAmount 			= mt940Data[7] != null ? mt940Data[7].toString() : "0";
 						String invoiceMt940Status 		= "Paid";
 						String invoiceReconcileStatus 	= "Settled";
 						dto = saveToReconcileDto(
@@ -1072,7 +1072,7 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 						|| reconcileStatus.equalsIgnoreCase("all")) {
 					
 					if (mt940Map.keySet().contains(keys) && pengujianRecon == null) { //MT940 ada, CORE ga ada
-						String paymentAmount 			= mt940Data[7] != null ? mt940Data[7].toString() : "0L";
+						String paymentAmount 			= mt940Data[7] != null ? mt940Data[7].toString() : "0";
 						String invoiceMt940Status 		= "Paid";
 						String invoiceReconcileStatus 	= "Unsettled";
 						dto = saveToReconcileDto(
@@ -1082,7 +1082,7 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 						resultTemp.add(dto);
 						notSettled++;
 					}else if (!mt940Map.keySet().contains(keys) && mxMap != null) { //MT940 ga ada, MX ada
-						String paymentAmount 			= (mxData!=null && mxData[15] != null) ? mxData[15].toString() : "0L";
+						String paymentAmount 			= (mxData!=null && mxData[15] != null) ? mxData[15].toString() : "0";
 						String invoiceMt940Status 		= "Unpaid";
 						String invoiceReconcileStatus 	= "Unsettled";
 						dto = saveToReconcileDto(
@@ -1099,7 +1099,7 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 
 //					MT940 ada, CORE ada
 					if (mt940Map.keySet().contains(keys) && pengujianRecon != null) {
-						String paymentAmount 			= mt940Data[7] != null ? mt940Data[7].toString() : "0L";
+						String paymentAmount 			= mt940Data[7] != null ? mt940Data[7].toString() : "0";
 						String invoiceMt940Status 		= "Paid";
 						String invoiceReconcileStatus 	= "Settled";
 						dto = saveToReconcileDto(
@@ -1198,7 +1198,7 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 						|| reconcileStatus.equalsIgnoreCase("all")) {
 					
 					if (mt940Map.keySet().contains(keys) && sertifikasiRecon == null) { //MT940 ada, CORE ga ada
-						String paymentAmount 			= mt940Data[7] != null ? mt940Data[7].toString() : "0L";
+						String paymentAmount 			= mt940Data[7] != null ? mt940Data[7].toString() : "0";
 						String invoiceMt940Status 		= "Paid";
 						String invoiceReconcileStatus 	= "Unsettled";
 						dto = saveToReconcileDto(
@@ -1208,7 +1208,7 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 						resultTemp.add(dto);
 						notSettled++;
 					}else if (!mt940Map.keySet().contains(keys) && mxData != null) { // MT940 ga ada, MX ada
-						String paymentAmount 			= (mxData!=null && mxData[15] != null) ? mxData[15].toString() : "0L";
+						String paymentAmount 			= (mxData!=null && mxData[15] != null) ? mxData[15].toString() : "0";
 						String invoiceMt940Status 		= "Unpaid";
 						String invoiceReconcileStatus 	= "Unsettled";
 						dto = saveToReconcileDto(
@@ -1225,7 +1225,7 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 
 //					MT940 ada, CORE ada
 					if (mt940Map.keySet().contains(keys) && sertifikasiRecon != null) {
-						String paymentAmount 			= mt940Data[7] != null ? mt940Data[7].toString() : "0L";
+						String paymentAmount 			= mt940Data[7] != null ? mt940Data[7].toString() : "0";
 						String invoiceMt940Status 		= "Paid";
 						String invoiceReconcileStatus 	= "Settled";
 						dto = saveToReconcileDto(
@@ -1294,7 +1294,7 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 						|| reconcileStatus.equalsIgnoreCase("all")) {
 							
 					if (mt940Map.keySet().contains(keys) && ikrapRecon == null) { //MT940 ada, CORE ga ada
-						String paymentAmount 			= mt940Data[7] != null ? mt940Data[7].toString() : "0L";
+						String paymentAmount 			= mt940Data[7] != null ? mt940Data[7].toString() : "0";
 						String invoiceMt940Status 		= "Paid";
 						String invoiceReconcileStatus 	= "Unsettled";
 						dto = saveToReconcileDto(
@@ -1304,7 +1304,7 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 						resultTemp.add(dto);
 						notSettled++;
 					}else if (!mt940Map.keySet().contains(keys) && mxMap != null) { //MT940 ga ada, MX ada
-						String paymentAmount 			= (mxData!=null && mxData[15] != null) ? mxData[15].toString() : "0L";
+						String paymentAmount 			= (mxData!=null && mxData[15] != null) ? mxData[15].toString() : "0";
 						String invoiceMt940Status 		= "Unpaid";
 						String invoiceReconcileStatus 	= "Unsettled";
 						dto = saveToReconcileDto(
@@ -1320,7 +1320,7 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 						|| reconcileStatus.equalsIgnoreCase("all")) {
 //					MT940 ada, CORE ada
 					if (mt940Map.keySet().contains(keys) && ikrapRecon != null) {
-						String paymentAmount 			= mt940Data[7] != null ? mt940Data[7].toString() : "0L";
+						String paymentAmount 			= mt940Data[7] != null ? mt940Data[7].toString() : "0";
 						String invoiceMt940Status 		= "Paid";
 						String invoiceReconcileStatus 	= "Settled";
 						dto = saveToReconcileDto(
@@ -1387,7 +1387,7 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 						|| reconcileStatus.equalsIgnoreCase("all")) {
 							
 					if (mt940Map.keySet().contains(keys) && iarRecon == null) { //MT940 ada, CORE ga ada
-						String paymentAmount 			= mt940Data[7] != null ? mt940Data[7].toString() : "0L";
+						String paymentAmount 			= mt940Data[7] != null ? mt940Data[7].toString() : "0";
 						String invoiceMt940Status 		= "Paid";
 						String invoiceReconcileStatus 	= "Unsettled";
 						dto = saveToReconcileDto(
@@ -1397,7 +1397,7 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 						resultTemp.add(dto);
 						notSettled++;
 					}else if (!mt940Map.keySet().contains(keys) && mxMap != null) { //MT940 ga ada, MX ada
-						String paymentAmount 			= (mxData!=null && mxData[15] != null) ? mxData[15].toString() : "0L";
+						String paymentAmount 			= (mxData!=null && mxData[15] != null) ? mxData[15].toString() : "0";
 						String invoiceMt940Status 		= "Unpaid";
 						String invoiceReconcileStatus 	= "Unsettled";
 						dto = saveToReconcileDto(
@@ -1413,7 +1413,7 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 						|| reconcileStatus.equalsIgnoreCase("all")) {
 //					MT940 ada, CORE ada
 					if (mt940Map.keySet().contains(keys) && iarRecon != null) {
-						String paymentAmount 			= mt940Data[7] != null ? mt940Data[7].toString() : "0L";
+						String paymentAmount 			= mt940Data[7] != null ? mt940Data[7].toString() : "0";
 						String invoiceMt940Status 		= "Paid";
 						String invoiceReconcileStatus 	= "Settled";
 						dto = saveToReconcileDto(
@@ -1486,7 +1486,7 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 						|| reconcileStatus.equalsIgnoreCase("all")) {
 							
 					if (mt940Map.keySet().contains(keys) && reorRecon == null) { //MT940 ada, CORE ga ada
-						String paymentAmount 			= mt940Data[7] != null ? mt940Data[7].toString() : "0L";
+						String paymentAmount 			= mt940Data[7] != null ? mt940Data[7].toString() : "0";
 						String invoiceMt940Status 		= "Paid";
 						String invoiceReconcileStatus 	= "Unsettled";
 						dto = saveToReconcileDto(
@@ -1496,7 +1496,7 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 						resultTemp.add(dto);
 						notSettled++;
 					}else if (!mt940Map.keySet().contains(keys) && mxMap != null) { //MT940 ga ada, MX ada
-						String paymentAmount 			= (mxData!=null && mxData[15] != null) ? mxData[15].toString() : "0L";
+						String paymentAmount 			= (mxData!=null && mxData[15] != null) ? mxData[15].toString() : "0";
 						String invoiceMt940Status 		= "Unpaid";
 						String invoiceReconcileStatus 	= "Unsettled";
 						dto = saveToReconcileDto(
@@ -1512,7 +1512,7 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 						|| reconcileStatus.equalsIgnoreCase("all")) {
 //					MT940 ada, CORE ada
 					if (mt940Map.keySet().contains(keys) && reorRecon != null) {
-						String paymentAmount 			= mt940Data[7] != null ? mt940Data[7].toString() : "0L";
+						String paymentAmount 			= mt940Data[7] != null ? mt940Data[7].toString() : "0";
 						String invoiceMt940Status 		= "Paid";
 						String invoiceReconcileStatus 	= "Settled";
 						dto = saveToReconcileDto(
@@ -1589,7 +1589,7 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 						|| reconcileStatus.equalsIgnoreCase("all")) {
 					
 					if (mt940Map.keySet().contains(keys) && billingRecon == null) { //MT940 ada, CORE ga ada
-						String paymentAmount 			= mt940Data[7] != null ? mt940Data[7].toString() : "0L";
+						String paymentAmount 			= mt940Data[7] != null ? mt940Data[7].toString() : "0";
 						String invoiceMt940Status 		= "Paid";
 						String invoiceReconcileStatus 	= "Unsettled";
 						dto = saveToReconcileDto(
@@ -1599,7 +1599,7 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 						resultTemp.add(dto);
 						notSettled++;
 					}else if (!mt940Map.keySet().contains(keys) && mxData != null) { // MT940 ga ada, MX ada
-						String paymentAmount 			= (mxData!=null && mxData[15] != null) ? mxData[15].toString() : "0L";
+						String paymentAmount 			= (mxData!=null && mxData[15] != null) ? mxData[15].toString() : "0";
 						String invoiceMt940Status 		= "Unpaid";
 						String invoiceReconcileStatus 	= "Unsettled";
 						dto = saveToReconcileDto(
@@ -1616,7 +1616,7 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 
 //					MT940 ada, CORE ada
 					if (mt940Map.keySet().contains(keys) && billingRecon != null) {
-						String paymentAmount 			= mt940Data[7] != null ? mt940Data[7].toString() : "0L";
+						String paymentAmount 			= mt940Data[7] != null ? mt940Data[7].toString() : "0";
 						String invoiceMt940Status 		= "Paid";
 						String invoiceReconcileStatus 	= "Settled";
 						dto = saveToReconcileDto(
