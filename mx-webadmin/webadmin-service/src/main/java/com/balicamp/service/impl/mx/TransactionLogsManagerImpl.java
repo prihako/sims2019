@@ -1916,6 +1916,7 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 			dto.setPaymentDateSims	(coreData[3] != null ? coreData[3].toString() : "-");
 			dto.setTrxAmount		(coreData[5] != null ? numFormat.format(coreData[5]) : "-");
 			dto.setRemarks			(coreData[0] != null ? coreData[0].toString() : "-");
+			dto.setInvoiceDueDate	(coreData[4] != null ? coreData[4].toString() : "-");
 		}
 		
 //		Ikrap guide:
@@ -1927,6 +1928,7 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 			dto.setPaymentDateSims	(coreData[3] != null ? coreData[3].toString() : "-");
 			dto.setTrxAmount		(coreData[5] != null ? numFormat.format(coreData[5]) : "-");
 			dto.setRemarks			(coreData[0] != null ? coreData[0].toString() : "-");
+			dto.setInvoiceDueDate	(coreData[2] != null ? coreData[2].toString() : "-");
 		}
 		
 //		Iar guide:
@@ -1938,6 +1940,7 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 			dto.setPaymentDateSims	(coreData[3] != null ? coreData[3].toString() : "-");
 			dto.setTrxAmount		(coreData[5] != null ? numFormat.format(coreData[5]) : "-");
 			dto.setRemarks			(coreData[0] != null ? coreData[0].toString() : "-");
+			dto.setInvoiceDueDate	(coreData[2] != null ? coreData[2].toString() : "-");
 		}
 		
 //		Reor guide:
@@ -1949,7 +1952,30 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 			dto.setPaymentDateSims	(coreData[3] != null ? coreData[3].toString() : "-");
 			dto.setTrxAmount		(coreData[5] != null ? numFormat.format(coreData[5]) : "-");
 			dto.setRemarks			(coreData[0] != null ? coreData[0].toString() : "-");
+			dto.setInvoiceDueDate	(coreData[2] != null ? coreData[2].toString() : "-");
 		}		
+		
+//		0+ "TO_CHAR(B.BI_MONEY_RECEIVED,'dd-MM-yyyy HH24:MI:SS'), "
+//		1+ "B.BI_TYPE, "
+//		2+ "TO_CHAR(B.BI_PAY_UNTIL,'dd-MM-yyyy'), "
+//		3+ "AD.AD_COMPANY, "
+//		4+ "B.BI_REF_NO, "
+//		5+ "B.BI_ID_REMINDER_ORIG, "
+//		6+ "AD.AD_MAN_NUMBER, "
+//		7+ "B.BI_MANUAL, "
+//		8+ "B.BI_ID, "
+//		9+ "L.NUM_TXT, "
+//		10+ "B.BI_COMMENT, "
+//		11+ "B.BI_COST_BILL "
+		if(transactionCode.equals(Constants.EndpointCode.BHP_CODE) && coreData != null){
+			dto.setClientId			(coreData[6] != null ? coreData[6].toString() : "-");
+			dto.setClientName		(coreData[3] != null ? coreData[3].toString() : "-");
+			dto.setPaymentDateSims	(coreData[0] != null ? coreData[0].toString() : "-");
+			dto.setTrxAmount		(coreData[11] != null ? numFormat.format(coreData[11]) : "-");
+			dto.setRemarks			(coreData[10] != null ? coreData[10].toString() : "-");
+			dto.setInvoiceDueDate	(coreData[2] != null ? coreData[2].toString() : "-");
+		}	
+		
 		return dto;		
 	}
 	
