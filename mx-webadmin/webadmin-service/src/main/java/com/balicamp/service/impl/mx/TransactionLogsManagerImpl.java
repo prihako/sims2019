@@ -983,8 +983,8 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 						String invoiceMt940Status 		= "Paid";
 						String invoiceReconcileStatus 	= "Unsettled";
 						dto = saveToReconcileDto(
-								no, keys, mxData, kalibrasiRecon, mt940Data, invoiceMt940Status, "Unpaid", 
-								invoiceReconcileStatus, channel, transactionCode);
+								no, keys, mxData, kalibrasiRecon, mt940Data, channel, invoiceMt940Status, "Unpaid", 
+								invoiceReconcileStatus, transactionCode);
 						amountNotSettled = amountNotSettled + Double.valueOf(paymentAmount).longValue();
 						resultTemp.add(dto);
 						notSettled++;
@@ -993,8 +993,8 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 						String invoiceMt940Status 		= "Unpaid";
 						String invoiceReconcileStatus 	= "Unsettled";
 						dto = saveToReconcileDto(
-								no, keys, mxData, kalibrasiRecon, mt940Data, invoiceMt940Status, "Unpaid", 
-								invoiceReconcileStatus, channel, transactionCode);
+								no, keys, mxData, kalibrasiRecon, mt940Data, channel, invoiceMt940Status, "Unpaid", 
+								invoiceReconcileStatus, transactionCode);
 						amountNotSettled = amountNotSettled + Double.valueOf(paymentAmount).longValue();
 						resultTemp.add(dto);
 						notSettled++;
@@ -1009,8 +1009,8 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 						String invoiceMt940Status 		= "Paid";
 						String invoiceReconcileStatus 	= "Settled";
 						dto = saveToReconcileDto(
-								no, keys, mxData, kalibrasiRecon, mt940Data, invoiceMt940Status, "Paid", 
-								invoiceReconcileStatus, channel, transactionCode);
+								no, keys, mxData, kalibrasiRecon, mt940Data, channel, invoiceMt940Status, "Paid", 
+								invoiceReconcileStatus,  transactionCode);
 						amountSettled = amountSettled + Double.valueOf(paymentAmount).longValue();
 						resultTemp.add(dto);
 						settled++;
@@ -1076,8 +1076,8 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 						String invoiceMt940Status 		= "Paid";
 						String invoiceReconcileStatus 	= "Unsettled";
 						dto = saveToReconcileDto(
-								no, keys, mxData, pengujianRecon, mt940Data, invoiceMt940Status, "Unpaid", 
-								invoiceReconcileStatus, channel, transactionCode);
+								no, keys, mxData, pengujianRecon, mt940Data, channel, invoiceMt940Status, "Unpaid", 
+								invoiceReconcileStatus, transactionCode);
 						amountNotSettled = amountNotSettled + Double.valueOf(paymentAmount).longValue();;
 						resultTemp.add(dto);
 						notSettled++;
@@ -1086,8 +1086,8 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 						String invoiceMt940Status 		= "Unpaid";
 						String invoiceReconcileStatus 	= "Unsettled";
 						dto = saveToReconcileDto(
-								no, keys, mxData, pengujianRecon, mt940Data, invoiceMt940Status, "Unpaid", 
-								invoiceReconcileStatus, channel, transactionCode);
+								no, keys, mxData, pengujianRecon, mt940Data, channel, invoiceMt940Status, "Unpaid", 
+								invoiceReconcileStatus, transactionCode);
 						amountNotSettled = amountNotSettled + Double.valueOf(paymentAmount).longValue();
 						resultTemp.add(dto);
 						notSettled++;
@@ -1103,8 +1103,8 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 						String invoiceMt940Status 		= "Paid";
 						String invoiceReconcileStatus 	= "Settled";
 						dto = saveToReconcileDto(
-								no, keys, mxData, pengujianRecon, mt940Data, invoiceMt940Status, "Paid", 
-								invoiceReconcileStatus, channel, transactionCode);
+								no, keys, mxData, pengujianRecon, mt940Data, channel, invoiceMt940Status, "Paid", 
+								invoiceReconcileStatus, transactionCode);
 						amountSettled = amountSettled + Double.valueOf(paymentAmount).longValue();
 						resultTemp.add(dto);
 						settled++;
@@ -1202,8 +1202,8 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 						String invoiceMt940Status 		= "Paid";
 						String invoiceReconcileStatus 	= "Unsettled";
 						dto = saveToReconcileDto(
-								no, keys, mxData, sertifikasiRecon, mt940Data, invoiceMt940Status, "Unpaid", 
-								invoiceReconcileStatus, channel, transactionCode);
+								no, keys, mxData, sertifikasiRecon, mt940Data, channel, invoiceMt940Status, "Unpaid", 
+								invoiceReconcileStatus, transactionCode);
 						amountNotSettled = amountNotSettled + Double.valueOf(paymentAmount).longValue();
 						resultTemp.add(dto);
 						notSettled++;
@@ -1212,8 +1212,8 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 						String invoiceMt940Status 		= "Unpaid";
 						String invoiceReconcileStatus 	= "Unsettled";
 						dto = saveToReconcileDto(
-								no, keys, mxData, sertifikasiRecon, mt940Data, invoiceMt940Status, "Unpaid", 
-								invoiceReconcileStatus, channel, transactionCode);
+								no, keys, mxData, sertifikasiRecon, mt940Data, channel, invoiceMt940Status, "Unpaid", 
+								invoiceReconcileStatus, transactionCode);
 						amountNotSettled = amountNotSettled + Double.valueOf(paymentAmount).longValue();
 						resultTemp.add(dto);
 						notSettled++;
@@ -1298,8 +1298,8 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 						String invoiceMt940Status 		= "Paid";
 						String invoiceReconcileStatus 	= "Unsettled";
 						dto = saveToReconcileDto(
-								no, keys, mxData, ikrapRecon, mt940Data, invoiceMt940Status, "Unpaid", 
-								invoiceReconcileStatus, channel, transactionCode);
+								no, keys, mxData, ikrapRecon, mt940Data, channel, invoiceMt940Status, "Unpaid", 
+								invoiceReconcileStatus, transactionCode);
 						amountNotSettled = amountNotSettled + Double.valueOf(paymentAmount).longValue();
 						resultTemp.add(dto);
 						notSettled++;
@@ -1324,8 +1324,8 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 						String invoiceMt940Status 		= "Paid";
 						String invoiceReconcileStatus 	= "Settled";
 						dto = saveToReconcileDto(
-								no, keys, mxData, ikrapRecon, mt940Data, invoiceMt940Status, "Paid", 
-								invoiceReconcileStatus, channel, transactionCode);
+								no, keys, mxData, ikrapRecon, mt940Data, channel, invoiceMt940Status, "Paid", 
+								invoiceReconcileStatus, transactionCode);
 						amountSettled = amountSettled + Double.valueOf(paymentAmount).longValue();
 						resultTemp.add(dto);
 						settled++;
@@ -1391,8 +1391,8 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 						String invoiceMt940Status 		= "Paid";
 						String invoiceReconcileStatus 	= "Unsettled";
 						dto = saveToReconcileDto(
-								no, keys, mxData, iarRecon, mt940Data, invoiceMt940Status, "Unpaid", 
-								invoiceReconcileStatus, channel, transactionCode);
+								no, keys, mxData, iarRecon, mt940Data, channel, invoiceMt940Status, "Unpaid", 
+								invoiceReconcileStatus, transactionCode);
 						amountNotSettled = amountNotSettled + Double.valueOf(paymentAmount).longValue();
 						resultTemp.add(dto);
 						notSettled++;
@@ -1401,8 +1401,8 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 						String invoiceMt940Status 		= "Unpaid";
 						String invoiceReconcileStatus 	= "Unsettled";
 						dto = saveToReconcileDto(
-								no, keys, mxData, iarRecon, mt940Data, invoiceMt940Status, "Unpaid", 
-								invoiceReconcileStatus, channel, transactionCode);
+								no, keys, mxData, iarRecon, mt940Data, channel, invoiceMt940Status, "Unpaid", 
+								invoiceReconcileStatus, transactionCode);
 						amountNotSettled = amountNotSettled + Double.valueOf(paymentAmount).longValue();
 						resultTemp.add(dto);
 						notSettled++;
@@ -1417,8 +1417,8 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 						String invoiceMt940Status 		= "Paid";
 						String invoiceReconcileStatus 	= "Settled";
 						dto = saveToReconcileDto(
-								no, keys, mxData, iarRecon, mt940Data, invoiceMt940Status, "Paid", 
-								invoiceReconcileStatus, channel, transactionCode);
+								no, keys, mxData, iarRecon, mt940Data, channel, invoiceMt940Status, "Paid", 
+								invoiceReconcileStatus, transactionCode);
 						amountSettled = amountSettled + Double.valueOf(paymentAmount).longValue();
 						resultTemp.add(dto);
 						settled++;
@@ -1490,8 +1490,8 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 						String invoiceMt940Status 		= "Paid";
 						String invoiceReconcileStatus 	= "Unsettled";
 						dto = saveToReconcileDto(
-								no, keys, mxData, reorRecon, mt940Data, invoiceMt940Status, "Unpaid", 
-								invoiceReconcileStatus, channel, transactionCode);
+								no, keys, mxData, reorRecon, mt940Data, channel, invoiceMt940Status, "Unpaid", 
+								invoiceReconcileStatus, transactionCode);
 						amountNotSettled = amountNotSettled + Double.valueOf(paymentAmount).longValue();
 						resultTemp.add(dto);
 						notSettled++;
@@ -1500,8 +1500,8 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 						String invoiceMt940Status 		= "Unpaid";
 						String invoiceReconcileStatus 	= "Unsettled";
 						dto = saveToReconcileDto(
-								no, keys, mxData, reorRecon, mt940Data, invoiceMt940Status, "Unpaid", 
-								invoiceReconcileStatus, channel, transactionCode);
+								no, keys, mxData, reorRecon, mt940Data, channel, invoiceMt940Status, "Unpaid", 
+								invoiceReconcileStatus, transactionCode);
 						amountNotSettled = amountNotSettled + Double.valueOf(paymentAmount).longValue();
 						resultTemp.add(dto);
 						notSettled++;
@@ -1516,8 +1516,8 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 						String invoiceMt940Status 		= "Paid";
 						String invoiceReconcileStatus 	= "Settled";
 						dto = saveToReconcileDto(
-								no, keys, mxData, reorRecon, mt940Data, invoiceMt940Status, "Paid", 
-								invoiceReconcileStatus, channel, transactionCode);
+								no, keys, mxData, reorRecon, mt940Data, channel, invoiceMt940Status, "Paid", 
+								invoiceReconcileStatus, transactionCode);
 						amountSettled = amountSettled + Double.valueOf(paymentAmount).longValue();
 						resultTemp.add(dto);
 						settled++;
@@ -1593,8 +1593,8 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 						String invoiceMt940Status 		= "Paid";
 						String invoiceReconcileStatus 	= "Unsettled";
 						dto = saveToReconcileDto(
-								no, keys, mxData, billingRecon, mt940Data, invoiceMt940Status, "Unpaid", 
-								invoiceReconcileStatus, channel, transactionCode);
+								no, keys, mxData, billingRecon, mt940Data, channel, invoiceMt940Status, "Unpaid", 
+								invoiceReconcileStatus, transactionCode);
 						amountNotSettled = amountNotSettled + Double.valueOf(paymentAmount).longValue();
 						resultTemp.add(dto);
 						notSettled++;
@@ -1603,8 +1603,8 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 						String invoiceMt940Status 		= "Unpaid";
 						String invoiceReconcileStatus 	= "Unsettled";
 						dto = saveToReconcileDto(
-								no, keys, mxData, billingRecon, mt940Data, invoiceMt940Status, "Unpaid", 
-								invoiceReconcileStatus, channel, transactionCode);
+								no, keys, mxData, billingRecon, mt940Data, channel, invoiceMt940Status, "Unpaid", 
+								invoiceReconcileStatus, transactionCode);
 						amountNotSettled = amountNotSettled + Double.valueOf(paymentAmount).longValue();
 						resultTemp.add(dto);
 						notSettled++;
@@ -1620,8 +1620,8 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 						String invoiceMt940Status 		= "Paid";
 						String invoiceReconcileStatus 	= "Settled";
 						dto = saveToReconcileDto(
-								no, keys, mxData, billingRecon, mt940Data, invoiceMt940Status, "Paid", 
-								invoiceReconcileStatus, channel, transactionCode);
+								no, keys, mxData, billingRecon, mt940Data, channel, invoiceMt940Status, "Paid", 
+								invoiceReconcileStatus, transactionCode);
 						amountSettled = amountSettled + Double.valueOf(paymentAmount).longValue();
 						resultTemp.add(dto);
 						settled++;
