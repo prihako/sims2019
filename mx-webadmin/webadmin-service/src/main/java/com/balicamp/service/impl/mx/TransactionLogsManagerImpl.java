@@ -1308,8 +1308,8 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 						String invoiceMt940Status 		= "Unpaid";
 						String invoiceReconcileStatus 	= "Unsettled";
 						dto = saveToReconcileDto(
-								no, keys, mxData, ikrapRecon, mt940Data, invoiceMt940Status, "Unpaid", 
-								invoiceReconcileStatus, channel, transactionCode);
+								no, keys, mxData, ikrapRecon, mt940Data, channel, invoiceMt940Status, "Unpaid", 
+								invoiceReconcileStatus, transactionCode);
 						amountNotSettled = amountNotSettled + Double.valueOf(paymentAmount).longValue();
 						resultTemp.add(dto);
 						notSettled++;
