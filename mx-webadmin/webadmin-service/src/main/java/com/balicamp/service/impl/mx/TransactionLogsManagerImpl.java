@@ -1564,26 +1564,6 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 				mxData				= resultMx.get(keys);
 				billingRecon		= resultBilling.get(keys);
 
-				/*
-				 * Billing/Billing Denda Guide 0.B.BI_MONEY_RECEIVED (Payment Date
-				 * Sims)
-				 * 1.B.BI_TYPE 2.B.BI_PAY_UNTIL (Invoice Due Date) 3.AD.AD_COMPANY
-				 * 4.B.BI_REF_NO (No Invoice) 5.B.BI_ID_REMINDER_ORIG (BI_ID Invoice
-				 * yang memiliki denda) 6.AD.AD_MAN_NUMBER 7.B.BI_MANUAL (Status
-				 * Konfirmasi Manual Payment) 8.B.BI_ID 9.L.NUM_TXT (Detail
-				 * Keterangan
-				 * BI_TYPE) 10.B.BI_COMMENT (Remarks) 11.B.BI_COST_DONE (Banyak Uang
-				 * Transaksi) 12. 13. 14. 15.
-				 */
-				/*
-				 * MX Guide 0.tlw.TRANSACTION_ID 1.tlw.client_id 2.tlw.client_name
-				 * 3.tlw.invoice_no 4.t.name as transaction_name 5.tlw.channel_id
-				 * 6.tlw.biller_rc 7.tlw.channel_rc 8.tlw.TRANSACTION_TIME 9.ep.name as bank_name
-				 * (NAMA BANK) 10.erc1.description (Detail Channel Response)
-				 * 11.erc2.description (Detail Biller Response) 12.tlw.biller_code
-				 * 13.tlw.recon_flag 14.tlw.channel_code 15.
-				 */
-
 				if (reconcileStatus.equalsIgnoreCase("unsettled")
 						|| reconcileStatus.equalsIgnoreCase("unsettled/need confirmation")
 						|| reconcileStatus.equalsIgnoreCase("all")) {
