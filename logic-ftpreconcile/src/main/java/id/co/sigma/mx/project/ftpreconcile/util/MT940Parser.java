@@ -611,17 +611,13 @@ public class MT940Parser {
     				clientId = strSecond.substring(27,strSecond.length());
     			}else if(endpointCode.equals(PostelConstant.REOR) ||
     					endpointCode.equals(PostelConstant.IAR) ||
-    					endpointCode.equals(PostelConstant.IKRAP)){
+    					endpointCode.equals(PostelConstant.IKRAP) ||
+    					endpointCode.equals(PostelConstant.UNAR)){
     				invoiceId = strSecond.substring(20,28);
     				clientId = strSecond.substring(28,strSecond.length());
-    				logger.info("=====================endpointCode : " + endpointCode + "=============================");
-    				logger.info("strSecond : " + strSecond);
-    				logger.info("invoiceId : " + invoiceId);
-    				logger.info("clientId : " + clientId);
     			}else if(endpointCode.equals(PostelConstant.PER01) || 
     					endpointCode.equals(PostelConstant.PAP) || 
     					endpointCode.equals(PostelConstant.KLBSI) ||
-    					endpointCode.equals(PostelConstant.UNAR) ||
     					endpointCode.equals(PostelConstant.SKOR)){
     				Date now = new Date();
     				SimpleDateFormat sdf = new SimpleDateFormat("yyyy");

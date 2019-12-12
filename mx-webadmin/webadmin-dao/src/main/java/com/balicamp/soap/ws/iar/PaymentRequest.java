@@ -437,4 +437,13 @@ public class PaymentRequest {
         this.reference3 = value;
     }
 
+	@Override
+	public String toString() {
+		return "PaymentRequest [language=" + language + ", trxDateTime=" + trxDateTime + ", transmissionDateTime="
+				+ transmissionDateTime + ", companyCode=" + companyCode + ", channelID=" + channelID + ", billKey1="
+				+ billKey1 + ", billKey2=" + billKey2 + ", billKey3=" + billKey3 + ", paidBills=" + paidBills
+				+ ", paymentAmount=" + paymentAmount + ", currency=" + currency + ", transactionID=" + transactionID
+				+ ", reference1=" + reference1 + ", reference2=" + reference2 + ", reference3=" + reference3 + "]";
+	}
+
 }

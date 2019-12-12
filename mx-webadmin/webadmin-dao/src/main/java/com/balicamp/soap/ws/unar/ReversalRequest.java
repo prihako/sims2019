@@ -1,5 +1,5 @@
 
-package com.balicamp.soap.ws.ikrap;
+package com.balicamp.soap.ws.unar;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -8,24 +8,25 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for PaymentRequest complex type.
+ * <p>Java class for ReversalRequest complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="PaymentRequest">
+ * &lt;complexType name="ReversalRequest">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;all>
  *         &lt;element name="language" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="trxDateTime" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="origTrxDateTime" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="transmissionDateTime" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="origTransmissionDateTime" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="companyCode" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="channelID" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="billKey1" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="billKey2" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="billKey3" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="paidBills" type="{urn:PaymentManagerControllerwsdl}ArrayOfString"/>
  *         &lt;element name="paymentAmount" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="currency" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="transactionID" type="{http://www.w3.org/2001/XMLSchema}string"/>
@@ -41,17 +42,21 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "PaymentRequest", propOrder = {
+@XmlType(name = "ReversalRequest", propOrder = {
 
 })
-public class PaymentRequest {
+public class ReversalRequest {
 
     @XmlElement(required = true)
     protected String language;
     @XmlElement(required = true)
     protected String trxDateTime;
     @XmlElement(required = true)
+    protected String origTrxDateTime;
+    @XmlElement(required = true)
     protected String transmissionDateTime;
+    @XmlElement(required = true)
+    protected String origTransmissionDateTime;
     @XmlElement(required = true)
     protected String companyCode;
     @XmlElement(required = true)
@@ -62,8 +67,6 @@ public class PaymentRequest {
     protected String billKey2;
     @XmlElement(required = true)
     protected String billKey3;
-    @XmlElement(required = true)
-    protected ArrayOfString paidBills;
     @XmlElement(required = true)
     protected String paymentAmount;
     @XmlElement(required = true)
@@ -126,6 +129,30 @@ public class PaymentRequest {
     }
 
     /**
+     * Gets the value of the origTrxDateTime property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getOrigTrxDateTime() {
+        return origTrxDateTime;
+    }
+
+    /**
+     * Sets the value of the origTrxDateTime property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setOrigTrxDateTime(String value) {
+        this.origTrxDateTime = value;
+    }
+
+    /**
      * Gets the value of the transmissionDateTime property.
      * 
      * @return
@@ -147,6 +174,30 @@ public class PaymentRequest {
      */
     public void setTransmissionDateTime(String value) {
         this.transmissionDateTime = value;
+    }
+
+    /**
+     * Gets the value of the origTransmissionDateTime property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getOrigTransmissionDateTime() {
+        return origTransmissionDateTime;
+    }
+
+    /**
+     * Sets the value of the origTransmissionDateTime property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setOrigTransmissionDateTime(String value) {
+        this.origTransmissionDateTime = value;
     }
 
     /**
@@ -267,30 +318,6 @@ public class PaymentRequest {
      */
     public void setBillKey3(String value) {
         this.billKey3 = value;
-    }
-
-    /**
-     * Gets the value of the paidBills property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link ArrayOfString }
-     *     
-     */
-    public ArrayOfString getPaidBills() {
-        return paidBills;
-    }
-
-    /**
-     * Sets the value of the paidBills property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link ArrayOfString }
-     *     
-     */
-    public void setPaidBills(ArrayOfString value) {
-        this.paidBills = value;
     }
 
     /**
@@ -436,14 +463,5 @@ public class PaymentRequest {
     public void setReference3(String value) {
         this.reference3 = value;
     }
-
-	@Override
-	public String toString() {
-		return "PaymentRequest [language=" + language + ", trxDateTime=" + trxDateTime + ", transmissionDateTime="
-				+ transmissionDateTime + ", companyCode=" + companyCode + ", channelID=" + channelID + ", billKey1="
-				+ billKey1 + ", billKey2=" + billKey2 + ", billKey3=" + billKey3 + ", paidBills=" + paidBills
-				+ ", paymentAmount=" + paymentAmount + ", currency=" + currency + ", transactionID=" + transactionID
-				+ ", reference1=" + reference1 + ", reference2=" + reference2 + ", reference3=" + reference3 + "]";
-	}
 
 }

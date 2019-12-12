@@ -47,7 +47,8 @@
 		    /WEB-INF/applicationContext-dao-reor.xml 
 		    /WEB-INF/applicationContext-dao-iar.xml
 		    /WEB-INF/applicationContext-dao-ikrap.xml
-		    /WEB-INF/applicationContext-dao-kalibrasi.xml 		   
+		    /WEB-INF/applicationContext-dao-kalibrasi.xml 
+		    /WEB-INF/applicationContext-dao-unar.xml		   
    		    /WEB-INF/applicationContext-rpc.xml
    		    /WEB-INF/applicationContext-report.xml
    		    /WEB-INF/applicationContext-channel.xml

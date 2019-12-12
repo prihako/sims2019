@@ -50,6 +50,9 @@ public class ForcePaymentLog extends BaseAdminModel implements
 
 	@Column(name = "created_on")
 	private Timestamp createdOn;
+	
+	@Column(name = "is_request")
+	private Boolean isRequest;
 
 	public ForcePaymentLog() {
 	
@@ -109,6 +112,14 @@ public class ForcePaymentLog extends BaseAdminModel implements
 
 	public void setResponseCode(String responseCode) {
 		this.responseCode = responseCode;
+	}
+
+	public Boolean getIsRequest() {
+		return isRequest;
+	}
+
+	public void setIsRequest(Boolean isRequest) {
+		this.isRequest = isRequest;
 	}
 
 	@Override

@@ -12,9 +12,9 @@ public class ForcePaymentLogRunner {
 	private ForcePaymentLogDao forcePaymentLogDao;
 	
 	public void saveForcePaymentLog(String invoiceNo, String clientId, 
-			String transactionType, String responseCode, String responseMessage) {
+			String transactionType, String responseCode, String responseMessage, Boolean isRequest) {
 		ForcePaymentLogThread forcePaymentThread  = new ForcePaymentLogThread(forcePaymentLogDao,
-				invoiceNo, clientId, transactionType,  responseCode, responseMessage);
+				invoiceNo, clientId, transactionType,  responseCode, responseMessage, isRequest);
 		forcePaymentThread.run();
 		
 	}

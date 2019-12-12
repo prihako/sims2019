@@ -26,10 +26,14 @@ public class WebServiceConstant {
 	public static final String PAP_INQ = "PAP.INQ";
 	public static final String PAP_PAY = "PAP.PAY";
 	
+	public static final String UNAR_INQ = "UNAR.INQ";
+	public static final String UNAR_PAY = "UNAR.PAY";
+	
 	
 	public static final String REOR_TRANSACTION_TYPE = "20";
 	public static final String IAR_TRANSACTION_TYPE = "50";
 	public static final String IKRAP_TRANSACTION_TYPE = "60";
 	public static final String KLBSI_TRANSACTION_TYPE = "90";
 	public static final String PAP_TRANSACTION_TYPE = "80";
+	public static final String UNAR_TRANSACTION_TYPE = "40";
 }

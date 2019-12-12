@@ -12,6 +12,8 @@ import com.balicamp.model.mx.ReconcileDto;
 import com.balicamp.soap.WebServiceConstant;
 import com.balicamp.soap.helper.ForcePaymentLogRunner;
 import com.balicamp.soap.helper.PengujianRequestGenerator;
+import com.balicamp.soap.ws.pengujian.InquiryRequest;
+import com.balicamp.soap.ws.pengujian.PaymentRequest;
 import com.balicamp.soap.ws.pengujian.InquiryResult;
 import com.balicamp.soap.ws.pengujian.PaymentManagerControllerPortType;
 import com.balicamp.soap.ws.pengujian.PaymentResult;
@@ -34,12 +36,18 @@ public class PengujianChannel {
 	
 	public InquiryResult inquiry(ReconcileDto reconcile) {
 
-		InquiryResult result = proxy().inquiry(pengujianRequestGenerate.genereateInquiryRequest(reconcile.getInvoiceNo(),
-				reconcile.getClientId()));
+		InquiryRequest inquiryRequest = pengujianRequestGenerate.genereateInquiryRequest(reconcile.getInvoiceNo(),
+				reconcile.getClientId());
+		
+		forcePaymentLogRunner.saveForcePaymentLog(reconcile.getInvoiceNo(), 
+				reconcile.getClientId(), WebServiceConstant.PAP_INQ, null, 
+				inquiryRequest.toString(), true);
+		
+		InquiryResult result = proxy().inquiry(inquiryRequest);
 
 		forcePaymentLogRunner.saveForcePaymentLog(reconcile.getInvoiceNo(), 
 				reconcile.getClientId(), WebServiceConstant.PAP_INQ, result.getStatus().getErrorCode(), 
-				result.toString());
+				result.toString(), false);
 		
 		LOG.info("Inquiry Response : " + result.toString());
 
@@ -54,12 +62,19 @@ public class PengujianChannel {
 		PaymentResult paymentResult = null;
 		if(inquiryResult.getStatus().getErrorCode().equals("00")) {
 			String paymentAmount = inquiryResult.getBillDetails().getBillDetails().getItem().get(0).getBillAmount();
-			paymentResult = proxy().payment(pengujianRequestGenerate.genereatePaymentRequest(reconcile.getInvoiceNo(),
-				reconcile.getClientId(), paymentAmount));
+			
+			PaymentRequest paymentRequest = pengujianRequestGenerate.genereatePaymentRequest(reconcile.getInvoiceNo(),
+					reconcile.getClientId(), paymentAmount);
 			
 			forcePaymentLogRunner.saveForcePaymentLog(reconcile.getInvoiceNo(), 
-					reconcile.getClientId(), WebServiceConstant.PAP_PAY, paymentResult.toString(), 
-					paymentResult.getStatus().getErrorCode());
+					reconcile.getClientId(), WebServiceConstant.PAP_PAY,
+					null, paymentRequest.toString(), true);
+			
+			paymentResult = proxy().payment(paymentRequest);
+			
+			forcePaymentLogRunner.saveForcePaymentLog(reconcile.getInvoiceNo(), 
+					reconcile.getClientId(), WebServiceConstant.PAP_PAY, 
+					paymentResult.getStatus().getErrorCode() ,paymentResult.toString(), false);
 			
 			LOG.info("Payment Response : " + paymentResult.toString());
 		}else {

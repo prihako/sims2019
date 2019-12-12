@@ -1,5 +1,5 @@
 
-package com.balicamp.soap.ws.ikrap;
+package com.balicamp.soap.ws.unar;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -8,12 +8,12 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for PaymentRequest complex type.
+ * <p>Java class for InquiryRequest complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="PaymentRequest">
+ * &lt;complexType name="InquiryRequest">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;all>
@@ -25,10 +25,6 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="billKey1" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="billKey2" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="billKey3" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="paidBills" type="{urn:PaymentManagerControllerwsdl}ArrayOfString"/>
- *         &lt;element name="paymentAmount" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="currency" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="transactionID" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="reference1" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="reference2" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="reference3" type="{http://www.w3.org/2001/XMLSchema}string"/>
@@ -41,12 +37,12 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "PaymentRequest", propOrder = {
+@XmlType(name = "InquiryRequest", propOrder = {
 
 })
-public class PaymentRequest {
+public class InquiryRequest {
 
-    @XmlElement(required = true)
+	@XmlElement(required = true)
     protected String language;
     @XmlElement(required = true)
     protected String trxDateTime;
@@ -62,14 +58,6 @@ public class PaymentRequest {
     protected String billKey2;
     @XmlElement(required = true)
     protected String billKey3;
-    @XmlElement(required = true)
-    protected ArrayOfString paidBills;
-    @XmlElement(required = true)
-    protected String paymentAmount;
-    @XmlElement(required = true)
-    protected String currency;
-    @XmlElement(required = true)
-    protected String transactionID;
     @XmlElement(required = true)
     protected String reference1;
     @XmlElement(required = true)
@@ -270,102 +258,6 @@ public class PaymentRequest {
     }
 
     /**
-     * Gets the value of the paidBills property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link ArrayOfString }
-     *     
-     */
-    public ArrayOfString getPaidBills() {
-        return paidBills;
-    }
-
-    /**
-     * Sets the value of the paidBills property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link ArrayOfString }
-     *     
-     */
-    public void setPaidBills(ArrayOfString value) {
-        this.paidBills = value;
-    }
-
-    /**
-     * Gets the value of the paymentAmount property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getPaymentAmount() {
-        return paymentAmount;
-    }
-
-    /**
-     * Sets the value of the paymentAmount property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setPaymentAmount(String value) {
-        this.paymentAmount = value;
-    }
-
-    /**
-     * Gets the value of the currency property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getCurrency() {
-        return currency;
-    }
-
-    /**
-     * Sets the value of the currency property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setCurrency(String value) {
-        this.currency = value;
-    }
-
-    /**
-     * Gets the value of the transactionID property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getTransactionID() {
-        return transactionID;
-    }
-
-    /**
-     * Sets the value of the transactionID property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setTransactionID(String value) {
-        this.transactionID = value;
-    }
-
-    /**
      * Gets the value of the reference1 property.
      * 
      * @return
@@ -437,13 +329,11 @@ public class PaymentRequest {
         this.reference3 = value;
     }
 
-	@Override
-	public String toString() {
-		return "PaymentRequest [language=" + language + ", trxDateTime=" + trxDateTime + ", transmissionDateTime="
-				+ transmissionDateTime + ", companyCode=" + companyCode + ", channelID=" + channelID + ", billKey1="
-				+ billKey1 + ", billKey2=" + billKey2 + ", billKey3=" + billKey3 + ", paidBills=" + paidBills
-				+ ", paymentAmount=" + paymentAmount + ", currency=" + currency + ", transactionID=" + transactionID
-				+ ", reference1=" + reference1 + ", reference2=" + reference2 + ", reference3=" + reference3 + "]";
-	}
-
+    @Override
+   	public String toString() {
+   		return "InquiryRequest [language=" + language + ", trxDateTime=" + trxDateTime + ", transmissionDateTime="
+   				+ transmissionDateTime + ", companyCode=" + companyCode + ", channelID=" + channelID + ", billKey1="
+   				+ billKey1 + ", billKey2=" + billKey2 + ", billKey3=" + billKey3 + ", reference1=" + reference1
+   				+ ", reference2=" + reference2 + ", reference3=" + reference3 + "]";
+   	}
 }

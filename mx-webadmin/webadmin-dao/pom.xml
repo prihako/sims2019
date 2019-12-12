@@ -80,7 +80,7 @@
 			</plugin>
 		</plugins> -->
 		
-<!--  		<plugins> 
+  		<plugins> 
 
 		<plugin>
 		       <groupId>org.apache.cxf</groupId>
@@ -94,7 +94,7 @@
 		                   <sourceRoot>${project.build.directory}/generated/cxf</sourceRoot>
 		                   <wsdlOptions>
 		                       <wsdlOption>
-		                           <wsdl>${basedir}/src/main/resources/wsdl/PAP.wsdl</wsdl>
+		                           <wsdl>${basedir}/src/main/resources/wsdl/UNAR.wsdl</wsdl>
 		                          <extraargs>
 			                          <extraarg>-impl</extraarg>
 			                          <extraarg>-verbose</extraarg>
@@ -109,7 +109,7 @@
 		       </executions>
 		   </plugin>
 		  
-		 </plugins>	 -->
+		 </plugins>	 
 
 	</build>
 

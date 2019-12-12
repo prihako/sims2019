@@ -1,4 +1,4 @@
-package com.balicamp.dao.hibernate.iar;
+package com.balicamp.dao.hibernate.unar;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -12,19 +12,18 @@ import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.balicamp.dao.hibernate.mx.MerchantDetailsDaoHibernate;
-import com.balicamp.dao.iar.IarDao;
+import com.balicamp.dao.unar.UnarDao;
 import com.balicamp.model.admin.BaseAdminModel;
 import com.balicamp.model.mx.ReconcileDto;
 
 @Repository
 @Transactional
-public class IarDaoHibernate extends IarGenericDaoHibernate<BaseAdminModel, String> implements IarDao {
+public class UnarDaoHibernate extends UnarGenericDaoHibernate<BaseAdminModel, String> implements UnarDao {
 	
 	private static final Logger LOGGER = Logger
-			.getLogger(IarDaoHibernate.class.getName());
+			.getLogger(UnarDaoHibernate.class.getName());
 
-	public IarDaoHibernate() {
+	public UnarDaoHibernate() {
 		super(BaseAdminModel.class);
 	}
 
@@ -34,18 +33,18 @@ public class IarDaoHibernate extends IarGenericDaoHibernate<BaseAdminModel, Stri
 			Object[] mt940Data) {
 		// TODO Auto-generated method stub
 		String sql = "select "
-					+"inv.invoice_number, "
-					+"reg.id_registrant, "
-					+"DATE_FORMAT(pay.due_date,  '%d/%c/%Y %H:%i:%k'), "
-					+"DATE_FORMAT(pay.payment_date,  '%d/%c/%Y %H:%i:%k'), "
-					+"nama_registrant, "
-					+"inv.amount "
-					+"from "
-					+"invoices inv join payments pay on "
-					+"inv.id_invoice = pay.id_invoice "
-					+"join registrants reg "
-					+"on pay.id_registrant = reg.id_registrant "
-					+"where inv.invoice_number = :invoice "; 
+				+"inv.invoice_number, "
+				+"reg.id_registrant, "
+				+"DATE_FORMAT(pay.due_date,  '%d/%c/%Y %H:%i:%k'), "
+				+"DATE_FORMAT(pay.payment_date,  '%d/%c/%Y %H:%i:%k'), "
+				+"nama_registrant, "
+				+"inv.amount "
+				+"from "
+				+"invoices inv join payments pay on "
+				+"inv.id_invoice = pay.id_invoice "
+				+"join registrants reg "
+				+"on pay.id_registrant = reg.id_registrant "
+				+"where inv.invoice_number = :invoice "; 
 		
 		Query query = getSessionFactory().getCurrentSession().createSQLQuery(sql);
 		query.setParameter("invoice", invoice);

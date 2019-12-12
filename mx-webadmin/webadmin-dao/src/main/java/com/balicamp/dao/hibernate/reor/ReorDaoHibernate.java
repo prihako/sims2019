@@ -30,9 +30,9 @@ public class ReorDaoHibernate extends ReorGenericDaoHibernate<BaseAdminModel, St
 		
 		String sql_1 = "select "
 				+ "inv.invoice_number, "
-				+ "lemdiks.id_lemdik client_id, "
-				+ "inv.payment_date, "
-				+ "inv.due_date, "
+				+ "lemdiks.id_lemdik, "
+				+"DATE_FORMAT(pay.due_date,  '%d/%c/%Y %H:%i:%k'), "
+				+"DATE_FORMAT(pay.payment_date,  '%d/%c/%Y %H:%i:%k'), "
 				+ "lemdiks.nama_lemdik, "
 				+ "inv.amount "
 				+ "from invoices inv, exams exams, lemdiks lemdiks where "

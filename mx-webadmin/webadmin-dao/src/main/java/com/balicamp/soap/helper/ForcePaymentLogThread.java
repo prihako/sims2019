@@ -1,5 +1,8 @@
 package com.balicamp.soap.helper;
 
+import java.sql.Timestamp;
+import java.util.Date;
+
 import com.balicamp.dao.mx.ForcePaymentLogDao;
 import com.balicamp.model.mx.ForcePaymentLog;
 
@@ -11,9 +14,11 @@ public class ForcePaymentLogThread implements Runnable {
 	private String transactionType;
 	private String responseMessage;
 	private String responseCode;
+	private Boolean isRequest;
+	private Timestamp createdOn;
 
 	public ForcePaymentLogThread(ForcePaymentLogDao forcePaymentLogDao, String invoiceNo, String clientId,
-			String transactionType, String responseCode, String responseMessage) {
+			String transactionType, String responseCode, String responseMessage, Boolean isRequest) {
 		super();
 		this.forcePaymentLogDao = forcePaymentLogDao;
 		this.invoiceNo = invoiceNo;
@@ -21,6 +26,8 @@ public class ForcePaymentLogThread implements Runnable {
 		this.transactionType = transactionType;
 		this.responseMessage = responseMessage;
 		this.responseCode = responseCode;
+		this.isRequest = isRequest;
+		this.createdOn = new Timestamp(System.currentTimeMillis());
 	}
 
 	@Override
@@ -31,7 +38,7 @@ public class ForcePaymentLogThread implements Runnable {
 		forcePaymentLog.setTransactionType(transactionType);
 		forcePaymentLog.setResponseMessage(responseMessage);
 		forcePaymentLog.setResponseCode(responseCode);
-		
+		forcePaymentLog.setCreatedOn(createdOn);
 		forcePaymentLogDao.save(forcePaymentLog);
 	}
 	

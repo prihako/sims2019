@@ -329,4 +329,11 @@ public class InquiryRequest {
         this.reference3 = value;
     }
 
+	@Override
+	public String toString() {
+		return "InquiryRequest [language=" + language + ", trxDateTime=" + trxDateTime + ", transmissionDateTime="
+				+ transmissionDateTime + ", companyCode=" + companyCode + ", channelID=" + channelID + ", billKey1="
+				+ billKey1 + ", billKey2=" + billKey2 + ", billKey3=" + billKey3 + ", reference1=" + reference1
+				+ ", reference2=" + reference2 + ", reference3=" + reference3 + "]";
+	}
 }
