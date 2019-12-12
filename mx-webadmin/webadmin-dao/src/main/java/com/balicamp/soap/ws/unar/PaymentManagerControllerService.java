@@ -15,7 +15,7 @@ import javax.xml.ws.Service;
  * 
  */
 @WebServiceClient(name = "PaymentManagerControllerService", 
-                  wsdlLocation = "file:/F:/sims2019/sims_git/sims2019/mx-webadmin/webadmin-dao/src/main/resources/wsdl/PAP.wsdl",
+                  wsdlLocation = "classpath:wsdl/PAP.wsdl",
                   targetNamespace = "urn:PaymentManagerControllerwsdl") 
 public class PaymentManagerControllerService extends Service {
 
@@ -26,11 +26,11 @@ public class PaymentManagerControllerService extends Service {
     static {
         URL url = null;
         try {
-            url = new URL("file:/F:/sims2019/sims_git/sims2019/mx-webadmin/webadmin-dao/src/main/resources/wsdl/PAP.wsdl");
+            url = new URL("classpath:wsdl/PAP.wsdl");
         } catch (MalformedURLException e) {
             java.util.logging.Logger.getLogger(PaymentManagerControllerService.class.getName())
                 .log(java.util.logging.Level.INFO, 
-                     "Can not initialize the default wsdl from {0}", "file:/F:/sims2019/sims_git/sims2019/mx-webadmin/webadmin-dao/src/main/resources/wsdl/PAP.wsdl");
+                     "Can not initialize the default wsdl from {0}", "classpath:wsdl/PAP.wsdl");
         }
         WSDL_LOCATION = url;
     }
