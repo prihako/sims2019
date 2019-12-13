@@ -1180,9 +1180,11 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 					invoiceSP2 += invoice.substring(invoice.length()-4);
 					
 					if(!mt940Map.isEmpty()){
-						sertifikasi = sertifikasiDao.findBillingByInvoiceAndDate(invoiceSP2, trxDate, mt940Data);
+						log.info("dataSource SERTIFIKASI: MT940 - "+invoiceSP2);
+						sertifikasi = sertifikasiDao.findBillingByInvoiceAndDate(invoiceSP2, trxDate, mt940Data, "MT940");
 					}else if (!mxMap.isEmpty()){
-						sertifikasi = sertifikasiDao.findBillingByInvoiceAndDate(invoiceSP2, trxDate, mxDataAbnormal);
+						log.info("dataSource SERTIFIKASI: MXData - "+invoiceSP2);
+						sertifikasi = sertifikasiDao.findBillingByInvoiceAndDate(invoiceSP2, trxDate, mxDataAbnormal, "MXData");
 					}
 					resultSertifikasi.put(invoice, sertifikasi);
 				}

@@ -2369,9 +2369,9 @@ public class TransactionLogDaoHibernate
 			sql += "tlw.biller_rc in (:billerRc) and ";}
 
 		sql += "((tlw.transaction_time  >= to_timestamp(:trxDate, 'dd-mm-yyyy') and "
-				+ "tlw.transaction_time  < to_timestamp(:trxDate, 'dd-mm-yyyy') + interval '1' day) or ";
+				+ "tlw.transaction_time  < to_timestamp(:trxDate, 'dd-mm-yyyy') + interval '1' day)) and ";
 
-		sql += "tlw.transaction_code = :transactionCode) "
+		sql += "tlw.transaction_code = :transactionCode "
 				+ "order by tlw.TRANSACTION_TIME DESC";
 
 		Map<String, Object[]> mapResult = null;

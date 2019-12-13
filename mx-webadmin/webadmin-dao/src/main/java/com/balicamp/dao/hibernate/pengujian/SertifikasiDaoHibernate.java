@@ -322,7 +322,7 @@ public class SertifikasiDaoHibernate extends
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Object[] findBillingByInvoiceAndDate(String invoiceNo, Date trxDate, Object[] mt940Map) {
+	public Object[] findBillingByInvoiceAndDate(String invoiceNo, Date trxDate, Object[] dataMap, String dataSource) {
 		// TODO Auto-generated method stub
 		
 		String sql = "select "
@@ -346,7 +346,12 @@ public class SertifikasiDaoHibernate extends
 				+ "and a.CUST_ID = c.CUST_ID ";
 		
 		Query query = getSessionFactory().getCurrentSession().createSQLQuery(sql);
-		query.setParameter("invoiceAmount", mt940Map[7].toString());
+		if(dataSource.equalsIgnoreCase("MT940")){
+			query.setParameter("invoiceAmount", dataMap[7].toString());
+		}else {
+			query.setParameter("invoiceAmount", dataMap[15].toString());
+		}
+		
 		query.setParameter("invoiceNo", invoiceNo);
 			
 		Object obj = new Object();
