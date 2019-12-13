@@ -1688,9 +1688,7 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 				billingRecon		= resultBilling.get(keys);
 				
 				if(invoiceNo.size()>0 && !mt940Map.isEmpty()){
-					for (String invoice : invoiceNo) {
-						mt940Data = mt940Map.get(invoice);
-					}
+					mt940Data = mt940Map.get(keys);
 				}
 
 				if (reconcileStatus.equalsIgnoreCase("unsettled")
