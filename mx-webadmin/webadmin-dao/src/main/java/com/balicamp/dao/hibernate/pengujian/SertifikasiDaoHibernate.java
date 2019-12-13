@@ -86,15 +86,21 @@ public class SertifikasiDaoHibernate extends
 		query.setParameter("clientId", reconcile.getClientId());
 		query.setParameter("invoiceId", invoiceSP2);
 		
-		if (query.executeUpdate() > 0) {
-			if(insertInvoiceEodSertifikasi(reconcile, invoiceSP2, paymentDate, remarks) == true){
-				return true;
-			}else{
+		try {
+			if (query.executeUpdate() > 0) {
+				if(insertInvoiceEodSertifikasi(reconcile, invoiceSP2, paymentDate, remarks) == true){
+					return true;
+				}else{
+					return false;
+				}
+			} else {
 				return false;
 			}
-		} else {
+		}catch(Exception e) {
+			e.printStackTrace();
 			return false;
 		}
+		
 	}
 	
 	public boolean insertInvoiceEodSertifikasi(ReconcileDto reconcile, String invoiceSP2, Date paymentDate, String remarks) {
@@ -136,9 +142,14 @@ public class SertifikasiDaoHibernate extends
 		query.setParameter("reconcileDate", reconcileDate);
 		query.setParameter("remarks", remarks);
 		
-		if (query.executeUpdate() > 0) {
-			return true;
-		} else {
+		try {
+			if (query.executeUpdate() > 0) {
+				return true;
+			} else {
+				return false;
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
 			return false;
 		}
 	}
