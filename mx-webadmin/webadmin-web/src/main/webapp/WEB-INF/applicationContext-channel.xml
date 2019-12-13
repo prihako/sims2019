@@ -32,6 +32,10 @@
     <bean id="pengujianChannel" class="com.balicamp.soap.ws.channel.PengujianChannel">
         <property name="address" value="${pengujian_url}"/>
     </bean>
+    
+     <bean id="unarChannel" class="com.balicamp.soap.ws.channel.UnarChannel">
+        <property name="address" value="${unar_url}"/>
+    </bean>
 
 </beans>
 	 

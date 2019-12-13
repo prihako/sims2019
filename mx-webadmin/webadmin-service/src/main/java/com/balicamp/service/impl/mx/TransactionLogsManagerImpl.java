@@ -1984,8 +1984,6 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 			dto.setTrxAmount		(dto.getTrxAmount() 		== null && coreData[2]  != null ? numFormat.format(coreData[2]) : "-");
 		}
 		
-		log.info("dto 3 : " + dto.toString());
-		
 //		Sertifikasi guide:
 //		0. SP2_NO		1. CUST_ID		2. CUST_NAME
 //		3. TGL_BYR		4. EXP_DATE		5. JML_BYR

@@ -80,7 +80,7 @@
 			</plugin>
 		</plugins> -->
 		
-  		<plugins> 
+<!--   		<plugins> 
 
 		<plugin>
 		       <groupId>org.apache.cxf</groupId>
@@ -109,7 +109,7 @@
 		       </executions>
 		   </plugin>
 		  
-		 </plugins>	 
+		 </plugins>	  -->
 
 	</build>
 

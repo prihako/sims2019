@@ -19,9 +19,9 @@ import com.balicamp.soap.ws.unar.InquiryResult;
 import com.balicamp.soap.ws.unar.PaymentManagerControllerPortType;
 import com.balicamp.soap.ws.unar.PaymentResult;
 
-public class unarChannel {
+public class UnarChannel {
 
-	private static final Logger LOG = Logger.getLogger(unarChannel.class.getName());
+	private static final Logger LOG = Logger.getLogger(UnarChannel.class.getName());
 
 	@Autowired
 	private UnarRequestGenerator unarRequestGenerate;

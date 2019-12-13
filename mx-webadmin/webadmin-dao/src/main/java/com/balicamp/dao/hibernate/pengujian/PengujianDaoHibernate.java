@@ -32,18 +32,18 @@ public class PengujianDaoHibernate extends
 			Object[] mt940Data) {
 		// TODO Auto-generated method stub
 			String sql = "select "
-					+ "cast(sp2.SP2_NO_H2H AS varchar), "
-					+ "cast(info.TGL_BAYAR AS varchar), "
-					+ "cast(info.JUMLAH_BAYAR AS varchar), "
-					+ "cast(cust.CUST_NAME AS varchar), "
-					+ "cast(cust.CUST_ID AS varchar), "
-					+ "cast(sp2.SP2_NO AS varchar) "
+					+ "sp2.SP2_NO_H2H , "
+					+ "info.TGL_BAYAR , "
+					+ "info.JUMLAH_BAYAR , "
+					+ "cust.CUST_NAME , "
+					+ "cust.CUST_ID , "
+					+ "sp2.SP2_NO "
 					+ "from T_SP2 sp2, T_INFO_BAYAR info, T_APLIKASI apl, T_CUSTOMER cust "
 					+ "where "
-					+ "cast(sp2.SP2_ID AS varchar)=cast(info.SP2_ID AS varchar) "
-					+ "and cast(sp2.APL_ID AS varchar)=cast(apl.APL_ID AS varchar) "
-					+ "and cast(apl.CUST_ID AS varchar)=cast(cust.CUST_ID AS varchar) "
-					+ "and cast(sp2.SP2_NO_H2H AS varchar)='"+invoice+"'";
+					+ "sp2.SP2_ID=info.SP2_ID  "
+					+ "and sp2.APL_ID =apl.APL_ID  "
+					+ "and apl.CUST_ID =cust.CUST_ID  "
+					+ "and sp2.SP2_NO_H2H ='"+invoice+"'";
 		
 		Query query = getSessionFactory().getCurrentSession().createSQLQuery(sql);
 

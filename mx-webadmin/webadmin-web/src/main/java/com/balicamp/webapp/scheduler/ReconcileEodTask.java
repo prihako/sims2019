@@ -48,7 +48,7 @@ import com.balicamp.soap.ws.channel.IkrapChannel;
 import com.balicamp.soap.ws.channel.KlbsiChannel;
 import com.balicamp.soap.ws.channel.PengujianChannel;
 import com.balicamp.soap.ws.channel.ReorChannel;
-import com.balicamp.soap.ws.channel.unarChannel;
+import com.balicamp.soap.ws.channel.UnarChannel;
 import com.balicamp.util.DateUtil;
 import com.balicamp.webapp.action.report.ReportReconcileAction;
 import com.balicamp.webapp.action.report.XlstoStringConverter;
@@ -95,7 +95,7 @@ public class ReconcileEodTask extends HttpServlet {
 	private ReorChannel reorChannel;
 	
 	@Autowired
-	private unarChannel unarChannel;
+	private UnarChannel unarChannel;
 	
 	@Autowired
 	private IarChannel iarChannel;
@@ -318,9 +318,12 @@ public class ReconcileEodTask extends HttpServlet {
 			}else{
 				if(!mt940Data.isEmpty()){
 					listInvoiceCode = mt940Data.keySet();
-				}else if(!mxData.isEmpty()){
+				}
+				
+				if(!mxData.isEmpty()){
 					listInvoiceCode = mxData.keySet();
 				}
+				
 				searchResult.addAll(trxLogManager.findTransactionLogsWebadmin(mt940Data, mxData, channelCode[1], 
 						listInvoiceCode, null, trxCode, trxDate, "all", mapCount, mapCountAmount));
 			}
