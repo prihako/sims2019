@@ -320,6 +320,7 @@ public class ReconcileEodTask extends HttpServlet {
 				if(!mt940Data.isEmpty()){
 					listInvoiceCode = mt940Data.keySet();
 				}
+				log.info("MT940 Data #1 "+LogHelper.toString(mt940Data));
 				
 				if(!mxData.isEmpty()){
 					listInvoiceCode = mxData.keySet();
@@ -335,7 +336,7 @@ public class ReconcileEodTask extends HttpServlet {
 			String reportDir = trxLogManager.findParamValueByParamName("reconcileEod.report.path") + channelCode[0].toLowerCase() + "/" + billerCode;
 			putToParam(params, mapCount, mapCountAmount, new Date(), channelCode[1], channelCode[0], "All", systemParameter.findParamValueByParamName("reconcileEod.report.image.path"), "");
 	
-			log.info(LogHelper.toString(mt940Data));
+			log.info("MT940 Data #2 "+LogHelper.toString(mt940Data));
 			reportReconcileAction.createReportWithoutContextByDataType(params, searchResult, jasperRealPath, jrxmlRealPath, reportDir, channelCode[0], "PDF", "original");
 			reportReconcileAction.createReportWithoutContextByDataType(params, searchResult, jasperRealPath, jrxmlRealPath, reportDir, channelCode[0], "XLS", "original");
 	
