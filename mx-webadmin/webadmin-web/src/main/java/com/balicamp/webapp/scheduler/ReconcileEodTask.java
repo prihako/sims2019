@@ -48,6 +48,7 @@ import com.balicamp.soap.ws.channel.IkrapChannel;
 import com.balicamp.soap.ws.channel.KlbsiChannel;
 import com.balicamp.soap.ws.channel.PengujianChannel;
 import com.balicamp.soap.ws.channel.ReorChannel;
+import com.balicamp.soap.ws.channel.unarChannel;
 import com.balicamp.util.DateUtil;
 import com.balicamp.webapp.action.report.ReportReconcileAction;
 import com.balicamp.webapp.action.report.XlstoStringConverter;
@@ -92,6 +93,9 @@ public class ReconcileEodTask extends HttpServlet {
 	
 	@Autowired
 	private ReorChannel reorChannel;
+	
+	@Autowired
+	private unarChannel unarChannel;
 	
 	@Autowired
 	private IarChannel iarChannel;
@@ -381,20 +385,22 @@ public class ReconcileEodTask extends HttpServlet {
 				log.info("Auto Reconcile Invoice No : " + reconciledList.get(i).getInvoiceNo());
 				
 				if(billerCode.equalsIgnoreCase(Constants.BillerConstants.BHP_CODE)){
-					externalBillingSystem.updateInvoiceEod(reconciledList.get(i).getInvoiceNo(), cal.getTime(), "Auto Reconcile By WebAdmin");
+					externalBillingSystem.updateInvoiceEod(reconciledList.get(i).getInvoiceNo(), cal.getTime(), "Auto Reconcile BHP By WebAdmin");
 				}else if(billerCode.equalsIgnoreCase(Constants.BillerConstants.REOR_CODE)){
-					reorChannel.payment(reconciledList.get(i), cal.getTime(), "Auto Reconcile By WebAdmin");
+					reorChannel.payment(reconciledList.get(i), cal.getTime(), "Auto Reconcile REOR By WebAdmin");
+				}else if(billerCode.equalsIgnoreCase(Constants.BillerConstants.UNAR_CODE)){
+					unarChannel.payment(reconciledList.get(i), cal.getTime(), "Auto Reconcile UNAR By WebAdmin");	
 				}else if(billerCode.equalsIgnoreCase(Constants.BillerConstants.IAR_CODE)){
-					iarChannel.payment(reconciledList.get(i), cal.getTime(), "Auto Reconcile By WebAdmin");
+					iarChannel.payment(reconciledList.get(i), cal.getTime(), "Auto Reconcile IAR By WebAdmin");
 				}else if(billerCode.equalsIgnoreCase(Constants.BillerConstants.IKRAP_CODE)){
-					ikrapChannel.payment(reconciledList.get(i), cal.getTime(), "Auto Reconcile By WebAdmin");
+					ikrapChannel.payment(reconciledList.get(i), cal.getTime(), "Auto Reconcile IKRAP By WebAdmin");
 				}else if(billerCode.equalsIgnoreCase(Constants.BillerConstants.PERANGKAT_CODE)){
-					sertifikasiManagerImpl.updateInvoiceEodSertifikasi(reconciledList.get(i), cal.getTime(), "Auto Reconcile By WebAdmin");
+					sertifikasiManagerImpl.updateInvoiceEodSertifikasi(reconciledList.get(i), cal.getTime(), "Auto Reconcile PERANGKAT By WebAdmin");
 				}else if(billerCode.equalsIgnoreCase(Constants.BillerConstants.PAP_CODE)){
-					pengujianChannel.payment(reconciledList.get(i), cal.getTime(), "Auto Reconcile By WebAdmin");
+					pengujianChannel.payment(reconciledList.get(i), cal.getTime(), "Auto Reconcile PENGUJIAN By WebAdmin");
 //					pengujianManagerImpl.updateInvoiceEodPengujian(reconciledList.get(i), cal.getTime(), "Auto Reconcile By WebAdmin");
 				}else if(billerCode.equalsIgnoreCase(Constants.BillerConstants.KALIBRASI_CODE)){
-					klbsiChannel.payment(reconciledList.get(i), cal.getTime(), "Auto Reconcile By WebAdmin");
+					klbsiChannel.payment(reconciledList.get(i), cal.getTime(), "Auto Reconcile KALIBRASI By WebAdmin");
 				}
 
 				if (reconciledList.get(i).getInvoiceDendaNo() != null && !reconciledList.get(i).getInvoiceDendaNo().equalsIgnoreCase("-")) {

@@ -34,6 +34,7 @@ import com.balicamp.dao.pengujian.PengujianDao;
 import com.balicamp.dao.pengujian.SertifikasiDao;
 import com.balicamp.dao.reor.ReorDao;
 import com.balicamp.dao.sims.BillingDao;
+import com.balicamp.dao.unar.UnarDao;
 import com.balicamp.model.mx.AnalisaTransactionLogsDto;
 import com.balicamp.model.mx.EndpointRcs;
 import com.balicamp.model.mx.InquiryReconcileDto;
@@ -84,6 +85,9 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 	
 	@Autowired
 	private ReorDao reorDao;
+	
+	@Autowired
+	private UnarDao unarDao;
 	
 	@Autowired
 	private IarDao iarDao;
@@ -920,6 +924,8 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 		Map<String, Object[]> resultBilling 	= new HashMap<String, Object[]>();
 //		reconcile item - REOR (20) - hnd
 		Map<String, Object[]> resultReor 		= new HashMap<String, Object[]>();
+//		reconcile item - IAR (40) - hnd
+		Map<String, Object[]> resultUnar 		= new HashMap<String, Object[]>();
 //		reconcile item - IAR (50) - hnd
 		Map<String, Object[]> resultIar 		= new HashMap<String, Object[]>();
 //		reconcile item - IKRAP (60) - hnd
@@ -1443,6 +1449,99 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 			mapCountAmount.put	("amountUnconfirmed", mapCountAmount.get("amountUnconfirmed") + amountUnconfirmed);
 		}
 		
+		//UNAR-40
+		if(transactionCode.equals(Constants.EndpointCode.UNAR_CODE)){
+			Object[] unar 			= null;
+			Object[] unarRecon 		= null;
+			Object[] mt940Data 		= null;
+			Object[] mxData			= null;
+			Object[] mxDataAbnormal	= null;
+				
+			if(invoiceNo.size()>0 && !mt940Map.isEmpty()){
+				for (String invoice : invoiceNo) {
+					mt940Data 	= mt940Map.get(invoice);
+					unar 		= unarDao.findBillingByInvoiceAndDate(invoice, trxDate, mt940Data);
+					resultUnar.put(invoice, unar);
+				}
+			}else if(invoiceNo.size()>0 && !mxMap.isEmpty()){
+				for (String invoice : invoiceNo) {
+					mxDataAbnormal 	= mxMap.get(invoice);
+					unar 		= unarDao.findBillingByInvoiceAndDate(invoice, trxDate, mt940Data);
+					resultUnar.put(invoice, unar);
+				}
+			}
+			
+			resultMx = transactionLogDao.findAllTransactionLogsWebadminReconcile(
+					channel, resultUnar.keySet(), clientId, transactionCode, 
+					new String[] { "00" }, new String[] { "00" }, trxDate);
+			 
+			for (String keys : resultUnar.keySet()) {
+				no++;
+				ReconcileDto dto 	= new ReconcileDto();
+				mxData				= resultMx.get(keys);
+				unarRecon			= resultUnar.get(keys);
+				
+				if (reconcileStatus.equalsIgnoreCase("unsettled")
+						|| reconcileStatus.equalsIgnoreCase("unsettled/need confirmation")
+						|| reconcileStatus.equalsIgnoreCase("all")) {
+							
+					if (mt940Map.keySet().contains(keys) && unarRecon == null) { //MT940 ada, CORE ga ada
+						String paymentAmount 			= mt940Data[7] != null ? mt940Data[7].toString() : "0";
+						String invoiceMt940Status 		= "Paid";
+						String invoiceReconcileStatus 	= "Unsettled";
+						dto = saveToReconcileDto(
+								no, keys, mxData, unarRecon, mt940Data, channel, invoiceMt940Status, "Unpaid", 
+								invoiceReconcileStatus, transactionCode);
+						amountNotSettled = amountNotSettled + Double.valueOf(paymentAmount).longValue();
+						resultTemp.add(dto);
+						notSettled++;
+					}else if (!mt940Map.keySet().contains(keys) && mxMap != null) { //MT940 ga ada, MX ada
+						String paymentAmount 			= (mxData!=null && mxData[15] != null) ? mxData[15].toString() : "0";
+						String invoiceMt940Status 		= "Unpaid";
+						String invoiceReconcileStatus 	= "Unsettled";
+						dto = saveToReconcileDto(
+								no, keys, mxData, unarRecon, mt940Data, channel, invoiceMt940Status, "Unpaid", 
+								invoiceReconcileStatus, transactionCode);
+						amountNotSettled = amountNotSettled + Double.valueOf(paymentAmount).longValue();
+						resultTemp.add(dto);
+						notSettled++;
+					}
+				}
+				
+				if (reconcileStatus.equalsIgnoreCase("settled")
+						|| reconcileStatus.equalsIgnoreCase("all")) {
+//					MT940 ada, CORE ada
+					if (mt940Map.keySet().contains(keys) && unarRecon != null) {
+						String paymentAmount 			= mt940Data[7] != null ? mt940Data[7].toString() : "0";
+						String invoiceMt940Status 		= "Paid";
+						String invoiceReconcileStatus 	= "Settled";
+						dto = saveToReconcileDto(
+								no, keys, mxData, unarRecon, mt940Data, channel, invoiceMt940Status, "Paid", 
+								invoiceReconcileStatus, transactionCode);
+						amountSettled = amountSettled + Double.valueOf(paymentAmount).longValue();
+						resultTemp.add(dto);
+						settled++;
+					}
+				}
+			}
+			// Sort By Time
+			try {
+				result.addAll(sortingDataByTransactionTime(resultTemp));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			resultTemp.clear();
+			
+			totalAmount = (amountSettled + amountNotSettled + amountUnconfirmed);
+			mapCountAmount.put	("totalAmount", mapCountAmount.get("totalAmount") + totalAmount);
+			mapCount.put		("settled", mapCount.get("settled") + settled);
+			mapCount.put		("notSettled", mapCount.get("notSettled") + notSettled);
+			mapCount.put		("unconfirmed", mapCount.get("unconfirmed") + unconfirmed);
+			mapCountAmount.put	("amountSettled", mapCountAmount.get("amountSettled") + amountSettled);
+			mapCountAmount.put	("amountNotSettled", mapCountAmount.get("amountNotSettled") + amountNotSettled);
+			mapCountAmount.put	("amountUnconfirmed", mapCountAmount.get("amountUnconfirmed") + amountUnconfirmed);
+		}
+		
 		//REOR-20
 		if(transactionCode.equals(Constants.EndpointCode.REOR_CODE)){
 			Object[] reor 			= null;
@@ -1922,6 +2021,18 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 			dto.setRemarks			(coreData[0] != null ? coreData[0].toString() : "-");
 			dto.setInvoiceDueDate	(coreData[2] != null ? coreData[2].toString() : "-");
 		}
+		
+//		Unar guide:
+//		0. InvoiceNumber	1. IdRegistrant		2. DueDate
+//		3. PaymentDate		4. NameRegistrant	5. InvoiceAmount
+		if(transactionCode.equals(Constants.EndpointCode.UNAR_CODE) && coreData != null){
+			dto.setClientId			(coreData[1] != null ? coreData[1].toString() : "-");
+			dto.setClientName		(coreData[4] != null ? coreData[4].toString() : "-");
+			dto.setPaymentDateSims	(coreData[3] != null ? coreData[3].toString() : "-");
+			dto.setTrxAmount		(coreData[5] != null ? numFormat.format(coreData[5]) : "-");
+			dto.setRemarks			(coreData[0] != null ? coreData[0].toString() : "-");
+			dto.setInvoiceDueDate	(coreData[2] != null ? coreData[2].toString() : "-");
+		}		
 		
 //		Reor guide:
 //		0. InvoiceNumber	1. IdRegistrant		2. DueDate
