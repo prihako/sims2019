@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,10 +14,13 @@ import com.balicamp.dao.pengujian.PengujianDao;
 import com.balicamp.model.admin.BaseAdminModel;
 import com.balicamp.model.mx.ReconcileDto;
 
+
 @Repository @Transactional
 public class PengujianDaoHibernate extends
 		PengujianGenericDaoHibernate<BaseAdminModel, String> implements
 		PengujianDao {
+	
+	protected final Log log = LogFactory.getLog(getClass());
 	
 	public PengujianDaoHibernate() {
 		super(BaseAdminModel.class);
@@ -49,6 +54,20 @@ public class PengujianDaoHibernate extends
 		if (result.size()>0) {
 			obj = result.get(0);
 			objectArray = (Object[]) obj;
+			
+			if (objectArray != null && objectArray.length > 0) {
+				StringBuffer buff = new StringBuffer();
+				for (Object temp : objectArray) {
+					if (temp == null) {
+						buff.append("null");
+					} else {
+						buff.append(temp.toString());
+					}
+
+					buff.append("|");
+				}
+				log.info(buff.toString()); 
+			}
 		}
 		return objectArray;
 	}
