@@ -50,6 +50,7 @@ import com.balicamp.soap.ws.channel.PengujianChannel;
 import com.balicamp.soap.ws.channel.ReorChannel;
 import com.balicamp.soap.ws.channel.UnarChannel;
 import com.balicamp.util.DateUtil;
+import com.balicamp.util.LogHelper;
 import com.balicamp.webapp.action.report.ReportReconcileAction;
 import com.balicamp.webapp.action.report.XlstoStringConverter;
 import com.balicamp.webapp.ftp.FTPManager;
@@ -334,6 +335,7 @@ public class ReconcileEodTask extends HttpServlet {
 			String reportDir = trxLogManager.findParamValueByParamName("reconcileEod.report.path") + channelCode[0].toLowerCase() + "/" + billerCode;
 			putToParam(params, mapCount, mapCountAmount, new Date(), channelCode[1], channelCode[0], "All", systemParameter.findParamValueByParamName("reconcileEod.report.image.path"), "");
 	
+			log.info(LogHelper.toString(mt940Data));
 			reportReconcileAction.createReportWithoutContextByDataType(params, searchResult, jasperRealPath, jrxmlRealPath, reportDir, channelCode[0], "PDF", "original");
 			reportReconcileAction.createReportWithoutContextByDataType(params, searchResult, jasperRealPath, jrxmlRealPath, reportDir, channelCode[0], "XLS", "original");
 	

@@ -1710,11 +1710,12 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 				}
 				// Sort By Time
 				try {
-					sortingDataByTransactionTime(resultTemp);
+					result.addAll(sortingDataByTransactionTime(resultTemp));
+//					sortingDataByTransactionTime(resultTemp);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				result.addAll(resultTemp);
+//				result.addAll(resultTemp);
 				resultTemp.clear();
 
 				totalAmount = (amountSettled + amountNotSettled + amountUnconfirmed);
