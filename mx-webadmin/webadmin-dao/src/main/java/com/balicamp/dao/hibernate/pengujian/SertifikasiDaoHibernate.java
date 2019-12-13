@@ -5,6 +5,8 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.hibernate.Query;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
@@ -21,6 +23,8 @@ import com.balicamp.model.mx.ReconcileDto;
 public class SertifikasiDaoHibernate extends
 		SertifikasiGenericDaoHibernate<BaseAdminModel, String> implements
 		SertifikasiDao {
+	
+	protected final Log log = LogFactory.getLog(getClass());
 	
 	public SertifikasiDaoHibernate() {
 		super(BaseAdminModel.class);
@@ -81,7 +85,6 @@ public class SertifikasiDaoHibernate extends
 		query.setParameter("reconcileDate", reconcileDate);
 		query.setParameter("clientId", reconcile.getClientId());
 		query.setParameter("invoiceId", invoiceSP2);
-		log.info(queryString);
 		
 		if (query.executeUpdate() > 0) {
 			if(insertInvoiceEodSertifikasi(reconcile, invoiceSP2, paymentDate, remarks) == true){
@@ -338,11 +341,28 @@ public class SertifikasiDaoHibernate extends
 		Object obj = new Object();
 		Object[] objectArray = null;
 		
-		List<Object> result = query.list();
-		if (result.size()>0) {
-			obj = result.get(0);
-			objectArray = (Object[]) obj;
+		int maxTries = 10;
+		int numTries = 0;
+		
+		while(numTries <= maxTries) {
+			try {
+				List<Object> result = query.list();
+				if (result.size()>0) {
+					obj = result.get(0);
+					objectArray = (Object[]) obj;
+				}
+				break;
+			}catch(Exception e) {
+				numTries ++;
+				log.info("Sleep 1 second, and try again later, numTries " + numTries + ", maxTries " + maxTries);
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e1) {
+					e1.printStackTrace();
+				}
+			}
 		}
+		
 		return objectArray;
 	}
 }
