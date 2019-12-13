@@ -980,6 +980,10 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 				mxData				= resultMx.get(keys);
 				kalibrasiRecon		= resultKalibrasi.get(keys);
 				
+				if(invoiceNo.size()>0 && !mt940Map.isEmpty()){
+					mt940Data = mt940Map.get(keys);
+				}
+				
 				if (reconcileStatus.equalsIgnoreCase("unsettled")
 						|| reconcileStatus.equalsIgnoreCase("unsettled/need confirmation")
 						|| reconcileStatus.equalsIgnoreCase("all")) {
@@ -1072,6 +1076,10 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 				ReconcileDto dto 	= new ReconcileDto();
 				mxData				= resultMx.get(keys);
 				pengujianRecon		= resultPengujian.get(keys);
+				
+				if(invoiceNo.size()>0 && !mt940Map.isEmpty()){
+					mt940Data = mt940Map.get(keys);
+				}
 				
 				if (reconcileStatus.equalsIgnoreCase("unsettled")
 						|| reconcileStatus.equalsIgnoreCase("unsettled/need confirmation")
@@ -1201,6 +1209,10 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 				mxData 				= resultMx.get(keys);
 				sertifikasiRecon	= resultSertifikasi.get(keys);
 				
+				if(invoiceNo.size()>0 && !mt940Map.isEmpty()){
+					mt940Data = mt940Map.get(keys);
+				}
+				
 				if (reconcileStatus.equalsIgnoreCase("unsettled")
 						|| reconcileStatus.equalsIgnoreCase("unsettled/need confirmation")
 						|| reconcileStatus.equalsIgnoreCase("all")) {
@@ -1297,6 +1309,10 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 				mxData				= resultMx.get(keys);
 				ikrapRecon			= resultIkrap.get(keys);
 				
+				if(invoiceNo.size()>0 && !mt940Map.isEmpty()){
+					mt940Data = mt940Map.get(keys);
+				}
+				
 				if (reconcileStatus.equalsIgnoreCase("unsettled")
 						|| reconcileStatus.equalsIgnoreCase("unsettled/need confirmation")
 						|| reconcileStatus.equalsIgnoreCase("all")) {
@@ -1390,6 +1406,10 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 				mxData				= resultMx.get(keys);
 				iarRecon			= resultIar.get(keys);
 				
+				if(invoiceNo.size()>0 && !mt940Map.isEmpty()){
+					mt940Data = mt940Map.get(keys);
+				}
+				
 				if (reconcileStatus.equalsIgnoreCase("unsettled")
 						|| reconcileStatus.equalsIgnoreCase("unsettled/need confirmation")
 						|| reconcileStatus.equalsIgnoreCase("all")) {
@@ -1482,6 +1502,10 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 				ReconcileDto dto 	= new ReconcileDto();
 				mxData				= resultMx.get(keys);
 				unarRecon			= resultUnar.get(keys);
+				
+				if(invoiceNo.size()>0 && !mt940Map.isEmpty()){
+					mt940Data = mt940Map.get(keys);
+				}
 				
 				if (reconcileStatus.equalsIgnoreCase("unsettled")
 						|| reconcileStatus.equalsIgnoreCase("unsettled/need confirmation")
@@ -1578,6 +1602,10 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 				mxData				= resultMx.get(keys);
 				reorRecon			= resultReor.get(keys);
 				
+				if(invoiceNo.size()>0 && !mt940Map.isEmpty()){
+					mt940Data = mt940Map.get(keys);
+				}
+				
 				log.info("mxData : " + LogHelper.toString(mxData));
 				log.info("resultReor : " + LogHelper.toString(reorRecon));
 				log.info("mt940Map : " + LogHelper.toString(mt940Map));
@@ -1649,12 +1677,6 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 			Object[] mxData			= null;
 			Object[] mt940Data 		= null;
 			
-			if(invoiceNo.size()>0 && !mt940Map.isEmpty()){
-				for (String invoice : invoiceNo) {
-					mt940Data = mt940Map.get(invoice);
-				}
-			}
-			
 			resultBilling 	= billingDao.findAllBillingByInvoiceNoAndDate(invoiceNo, trxDate);
 			resultMx 		= transactionLogDao.findAllTransactionLogsWebadminReconcile(
 									channel, resultBilling.keySet(), clientId, transactionCode, new String[] { "00" }, new String[] { "00" }, trxDate);
@@ -1664,6 +1686,12 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 				ReconcileDto dto 	= new ReconcileDto();
 				mxData				= resultMx.get(keys);
 				billingRecon		= resultBilling.get(keys);
+				
+				if(invoiceNo.size()>0 && !mt940Map.isEmpty()){
+					for (String invoice : invoiceNo) {
+						mt940Data = mt940Map.get(invoice);
+					}
+				}
 
 				if (reconcileStatus.equalsIgnoreCase("unsettled")
 						|| reconcileStatus.equalsIgnoreCase("unsettled/need confirmation")
