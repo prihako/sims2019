@@ -338,7 +338,7 @@ public class SertifikasiDaoHibernate extends
 				+ "esertifikasi.dbo.T_APLIKASI a, "
 				+ "esertifikasi.dbo.T_CUSTOMER c "
 				+ "where "
-				+ "b.JML_BYR = :invoiceAmount "
+//				+ "b.JML_BYR = :invoiceAmount "
 				+ "and s.SP2_NO = :invoiceNo "
 				+ "and b.UPDATED_BY like 'payment_gateway%' "
 				+ "and b.SP2_ID = s.SP2_ID "
@@ -346,7 +346,7 @@ public class SertifikasiDaoHibernate extends
 				+ "and a.CUST_ID = c.CUST_ID ";
 		
 		Query query = getSessionFactory().getCurrentSession().createSQLQuery(sql);
-		query.setParameter("invoiceAmount", mt940Map[7].toString());
+//		query.setParameter("invoiceAmount", mt940Map[7].toString());
 		query.setParameter("invoiceNo", invoiceNo);
 			
 		Object obj = new Object();
