@@ -1001,7 +1001,7 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 					}else if (!mt940Map.keySet().contains(keys) && mxMap != null) { //MT940 ga ada, MX ada
 						String paymentAmount 			= (mxData!=null && mxData[15] != null) ? mxData[15].toString() : "0";
 						String invoiceMt940Status 		= "Unpaid";
-						String invoiceReconcileStatus 	= "Unsettled";
+						String invoiceReconcileStatus 	= "Unsettled/Need Confirmation";
 						dto = saveToReconcileDto(
 								no, keys, mxData, kalibrasiRecon, mt940Data, channel, invoiceMt940Status, "Paid", 
 								invoiceReconcileStatus, transactionCode);
@@ -1098,7 +1098,7 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 					}else if (!mt940Map.keySet().contains(keys) && mxMap != null) { //MT940 ga ada, MX ada
 						String paymentAmount 			= (mxData!=null && mxData[15] != null) ? mxData[15].toString() : "0";
 						String invoiceMt940Status 		= "Unpaid";
-						String invoiceReconcileStatus 	= "Unsettled";
+						String invoiceReconcileStatus 	= "Unsettled/Need Confirmation";
 						dto = saveToReconcileDto(
 								no, keys, mxData, pengujianRecon, mt940Data, channel, invoiceMt940Status, "Paid", 
 								invoiceReconcileStatus, transactionCode);
@@ -1230,7 +1230,7 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 					}else if (!mt940Map.keySet().contains(keys) && mxData != null) { // MT940 ga ada, MX ada
 						String paymentAmount 			= (mxData!=null && mxData[15] != null) ? mxData[15].toString() : "0";
 						String invoiceMt940Status 		= "Unpaid";
-						String invoiceReconcileStatus 	= "Unsettled";
+						String invoiceReconcileStatus 	= "Unsettled/Need Confirmation";
 						dto = saveToReconcileDto(
 								no, keys, mxData, sertifikasiRecon, mt940Data, channel, invoiceMt940Status, "Paid", 
 								invoiceReconcileStatus, transactionCode);
@@ -1330,7 +1330,7 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 					}else if (!mt940Map.keySet().contains(keys) && mxMap != null) { //MT940 ga ada, MX ada
 						String paymentAmount 			= (mxData!=null && mxData[15] != null) ? mxData[15].toString() : "0";
 						String invoiceMt940Status 		= "Unpaid";
-						String invoiceReconcileStatus 	= "Unsettled";
+						String invoiceReconcileStatus 	= "Unsettled/Need Confirmation";
 						dto = saveToReconcileDto(
 								no, keys, mxData, ikrapRecon, mt940Data, channel, invoiceMt940Status, "Paid", 
 								invoiceReconcileStatus, transactionCode);
@@ -1427,7 +1427,7 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 					}else if (!mt940Map.keySet().contains(keys) && mxMap != null) { //MT940 ga ada, MX ada
 						String paymentAmount 			= (mxData!=null && mxData[15] != null) ? mxData[15].toString() : "0";
 						String invoiceMt940Status 		= "Unpaid";
-						String invoiceReconcileStatus 	= "Unsettled";
+						String invoiceReconcileStatus 	= "Unsettled/Need Confirmation";
 						dto = saveToReconcileDto(
 								no, keys, mxData, iarRecon, mt940Data, channel, invoiceMt940Status, "Paid", 
 								invoiceReconcileStatus, transactionCode);
@@ -1524,7 +1524,7 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 					}else if (!mt940Map.keySet().contains(keys) && mxMap != null) { //MT940 ga ada, MX ada
 						String paymentAmount 			= (mxData!=null && mxData[15] != null) ? mxData[15].toString() : "0";
 						String invoiceMt940Status 		= "Unpaid";
-						String invoiceReconcileStatus 	= "Unsettled";
+						String invoiceReconcileStatus 	= "Unsettled/Need Confirmation";
 						dto = saveToReconcileDto(
 								no, keys, mxData, unarRecon, mt940Data, channel, invoiceMt940Status, "Paid", 
 								invoiceReconcileStatus, transactionCode);
@@ -1627,7 +1627,7 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 					}else if (!mt940Map.keySet().contains(keys) && mxMap != null) { //MT940 ga ada, MX ada
 						String paymentAmount 			= (mxData!=null && mxData[15] != null) ? mxData[15].toString() : "0";
 						String invoiceMt940Status 		= "Unpaid";
-						String invoiceReconcileStatus 	= "Unsettled";
+						String invoiceReconcileStatus 	= "Unsettled/Need Confirmation";
 						dto = saveToReconcileDto(
 								no, keys, mxData, reorRecon, mt940Data, channel, invoiceMt940Status, "Paid", 
 								invoiceReconcileStatus, transactionCode);
@@ -1708,7 +1708,7 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 					}else if (!mt940Map.keySet().contains(keys) && mxData != null) { // MT940 ga ada, MX ada
 						String paymentAmount 			= (mxData!=null && mxData[15] != null) ? mxData[15].toString() : "0";
 						String invoiceMt940Status 		= "Unpaid";
-						String invoiceReconcileStatus 	= "Unsettled";
+						String invoiceReconcileStatus 	= "Unsettled/Need Confirmation";
 						dto = saveToReconcileDto(
 								no, keys, mxData, billingRecon, mt940Data, channel, invoiceMt940Status, "Paid", 
 								invoiceReconcileStatus, transactionCode);
