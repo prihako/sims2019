@@ -359,6 +359,7 @@ public abstract class ReconcileEod extends AdminBasePage implements PageBeginRen
 	 */
 
 	public String cekFileInFileSystem(String remoteFile, String transactionType, String bankName) {
+		
 		String errorMessage = null;
 
 		String reportPath = (getSystemParameterManager().findParamValueByParamName("reconcileEod.report.path"));
@@ -381,6 +382,8 @@ public abstract class ReconcileEod extends AdminBasePage implements PageBeginRen
 			reportPath += Constants.DirectoryFTPConstants.IKRAP_DIR;
 		} else if (transactionType.equalsIgnoreCase(Constants.BillerConstants.PAP_CODE)) {
 			reportPath += Constants.DirectoryFTPConstants.PAP_DIR;
+		} else if (transactionType.equalsIgnoreCase(Constants.BillerConstants.KALIBRASI_CODE)) {
+			reportPath += Constants.DirectoryFTPConstants.KALIBRASI_DIR;
 		}
 
 		File file = new File(reportPath + "/" + remoteFile.substring(17, 27) + "/" + remoteFile);

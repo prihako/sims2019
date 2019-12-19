@@ -319,6 +319,8 @@ public class DownloaderServlet extends HttpServlet {
 			reconcileEodReportPath += Constants.DirectoryFTPConstants.IKRAP_DIR;
 		} else if (transactionType.equalsIgnoreCase(Constants.BillerConstants.PAP_CODE)) {
 			reconcileEodReportPath += Constants.DirectoryFTPConstants.PAP_DIR;
+		} else if (transactionType.equalsIgnoreCase(Constants.BillerConstants.KALIBRASI_CODE)) {
+			reconcileEodReportPath += Constants.DirectoryFTPConstants.KALIBRASI_DIR;
 		}
 
 		if (null != fileName && !fileName.contains("before")) {
@@ -410,6 +412,8 @@ public class DownloaderServlet extends HttpServlet {
 			reconcileWeeklyReportPath += Constants.DirectoryFTPConstants.IKRAP_DIR;
 		} else if (transactionType.equalsIgnoreCase(Constants.BillerConstants.PAP_CODE)) {
 			reconcileWeeklyReportPath += Constants.DirectoryFTPConstants.PAP_DIR;
+		} else if (transactionType.equalsIgnoreCase(Constants.BillerConstants.KALIBRASI_CODE)) {
+			reconcileWeeklyReportPath += Constants.DirectoryFTPConstants.KALIBRASI_DIR;
 		}
 
 		if (null != fileName) {
@@ -470,6 +474,8 @@ public class DownloaderServlet extends HttpServlet {
 			reconcileMonthlyReportPath += Constants.DirectoryFTPConstants.IKRAP_DIR;
 		} else if (transactionType.equalsIgnoreCase(Constants.BillerConstants.PAP_CODE)) {
 			reconcileMonthlyReportPath += Constants.DirectoryFTPConstants.PAP_DIR;
+		} else if (transactionType.equalsIgnoreCase(Constants.BillerConstants.KALIBRASI_CODE)) {
+			reconcileMonthlyReportPath += Constants.DirectoryFTPConstants.KALIBRASI_DIR;
 		}
 
 		if (null != fileName) {
@@ -529,6 +535,8 @@ public class DownloaderServlet extends HttpServlet {
 			reportPath += Constants.DirectoryFTPConstants.IKRAP_DIR;
 		} else if (transactionType.equalsIgnoreCase(Constants.BillerConstants.PAP_CODE)) {
 			reportPath += Constants.DirectoryFTPConstants.PAP_DIR;
+		} else if (transactionType.equalsIgnoreCase(Constants.BillerConstants.KALIBRASI_CODE)) {
+			reportPath += Constants.DirectoryFTPConstants.KALIBRASI_DIR;
 		}
 
 		if (null != fileName) {

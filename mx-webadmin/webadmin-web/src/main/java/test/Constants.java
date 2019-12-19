@@ -569,7 +569,7 @@ public abstract class Constants {
 
 		public static final String PAP_DIR = "pap";
 		
-		public static final String KALIBRASI_DIR = "kalibrasi";
+		public static final String KALIBRASI_DIR = "klbsi";
 
 	}
 
