@@ -157,6 +157,9 @@
 										<span jwcid="@If" condition="ognl:transactionReport.transactionType=='pap'">
 											<td width="15%" align="center" style="text-transform: uppercase;">
 												Pengujian Perangkat</td></span>
+										<span jwcid="@If" condition="ognl:transactionReport.transactionType=='klbsi'">
+											<td width="15%" align="center" style="text-transform: uppercase;">
+												Kalibrasi</td></span>
 											
 										<td width="15%" align="right"><a href=""
 											jwcid="@DirectLink" listener="listener:retrieveFile"
