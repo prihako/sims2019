@@ -1834,7 +1834,14 @@ public class TransactionLogDaoHibernate
 					+ "tlw.transaction_time  < to_timestamp(:trxDate, 'dd-mm-yyyy') + interval '1' day) or ";
 
 			int sizeInvoiceList = invoiceNo.size();
-			int totalList = (sizeInvoiceList / 999) + 1;
+			int modInvoiceList = (sizeInvoiceList % 999);
+			int totalList = 0;
+			
+			if(modInvoiceList > 0) {
+				totalList = (sizeInvoiceList / 999) + 1;
+			}else {
+				totalList = (sizeInvoiceList / 999);
+			}
 
 			if (totalList == 1) {
 				if (sizeInvoiceList > 0) {
@@ -1882,6 +1889,7 @@ public class TransactionLogDaoHibernate
 					index++;
 					invoiceNoCount = 0;
 					invoiceNoSetList.get(index).add(no);
+					invoiceNoCount++;
 				}
 			}
 
