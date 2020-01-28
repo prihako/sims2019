@@ -1,6 +1,8 @@
 package com.balicamp.dao.hibernate.mx;
 
 import java.math.BigInteger;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -8,15 +10,19 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 import java.util.UUID;
 
 import javax.sql.DataSource;
 
 import org.apache.commons.lang.StringEscapeUtils;
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.dao.DataAccessResourceFailureException;
 import org.springframework.stereotype.Repository;
 
 import com.balicamp.dao.helper.SearchCriteria;
@@ -1795,6 +1801,107 @@ public class TransactionLogDaoHibernate
 			Date trxDate) {
 
 		if (invoiceNo.size() > 0) {
+			
+			try {
+				
+				String sql = "select "
+						+ "tlw.TRANSACTION_ID, "
+						+ "tlw.client_id, "
+						+ "tlw.client_name, "
+						+ "tlw.invoice_no, "
+						+ "t.name as transaction_name, "
+						+ "tlw.channel_id, "
+						+ "tlw.biller_rc, "
+						+ "tlw.channel_rc, "
+						+ "to_char(tlw.TRANSACTION_TIME, 'dd-MM-yyyy HH24:MI:SS') as transaction_time, "
+						+ "ep.name as bank_name, "
+						+ "erc1.description as channel_response, "
+						+ "erc2.description as biller_response, "
+						+ "tlw.biller_code, "
+						+ "tlw.recon_flag, "
+						+ "tlw.channel_code, "
+						+ "SPLIT_PART(SUBSTR(tlw.RAW,STRPOS(tlw.RAW, '/custom/amountTransaction2/text()')+LENGTH('/custom/amountTransaction2/text()') + 1), E'\n', 1) as payment_amount " //15
+						+ "from "
+						+ "transaction_logs_webadmin tlw "
+						+ "left join transactions t on tlw.transaction_code = t.code "
+						+ "left join endpoints ep on tlw.channel_code = ep.code "
+						+ "left join endpoint_rcs erc1 on tlw.channel_rc = erc1.rc and erc1.endpoint_id = (select id from endpoints where code = tlw.channel_code) "
+						+ "left join endpoint_rcs erc2 on erc2.endpoint_id = (select id from endpoints where code = tlw.biller_code) and tlw.biller_rc = erc2.rc "
+						+ "left join invoice_temp temp ON TEMP.INVOICE_NO = TLW.INVOICE_NO "
+						+ "where "
+						+ "tlw.channel_code = :channelCode and "
+						+ "tlw.client_id like :clientId and ";
+	
+				if (channelRc != null) {
+					sql += "tlw.channel_rc in (:channelRc) and ";
+				}
+	
+				if (billerRc != null) {
+					sql += "tlw.biller_rc in (:billerRc) and ";
+				}
+	
+				sql += "((tlw.transaction_time  >= to_timestamp(:trxDate, 'dd-mm-yyyy') and "
+						+ "tlw.transaction_time  < to_timestamp(:trxDate, 'dd-mm-yyyy') + interval '1' day) ) AND ";
+				
+				String id = generateRandomString(10);
+				
+				String insertInvoice = getInsertInvoice(id, invoiceNo);
+				
+				String insertSql = "INSERT INTO invoice_temp VALUES " + insertInvoice;
+				
+				getSession().createSQLQuery(insertSql).executeUpdate();
+				
+				sql += " temp.id = :id  and ";
+	
+				sql += "tlw.transaction_code = :transactionCode "
+						+ "order by tlw.TRANSACTION_TIME DESC";
+				
+				Map<String, Object[]> mapResult = null;
+	
+				Query query = getSession().createSQLQuery(sql.toString());
+				query.setParameter("trxDate",trxDate != null ? DateUtil.convertDateToString(trxDate,"dd-MM-yyyy") : new Date());
+				query.setParameter("channelCode", channel);
+				query.setParameter("clientId", clientId != null ? clientId : "%%");
+				query.setParameter("transactionCode", transactionCode != null
+						? transactionCode
+						: "%%");
+				if (channelRc != null) {
+					query.setParameterList("channelRc", channelRc);
+				}
+				if (billerRc != null) {
+					query.setParameterList("billerRc", billerRc);
+				}
+				query.setParameter("id", id);
+	
+				List<Object> result = query.list();
+				log.info("=====================size : " + result.size());
+				if (result != null) {
+					mapResult = new HashMap<String, Object[]>();
+					for (Object obj : result) {
+						Object[] objctArray = (Object[]) obj;
+						mapResult.put((String) objctArray[3], objctArray);
+					}
+				}
+				
+				String deleteTemp = "DELETE FROM invoice_temp WHERE ID = '" + id +"'";
+				getSession().createSQLQuery(deleteTemp).executeUpdate();
+	
+				return mapResult;
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		    
+		return new HashMap<String, Object[]>();	
+		
+	}
+	
+	public Map<String, Object[]> findAllTransactionLogsWebadminReconcileOld(
+			String channel, Set<String> invoiceNo, String clientId,
+			String transactionCode, String[] billerRc, String[] channelRc,
+			Date trxDate) {
+
+		if (invoiceNo.size() > 0) {
 			String sql = "select "
 					+ "tlw.TRANSACTION_ID, "
 					+ "tlw.client_id, "
@@ -1929,53 +2036,6 @@ public class TransactionLogDaoHibernate
 		    return new HashMap<String, Object[]>();	
 		}
 	}
-
-	/*
-	 * @Override public Map<String, Object[]>
-	 * findAllTransactionLogsWebadminReconcileByTrxDate( String channel,
-	 * Set<String> invoiceNo, String clientId, String transactionCode,String[]
-	 * billerRc,String[] channelRc, Date trxDate) {
-	 * 
-	 * String sql ="select " + "tlw.TRANSACTION_ID, " + "tlw.client_id, " +
-	 * "tlw.client_name, " + "tlw.invoice_no, " + "t.name as transaction_name, "
-	 * + "tlw.channel_id, " + "tlw.biller_rc, " + "tlw.channel_rc, " +
-	 * "to_char(tlw.TRANSACTION_TIME, 'dd-MM-yyyy HH24:MI:SS') as transaction_time, "
-	 * + "ep.name as bank_name, " + "erc1.description as channel_response, " +
-	 * "erc2.description as biller_response, " + "tlw.biller_code, " +
-	 * "tlw.recon_flag, " + "tlw.channel_code " + "from " +
-	 * "transaction_logs_webadmin tlw " +
-	 * "left join transactions t on tlw.transaction_code = t.code " +
-	 * "left join endpoints ep on tlw.channel_code = ep.code " +
-	 * "left join endpoint_rcs erc1 on tlw.channel_rc = erc1.rc and erc1.endpoint_id = (select id from endpoints where code = tlw.channel_code) "
-	 * +
-	 * "left join endpoint_rcs erc2 on erc2.endpoint_id = (select id from endpoints where code = tlw.biller_code) and tlw.biller_rc = erc2.rc "
-	 * + "where " // + "tlw.channel_code = :channelCode and " +
-	 * "tlw.transaction_time  >= to_timestamp(:trxDate, 'dd-mm-yyyy') and " +
-	 * "tlw.transaction_time  < to_timestamp(:trxDate, 'dd-mm-yyyy') + interval '1' day and "
-	 * + "tlw.client_id like :clientId and " +
-	 * "tlw.channel_rc in (:channelRc) and " +
-	 * "tlw.biller_rc in (:billerRc) and " +
-	 * "tlw.transaction_code = :transactionCode " +
-	 * "order by tlw.TRANSACTION_TIME DESC";
-	 * 
-	 * Map<String, Object[]> mapResult = null;
-	 * 
-	 * Query query = getSession().createSQLQuery(sql.toString());
-	 * //query.setParameter("channelCode", channel.equalsIgnoreCase("all") ?
-	 * "%%" : channel); query.setParameter("trxDate", trxDate != null ?
-	 * DateUtil.convertDateToString(trxDate, "dd-MM-yyyy") : new Date());
-	 * query.setParameter("clientId", clientId != null ? clientId : "%%");
-	 * query.setParameter("transactionCode", transactionCode!=null ?
-	 * transactionCode : "%%"); query.setParameterList("channelRc", channelRc);
-	 * query.setParameterList("billerRc", billerRc);
-	 * 
-	 * List<Object> result = query.list(); if(result != null){ mapResult = new
-	 * HashMap<String, Object[]>(); for(Object obj : result){ Object []
-	 * objctArray = (Object[]) obj; mapResult.put((String) objctArray[3],
-	 * objctArray); } }
-	 * 
-	 * return mapResult; }
-	 */
 
 	@Override
 	public void insertDummyDataWebadminReconcile(String trxCode,
@@ -2405,5 +2465,32 @@ public class TransactionLogDaoHibernate
 			}
 		}
 		return mapResult;			
+	}
+	
+	private String generateRandomString(int n) {
+		int leftLimit = 97; // letter 'a'
+		int rightLimit = 122; // letter 'z'
+		int targetStringLength = n;
+		Random random = new Random();
+		StringBuilder buffer = new StringBuilder(targetStringLength);
+		for (int i = 0; i < targetStringLength; i++) {
+		    int randomLimitedInt = leftLimit + (int) 
+		      (random.nextFloat() * (rightLimit - leftLimit + 1));
+		    buffer.append((char) randomLimitedInt);
+		}
+		
+		return buffer.toString();
+		
+	}
+	
+	private String getInsertInvoice(String id, Set<String> invoiceNo) {
+		StringBuffer buff = new StringBuffer();
+		int size = invoiceNo.size();
+		for(String inv : invoiceNo) {
+			buff.append("('").append(id).append("','").append(inv).append("')").append(",");
+		}
+		
+		String result = buff.toString();
+		return result.substring(0, result.length()-1);
 	}
 }
