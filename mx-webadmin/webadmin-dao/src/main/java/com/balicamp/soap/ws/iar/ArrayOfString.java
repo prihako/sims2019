@@ -59,4 +59,9 @@ public class ArrayOfString {
         this.strings = value;
     }
 
+	@Override
+	public String toString() {
+		return "ArrayOfString [strings=" + strings + "]";
+	}
+
 }

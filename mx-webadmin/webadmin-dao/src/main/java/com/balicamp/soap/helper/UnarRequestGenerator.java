@@ -49,6 +49,7 @@ public class UnarRequestGenerator {
 		paymentRequest.setChannelID(WebServiceConstant.CHANNEL_ID);
 		paymentRequest.setCompanyCode(WebServiceConstant.COMPANY_CODE);
 		paymentRequest.setCurrency(WebServiceConstant.CURRENCY);
+		paymentRequest.setTransactionID(WebServiceUtil.getTransactionId(6));
 		
 		return paymentRequest;
 	}

@@ -46,7 +46,7 @@ import com.balicamp.webapp.util.SendMail;
 import net.sf.jasperreports.engine.JRException;
 import test.Constants;
 
-public class DoGetReconcileListByMt940NewThread extends Thread{
+public class DoGetReconcileListByMt940New{
 	
 	protected final Log log = LogFactory.getLog(getClass());
 	
@@ -67,7 +67,7 @@ public class DoGetReconcileListByMt940NewThread extends Thread{
 	private List<String> channelList;
 	
 	
-	public DoGetReconcileListByMt940NewThread(SystemParameterManager systemParameter,
+	public DoGetReconcileListByMt940New(SystemParameterManager systemParameter,
 			TransactionLogsManager trxLogManager,
 			ArmgmtManagerImpl armgmtManagerImpl,
 			DataSource dataSourceWebapp,
@@ -82,7 +82,6 @@ public class DoGetReconcileListByMt940NewThread extends Thread{
 			SertifikasiManagerImpl sertifikasiManagerImpl,
 			String billerCode, 
 			List<String> channelList){
-		super(billerCode + "-" + UUID.randomUUID().toString());
 		this.systemParameter = systemParameter;
 		this.trxLogManager = trxLogManager;
 		this.armgmtManagerImpl = armgmtManagerImpl;
@@ -100,16 +99,7 @@ public class DoGetReconcileListByMt940NewThread extends Thread{
 		this.channelList = channelList;
 	}
 	
-	@Override
-	public void run() {
-		try {
-			doGetReconcileListByMt940EodNew();
-		} catch(Exception e) {
-			log.error("error in thread DoGetReconcileListByMt940NewThread ", e);
-		}
-	}
-	
-	private void doGetReconcileListByMt940EodNew() throws FileNotFoundException, JRException, IOException, SQLException {
+	public void doGetReconcileListByMt940EodNew() throws FileNotFoundException, JRException, IOException, SQLException {
 
 		ReportReconcileAction reportReconcileAction = new ReportReconcileAction();
 		
@@ -249,21 +239,6 @@ public class DoGetReconcileListByMt940NewThread extends Thread{
 				paymentAmountUnSettled += mapCountAmount.get("amountNotSettled");
 				paymentAmountNeedConfirmation += mapCountAmount.get("amountUnconfirmed");
 		
-				Thread t= new Thread(){ 	//Creating an object of Anonymous class which extends Thread class and passing this object to the reference of Thread class.
-					public void run()	//Anonymous class overriding run() method of Thread class
-					{
-					setName("Anonymous Thread");	
-					System.out.println("Name of the other thread - " + getName());
-					for(int i=0;i<3;i++)
-					{
-						System.out.println(getName() + " " + i);
-					}
-
-					}
-				};				//Anonymous class ends here
-					
-				//Starting anonymous thread
-				t.start();
 				if (!(settled == 0 && unSettled == 0 && needConfirmation == 0)) {
 					log.info("Send email, please wait ........");
 					sendMail(listFile, settled, unSettled, needConfirmation, paymentAmountSettled, paymentAmountUnSettled, paymentAmountNeedConfirmation, billerCode);
@@ -339,7 +314,8 @@ public class DoGetReconcileListByMt940NewThread extends Thread{
 	
 	private List<ReconcileDto> autoReconcileToPaid(List<ReconcileDto> list, Map<String, Integer> mapCount, Map<String, Long> mapCountAmount, String billerCode) {
 
-		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+		SimpleDateFormat formatter1 = new SimpleDateFormat("dd-MM-yyyy");
+		SimpleDateFormat formatter2 = new SimpleDateFormat("dd/MM/yyyy");
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(new Date());
 		cal.add(Calendar.DATE, -1);
@@ -392,8 +368,16 @@ public class DoGetReconcileListByMt940NewThread extends Thread{
 				if (reconciledList.get(i).getInvoiceDueDate() != null && !reconciledList.get(i).getInvoiceDueDate().equals("-")) {
 
 					try {
-						paymentDateSims = formatter.parse(reconciledList.get(i).getPaymentDateSims());
-						invoiceDueDate 	= formatter.parse(reconciledList.get(i).getInvoiceDueDate());
+						if(reconciledList.get(i).getPaymentDateSims().contains("-")) {
+							paymentDateSims = formatter1.parse(reconciledList.get(i).getPaymentDateSims());
+						}else {
+							paymentDateSims = formatter2.parse(reconciledList.get(i).getPaymentDateSims());
+						}
+						if(reconciledList.get(i).getInvoiceDueDate().contains("-")) {
+							invoiceDueDate 	= formatter1.parse(reconciledList.get(i).getInvoiceDueDate());
+						}else {
+							invoiceDueDate 	= formatter2.parse(reconciledList.get(i).getInvoiceDueDate());
+						}
 					} catch (ParseException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

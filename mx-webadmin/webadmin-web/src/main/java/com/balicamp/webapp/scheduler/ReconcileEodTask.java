@@ -54,6 +54,7 @@ import com.balicamp.util.LogHelper;
 import com.balicamp.webapp.action.report.ReportReconcileAction;
 import com.balicamp.webapp.action.report.XlstoStringConverter;
 import com.balicamp.webapp.ftp.FTPManager;
+import com.balicamp.webapp.thread.DoGetReconcileListByMt940New;
 import com.balicamp.webapp.thread.DoGetReconcileListByMt940NewThread;
 import com.balicamp.webapp.util.SendMail;
 
@@ -199,7 +200,7 @@ public class ReconcileEodTask extends HttpServlet {
 		Iterator<String> billerIterator = billerList.iterator();
 		while (billerIterator.hasNext()) {			
 
-			DoGetReconcileListByMt940NewThread thread = new DoGetReconcileListByMt940NewThread(
+			DoGetReconcileListByMt940New task = new DoGetReconcileListByMt940New(
 					systemParameter,
 					trxLogManager,
 					armgmtManagerImpl,
@@ -215,7 +216,7 @@ public class ReconcileEodTask extends HttpServlet {
 					sertifikasiManagerImpl,
 					billerIterator.next(), 
 					channelList);
-			thread.start();
+			task.doGetReconcileListByMt940EodNew();
 		}
 		Date end = new Date();
 		Long diff = end.getTime() - start.getTime();

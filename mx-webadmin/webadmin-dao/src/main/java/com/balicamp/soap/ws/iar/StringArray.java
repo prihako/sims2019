@@ -2,6 +2,7 @@
 package com.balicamp.soap.ws.iar;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -63,5 +64,10 @@ public class StringArray {
         }
         return this.item;
     }
+
+	@Override
+	public String toString() {
+		return "StringArray [item=" + Arrays.toString(item.toArray()) + "]";
+	}
 
 }

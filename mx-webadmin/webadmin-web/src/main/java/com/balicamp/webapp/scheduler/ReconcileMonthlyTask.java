@@ -41,6 +41,7 @@ import com.balicamp.util.DateUtil;
 import com.balicamp.webapp.action.report.ReportReconcileAction;
 import com.balicamp.webapp.action.report.XlstoStringConverter;
 import com.balicamp.webapp.ftp.FTPManager;
+import com.balicamp.webapp.thread.DoGetReconcileListByMt940NewMonthly;
 import com.balicamp.webapp.thread.DoGetReconcileListByMt940NewMonthlyThread;
 import com.balicamp.webapp.thread.DoGetReconcileListByMt940NewThread;
 import com.balicamp.webapp.util.SendMail;
@@ -152,7 +153,7 @@ public class ReconcileMonthlyTask extends HttpServlet {
 		log.info("Monthly recon run");
 		while (billerIterator.hasNext()) {
 
-			DoGetReconcileListByMt940NewMonthlyThread thread = new DoGetReconcileListByMt940NewMonthlyThread(
+			DoGetReconcileListByMt940NewMonthly thread = new DoGetReconcileListByMt940NewMonthly(
 					systemParameter,
 					trxLogManager,
 					armgmtManagerImpl,
@@ -160,7 +161,7 @@ public class ReconcileMonthlyTask extends HttpServlet {
 					dataSource,
 					billerIterator.next(), 
 					channelList);
-			thread.start();
+			thread.doGetReconcileListByMt940EodNew();
 		}
 		log.info("Monthly recon finish");
 	}

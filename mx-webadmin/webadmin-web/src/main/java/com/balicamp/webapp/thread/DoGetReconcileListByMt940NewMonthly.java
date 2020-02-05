@@ -46,7 +46,7 @@ import com.balicamp.webapp.util.SendMail;
 import net.sf.jasperreports.engine.JRException;
 import test.Constants;
 
-public class DoGetReconcileListByMt940NewMonthlyThread extends Thread{
+public class DoGetReconcileListByMt940NewMonthly{
 	
 	protected final Log log = LogFactory.getLog(getClass());
 	
@@ -59,14 +59,13 @@ public class DoGetReconcileListByMt940NewMonthlyThread extends Thread{
 	private List<String> channelList;
 	
 	
-	public DoGetReconcileListByMt940NewMonthlyThread(SystemParameterManager systemParameter,
+	public DoGetReconcileListByMt940NewMonthly(SystemParameterManager systemParameter,
 			TransactionLogsManager trxLogManager,
 			ArmgmtManagerImpl armgmtManagerImpl,
 			DataSource dataSourceWebapp,
 			DataSource dataSource,
 			String billerCode, 
 			List<String> channelList){
-		super(billerCode + "-" + UUID.randomUUID().toString());
 		this.systemParameter = systemParameter;
 		this.trxLogManager = trxLogManager;
 		this.armgmtManagerImpl = armgmtManagerImpl;
@@ -74,15 +73,6 @@ public class DoGetReconcileListByMt940NewMonthlyThread extends Thread{
 		this.dataSource=dataSource;
 		this.billerCode = billerCode;
 		this.channelList = channelList;
-	}
-	
-	@Override
-	public void run() {
-		try {
-			doGetReconcileListByMt940EodNew();
-		} catch(Exception e) {
-			log.error("error in thread DoGetReconcileListByMt940NewThread ", e);
-		}
 	}
 	
 	public void doGetReconcileListByMt940EodNew() throws FileNotFoundException, JRException, IOException, SQLException {

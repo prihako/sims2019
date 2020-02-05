@@ -1,6 +1,7 @@
 package com.balicamp.soap.helper;
 
 import java.util.Date;
+import java.util.Random;
 
 import org.springframework.stereotype.Component;
 
@@ -49,7 +50,9 @@ public class IarRequestGenerator {
 		paymentRequest.setChannelID(WebServiceConstant.CHANNEL_ID);
 		paymentRequest.setCompanyCode(WebServiceConstant.COMPANY_CODE);
 		paymentRequest.setCurrency(WebServiceConstant.CURRENCY);
+		paymentRequest.setTransactionID(WebServiceUtil.getTransactionId(6));
 		
 		return paymentRequest;
 	}
+
 }
