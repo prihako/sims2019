@@ -152,16 +152,20 @@ public class ReconcileMonthlyTask extends HttpServlet {
 		Iterator<String> billerIterator = billerList.iterator();
 		log.info("Monthly recon run");
 		while (billerIterator.hasNext()) {
-
-			DoGetReconcileListByMt940NewMonthly thread = new DoGetReconcileListByMt940NewMonthly(
-					systemParameter,
-					trxLogManager,
-					armgmtManagerImpl,
-					dataSourceWebapp,
-					dataSource,
-					billerIterator.next(), 
-					channelList);
-			thread.doGetReconcileListByMt940EodNew();
+			String biller = billerIterator.next();
+			try {
+				DoGetReconcileListByMt940NewMonthly thread = new DoGetReconcileListByMt940NewMonthly(
+						systemParameter,
+						trxLogManager,
+						armgmtManagerImpl,
+						dataSourceWebapp,
+						dataSource,
+						biller, 
+						channelList);
+				thread.doGetReconcileListByMt940EodNew();
+			}catch(Exception e) {
+				log.error("Monthly recon failed for biller : " + biller , e);
+			}
 		}
 		log.info("Monthly recon finish");
 	}

@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
@@ -63,6 +64,7 @@ AdminGenericDaoImpl<ReconcileReportMonthly, Long> implements ReconcileMonthlyRep
 				add(Restrictions.ilike("reportType", reportType)).
 				add(Restrictions.ilike("bankName", bankName));
 		}
+		criteria.addOrder(Order.asc("reportTime"));
 
 		list = criteria.list();
 

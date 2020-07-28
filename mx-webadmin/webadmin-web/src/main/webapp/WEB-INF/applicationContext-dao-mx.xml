@@ -80,6 +80,11 @@
             <property name="dataSource" ref="mxDataSource" />
              <property name="dataSourceWebapp" ref="dataSource" />
     </bean>
+	
+	<bean id="missingReconcileEodTask" class="com.balicamp.webapp.scheduler.MissingReconcileEodTask">
+            <property name="dataSource" ref="mxDataSource" />
+             <property name="dataSourceWebapp" ref="dataSource" />
+    </bean>
 
     <!-- Generic Dao - can be used when doing standard CRUD -->
     <bean id="mxDao" class="com.balicamp.dao.hibernate.BaseDaoHibernate">

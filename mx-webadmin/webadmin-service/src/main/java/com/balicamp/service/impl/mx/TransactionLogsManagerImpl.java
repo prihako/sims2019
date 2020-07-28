@@ -912,6 +912,9 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 		log.info("reconcileStatus : " + reconcileStatus);
 		log.info("mapCount : " + mapCount);
 		log.info("mapCountAmount : " + mapCountAmount);
+		log.info("list Invoice : " + LogHelper.toString(invoiceNo));
+		log.info("mxData : " + LogHelper.toString(mxMap));
+		log.info("mt940Map : " + LogHelper.toString(mt940Map));
 		
 
 		/* Randhi */
@@ -1175,48 +1178,52 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 			
 			if(invoiceNo.size()>0){
 				for (String invoice : invoiceNo) {
-					if(!mt940Map.isEmpty()){
-						mt940Data = mt940Map.get(invoice);
-					}else if (!mxMap.isEmpty()){
-						mxDataAbnormal 	= mxMap.get(invoice);
+					if(invoice.length() >= 6) {
+						if(!mt940Map.isEmpty()){
+							mt940Data = mt940Map.get(invoice);
+						}else if (!mxMap.isEmpty()){
+							mxDataAbnormal 	= mxMap.get(invoice);
+						}
+						String invoiceSP2 	= invoice.substring(0,invoice.length()-6)+"/SP2/KSDP/";
+						String invoiceMonth = invoice.substring(4,6); 
+						if(invoiceMonth.equals("01")){
+							invoiceSP2 += "I/";
+						}else if(invoiceMonth.equals("02")){
+							invoiceSP2 += "II/";
+						}else if(invoiceMonth.equals("03")){
+							invoiceSP2 += "III/";
+						}else if(invoiceMonth.equals("04")){
+							invoiceSP2 += "IV/";
+						}else if(invoiceMonth.equals("05")){
+							invoiceSP2 += "V/";
+						}else if(invoiceMonth.equals("06")){
+							invoiceSP2 += "VI/";
+						}else if(invoiceMonth.equals("07")){
+							invoiceSP2 += "VII/";
+						}else if(invoiceMonth.equals("08")){
+							invoiceSP2 += "VIII/";
+						}else if(invoiceMonth.equals("09")){
+							invoiceSP2 += "IX/";
+						}else if(invoiceMonth.equals("10")){
+							invoiceSP2 += "X/";
+						}else if(invoiceMonth.equals("11")){
+							invoiceSP2 += "XI/";
+						}else if(invoiceMonth.equals("12")){
+							invoiceSP2 += "XII/";
+						}
+						invoiceSP2 += invoice.substring(invoice.length()-4);
+						
+						if(!mt940Map.isEmpty()){
+							log.info("dataSource SERTIFIKASI: MT940 - "+invoiceSP2);
+							sertifikasi = sertifikasiDao.findBillingByInvoiceAndDate(invoiceSP2, trxDate, mt940Data, "MT940");
+						}else if (!mxMap.isEmpty()){
+							log.info("dataSource SERTIFIKASI: MXData - "+invoiceSP2);
+							sertifikasi = sertifikasiDao.findBillingByInvoiceAndDate(invoiceSP2, trxDate, mxDataAbnormal, "MXData");
+						}
+						resultSertifikasi.put(invoice, sertifikasi);
+					}else {
+						log.info("invoice kurang dari 6 digit : " + invoice);
 					}
-					String invoiceSP2 	= invoice.substring(0,invoice.length()-6)+"/SP2/KSDP/";
-					String invoiceMonth = invoice.substring(4,6); 
-					if(invoiceMonth.equals("01")){
-						invoiceSP2 += "I/";
-					}else if(invoiceMonth.equals("02")){
-						invoiceSP2 += "II/";
-					}else if(invoiceMonth.equals("03")){
-						invoiceSP2 += "III/";
-					}else if(invoiceMonth.equals("04")){
-						invoiceSP2 += "IV/";
-					}else if(invoiceMonth.equals("05")){
-						invoiceSP2 += "V/";
-					}else if(invoiceMonth.equals("06")){
-						invoiceSP2 += "VI/";
-					}else if(invoiceMonth.equals("07")){
-						invoiceSP2 += "VII/";
-					}else if(invoiceMonth.equals("08")){
-						invoiceSP2 += "VIII/";
-					}else if(invoiceMonth.equals("09")){
-						invoiceSP2 += "IX/";
-					}else if(invoiceMonth.equals("10")){
-						invoiceSP2 += "X/";
-					}else if(invoiceMonth.equals("11")){
-						invoiceSP2 += "XI/";
-					}else if(invoiceMonth.equals("12")){
-						invoiceSP2 += "XII/";
-					}
-					invoiceSP2 += invoice.substring(invoice.length()-4);
-					
-					if(!mt940Map.isEmpty()){
-						log.info("dataSource SERTIFIKASI: MT940 - "+invoiceSP2);
-						sertifikasi = sertifikasiDao.findBillingByInvoiceAndDate(invoiceSP2, trxDate, mt940Data, "MT940");
-					}else if (!mxMap.isEmpty()){
-						log.info("dataSource SERTIFIKASI: MXData - "+invoiceSP2);
-						sertifikasi = sertifikasiDao.findBillingByInvoiceAndDate(invoiceSP2, trxDate, mxDataAbnormal, "MXData");
-					}
-					resultSertifikasi.put(invoice, sertifikasi);
 				}
 			}
 			
@@ -1635,8 +1642,6 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 			Object[] mxData			= null;
 			Object[] mxDataAbnormal	= null;
 			
-			log.info("invoiceNo : " + LogHelper.toString(invoiceNo));
-			
 			if(invoiceNo.size()>0 && !mt940Map.isEmpty()){
 				
 				Set<String> invoiceMt940 = new HashSet<String>();
@@ -1675,10 +1680,6 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 				if(invoiceNo.size()>0 && !mt940Map.isEmpty()){
 					mt940Data = mt940Map.get(keys);
 				}
-				
-				log.info("mxData : " + LogHelper.toString(mxData));
-				log.info("resultReor : " + LogHelper.toString(reorRecon));
-				log.info("mt940Map : " + LogHelper.toString(mt940Map));
 				
 				if (reconcileStatus.equalsIgnoreCase("unsettled")
 						|| reconcileStatus.equalsIgnoreCase("unsettled/need confirmation")

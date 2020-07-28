@@ -65,7 +65,8 @@ public class DoGetReconcileListByMt940New{
 	private SertifikasiManagerImpl sertifikasiManagerImpl;
 	private String billerCode;
 	private List<String> channelList;
-	
+	private Calendar reconcileCalendar;
+	private Calendar createdOnCalendar;
 	
 	public DoGetReconcileListByMt940New(SystemParameterManager systemParameter,
 			TransactionLogsManager trxLogManager,
@@ -81,7 +82,9 @@ public class DoGetReconcileListByMt940New{
 			ExternalBillingSystemManagerImpl externalBillingSystem,
 			SertifikasiManagerImpl sertifikasiManagerImpl,
 			String billerCode, 
-			List<String> channelList){
+			List<String> channelList,
+			Calendar reconcileCalendar, 
+			Calendar createdOnCalendar){
 		this.systemParameter = systemParameter;
 		this.trxLogManager = trxLogManager;
 		this.armgmtManagerImpl = armgmtManagerImpl;
@@ -97,9 +100,11 @@ public class DoGetReconcileListByMt940New{
 		this.sertifikasiManagerImpl=sertifikasiManagerImpl;
 		this.billerCode = billerCode;
 		this.channelList = channelList;
+		this.reconcileCalendar = reconcileCalendar;
+		this.createdOnCalendar = createdOnCalendar;
 	}
 	
-	public void doGetReconcileListByMt940EodNew() throws FileNotFoundException, JRException, IOException, SQLException {
+	public void doGetReconcileListByMt940EodNew() throws FileNotFoundException, JRException, IOException, SQLException, ParseException {
 
 		ReportReconcileAction reportReconcileAction = new ReportReconcileAction();
 		
@@ -123,10 +128,6 @@ public class DoGetReconcileListByMt940New{
 		Long paymentAmountSettled 			= 0L;
 		Long paymentAmountUnSettled 		= 0L;
 		Long paymentAmountNeedConfirmation 	= 0L;
-
-		Calendar reconcileCalendar 		= Calendar.getInstance();
-		reconcileCalendar.setTime(new Date());
-		reconcileCalendar.add(Calendar.DATE, -1);
 		
 		Iterator<String> channelCodeListIterator = channelList.iterator();
 		while (channelCodeListIterator.hasNext()) {
@@ -216,7 +217,7 @@ public class DoGetReconcileListByMt940New{
 			synchronized (this){
 	//			String reportDir = trxLogManager.findParamValueByParamName("reconcileEod.report.path") + billerCode;
 				String reportDir = trxLogManager.findParamValueByParamName("reconcileEod.report.path") + channelCode[0].toLowerCase() + "/" + billerCode;
-				putToParam(params, mapCount, mapCountAmount, new Date(), channelCode[1], channelCode[0], "All", systemParameter.findParamValueByParamName("reconcileEod.report.image.path"), "");
+				putToParam(params, mapCount, mapCountAmount, createdOnCalendar.getTime(), channelCode[1], channelCode[0], "All", systemParameter.findParamValueByParamName("reconcileEod.report.image.path"), "");
 		
 				log.info("MT940 Data #2 "+LogHelper.toString(mt940Data));
 				reportReconcileAction.createReportWithoutContextByDataType(params, searchResult, jasperRealPath, jrxmlRealPath, reportDir, channelCode[0], "PDF", "original");
@@ -224,12 +225,12 @@ public class DoGetReconcileListByMt940New{
 		
 				finalSearchResult.addAll(autoReconcileToPaid(searchResult, mapCount, mapCountAmount, billerCode));
 		
-				putToParam(finalParams, mapCount, mapCountAmount, new Date(), channelCode[1], channelCode[0], "All", systemParameter.findParamValueByParamName("reconcileEod.report.image.path"), "Hasil Rekonsiliasi Otomatis");
+				putToParam(finalParams, mapCount, mapCountAmount, createdOnCalendar.getTime(), channelCode[1], channelCode[0], "All", systemParameter.findParamValueByParamName("reconcileEod.report.image.path"), "Hasil Rekonsiliasi Otomatis");
 		
 				reportReconcileAction.createReportWithoutContextByDataType(finalParams, finalSearchResult, jasperRealPath, jrxmlRealPath, reportDir, channelCode[0], "PDF", "reconciled");
 				String reportPath = reportReconcileAction.createReportWithoutContextByDataType(finalParams, finalSearchResult, jasperRealPath, jrxmlRealPath, reportDir, channelCode[0], "XLS", "reconciled");
 		
-				saveToLogQuery(new Date(), reportPath, billerCode, channelCode[0]);
+				saveToLogQuery(createdOnCalendar.getTime(), reportPath, billerCode, channelCode[0]);
 		
 				// for detail in email
 				settled += mapCount.get("settled");
@@ -291,7 +292,7 @@ public class DoGetReconcileListByMt940New{
 			ps.setString(3, trxType);
 			rs = ps.executeQuery();
 			if (rs.next()) {
-				log.info(new Date () + "Data already exist");
+				log.info(reportTime + " Data already exist");
 				log.info("Data already exist");
 			} else {
 				s = con.prepareStatement(sql);
@@ -339,69 +340,72 @@ public class DoGetReconcileListByMt940New{
 
 				log.info("Auto Reconcile Invoice No : " + reconciledList.get(i).getInvoiceNo());
 				
-				if(billerCode.equalsIgnoreCase(Constants.BillerConstants.BHP_CODE)){
-					externalBillingSystem.updateInvoiceEod(reconciledList.get(i).getInvoiceNo(), cal.getTime(), "Auto Reconcile BHP By WebAdmin");
-				}else if(billerCode.equalsIgnoreCase(Constants.BillerConstants.REOR_CODE)){
-					reorChannel.payment(reconciledList.get(i), cal.getTime(), "Auto Reconcile REOR By WebAdmin");
-				}else if(billerCode.equalsIgnoreCase(Constants.BillerConstants.UNAR_CODE)){
-					unarChannel.payment(reconciledList.get(i), cal.getTime(), "Auto Reconcile UNAR By WebAdmin");	
-				}else if(billerCode.equalsIgnoreCase(Constants.BillerConstants.IAR_CODE)){
-					iarChannel.payment(reconciledList.get(i), cal.getTime(), "Auto Reconcile IAR By WebAdmin");
-				}else if(billerCode.equalsIgnoreCase(Constants.BillerConstants.IKRAP_CODE)){
-					ikrapChannel.payment(reconciledList.get(i), cal.getTime(), "Auto Reconcile IKRAP By WebAdmin");
-				}else if(billerCode.equalsIgnoreCase(Constants.BillerConstants.PERANGKAT_CODE)){
-					sertifikasiManagerImpl.updateInvoiceEodSertifikasi(reconciledList.get(i), cal.getTime(), "Auto Reconcile PERANGKAT By WebAdmin");
-				}else if(billerCode.equalsIgnoreCase(Constants.BillerConstants.PAP_CODE)){
-					pengujianChannel.payment(reconciledList.get(i), cal.getTime(), "Auto Reconcile PENGUJIAN By WebAdmin");
-//					pengujianManagerImpl.updateInvoiceEodPengujian(reconciledList.get(i), cal.getTime(), "Auto Reconcile By WebAdmin");
-				}else if(billerCode.equalsIgnoreCase(Constants.BillerConstants.KALIBRASI_CODE)){
-					klbsiChannel.payment(reconciledList.get(i), cal.getTime(), "Auto Reconcile KALIBRASI By WebAdmin");
-				}
-
-				if (reconciledList.get(i).getInvoiceDendaNo() != null && !reconciledList.get(i).getInvoiceDendaNo().equalsIgnoreCase("-")) {
-					reconciledList.get(i).setStatusDenda("Cancelled");
-				}
-
-				reconciledList.get(i).setSimsStatus("Paid");
-				reconciledList.get(i).setPaymentDateSims(trxDate);
-
-				if (reconciledList.get(i).getInvoiceDueDate() != null && !reconciledList.get(i).getInvoiceDueDate().equals("-")) {
-
-					try {
-						if(reconciledList.get(i).getPaymentDateSims().contains("-")) {
-							paymentDateSims = formatter1.parse(reconciledList.get(i).getPaymentDateSims());
-						}else {
-							paymentDateSims = formatter2.parse(reconciledList.get(i).getPaymentDateSims());
-						}
-						if(reconciledList.get(i).getInvoiceDueDate().contains("-")) {
-							invoiceDueDate 	= formatter1.parse(reconciledList.get(i).getInvoiceDueDate());
-						}else {
-							invoiceDueDate 	= formatter2.parse(reconciledList.get(i).getInvoiceDueDate());
-						}
-					} catch (ParseException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+				try {
+					if(billerCode.equalsIgnoreCase(Constants.BillerConstants.BHP_CODE)){
+						externalBillingSystem.updateInvoiceEod(reconciledList.get(i).getInvoiceNo(), cal.getTime(), "Auto Reconcile BHP By WebAdmin");
+					}else if(billerCode.equalsIgnoreCase(Constants.BillerConstants.REOR_CODE)){
+						reorChannel.payment(reconciledList.get(i), cal.getTime(), "Auto Reconcile REOR By WebAdmin");
+					}else if(billerCode.equalsIgnoreCase(Constants.BillerConstants.UNAR_CODE)){
+						unarChannel.payment(reconciledList.get(i), cal.getTime(), "Auto Reconcile UNAR By WebAdmin");	
+					}else if(billerCode.equalsIgnoreCase(Constants.BillerConstants.IAR_CODE)){
+						iarChannel.payment(reconciledList.get(i), cal.getTime(), "Auto Reconcile IAR By WebAdmin");
+					}else if(billerCode.equalsIgnoreCase(Constants.BillerConstants.IKRAP_CODE)){
+						ikrapChannel.payment(reconciledList.get(i), cal.getTime(), "Auto Reconcile IKRAP By WebAdmin");
+					}else if(billerCode.equalsIgnoreCase(Constants.BillerConstants.PERANGKAT_CODE)){
+						sertifikasiManagerImpl.updateInvoiceEodSertifikasi(reconciledList.get(i), cal.getTime(), "Auto Reconcile PERANGKAT By WebAdmin");
+					}else if(billerCode.equalsIgnoreCase(Constants.BillerConstants.PAP_CODE)){
+						pengujianChannel.payment(reconciledList.get(i), cal.getTime(), "Auto Reconcile PENGUJIAN By WebAdmin");
+	//					pengujianManagerImpl.updateInvoiceEodPengujian(reconciledList.get(i), cal.getTime(), "Auto Reconcile By WebAdmin");
+					}else if(billerCode.equalsIgnoreCase(Constants.BillerConstants.KALIBRASI_CODE)){
+						klbsiChannel.payment(reconciledList.get(i), cal.getTime(), "Auto Reconcile KALIBRASI By WebAdmin");
 					}
-
-					if (invoiceDueDate.compareTo(paymentDateSims) >= 0) {
-						reconciledList.get(i).setReconcileStatus("Settled");
-						if (reconciledList.get(i).getInvoiceDendaNo() != null && reconciledList.get(i).getInvoiceDendaNo().equalsIgnoreCase("-") && reconciledList.get(i).getStatusDenda().equalsIgnoreCase("Paid")) {
-							amountNewSettled = amountNewSettled + Long.parseLong(reconciledList.get(i).getTrxAmountDenda().replaceAll("(\\D)", ""));
-						} else {
-							amountNewSettled = amountNewSettled + Long.parseLong(reconciledList.get(i).getTrxAmount().replaceAll("(\\D)", ""));
-						}
-						newSettled++;
-					} else {
-						reconciledList.get(i).setReconcileStatus("Need Confirmation/Manual Payment");
-						if (reconciledList.get(i).getInvoiceDendaNo() != null && reconciledList.get(i).getInvoiceDendaNo().equalsIgnoreCase("-") && reconciledList.get(i).getStatusDenda().equalsIgnoreCase("Paid")) {
-							amountNewUnconfirmed = amountNewUnconfirmed + Long.parseLong(reconciledList.get(i).getTrxAmountDenda().replaceAll("(\\D)", ""));
-						} else {
-							amountNewUnconfirmed = amountNewUnconfirmed + Long.parseLong(reconciledList.get(i).getTrxAmount().replaceAll("(\\D)", ""));
-						}
-						newUnconfirmed++;
+	
+					if (reconciledList.get(i).getInvoiceDendaNo() != null && !reconciledList.get(i).getInvoiceDendaNo().equalsIgnoreCase("-")) {
+						reconciledList.get(i).setStatusDenda("Cancelled");
 					}
+	
+					reconciledList.get(i).setSimsStatus("Paid");
+					reconciledList.get(i).setPaymentDateSims(trxDate);
+	
+					if (reconciledList.get(i).getInvoiceDueDate() != null && !reconciledList.get(i).getInvoiceDueDate().equals("-")) {
+	
+						try {
+							if(reconciledList.get(i).getPaymentDateSims().contains("-")) {
+								paymentDateSims = formatter1.parse(reconciledList.get(i).getPaymentDateSims());
+							}else {
+								paymentDateSims = formatter2.parse(reconciledList.get(i).getPaymentDateSims());
+							}
+							if(reconciledList.get(i).getInvoiceDueDate().contains("-")) {
+								invoiceDueDate 	= formatter1.parse(reconciledList.get(i).getInvoiceDueDate());
+							}else {
+								invoiceDueDate 	= formatter2.parse(reconciledList.get(i).getInvoiceDueDate());
+							}
+						} catch (ParseException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+	
+						if (invoiceDueDate.compareTo(paymentDateSims) >= 0) {
+							reconciledList.get(i).setReconcileStatus("Settled");
+							if (reconciledList.get(i).getInvoiceDendaNo() != null && reconciledList.get(i).getInvoiceDendaNo().equalsIgnoreCase("-") && reconciledList.get(i).getStatusDenda().equalsIgnoreCase("Paid")) {
+								amountNewSettled = amountNewSettled + Long.parseLong(reconciledList.get(i).getTrxAmountDenda().replaceAll("(\\D)", ""));
+							} else {
+								amountNewSettled = amountNewSettled + Long.parseLong(reconciledList.get(i).getTrxAmount().replaceAll("(\\D)", ""));
+							}
+							newSettled++;
+						} else {
+							reconciledList.get(i).setReconcileStatus("Need Confirmation/Manual Payment");
+							if (reconciledList.get(i).getInvoiceDendaNo() != null && reconciledList.get(i).getInvoiceDendaNo().equalsIgnoreCase("-") && reconciledList.get(i).getStatusDenda().equalsIgnoreCase("Paid")) {
+								amountNewUnconfirmed = amountNewUnconfirmed + Long.parseLong(reconciledList.get(i).getTrxAmountDenda().replaceAll("(\\D)", ""));
+							} else {
+								amountNewUnconfirmed = amountNewUnconfirmed + Long.parseLong(reconciledList.get(i).getTrxAmount().replaceAll("(\\D)", ""));
+							}
+							newUnconfirmed++;
+						}
+					}
+				}catch(Exception e) {
+					log.error("Error when auto reconcile ", e);
 				}
-
 			}
 		}
 
