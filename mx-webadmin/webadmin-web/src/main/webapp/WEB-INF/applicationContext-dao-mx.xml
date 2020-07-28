@@ -9,7 +9,7 @@
    <!-- MESIN DEV --> 
       <bean id="mxDataSource" class="org.postgresql.ds.PGPoolingDataSource">
 <!--       	<property name="serverName" value="10.1.125.24" /> -->
-        <property name="serverName" value="10.1.1.22" /> 
+        <property name="serverName" value="10.1.125.24" /> 
 <!-- 		<property name="serverName" value="localhost" />-->
         <property name="databaseName" value="mx2" />
         <property name="user" value="mx_usr" />
