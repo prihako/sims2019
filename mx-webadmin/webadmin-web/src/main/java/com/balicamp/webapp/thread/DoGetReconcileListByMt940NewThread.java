@@ -109,7 +109,7 @@ public class DoGetReconcileListByMt940NewThread extends Thread{
 		}
 	}
 	
-	private void doGetReconcileListByMt940EodNew() throws FileNotFoundException, JRException, IOException, SQLException {
+	private void doGetReconcileListByMt940EodNew() throws FileNotFoundException, JRException, IOException, SQLException, ParseException {
 
 		ReportReconcileAction reportReconcileAction = new ReportReconcileAction();
 		

@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
@@ -51,7 +52,7 @@ AdminGenericDaoImpl<ReconcileReport, Long> implements ReconcileReportDAO {
 		Criteria criteria = getSession().createCriteria(ReconcileReport.class);
 		criteria.add(Restrictions.between("reportTime", startDate, calDate)).
 			add(Restrictions.ilike("transactionType",transactionType)).
-			add(Restrictions.ilike("bankName",bankName));
+			add(Restrictions.ilike("bankName",bankName)).addOrder(Order.asc("reportTime"));
 
 		list = criteria.list();
 

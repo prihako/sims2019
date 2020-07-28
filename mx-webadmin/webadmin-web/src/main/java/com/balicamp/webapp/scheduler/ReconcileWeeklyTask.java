@@ -150,13 +150,18 @@ public class ReconcileWeeklyTask extends HttpServlet {
 		} finally {
 			con.close();
 		}
-		System.out.println("RECONCILE WEEKLY START");
+		log.error("RECONCILE WEEKLY START");
 		Iterator<String> billerIterator = billerList.iterator();
 		while (billerIterator.hasNext()) {
 //			doGetReconcileListByMt940Weekly(channelList, billerIterator.next());
-			doGetReconcileListByMt940WeeklyNew(billerIterator.next(), channelList);
+			String biller = billerIterator.next();
+			try {
+				doGetReconcileListByMt940WeeklyNew(biller, channelList);
+			}catch(Exception e) {
+				log.error("Monthly recon failed for biller : " + biller , e);
+			}
 		}
-		System.out.println("RECONCILE WEEKLY FINISH");
+		log.error("RECONCILE WEEKLY FINISH");
 	}
 	
 	public void doGetReconcileListByMt940WeeklyNew(String billerCode, List<String> channelList) throws FileNotFoundException, JRException, IOException, SQLException {

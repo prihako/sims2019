@@ -283,7 +283,7 @@ public class ChannelImpl implements Transport<WsMessage>, BillPaymentServiceSoap
 		tellListeners(message);
 
 		try {
-			latch.await(30, TimeUnit.SECONDS);
+			latch.await(300, TimeUnit.SECONDS);
 		} catch (InterruptedException e) {}
 
 		System.out.println("------------- inq responses size : "+responses.size()+" -- assoc : "+assoc);

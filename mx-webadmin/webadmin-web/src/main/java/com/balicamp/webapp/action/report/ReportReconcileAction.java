@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -286,10 +287,11 @@ public class ReportReconcileAction implements Serializable {
 			Map<String, String> parameters, List<ReconcileDto> list,
 			String jasperPath, String jrxmlPath, String tempOutputPath,
 			String channelCode, String fileType, String dataType)
-			throws JRException, IOException, FileNotFoundException {
+			throws JRException, IOException, FileNotFoundException, ParseException {
 
 		DateFormat dateFormat 	= new SimpleDateFormat("dd_MM_yyyy");
 		Calendar cal 			= Calendar.getInstance();
+		cal.setTime((new SimpleDateFormat("dd-MM-yyyy")).parse(parameters.get("trxDate")));
 		String date 			= dateFormat.format(cal.getTime());
 
 		String fullPath 	= null;

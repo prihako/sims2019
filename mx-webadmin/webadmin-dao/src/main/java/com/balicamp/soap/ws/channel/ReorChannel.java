@@ -40,13 +40,13 @@ public class ReorChannel {
 				reconcile.getClientId());
 		
 		forcePaymentLogRunner.saveForcePaymentLog(reconcile.getInvoiceNo(), 
-				reconcile.getClientId(), WebServiceConstant.IKRAP_INQ, null, 
+				reconcile.getClientId(), WebServiceConstant.REOR_INQ, null, 
 				inquiryRequest.toString(), true);
 		
 		InquiryResult result = proxy().inquiry(inquiryRequest);
 
 		forcePaymentLogRunner.saveForcePaymentLog(reconcile.getInvoiceNo(), 
-				reconcile.getClientId(), WebServiceConstant.IKRAP_INQ, result.getStatus().getErrorCode(), 
+				reconcile.getClientId(), WebServiceConstant.REOR_INQ, result.getStatus().getErrorCode(), 
 				result.toString(), false);
 		
 		LOG.info("Inquiry Response : " + result.toString());
@@ -67,13 +67,13 @@ public class ReorChannel {
 					reconcile.getClientId(), paymentAmount);
 			
 			forcePaymentLogRunner.saveForcePaymentLog(reconcile.getInvoiceNo(), 
-					reconcile.getClientId(), WebServiceConstant.IKRAP_PAY,
+					reconcile.getClientId(), WebServiceConstant.REOR_PAY,
 					null, paymentRequest.toString(), true);
 			
 			paymentResult = proxy().payment(paymentRequest);
 			
 			forcePaymentLogRunner.saveForcePaymentLog(reconcile.getInvoiceNo(), 
-					reconcile.getClientId(), WebServiceConstant.IKRAP_PAY, 
+					reconcile.getClientId(), WebServiceConstant.REOR_PAY, 
 					paymentResult.getStatus().getErrorCode() ,paymentResult.toString(), false);
 			
 			LOG.info("Payment Response : " + paymentResult.toString());

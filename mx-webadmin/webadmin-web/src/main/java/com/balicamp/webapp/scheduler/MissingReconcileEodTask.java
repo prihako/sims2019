@@ -59,7 +59,7 @@ import com.balicamp.webapp.thread.DoGetReconcileListByMt940NewThread;
 import com.balicamp.webapp.util.SendMail;
 
 @SuppressWarnings("serial")
-public class ReconcileEodTask extends HttpServlet {
+public class MissingReconcileEodTask extends HttpServlet {
 	protected final Log log = LogFactory.getLog(getClass());
 	private FTPManager ftpManager;
 	private DataSource dataSource;
@@ -115,7 +115,7 @@ public class ReconcileEodTask extends HttpServlet {
 	@SuppressWarnings("unused")
 	private XlstoStringConverter xlsFile;
 
-	public ReconcileEodTask() {
+	public MissingReconcileEodTask() {
 		this.xlsFile = new XlstoStringConverter();
 	}
 
@@ -145,7 +145,7 @@ public class ReconcileEodTask extends HttpServlet {
 		super.init();
 	}
 
-	public void reconcileEod() throws FileNotFoundException, JRException, IOException, ServletException, SQLException, ParseException {
+	public void reconcileEod() throws FileNotFoundException, JRException, IOException, ServletException, SQLException {
 		
 		init();
 		String sql = "SELECT * FROM endpoints WHERE type = 'channel'";
@@ -196,59 +196,116 @@ public class ReconcileEodTask extends HttpServlet {
 			con.close();
 		}
 		Date start = new Date();
-		log.info("RECONCILE EOD START");
-		Iterator<String> billerIterator = billerList.iterator();
-		while (billerIterator.hasNext()) {			
-
+		log.info("RECONCILE MISSING EOD START");
+		
+		List<Date> listMissingDate = getMissingDate();
+		for(Date missingDate : listMissingDate) {
+			
 			Calendar reconcileCalendar 		= Calendar.getInstance();
-			reconcileCalendar.setTime(new Date());
+			reconcileCalendar.setTime(missingDate);
 			reconcileCalendar.add(Calendar.DATE, -1);
 			
-			Calendar createdOnCalendar 		= Calendar.getInstance();
-			createdOnCalendar.setTime(new Date());
+			Calendar createdOnCalendar = Calendar.getInstance();
+			createdOnCalendar.setTime(missingDate);
 			
-			String biller = billerIterator.next();
-			try {
-				DoGetReconcileListByMt940New task = new DoGetReconcileListByMt940New(
-						systemParameter,
-						trxLogManager,
-						armgmtManagerImpl,
-						dataSourceWebapp,
-						reorChannel,
-						unarChannel,
-						iarChannel,
-						klbsiChannel,
-						ikrapChannel,
-						pengujianChannel,
-						dataSource,
-						externalBillingSystem,
-						sertifikasiManagerImpl,
-						biller, 
-						channelList,
-						reconcileCalendar,
-						createdOnCalendar);
-				task.doGetReconcileListByMt940EodNew();
-			}catch(Exception e) {
-				log.error("EOD recon failed for biller : " + biller, e);
+			log.info("RECONCILE MISSING " + reconcileCalendar.getTime() + " START");
+			
+			Iterator<String> billerIterator = billerList.iterator();
+			
+			while (billerIterator.hasNext()) {			
+		
+				try {
+					DoGetReconcileListByMt940New task = new DoGetReconcileListByMt940New(
+							systemParameter,
+							trxLogManager,
+							armgmtManagerImpl,
+							dataSourceWebapp,
+							reorChannel,
+							unarChannel,
+							iarChannel,
+							klbsiChannel,
+							ikrapChannel,
+							pengujianChannel,
+							dataSource,
+							externalBillingSystem,
+							sertifikasiManagerImpl,
+							billerIterator.next(), 
+							channelList,
+							reconcileCalendar,
+							createdOnCalendar);
+					task.doGetReconcileListByMt940EodNew();
+				}catch(Exception e) {
+					log.error("Error ", e);
+				}
+					
 			}
+			
+			log.info("RECONCILE MISSING " + reconcileCalendar.getTime() + " END");
 		}
 		Date end = new Date();
 		Long diff = end.getTime() - start.getTime();
-		log.info("RECONCILE EOD FINISH : " + diff);
+		log.info("RECONCILE MISSING EOD FINISH : " + diff);
 		
 	}
+	
+	private List<Date> getMissingDate() throws SQLException{
+		String sql = 
+				"SELECT report_time  "
+						+"FROM   generate_series( " 
+						+"       ( "
+						+"              SELECT To_date(param_value, 'DD/MM/YYYY') "         
+						+"              FROM   s_parameter  "   
+						+"              WHERE  param_name = 'webadmin.missing.eod.search.min.date'), CURRENT_DATE , interval '1 day') AS report_time "   
+						+"WHERE  report_time NOT IN "  
+						+"       (  "
+						+"                SELECT   report_time "    
+						+"                FROM     reconcile_report_log "       
+						+"                WHERE    report_time > "     
+						+"  ( "  
+						+"         SELECT to_date(param_value, 'DD/MM/YYYY') "              
+						+"         FROM   s_parameter "        
+						+"         WHERE  param_name = 'webadmin.missing.eod.search.min.date') "                  
+						+"                ORDER BY report_time) "     
+						+"UNION "
+						+"SELECT   report_time  "
+						+"FROM     (  "
+						+"         ( "
+						+"                  SELECT   report_time,  "     
+						+"    count(*) "    
+						+"                  FROM     reconcile_report_log "       
+						+"                  WHERE    report_time > "     
+						+"    ( "  
+						+"           SELECT to_date(param_value, 'DD/MM/YYYY') "              
+						+"           FROM   s_parameter "        
+						+"           WHERE  param_name = 'webadmin.missing.eod.search.min.date') "                   
+						+"                  GROUP BY report_time) ) x  "      
+						+"WHERE    count <  "
+						+"         (  "
+						+"                SELECT to_number(param_value, '999')  "        
+						+"                FROM   s_parameter  "    
+						+"                WHERE  param_name = 'webadmin.missing.eod.number.transaction.per.day') "                 
+						+"ORDER BY report_time ";
+		Connection con = null;
+		PreparedStatement stat = null;
+		ResultSet rs = null;
+		// boolean flag = false;
+		List<Date> dateList = new ArrayList<Date>();
 
+		try {
+			con = dataSourceWebapp.getConnection();
+			stat = con.prepareStatement(sql);
+			rs = stat.executeQuery();
+			while (rs.next()) {
+				Date dt = rs.getDate("report_time");
+				dateList.add(dt);
+			}
 
-	public Boolean cekFileInFileSystem(String filepath, String transactionType, String bankName) {
-		String errorMessage = null;
-		File file 			= new File(filepath);
-
-		if (!file.exists()) {
-			errorMessage = "File MT940 " + transactionType + " pada bank " + bankName + " Tidak Ditemukan Pada Path : " + filepath;
-			log.info(errorMessage);
-			return false;
+		} catch (SQLException e) {
+			log.error("error ", e);
+		} finally {
+			con.close();
 		}
-
-		return true;
+		
+		return dateList;
 	}
 }
