@@ -979,6 +979,11 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 			resultMx = transactionLogDao.findAllTransactionLogsWebadminReconcile(
 					channel, resultKalibrasi.keySet(), clientId, transactionCode, 
 					new String[] { "00" }, new String[] { "00" }, trxDate);
+			
+			log.info("######--- Proses Rekonsiliasi Kalibrasi (90) ---#####");
+			log.info("######--- jumlah data MT940 : " + mt940Map.size());
+			log.info("######--- jumlah data Core Kalibrasi : " + resultKalibrasi.size());
+			log.info("######--- jumlah data MX vs Kalibrasi : " + resultMx.size());
 			 
 			for (String keys : resultKalibrasi.keySet()) {
 				no++;
@@ -1092,6 +1097,11 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 			resultMx = transactionLogDao.findAllTransactionLogsWebadminReconcile(
 					channel, resultPengujian.keySet(), clientId, transactionCode, 
 					new String[] { "00" }, new String[] { "00" }, trxDate);
+			
+			log.info("######--- Proses Rekonsiliasi Pengujian (80) ---#####");
+			log.info("######--- jumlah data MT940 : " + mt940Map.size());
+			log.info("######--- jumlah data Core Pengujian : " + resultPengujian.size());
+			log.info("######--- jumlah data MX vs Pengujian : " + resultMx.size());
 			 
 			for (String keys : resultPengujian.keySet()) {
 				no++;
@@ -1233,8 +1243,11 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 			resultMx = transactionLogDao.findAllTransactionLogsWebadminReconcile(
 					channel, resultSertifikasi.keySet(), clientId, transactionCode, new String[] { "00" }, new String[] { "00" }, trxDate);
 			
-			log.info("resultSertifikasi : " + resultSertifikasi);
-			log.info("resultMx : " + resultMx);
+			log.info("######--- Proses Rekonsiliasi Sertifikasi (70) ---#####");
+			log.info("######--- jumlah data MT940 : " + mt940Map.size());
+			log.info("######--- jumlah data Core Sertifikasi : " + resultSertifikasi.size());
+			log.info("######--- jumlah data MX vs Sertifikasi : " + resultMx.size());
+			
 			for (String keys : resultSertifikasi.keySet()) {
 				no++;
 				ReconcileDto dto 	= new ReconcileDto();
@@ -1351,6 +1364,11 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 					channel, resultIkrap.keySet(), clientId, transactionCode, 
 					new String[] { "00" }, new String[] { "00" }, trxDate);
 			 
+			log.info("######--- Proses Rekonsiliasi IKRAP (60) ---#####");
+			log.info("######--- jumlah data MT940 : " + mt940Map.size());
+			log.info("######--- jumlah data Core IKRAP : " + resultIkrap.size());
+			log.info("######--- jumlah data MX vs IKRAP : " + resultMx.size());
+			
 			for (String keys : resultIkrap.keySet()) {
 				no++;
 				ReconcileDto dto 	= new ReconcileDto();
@@ -1463,8 +1481,10 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 					channel, resultIar.keySet(), clientId, transactionCode, 
 					new String[] { "00" }, new String[] { "00" }, trxDate);
 			 
-			log.info("resultIar : " + resultIar);
-			log.info("resultMx : " + resultMx);
+			log.info("######--- Proses Rekonsiliasi IAR (50) ---#####");
+			log.info("######--- jumlah data MT940 : " + mt940Map.size());
+			log.info("######--- jumlah data Core IAR : " + resultIar.size());
+			log.info("######--- jumlah data MX vs IAR : " + resultMx.size());
 			
 			for (String keys : resultIar.keySet()) {
 				log.info("keys : " + keys);
@@ -1581,6 +1601,11 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 			resultMx = transactionLogDao.findAllTransactionLogsWebadminReconcile(
 					channel, resultUnar.keySet(), clientId, transactionCode, 
 					new String[] { "00" }, new String[] { "00" }, trxDate);
+			
+			log.info("######--- Proses Rekonsiliasi UNAR (40) ---#####");
+			log.info("######--- jumlah data MT940 : " + mt940Map.size());
+			log.info("######--- jumlah data Core UNAR : " + resultUnar.size());
+			log.info("######--- jumlah data MX vs UNAR : " + resultMx.size());
 			 
 			for (String keys : resultUnar.keySet()) {
 				no++;
@@ -1697,6 +1722,11 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 			resultMx = transactionLogDao.findAllTransactionLogsWebadminReconcile(
 					channel, resultReor.keySet(), clientId, transactionCode, 
 					new String[] { "00" }, new String[] { "00" }, trxDate);
+			
+			log.info("######--- Proses Rekonsiliasi REOR (20) ---#####");
+			log.info("######--- jumlah data MT940 : " + mt940Map.size());
+			log.info("######--- jumlah data Core REOR : " + resultReor.size());
+			log.info("######--- jumlah data MX vs REOR : " + resultMx.size());
 			 
 			for (String keys : resultReor.keySet()) {
 				no++;
@@ -1793,6 +1823,11 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 			resultMx 		= transactionLogDao.findAllTransactionLogsWebadminReconcile(
 									channel, resultBilling.keySet(), clientId, transactionCode, new String[] { "00" }, new String[] { "00" }, trxDate);
 			 
+			log.info("######--- Proses Rekonsiliasi Billing (10) ---#####");
+			log.info("######--- jumlah data MT940 : " + mt940Map.size());
+			log.info("######--- jumlah data Core Billing : " + resultBilling.size());
+			log.info("######--- jumlah data MX vs Billing : " + resultMx.size());
+			
 			for (String keys : resultBilling.keySet()) {
 				no++;
 				ReconcileDto dto 	= new ReconcileDto();
