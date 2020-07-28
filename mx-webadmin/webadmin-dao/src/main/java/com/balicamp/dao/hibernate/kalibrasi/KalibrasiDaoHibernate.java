@@ -38,6 +38,7 @@ public class KalibrasiDaoHibernate extends KalibrasiGenericDaoHibernate<BaseAdmi
 				+ "WHERE SP2.APL_ID = APL.APL_ID "
 				+ "AND SP2.SP2_ID = BIAYA.SP2_ID "
 				+ "AND APL.CUST_ID = CUS.CUST_ID "
+				+ "AND SP2.SP2_DATE is not null "
 				+ likeClauseGenerator(invoice);
 		
 		Query query = getSessionFactory().getCurrentSession().createSQLQuery(sql);

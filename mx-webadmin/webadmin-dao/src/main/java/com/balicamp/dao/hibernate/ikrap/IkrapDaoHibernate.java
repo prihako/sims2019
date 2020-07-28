@@ -44,7 +44,8 @@ public class IkrapDaoHibernate extends IkrapGenericDaoHibernate<BaseAdminModel, 
 					+"join "
 					+"ikrap reg  "
 					+"on pay.id_ikrap = reg.id_ikrap  "
-					+"where inv.invoice_number = :invoice "; 
+					+"where inv.invoice_number = :invoice "
+					+"and pay.payment_date is not null"; 
 		
 		
 		

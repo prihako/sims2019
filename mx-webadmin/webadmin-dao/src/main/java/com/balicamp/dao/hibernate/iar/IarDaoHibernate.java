@@ -45,7 +45,8 @@ public class IarDaoHibernate extends IarGenericDaoHibernate<BaseAdminModel, Stri
 					+"inv.id_invoice = pay.id_invoice "
 					+"join registrants reg "
 					+"on pay.id_registrant = reg.id_registrant "
-					+"where inv.invoice_number = :invoice "; 
+					+"where inv.invoice_number = :invoice "
+					+"and pay.payment_date is not null "; 
 		
 		Query query = getSessionFactory().getCurrentSession().createSQLQuery(sql);
 		query.setParameter("invoice", invoice);

@@ -343,7 +343,8 @@ public class SertifikasiDaoHibernate extends
 				+ "and b.UPDATED_BY like 'payment_gateway%' "
 				+ "and b.SP2_ID = s.SP2_ID "
 				+ "and s.APL_ID = a.APL_ID "
-				+ "and a.CUST_ID = c.CUST_ID ";
+				+ "and a.CUST_ID = c.CUST_ID "
+				+ "and b.TGL_BYR is not null ";
 		
 		Query query = getSessionFactory().getCurrentSession().createSQLQuery(sql);
 		if(dataSource.equalsIgnoreCase("MT940")){
