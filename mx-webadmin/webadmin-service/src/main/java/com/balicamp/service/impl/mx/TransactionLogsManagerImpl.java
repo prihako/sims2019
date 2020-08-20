@@ -142,7 +142,7 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 				result.add(dto);
 			} else if (!dto.getChannelRc().equals(responseCode)) {// response
 				result.add(dto);
-			} else {
+			} else { 
 				result.add(new AnalisaTransactionLogsDto());
 			}
 		}
