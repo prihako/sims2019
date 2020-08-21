@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:s0="bankmandiri.h2h.billpayment.ws" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" targetNamespace="bankmandiri.h2h.billpayment.ws" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <s:schema elementFormDefault="qualified" targetNamespace="bankmandiri.h2h.billpayment.ws">
+      <s:element name="reverse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="request" type="s0:ReversalRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ReversalRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="language" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="trxDateTime" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="origTrxDateTime" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="transmissionDateTime" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="origTransmissionDateTime" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="companyCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="channelID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="billKey1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="billKey2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="billKey3" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="paymentAmount" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="currency" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="transactionID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="reference1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="reference2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="reference3" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="reverseResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="reverseResult" type="s0:ReversalResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ReversalResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="status" type="s0:Status" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Status">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="isError" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="errorCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="statusDescription" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="payment">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="request" type="s0:PaymentRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PaymentRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="language" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="trxDateTime" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="transmissionDateTime" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="companyCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="channelID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="billKey1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="billKey2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="billKey3" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="paidBills" type="s0:ArrayOfString" />
+          <s:element minOccurs="0" maxOccurs="1" name="paymentAmount" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="currency" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="transactionID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="reference1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="reference2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="reference3" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="paymentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="paymentResult" type="s0:PaymentResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PaymentResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="billInfo1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="billInfo2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="billInfo3" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="billInfo4" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="billInfo5" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="billInfo6" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="billInfo7" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="billInfo8" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="billInfo9" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="billInfo10" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="billInfo11" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="billInfo12" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="billInfo13" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="billInfo14" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="billInfo15" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="billInfo16" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="billInfo17" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="billInfo18" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="billInfo19" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="billInfo21" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="billInfo22" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="billInfo23" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="billInfo24" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="billInfo25" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="status" type="s0:Status" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="inquiry">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="request" type="s0:InquiryRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="InquiryRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="language" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="trxDateTime" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="transmissionDateTime" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="companyCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="channelID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="billKey1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="billKey2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="billKey3" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="reference1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="reference2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="reference3" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="inquiryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="inquiryResult" type="s0:InquiryResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="InquiryResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="currency" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="billInfo1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="billInfo2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="billInfo3" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="billInfo4" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="billInfo5" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="billInfo6" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="billInfo7" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="billInfo8" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="billInfo9" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="billInfo10" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="billInfo11" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="billInfo12" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="billInfo13" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="billInfo14" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="billInfo15" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="billInfo16" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="billInfo17" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="billInfo18" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="billInfo19" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="billInfo21" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="billInfo22" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="billInfo23" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="billInfo24" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="billInfo25" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="billDetails" type="s0:ArrayOfBillDetail" />
+          <s:element minOccurs="0" maxOccurs="1" name="status" type="s0:Status" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfBillDetail">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BillDetail" nillable="true" type="s0:BillDetail" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BillDetail">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="billCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="billName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="billShortName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="billAmount" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="reference1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="reference2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="reference3" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="echoTest">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="tx" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="echoTestResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="echoTestResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </types>
+  <message name="reverseSoapIn">
+    <part name="parameters" element="s0:reverse" />
+  </message>
+  <message name="reverseSoapOut">
+    <part name="parameters" element="s0:reverseResponse" />
+  </message>
+  <message name="paymentSoapIn">
+    <part name="parameters" element="s0:payment" />
+  </message>
+  <message name="paymentSoapOut">
+    <part name="parameters" element="s0:paymentResponse" />
+  </message>
+  <message name="inquirySoapIn">
+    <part name="parameters" element="s0:inquiry" />
+  </message>
+  <message name="inquirySoapOut">
+    <part name="parameters" element="s0:inquiryResponse" />
+  </message>
+  <message name="echoTestSoapIn">
+    <part name="parameters" element="s0:echoTest" />
+  </message>
+  <message name="echoTestSoapOut">
+    <part name="parameters" element="s0:echoTestResponse" />
+  </message>
+  <portType name="BillPaymentServiceSoap">
+    <operation name="reverse">
+      <input message="s0:reverseSoapIn" />
+      <output message="s0:reverseSoapOut" />
+    </operation>
+    <operation name="payment">
+      <input message="s0:paymentSoapIn" />
+      <output message="s0:paymentSoapOut" />
+    </operation>
+    <operation name="inquiry">
+      <input message="s0:inquirySoapIn" />
+      <output message="s0:inquirySoapOut" />
+    </operation>
+    <operation name="echoTest">
+      <input message="s0:echoTestSoapIn" />
+      <output message="s0:echoTestSoapOut" />
+    </operation>
+  </portType>
+  <binding name="BillPaymentServiceSoap" type="s0:BillPaymentServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document" />
+    <operation name="reverse">
+      <soap:operation soapAction="bankmandiri.h2h.billpayment.ws/reverse" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="payment">
+      <soap:operation soapAction="bankmandiri.h2h.billpayment.ws/payment" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="inquiry">
+      <soap:operation soapAction="bankmandiri.h2h.billpayment.ws/inquiry" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="echoTest">
+      <soap:operation soapAction="bankmandiri.h2h.billpayment.ws/echoTest" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+  </binding>
+  <service name="BillPaymentService">
+    <port name="BillPaymentServiceSoap" binding="s0:BillPaymentServiceSoap">
+      <soap:address location="http://localhost:1111/exUBP/server.php" />
+    </port>
+  </service>
+</definitions>

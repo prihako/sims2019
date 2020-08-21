@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:osgi="http://www.springframework.org/schema/osgi"
+	xmlns:osgix="http://www.springframework.org/schema/osgi-compendium"
+	xmlns:ctx="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+   http://www.springframework.org/schema/beans 
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+   http://www.springframework.org/schema/osgi 
+    http://www.springframework.org/schema/osgi/spring-osgi.xsd
+   http://www.springframework.org/schema/osgi-compendium 
+    http://www.springframework.org/schema/osgi-compendium/spring-osgi-compendium.xsd
+   http://www.springframework.org/schema/context 
+    http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- Load configuration from OSGi configuration file defined in persistent-id 
+		attribute -->
+	<osgix:cm-properties id="configuration"
+		persistent-id="sigma.mx.channel_ws">
+		<!-- Default values -->
+		<prop key="port">8181</prop>
+		<prop key="endpoint_code">chws2</prop>
+		
+		<prop key="mq.broker_url">tcp://localhost:61616</prop>
+		<prop key="mq.concurrent_consumers">10</prop>
+		<prop key="mq.max_connections">8</prop>
+		<prop key="mq.max_active">500</prop>
+		<prop key="mq.session_cache_size">20</prop>		
+		<prop key="camel_threadpool.size">2</prop>
+		<prop key="camel_threadpool.max_size">8</prop>
+	</osgix:cm-properties>
+
+	<!-- Apply configuration above -->
+	<ctx:property-placeholder properties-ref="configuration" />
+
+	<!-- Import OSGi services -->
+	<osgi:reference id="dataResolver" interface="id.co.sigma.mx.message.DataResolver" />
+	<osgi:reference id="mappingDao"
+		interface="id.co.sigma.mx.message.mapping.MappingDao" />
+	<osgi:reference id="logDao" interface="id.co.sigma.mx.logic.logging.LogDao" />
+
+</beans>
