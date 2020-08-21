@@ -1,0 +1,3 @@
+install -s mvn:id.co.sigma.mx/mx-channel-ws4/2.2.0
+
+osgi:install wrap:mvn:oracle/ojdbc6/11.2.0.3

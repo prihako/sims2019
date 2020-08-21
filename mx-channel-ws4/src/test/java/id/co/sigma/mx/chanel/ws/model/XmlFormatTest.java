@@ -9,7 +9,7 @@ import javax.xml.bind.Marshaller;
 
 import org.junit.Test;
 
-import id.co.sigma.mx.channel.bri.syariah.ws.model.Data;
+import id.co.sigma.mx.channel.ws.model.Data;
 
 public class XmlFormatTest {
 

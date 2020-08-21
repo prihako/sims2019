@@ -2,7 +2,7 @@ package id.co.sigma.mx.chanel.ws;
 
 
 
-import id.co.sigma.mx.channel.bri.syariah.ws.WsMessage;
+import id.co.sigma.mx.channel.ws.WsMessage;
 import id.co.sigma.mx.transport.MessageListener;
 import id.co.sigma.mx.transport.Transport;
 

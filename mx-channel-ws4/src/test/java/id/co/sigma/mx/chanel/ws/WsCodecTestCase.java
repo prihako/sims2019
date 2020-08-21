@@ -5,8 +5,8 @@ import static org.junit.Assert.assertEquals;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import id.co.sigma.mx.channel.bri.syariah.ws.WsCodec;
-import id.co.sigma.mx.channel.bri.syariah.ws.WsMessage;
+import id.co.sigma.mx.channel.ws.WsCodec;
+import id.co.sigma.mx.channel.ws.WsMessage;
 
 public class WsCodecTestCase {
 	private static WsCodec codec;

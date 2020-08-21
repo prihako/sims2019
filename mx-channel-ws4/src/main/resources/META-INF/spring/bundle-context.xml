@@ -47,7 +47,7 @@
 
 	<bean id="commonPropertySetter" class="id.co.sigma.mx.channel.ws.CommonPropertySetter" />
 
-	<bean id="channel" class="id.co.sigma.mx.channel.bri.syariah.ws.ChannelImpl">
+	<bean id="channel" class="id.co.sigma.mx.channel.ws.ChannelImpl">
 		<property name="messageListeners">
 			<list>
 				<ref bean="incomingMessageListener" />

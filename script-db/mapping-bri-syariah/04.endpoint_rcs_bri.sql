@@ -11,6 +11,6 @@ values
 ((select id from endpoints where code='chws4'),'89','89 - Timeout'),
 ((select id from endpoints where code='chws4'),'B5','B5 - Tagihan tidak ditemukan / Nomor Referensi salah'),
 ((select id from endpoints where code='chws4'),'SU','SU - Service unavailable')
-/
+;
 
 

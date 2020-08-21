@@ -24,6 +24,6 @@ values
 ((select id from mappings where code='INQ_BBRISYA'),true,'imsg:/custom/billName/text()||constant:N/A','ext:billName'),
 ((select id from mappings where code='INQ_BBRISYA'),true,'imsg:/custom/clientName/text()||constant:N/A','ext:billInfo1'),
 ((select id from mappings where code='INQ_BBRISYA'),true,'imsg:/info/transactionId/text()','ext:trxId')
-/
+;
 
 
