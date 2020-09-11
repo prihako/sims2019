@@ -41,7 +41,7 @@ public class PengujianDaoHibernate extends
 					+ "from T_SP2 sp2, T_INFO_BAYAR info, T_APLIKASI apl, T_CUSTOMER cust "
 					+ "where "
 					+ "sp2.SP2_ID=info.SP2_ID  "
-					+ "and info.TGL_BAYAR is not null ,"
+					+ "and info.TGL_BAYAR is not null "
 					+ "and sp2.APL_ID =apl.APL_ID  "
 					+ "and apl.CUST_ID =cust.CUST_ID  "
 					+ "and sp2.SP2_NO_H2H ='"+invoice+"'";
