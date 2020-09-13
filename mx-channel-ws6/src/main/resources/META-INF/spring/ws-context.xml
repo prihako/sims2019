@@ -23,7 +23,7 @@
 
 	<!-- Exposing the Order service as a SOAP service. The address is the address 
 		of WSDL -->
-	<jaxws:endpoint implementor="#channel" address="/webservice-bni"
-		serviceName="s:WebServiceBniChannel" xmlns:s="http://ws.channel.mx.sigma.co.id/" />
+	<jaxws:endpoint implementor="#channel" address="/webservice-bni-syariah"
+		serviceName="s:WebServiceBniSyariahChannel" xmlns:s="http://ws.channel.mx.sigma.co.id/" />
 
 </beans>

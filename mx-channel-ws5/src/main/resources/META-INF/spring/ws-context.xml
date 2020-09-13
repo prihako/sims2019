@@ -26,7 +26,7 @@
 		of WSDL -->
 
 	<jaxws:endpoint implementor="#channel"
-		address="/mx-channel" serviceName="s:MxChannel"
+		address="/webservice-bmri-syariah" serviceName="s:WebserviceBmriSyariahChannel"
 		xmlns:s="http://ws.channel.mx.sigma.co.id/" />
 		
 	<http-conf:destination name="http://ws.channel.mx.sigma.co.id/.*">

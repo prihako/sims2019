@@ -23,4 +23,4 @@ values
 ((select id from mappings where code='PAY_BMRISYA'),true,'bean:channelHelper?method=rcDescription','ext:statusDescription'),
 ((select id from mappings where code='PAY_BMRISYA'),true,'constant:N/A','ext:billInfo1'),
 ((select id from mappings where code='PAY_BMRISYA'),true,'constant:00000000','ext:billInfo2')
-/
+;
