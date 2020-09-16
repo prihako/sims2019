@@ -23,7 +23,7 @@ values
 ((select id from mappings where code='PAY_BBNISYA'),true,'bean:channelHelper?method=rcDescription','ext:statusDescription'),
 ((select id from mappings where code='PAY_BBNISYA'),true,'constant:N/A','ext:billInfo1'),
 ((select id from mappings where code='PAY_BBNISYA'),true,'constant:00000000','ext:billInfo2'),
-((select id from mappings where code='INQ_BNISYA'),true,'imsg:/custom/invoiceNumber/text()','ext:billKey1'),
-((select id from mappings where code='INQ_BNISYA'),true,'imsg:/custom/clientID/text()','ext:billKey2'),
-((select id from mappings where code='INQ_BNISYA'),true,'imsg:/custom/transactionType/text()','ext:billKey3')
+((select id from mappings where code='PAY_BBNISYA'),true,'imsg:/custom/invoiceNumber/text()','ext:billKey1'),
+((select id from mappings where code='PAY_BBNISYA'),true,'imsg:/custom/clientID/text()','ext:billKey2'),
+((select id from mappings where code='PAY_BBNISYA'),true,'imsg:/custom/transactionType/text()','ext:billKey3')
 ;
