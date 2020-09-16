@@ -137,10 +137,10 @@ public class ChannelImpl implements Transport<WsMessage>, BillPaymentServiceSoap
 	}
 
 	private void tellListeners(WsMessage message) {
-		System.out.println("*** listener TRAINING : "+listeners.size());
+//		System.out.println("*** listener TRAINING : "+listeners.size());
 		for (MessageListener<WsMessage> listener : listeners) {
-			System.out.println("*** listener : "+listener);
-			System.out.println("*** message : "+message);
+//			System.out.println("*** listener : "+listener);
+//			System.out.println("*** message : "+message);
 			listener.messageReceived(message);
 		}
 	}
@@ -148,14 +148,14 @@ public class ChannelImpl implements Transport<WsMessage>, BillPaymentServiceSoap
 	@Override
 	public void write(WsMessage message) throws TransportNotReadyException {
 		// Only receives response from MX
-		System.out.println("------- write TRAINING : "+latches.containsKey(message.getAssocKey()));
+//		System.out.println("------- write TRAINING : "+latches.containsKey(message.getAssocKey()));
 
 		if (latches.containsKey(message.getAssocKey())) {
-			System.out.println("------- message write : "+message+" -- message assoc : "+message.getAssocKey().toString());
-			System.out.println("------- responses write : "+responses.size());
-			System.out.println("------- latches write : "+latches.size());
+//			System.out.println("------- message write : "+message+" -- message assoc : "+message.getAssocKey().toString());
+//			System.out.println("------- responses write : "+responses.size());
+//			System.out.println("------- latches write : "+latches.size());
 			responses.put(message.getAssocKey(), message);
-			System.out.println("------- responses write : "+responses.size()+" -- value : "+responses.toString());
+//			System.out.println("------- responses write : "+responses.size()+" -- value : "+responses.toString());
 			latches.remove(message.getAssocKey()).countDown();
 		}
 	}
@@ -184,7 +184,7 @@ public class ChannelImpl implements Transport<WsMessage>, BillPaymentServiceSoap
 		WsMessage message = new WsMessage(mappingCode, requestData);
 		message.setAssocKey(assoc);
 
-		System.out.println("------------- pay message : "+message.toString());
+//		System.out.println("------------- pay message : "+message.toString());
 
 		CountDownLatch latch = new CountDownLatch(1);
 		latches.put(assoc, latch);
@@ -194,11 +194,11 @@ public class ChannelImpl implements Transport<WsMessage>, BillPaymentServiceSoap
 			latch.await(120, TimeUnit.SECONDS);
 		} catch (InterruptedException e) {}
 
-		System.out.println("------------- pay responses : "+responses.size()+" -- "+responses.toString()+" -- assoc : "+assoc);
-		System.out.println("------------- pay latches : "+latches.size()+" -- assoc : "+assoc);
+//		System.out.println("------------- pay responses : "+responses.size()+" -- "+responses.toString()+" -- assoc : "+assoc);
+//		System.out.println("------------- pay latches : "+latches.size()+" -- assoc : "+assoc);
 		WsMessage response = responses.remove(assoc);
 		latches.remove(assoc);
-		System.out.println("------------- pay response : "+response);
+//		System.out.println("------------- pay response : "+response);
 
 		if (response == null) {
 			throw new RuntimeException("Timeout");
@@ -231,8 +231,6 @@ public class ChannelImpl implements Transport<WsMessage>, BillPaymentServiceSoap
 		String assoc = nextUniqueAssoc();
 		WsMessage message = new WsMessage(mappingCode, requestData);
 		message.setAssocKey(assoc);
-
-
 
 		CountDownLatch latch = new CountDownLatch(1);
 		latches.put(assoc, latch);
@@ -273,7 +271,7 @@ public class ChannelImpl implements Transport<WsMessage>, BillPaymentServiceSoap
 		WsMessage message = new WsMessage(mappingCode, requestData);
 		message.setAssocKey(assoc);
 
-		System.out.println("------------- inq message : "+message.toString()+" -- assoc : "+assoc);
+//		System.out.println("------------- inq message : "+message.toString()+" -- assoc : "+assoc);
 
 		CountDownLatch latch = new CountDownLatch(1);
 		latches.put(assoc, latch);
@@ -283,11 +281,11 @@ public class ChannelImpl implements Transport<WsMessage>, BillPaymentServiceSoap
 			latch.await(120, TimeUnit.SECONDS);
 		} catch (InterruptedException e) {}
 
-		System.out.println("------------- inq responses size : "+responses.size()+" -- assoc : "+assoc);
-		System.out.println("------------- inq latches size : "+latches.size()+" -- assoc : "+assoc);
+//		System.out.println("------------- inq responses size : "+responses.size()+" -- assoc : "+assoc);
+//		System.out.println("------------- inq latches size : "+latches.size()+" -- assoc : "+assoc);
 
 		WsMessage response = responses.remove(assoc);
-		System.out.println("------------- inq response : "+response);
+//		System.out.println("------------- inq response : "+response);
 
 		latches.remove(assoc);
 

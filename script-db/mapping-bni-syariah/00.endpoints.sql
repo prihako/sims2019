@@ -6,7 +6,7 @@ values
 
 insert into mappings (endpoint_id,code,description)
 values 
-((select id from endpoints where code='chws6'), 'INQ_BNISYA', 'Channel WS BNI SYARIAH INQUIRY'),
-((select id from endpoints where code='chws6'), 'PAY_BNISYA', 'Channel WS BNI SYARIAH PAYMENT')
+((select id from endpoints where code='chws6'), 'INQ_BBNISYA', 'Channel WS BNI SYARIAH INQUIRY'),
+((select id from endpoints where code='chws6'), 'PAY_BBNISYA', 'Channel WS BNI SYARIAH PAYMENT')
 ;
 

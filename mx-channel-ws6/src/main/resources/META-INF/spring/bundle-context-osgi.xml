@@ -19,7 +19,7 @@
 		persistent-id="sigma.mx.channel_ws">
 		<!-- Default values -->
 		<prop key="port">8181</prop>
-		<prop key="endpoint_code">chws2</prop>
+		<prop key="endpoint_code">chws6</prop>
 		
 		<prop key="mq.broker_url">tcp://localhost:61616</prop>
 		<prop key="mq.concurrent_consumers">10</prop>
