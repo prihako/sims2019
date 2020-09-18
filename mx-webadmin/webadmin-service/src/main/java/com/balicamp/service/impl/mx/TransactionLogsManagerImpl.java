@@ -988,7 +988,7 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 			log.info("######--- jumlah data Core Kalibrasi : " + resultKalibrasi.size());
 			log.info("######--- jumlah data MX vs Kalibrasi : " + resultMx.size());
 			 
-			for (String keys : resultKalibrasi.keySet()) {
+			for (String keys : mt940Map.keySet()) {
 				no++;
 				ReconcileDto dto 	= new ReconcileDto();
 				mxData				= resultMx.get(keys);
@@ -1096,7 +1096,7 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 			log.info("######--- jumlah data Core Pengujian : " + resultPengujian.size());
 			log.info("######--- jumlah data MX vs Pengujian : " + resultMx.size());
 			 
-			for (String keys : resultPengujian.keySet()) {
+			for (String keys : mt940Map.keySet()) {
 				no++;
 				ReconcileDto dto 	= new ReconcileDto();
 				mxData				= resultMx.get(keys);
@@ -1235,7 +1235,7 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 			log.info("######--- jumlah data Core Sertifikasi : " + resultSertifikasi.size());
 			log.info("######--- jumlah data MX vs Sertifikasi : " + resultMx.size());
 			
-			for (String keys : resultSertifikasi.keySet()) {
+			for (String keys : mt940Map.keySet()) {
 				no++;
 				ReconcileDto dto 	= new ReconcileDto();
 				mxData 				= resultMx.get(keys);
@@ -1346,7 +1346,7 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 			log.info("######--- jumlah data Core IKRAP : " + resultIkrap.size());
 			log.info("######--- jumlah data MX vs IKRAP : " + resultMx.size());
 			
-			for (String keys : resultIkrap.keySet()) {
+			for (String keys : mt940Map.keySet()) {
 				no++;
 				ReconcileDto dto 	= new ReconcileDto();
 				mxData				= resultMx.get(keys);
@@ -1453,7 +1453,7 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 			log.info("######--- jumlah data Core IAR : " + resultIar.size());
 			log.info("######--- jumlah data MX vs IAR : " + resultMx.size());
 			
-			for (String keys : resultIar.keySet()) {
+			for (String keys : mt940Map.keySet()) {
 				log.info("keys : " + keys);
 				no++;
 				ReconcileDto dto 	= new ReconcileDto();
@@ -1563,7 +1563,7 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 			log.info("######--- jumlah data Core UNAR : " + resultUnar.size());
 			log.info("######--- jumlah data MX vs UNAR : " + resultMx.size());
 			 
-			for (String keys : resultUnar.keySet()) {
+			for (String keys : mt940Map.keySet()) {
 				no++;
 				ReconcileDto dto 	= new ReconcileDto();
 				mxData				= resultMx.get(keys);
@@ -1671,7 +1671,7 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 			log.info("######--- jumlah data Core REOR : " + resultReor.size());
 			log.info("######--- jumlah data MX vs REOR : " + resultMx.size());
 			 
-			for (String keys : resultReor.keySet()) {
+			for (String keys : mt940Map.keySet()) {
 				no++;
 				ReconcileDto dto 	= new ReconcileDto();
 				mxData				= resultMx.get(keys);
@@ -1757,7 +1757,7 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 			log.info("######--- jumlah data Core Billing : " + resultBilling.size());
 			log.info("######--- jumlah data MX vs Billing : " + resultMx.size());
 			
-			for (String keys : resultBilling.keySet()) {
+			for (String keys : mt940Map.keySet()) {
 				no++;
 				ReconcileDto dto 	= new ReconcileDto();
 				mxData				= resultMx.get(keys);

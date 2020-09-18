@@ -222,7 +222,7 @@ public class DoGetReconcileListByMt940New{
 				log.info("MT940 Data #2 "+LogHelper.toString(mt940Data));
 				reportReconcileAction.createReportWithoutContextByDataType(params, searchResult, jasperRealPath, jrxmlRealPath, reportDir, channelCode[0], "PDF", "original");
 				reportReconcileAction.createReportWithoutContextByDataType(params, searchResult, jasperRealPath, jrxmlRealPath, reportDir, channelCode[0], "XLS", "original");
-		
+				
 				finalSearchResult.addAll(autoReconcileToPaid(searchResult, mapCount, mapCountAmount, billerCode));
 		
 				putToParam(finalParams, mapCount, mapCountAmount, createdOnCalendar.getTime(), channelCode[1], channelCode[0], "All", systemParameter.findParamValueByParamName("reconcileEod.report.image.path"), "Hasil Rekonsiliasi Otomatis");
@@ -333,8 +333,15 @@ public class DoGetReconcileListByMt940New{
 		Integer newUnconfirmed = 0;
 		long amountNewUnconfirmed = 0;
 
+		log.info("Auto Reconcile: "+reconciledList.size());
+		log.info("Auto Reconcile Data: "+reconciledList.get(0).toString());
+		
 		for (int i = 0; i < reconciledList.size(); i++) {
 
+			log.info("MT940: "+reconciledList.get(i).getMt940Status().toString());
+			log.info("SIMS: "+reconciledList.get(i).getSimsStatus().toString());
+			log.info("Trx ID: "+reconciledList.get(i).getTrxId().toString());
+			
 			if (reconciledList.get(i).getMt940Status().equalsIgnoreCase("Paid") && (reconciledList.get(i).getSimsStatus().equalsIgnoreCase("Unpaid") || reconciledList.get(i).getSimsStatus().equalsIgnoreCase("Cancelled"))
 					&& (reconciledList.get(i).getTrxId() != null && reconciledList.get(i).getTrxId().equalsIgnoreCase("-"))) {
 
