@@ -278,7 +278,7 @@ public class BillingDaoHibernate extends
 		System.out.println((new Date()) + " totalList : " + totalList);
 		
 		if(totalList == 1){
-			sql += "b.bi_ref_no in ( :biRefNo ) and ";
+			sql += "b.bi_ref_no in ( :biRefNo0 ) and ";
 		}else{
 			sql += "(";
 			for(int i=0;i<totalList;i++){
@@ -288,12 +288,13 @@ public class BillingDaoHibernate extends
 					sql += "b.bi_ref_no in ( :biRefNo"+i+" )";
 				}
 			}
-			sql += ") and ";
+//			sql += ") and ";
+			sql += ") ) ";
 		}
 				
-		sql += "(b.bi_money_received >= (:biMoneyRec) and "
-		+ "b.bi_money_received < (:biMoneyRec) + interval '1' day )) "
-		+ "order by B.BI_MONEY_RECEIVED DESC";
+//		sql += "(b.bi_money_received >= (:biMoneyRec) and "
+//		+ "b.bi_money_received < (:biMoneyRec) + interval '1' day )) "
+//		+ "order by B.BI_MONEY_RECEIVED DESC";
 
 		Query query = getSessionFactory().getCurrentSession().createSQLQuery(
 				sql);
@@ -316,6 +317,9 @@ public class BillingDaoHibernate extends
 			}
 		}
 		
+		System.out.println((new Date()) + " totalInvoice : " + invoiceNoSetList.size());
+		System.out.println((new Date()) + " invoiceIndex0 : " + invoiceNoSetList.get(0));
+		
 		for(int i=0;i < totalList;i++){
 			query.setParameterList("biRefNo"+i, invoiceNoSetList.get(i) != null ? invoiceNoSetList.get(i) : new ArrayList<String>() );
 		}	
@@ -325,6 +329,7 @@ public class BillingDaoHibernate extends
 		System.out.println((new Date()) + " sql : " + sql);
 		List<Object> result = query.list();
 		if (result != null) {
+			System.out.println((new Date()) + " resultQueryBHP : " + result.toString());
 			mapResult = new HashMap<String, Object[]>();
 			for (Object obj : result) {
 				Object[] objectArray = (Object[]) obj;
