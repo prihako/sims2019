@@ -325,7 +325,7 @@ public class BillingDaoHibernate extends
 		}	
 		
 		System.out.println((new Date()) + " trxDate : " + trxDate);
-		query.setParameter("biMoneyRec", trxDate);
+//		query.setParameter("biMoneyRec", trxDate);
 		System.out.println((new Date()) + " sql : " + sql);
 		List<Object> result = query.list();
 		if (result != null) {
