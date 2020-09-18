@@ -334,7 +334,6 @@ public class DoGetReconcileListByMt940New{
 		long amountNewUnconfirmed = 0;
 
 		log.info("Auto Reconcile: "+reconciledList.size());
-		log.info("Auto Reconcile Data: "+reconciledList.get(0).toString());
 		
 		for (int i = 0; i < reconciledList.size(); i++) {
 
