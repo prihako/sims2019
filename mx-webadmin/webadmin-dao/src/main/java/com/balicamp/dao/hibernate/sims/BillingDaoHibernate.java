@@ -278,7 +278,9 @@ public class BillingDaoHibernate extends
 		System.out.println((new Date()) + " totalList : " + totalList);
 		
 		if(totalList == 1){
-			sql += "b.bi_ref_no in ( :biRefNo0 ) and ";
+			sql += "b.bi_ref_no in ( :biRefNo0 ) "
+//					+ "and ";
+					+ " ) ";
 		}else{
 			sql += "(";
 			for(int i=0;i<totalList;i++){
