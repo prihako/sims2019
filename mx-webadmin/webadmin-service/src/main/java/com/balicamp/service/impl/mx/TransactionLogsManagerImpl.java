@@ -2070,7 +2070,7 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 			dto.setPaymentDateSims	(mt940Data[2]  != null ?  mt940Data[2].toString() : "-");
 			dto.setRawData			(mt940Data[10] != null ?  mt940Data[10].toString() : "-");
 			dto.setTrxAmount		(mt940Data[7]  != null ?  numFormat.format(mt940Data[7]) : "-");
-			dto.setClientId			(mt940Data[3]  != null ?  numFormat.format(mt940Data[3]) : "-");
+			dto.setClientId			(mt940Data[3] != null ?  mt940Data[3].toString() : "-");
 		}
 		
 		dto.setNo(no);
