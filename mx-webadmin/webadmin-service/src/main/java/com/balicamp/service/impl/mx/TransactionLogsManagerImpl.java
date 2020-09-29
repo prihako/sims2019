@@ -2070,7 +2070,8 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 			dto.setPaymentDateSims	(mt940Data[2]  != null ?  mt940Data[2].toString() : "-");
 			dto.setRawData			(mt940Data[10] != null ?  mt940Data[10].toString() : "-");
 			dto.setTrxAmount		(mt940Data[7]  != null ?  numFormat.format(mt940Data[7]) : "-");
-			dto.setClientId			(mt940Data[3] != null ?  mt940Data[3].toString() : "-");
+			dto.setClientId			(mt940Data[3]  != null ?  mt940Data[3].toString() : "-");
+			dto.setInvoiceNo		(mt940Data[4]  != null ?  mt940Data[4].toString() : "-");
 		}
 		
 		dto.setNo(no);
@@ -2139,14 +2140,14 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 		}		
 		
 //		Reor guide:
-//		0. InvoiceNumber	1. IdRegistrant		2. DueDate
-//		3. PaymentDate		4. NameRegistrant	5. InvoiceAmount
+//		0. InvoiceNumber	1. Status			2. DueDate			3. PaymentDate
+//		4. IdRegistrant		5. NamaRegistrant	6. InvoiceAmount
 		if(transactionCode.equals(Constants.EndpointCode.REOR_CODE) && coreData != null){
-			dto.setClientId			(coreData[1] != null ? coreData[1].toString() : "-");
-			dto.setClientName		(coreData[4] != null ? coreData[4].toString() : "-");
+//			dto.setClientId			(coreData[1] != null ? coreData[1].toString() : "-");
+			dto.setClientName		(coreData[5] != null ? coreData[5].toString() : "-");
 			dto.setPaymentDateSims	(coreData[3] != null ? coreData[3].toString() : "-");
-			dto.setTrxAmount		(coreData[5] != null ? numFormat.format(coreData[5]) : "-");
-			dto.setRemarks			(coreData[0] != null ? coreData[0].toString() : "-");
+			dto.setTrxAmount		(coreData[6] != null ? numFormat.format(coreData[6]) : "-");
+//			dto.setRemarks			(coreData[0] != null ? coreData[0].toString() : "-");
 			dto.setInvoiceDueDate	(coreData[2] != null ? coreData[2].toString() : "-");
 		}		
 		

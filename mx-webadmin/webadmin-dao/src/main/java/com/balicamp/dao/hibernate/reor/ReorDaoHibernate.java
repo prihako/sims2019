@@ -24,46 +24,24 @@ public class ReorDaoHibernate extends ReorGenericDaoHibernate<BaseAdminModel, St
 	@Override
 	public Object[] findBillingByInvoiceAndDate(String invoice, Date trxDate,
 			Object[] mt940Data) {
-		Character type = invoice.charAt(0);
 		
-		String sql = null; 
-		
-		String sql_1 = "select "
+		String sql = "select "
 				+ "inv.invoice_number, "
+				+ "inv.status, "
+				+ "inv.due_date, "
+				+ "inv.payment_date, "
 				+ "lemdiks.id_lemdik, "
-				+ "DATE_FORMAT(inv.due_date,  '%d/%c/%Y %H:%i:%k'), "
-				+ "DATE_FORMAT(inv.payment_date,  '%d/%c/%Y %H:%i:%k'), "
 				+ "lemdiks.nama_lemdik, "
 				+ "inv.amount "
-				+ "from invoices inv, exams exams, lemdiks lemdiks where "
+				+ "from invoices inv, exams exams, lemdiks lemdiks "
+				+ "where "
 				+ "inv.id_exam = exams.id_exam "
+				+ "and exams.id_lemdik = lemdiks.id_lemdik "
 				+ "and lemdiks.id_lemdik = lemdiks.id_lemdik "
 				+ "and inv.invoice_number = :invoiceNo "
-				+ "and inv.payment_date is not null ";
-		
-		String sql_2 = "select "
-				+"inv.invoice_number, "
-				+"pay.id_payment, "
-				+ "DATE_FORMAT(inv.due_date,  '%d/%c/%Y %H:%i:%k'), "
-				+ "DATE_FORMAT(inv.payment_date,  '%d/%c/%Y %H:%i:%k'), "
-				+"reg.nama_registrant, "
-				+"inv.amount "
-				+"from "
-				+"invoices inv, "
-				+"payments pay, "
-				+"tbl_old_certificate reg  "
-				+"where "
-				+"inv.id_invoice = pay.id_invoice  "
-				+"and pay.id_registrant = reg.id_registrant "
-				+"and inv.invoice_number = :invoiceNo "
-				+"and inv.payment_date is not null ";
-		
-		if(type.equals('1')) {
-			sql = sql_1;
-		}else {
-			sql = sql_2;
-		}
-		
+				+ "and inv.payment_date is not null "
+				+ "and inv.status = '1' ";
+
 		Query query = getSessionFactory().getCurrentSession().createSQLQuery(sql);
 		query.setParameter("invoiceNo", invoice);
 			
