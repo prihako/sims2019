@@ -37,7 +37,6 @@ public class ReorDaoHibernate extends ReorGenericDaoHibernate<BaseAdminModel, St
 				+ "where "
 				+ "inv.id_exam = exams.id_exam "
 				+ "and exams.id_lemdik = lemdiks.id_lemdik "
-				+ "and lemdiks.id_lemdik = lemdiks.id_lemdik "
 				+ "and inv.invoice_number = :invoiceNo "
 				+ "and inv.payment_date is not null "
 				+ "and inv.status = '1' ";
