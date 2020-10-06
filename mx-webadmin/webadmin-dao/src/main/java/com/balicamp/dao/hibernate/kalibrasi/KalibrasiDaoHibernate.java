@@ -34,12 +34,12 @@ public class KalibrasiDaoHibernate extends KalibrasiGenericDaoHibernate<BaseAdmi
 				+ "T_SP2 SP2, "
 				+ "T_APLIKASI APL, "
 				+ "T_SP2_BIAYA BIAYA, "
-				+ "T_CUSTOMER CUS "
+				+ "VIEW_CUST CUS "
 				+ "WHERE SP2.APL_ID = APL.APL_ID "
 				+ "AND SP2.SP2_ID = BIAYA.SP2_ID "
 				+ "AND APL.CUST_ID = CUS.CUST_ID "
 				+ "AND SP2.SP2_DATE is not null "
-				+ likeClauseGenerator(invoice);
+				+ "AND SP2.SP2_NO_H2H = '"+invoice+"'";
 		
 		Query query = getSessionFactory().getCurrentSession().createSQLQuery(sql);
 			
@@ -100,9 +100,11 @@ public class KalibrasiDaoHibernate extends KalibrasiGenericDaoHibernate<BaseAdmi
 			romanMonth = "XII";
 		}
 		
-		String like1 = "SP2_NO LIKE '%" + sequence + "/SP2.KAL/BBPPT";
-		String like2 = "SP2_NO LIKE '%/" + romanMonth + "/" + year;
+		String like1 = Long.valueOf(sequence) + "/SP2.KAL/BBPPT/" + romanMonth + "/" + year;
 				
-		return like1 + " AND " + like2;
+		log.info("######--- Proses Rekonsiliasi Kalibrasi (90) ---#####");
+		log.info("######--- Nomor SPP Kalibrasi (90): "+like1);
+		
+		return like1;
     }
 }

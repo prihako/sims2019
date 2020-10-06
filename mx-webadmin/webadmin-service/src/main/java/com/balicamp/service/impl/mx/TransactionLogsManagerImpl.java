@@ -983,7 +983,6 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 					channel, resultKalibrasi.keySet(), clientId, transactionCode, 
 					new String[] { "00" }, new String[] { "00" }, trxDate);
 			
-			log.info("######--- Proses Rekonsiliasi Kalibrasi (90) ---#####");
 			log.info("######--- jumlah data MT940 : " + mt940Map.size());
 			log.info("######--- jumlah data Core Kalibrasi : " + resultKalibrasi.size());
 			log.info("######--- jumlah data MX vs Kalibrasi : " + resultMx.size());
@@ -1212,6 +1211,8 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 							invoiceSP2 += "XII/";
 						}
 						invoiceSP2 += invoice.substring(invoice.length()-4);
+						log.info("######--- Proses Rekonsiliasi Sertifikasi (70) ---#####");
+						log.info("######--- Nomor SPP Sertifikasi (70): "+invoiceSP2);
 						
 						if(!mt940Map.isEmpty()){
 							log.info("dataSource SERTIFIKASI: MT940 - "+invoiceSP2);
@@ -1230,7 +1231,6 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 			resultMx = transactionLogDao.findAllTransactionLogsWebadminReconcile(
 					channel, resultSertifikasi.keySet(), clientId, transactionCode, new String[] { "00" }, new String[] { "00" }, trxDate);
 			
-			log.info("######--- Proses Rekonsiliasi Sertifikasi (70) ---#####");
 			log.info("######--- jumlah data MT940 : " + mt940Map.size());
 			log.info("######--- jumlah data Core Sertifikasi : " + resultSertifikasi.size());
 			log.info("######--- jumlah data MX vs Sertifikasi : " + resultMx.size());
@@ -2080,6 +2080,18 @@ public class TransactionLogsManagerImpl extends AbstractManager implements Trans
 		dto.setReconcileStatus(reconcileStatus);
 
 		log.info("dto 2 : " + dto.toString());
+		
+//		Kalibrasi guide:
+//		0. SP2_NO		1. CUST_ID		2. CUST_NAME
+//		3. TGL_BYR		4. EXP_DATE		5. JML_BYR
+		if(transactionCode.equals(Constants.EndpointCode.KALIBRASI_CODE) && coreData != null){
+			dto.setClientId			(coreData[1] != null ? coreData[1].toString() : "-");
+			dto.setClientName		(coreData[2] != null ? coreData[2].toString() : "-");
+			dto.setPaymentDateSims	(coreData[3] != null ? coreData[3].toString() : "-");
+			dto.setTrxAmount		(coreData[5] != null ? numFormat.format(coreData[5]) : "-");
+			dto.setRemarks			(coreData[0] != null ? coreData[0].toString() : "-");
+			dto.setInvoiceDueDate	(coreData[4] != null ? coreData[4].toString() : "-");
+		}
 		
 //		Pengujian guide:
 //		0 Invoice No H2H,	1 TglBayar, 	2 JmlBayar, 	3 CustName, 	4 CustID,		5 SP2/Remarks
