@@ -20,7 +20,7 @@
 		<junit.version>4.8.2</junit.version>
 		<easymock.version>3.0</easymock.version>
 		<common.version>2.0</common.version>
-		<quartz.version>1.8.6</quartz.version>
+		<quartz.version>2.3.2</quartz.version>
 		
 		<activemq.version>5.5.0</activemq.version>
 		<camel.version>2.7.2</camel.version>
