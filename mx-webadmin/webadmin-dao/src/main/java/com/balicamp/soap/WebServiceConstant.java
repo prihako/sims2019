@@ -29,6 +29,9 @@ public class WebServiceConstant {
 	public static final String UNAR_INQ = "UNAR.INQ";
 	public static final String UNAR_PAY = "UNAR.PAY";
 	
+	public static final String PER_INQ = "PER.INQ";
+	public static final String PER_PAY = "PER.PAY";
+	
 	
 	public static final String REOR_TRANSACTION_TYPE = "20";
 	public static final String IAR_TRANSACTION_TYPE = "50";
@@ -36,4 +39,5 @@ public class WebServiceConstant {
 	public static final String KLBSI_TRANSACTION_TYPE = "90";
 	public static final String PAP_TRANSACTION_TYPE = "80";
 	public static final String UNAR_TRANSACTION_TYPE = "40";
+	public static final String SERTIFIKASI_TRANSACTION_TYPE = "70";
 }

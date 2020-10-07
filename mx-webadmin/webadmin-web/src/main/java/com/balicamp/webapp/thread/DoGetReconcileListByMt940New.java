@@ -171,6 +171,9 @@ public class DoGetReconcileListByMt940New{
 			} else if (billerCode.equalsIgnoreCase(Constants.BillerConstants.PAP_CODE)) {
 				trxCode = Constants.EndpointCode.PAP_CODE;
 				paymentType = Constants.BillerNumberCode.PAP_CODE;
+			} else if (billerCode.equalsIgnoreCase(Constants.BillerConstants.KALIBRASI_CODE)) {
+				trxCode = Constants.EndpointCode.KALIBRASI_CODE;
+				paymentType = Constants.BillerNumberCode.KALIBRASI_CODE;
 			}
 			
 			trxCode += ".PAY";

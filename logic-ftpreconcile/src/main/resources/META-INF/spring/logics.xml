@@ -28,6 +28,7 @@
 		<property name="minIdle" value="${oracle.min_idle}" />
 		<property name="maxIdle" value="${oracle.max_idle}" />
 		<property name="maxOpenPreparedStatements" value="${oracle.max_open_prepared_statements}" />
+		<property name="validationQuery" value="select 1 from dual" /> 
 	</bean>
 	
 	<bean id="dataSourcePostgres" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
@@ -38,6 +39,7 @@
 		<property name="minIdle" value="${postgres.min_idle}" />
 		<property name="maxIdle" value="${postgres.max_idle}" />
 		<property name="maxOpenPreparedStatements" value="${postgres.max_open_prepared_statements}" />
+		<property name="validationQuery" value="select 1" /> 
 	</bean>
 	
 	<bean id="sequenceUtil" class="id.co.sigma.mx.project.ftpreconcile.util.SequenceUtil">
