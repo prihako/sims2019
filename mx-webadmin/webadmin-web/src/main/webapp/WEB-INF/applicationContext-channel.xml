@@ -33,9 +33,14 @@
         <property name="address" value="${pengujian_url}"/>
     </bean>
     
-     <bean id="unarChannel" class="com.balicamp.soap.ws.channel.UnarChannel">
+    <bean id="unarChannel" class="com.balicamp.soap.ws.channel.UnarChannel">
         <property name="address" value="${unar_url}"/>
     </bean>
+    
+     <bean id="sertifikasiChannel" class="com.balicamp.soap.ws.channel.SertifikasiChannel">
+        <property name="address" value="${sertifikasi_url}"/>
+    </bean>
+    
 
 </beans>
 	 

@@ -48,6 +48,7 @@ import com.balicamp.soap.ws.channel.IkrapChannel;
 import com.balicamp.soap.ws.channel.KlbsiChannel;
 import com.balicamp.soap.ws.channel.PengujianChannel;
 import com.balicamp.soap.ws.channel.ReorChannel;
+import com.balicamp.soap.ws.channel.SertifikasiChannel;
 import com.balicamp.soap.ws.channel.UnarChannel;
 import com.balicamp.util.DateUtil;
 import com.balicamp.util.LogHelper;
@@ -111,6 +112,9 @@ public class ReconcileEodTask extends HttpServlet {
 	
 	@Autowired
 	private PengujianChannel pengujianChannel;
+	
+	@Autowired
+	private SertifikasiChannel sertifikasiChannel;
 
 	@SuppressWarnings("unused")
 	private XlstoStringConverter xlsFile;
@@ -220,6 +224,7 @@ public class ReconcileEodTask extends HttpServlet {
 						klbsiChannel,
 						ikrapChannel,
 						pengujianChannel,
+						sertifikasiChannel,
 						dataSource,
 						externalBillingSystem,
 						sertifikasiManagerImpl,
