@@ -8,6 +8,10 @@
 		<constructor-arg value="${ftp.settings_file}" />
 	</bean>
 	
+	<bean id="ftpManagerMandiriSyariah" class="id.co.sigma.mx.project.ftpreconcile.process.FTPManagerMandiriSyariah">
+		<constructor-arg value="${ftp.settings_file_mandiri_syariah}" />
+	</bean>
+	
 	<bean id="fileHelper" class="id.co.sigma.mx.project.ftpreconcile.process.FileHelper">
 		<constructor-arg value="${ftp.settings_file_bni}" />
 	</bean>
@@ -16,8 +20,16 @@
 		<constructor-arg value="${ftp.settings_file_bni}" />
 	</bean>
 	
+	<bean id="ftpManagerBniSyariah" class="id.co.sigma.mx.project.ftpreconcile.process.FTPManagerBniSyariah">
+		<constructor-arg value="${ftp.settings_file_bni_syariah}" />
+	</bean>
+	
 	<bean id="ftpManagerBri" class="id.co.sigma.mx.project.ftpreconcile.process.FTPManagerBri">
 		<constructor-arg value="${ftp.settings_file_bri}" />
+	</bean>
+	
+	<bean id="ftpManagerBriSyariah" class="id.co.sigma.mx.project.ftpreconcile.process.FTPManagerBriSyariah">
+		<constructor-arg value="${ftp.settings_file_bri_syariah}" />
 	</bean>
 	
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
@@ -52,12 +64,27 @@
 		<property name="sequenceUtil" ref="sequenceUtil" />
 	</bean>
 	
+	<bean id="paymentUtilMandiriSyariah" class="id.co.sigma.mx.project.ftpreconcile.util.PaymentUtilMandiriSyariah">
+		<property name="dataSource" ref="dataSource" />
+		<property name="sequenceUtil" ref="sequenceUtil" />
+	</bean>
+	
 	<bean id="paymentUtilBni" class="id.co.sigma.mx.project.ftpreconcile.util.PaymentUtilBni">
 		<property name="dataSource" ref="dataSource" />
 		<property name="sequenceUtil" ref="sequenceUtil" />
 	</bean>
 	
+	<bean id="paymentUtilBniSyariah" class="id.co.sigma.mx.project.ftpreconcile.util.PaymentUtilBniSyariah">
+		<property name="dataSource" ref="dataSource" />
+		<property name="sequenceUtil" ref="sequenceUtil" />
+	</bean>
+	
 	<bean id="paymentUtilBri" class="id.co.sigma.mx.project.ftpreconcile.util.PaymentUtilBri">
+		<property name="dataSource" ref="dataSource" />
+		<property name="sequenceUtil" ref="sequenceUtil" />
+	</bean>
+	
+	<bean id="paymentUtilBriSyariah" class="id.co.sigma.mx.project.ftpreconcile.util.PaymentUtilBriSyariah">
 		<property name="dataSource" ref="dataSource" />
 		<property name="sequenceUtil" ref="sequenceUtil" />
 	</bean>
@@ -71,11 +98,23 @@
 		<property name="dataSourcePostgres" ref="dataSourcePostgres" />
 	</bean>
 	
+	<bean id="webadminUtilMandiriSyariah" class="id.co.sigma.mx.project.ftpreconcile.util.WebadminUtilMandiriSyariah">
+		<property name="dataSourcePostgres" ref="dataSourcePostgres" />
+	</bean>
+	
 	<bean id="webadminUtilBni" class="id.co.sigma.mx.project.ftpreconcile.util.WebadminUtilBni">
 		<property name="dataSourcePostgres" ref="dataSourcePostgres" />
 	</bean>
 	
+	<bean id="webadminUtilBniSyariah" class="id.co.sigma.mx.project.ftpreconcile.util.WebadminUtilBniSyariah">
+		<property name="dataSourcePostgres" ref="dataSourcePostgres" />
+	</bean>
+	
 	<bean id="webadminUtilBri" class="id.co.sigma.mx.project.ftpreconcile.util.WebadminUtilBri">
+		<property name="dataSourcePostgres" ref="dataSourcePostgres" />
+	</bean>
+	
+	<bean id="webadminUtilBriSyariah" class="id.co.sigma.mx.project.ftpreconcile.util.WebadminUtilBriSyariah">
 		<property name="dataSourcePostgres" ref="dataSourcePostgres" />
 	</bean>
 	
@@ -85,10 +124,22 @@
 		<property name="ftpManager" ref="ftpManager" />
 	</bean>
 	
+	<bean id="exportToXlsMandiriSyariah" class="id.co.sigma.mx.project.ftpreconcile.process.ExportToXlsMandiriSyariah">
+		<property name="dataSource" ref="dataSource" />
+		<property name="webadminUtil" ref="webadminUtilMandiriSyariah" />
+		<property name="ftpManager" ref="ftpManagerMandiriSyariah" />
+	</bean>
+	
 	<bean id="exportToXlsBni" class="id.co.sigma.mx.project.ftpreconcile.process.ExportToXlsBni">
 		<property name="dataSource" ref="dataSource" />
 		<property name="webadminUtil" ref="webadminUtilBni" />
 		<property name="ftpManager" ref="ftpManagerBni" />
+	</bean>
+	
+	<bean id="exportToXlsBniSyariah" class="id.co.sigma.mx.project.ftpreconcile.process.ExportToXlsBniSyariah">
+		<property name="dataSource" ref="dataSource" />
+		<property name="webadminUtil" ref="webadminUtilBniSyariah" />
+		<property name="ftpManager" ref="ftpManagerBniSyariah" />
 	</bean>
 	
 	<bean id="exportToXlsBri" class="id.co.sigma.mx.project.ftpreconcile.process.ExportToXlsBri">
@@ -97,9 +148,20 @@
 		<property name="ftpManager" ref="ftpManagerBri" />
 	</bean>
 	
+	<bean id="exportToXlsBriSyariah" class="id.co.sigma.mx.project.ftpreconcile.process.ExportToXlsBriSyariah">
+		<property name="dataSource" ref="dataSource" />
+		<property name="webadminUtil" ref="webadminUtilBriSyariah" />
+		<property name="ftpManager" ref="ftpManagerBriSyariah" />
+	</bean>
+	
 	<bean id="mt940Parser" class="id.co.sigma.mx.project.ftpreconcile.util.MT940Parser">
 		<property name="sequenceUtil" ref="sequenceUtil" />
 		<property name="paymentUtil" ref="paymentUtil" />
+	</bean>
+	
+	<bean id="mt940ParserMandiriSyariah" class="id.co.sigma.mx.project.ftpreconcile.util.MT940ParserMandiriSyariah">
+		<property name="sequenceUtil" ref="sequenceUtil" />
+		<property name="paymentUtil" ref="paymentUtilMandiriSyariah" />
 	</bean>
 	
 	<bean id="mt940ParserBni" class="id.co.sigma.mx.project.ftpreconcile.util.MT940ParserBni">
@@ -107,14 +169,30 @@
 		<property name="paymentUtil" ref="paymentUtilBni" />
 	</bean>
 	
+	<bean id="mt940ParserBniSyariah" class="id.co.sigma.mx.project.ftpreconcile.util.MT940ParserBniSyariah">
+		<property name="sequenceUtil" ref="sequenceUtil" />
+		<property name="paymentUtil" ref="paymentUtilBniSyariah" />
+	</bean>
+	
 	<bean id="mt940ParserBri" class="id.co.sigma.mx.project.ftpreconcile.util.MT940ParserBri">
 		<property name="sequenceUtil" ref="sequenceUtil" />
 		<property name="paymentUtil" ref="paymentUtilBri" />
 	</bean>
 	
+	<bean id="mt940ParserBriSyariah" class="id.co.sigma.mx.project.ftpreconcile.util.MT940ParserBriSyariah">
+		<property name="sequenceUtil" ref="sequenceUtil" />
+		<property name="paymentUtil" ref="paymentUtilBriSyariah" />
+	</bean>
+	
 	<bean id="processorMessage" class="id.co.sigma.mx.project.ftpreconcile.process.ProcessorMessage">
 		<property name="mt940Parser" ref="mt940Parser" />
 		<property name="paymentUtil" ref="paymentUtil" />
+		<property name="sequenceUtil" ref="sequenceUtil" />
+	</bean>
+	
+	<bean id="processorMessageMandiriSyariah" class="id.co.sigma.mx.project.ftpreconcile.process.ProcessorMessageMandiriSyariah">
+		<property name="mt940Parser" ref="mt940ParserMandiriSyariah" />
+		<property name="paymentUtil" ref="paymentUtilMandiriSyariah" />
 		<property name="sequenceUtil" ref="sequenceUtil" />
 	</bean>
 	
@@ -124,9 +202,21 @@
 		<property name="sequenceUtil" ref="sequenceUtil" />
 	</bean>
 	
+	<bean id="processorMessageBniSyariah" class="id.co.sigma.mx.project.ftpreconcile.process.ProcessorMessageBniSyariah">
+		<property name="mt940Parser" ref="mt940ParserBniSyariah" />
+		<property name="paymentUtil" ref="paymentUtilBniSyariah" />
+		<property name="sequenceUtil" ref="sequenceUtil" />
+	</bean>
+	
 	<bean id="processorMessageBri" class="id.co.sigma.mx.project.ftpreconcile.process.ProcessorMessageBri">
 		<property name="mt940Parser" ref="mt940ParserBri" />
 		<property name="paymentUtil" ref="paymentUtilBri" />
+		<property name="sequenceUtil" ref="sequenceUtil" />
+	</bean>
+	
+	<bean id="processorMessageBriSyariah" class="id.co.sigma.mx.project.ftpreconcile.process.ProcessorMessageBriSyariah">
+		<property name="mt940Parser" ref="mt940ParserBriSyariah" />
+		<property name="paymentUtil" ref="paymentUtilBriSyariah" />
 		<property name="sequenceUtil" ref="sequenceUtil" />
 	</bean>
 		
@@ -137,12 +227,25 @@
 		<property name="processorMessage" ref="processorMessage" />
 	</bean>	
 	
+	<bean id="receiverFTPMandiriSyariah" class="id.co.sigma.mx.project.ftpreconcile.process.ReceiverFTPMandiriSyariah" >
+		<property name="ftpManager" ref="ftpManagerMandiriSyariah" />
+		<property name="paymentUtil" ref="paymentUtilMandiriSyariah" />
+		<property name="sequenceUtil" ref="sequenceUtil" />
+		<property name="processorMessage" ref="processorMessageMandiriSyariah" />
+	</bean>	
+	
 	<bean id="receiverFTPBni" class="id.co.sigma.mx.project.ftpreconcile.process.ReceiverFTPBni" >
 		<property name="ftpManager" ref="ftpManagerBni" />
-<!-- 		<property name="fileHelper" ref="fileHelper" /> -->
 		<property name="paymentUtil" ref="paymentUtilBni" />
 		<property name="sequenceUtil" ref="sequenceUtil" />
 		<property name="processorMessage" ref="processorMessageBni" />
+	</bean>
+	
+	<bean id="receiverFTPBniSyariah" class="id.co.sigma.mx.project.ftpreconcile.process.ReceiverFTPBniSyariah" >
+		<property name="ftpManager" ref="ftpManagerBniSyariah" />
+		<property name="paymentUtil" ref="paymentUtilBniSyariah" />
+		<property name="sequenceUtil" ref="sequenceUtil" />
+		<property name="processorMessage" ref="processorMessageBniSyariah" />
 	</bean>
 	
 	<bean id="receiverFTPBri" class="id.co.sigma.mx.project.ftpreconcile.process.ReceiverFTPBri" >
@@ -150,6 +253,13 @@
 		<property name="paymentUtil" ref="paymentUtilBri" />
 		<property name="sequenceUtil" ref="sequenceUtil" />
 		<property name="processorMessage" ref="processorMessageBri" />
+	</bean>
+	
+	<bean id="receiverFTPBriSyariah" class="id.co.sigma.mx.project.ftpreconcile.process.ReceiverFTPBriSyariah" >
+		<property name="ftpManager" ref="ftpManagerBriSyariah" />
+		<property name="paymentUtil" ref="paymentUtilBriSyariah" />
+		<property name="sequenceUtil" ref="sequenceUtil" />
+		<property name="processorMessage" ref="processorMessageBriSyariah" />
 	</bean>
 	
 	<!-- Spring Quartz Mandiri-->
@@ -164,6 +274,18 @@
 		</property>
  	</bean>
  	
+ 	<!-- Spring Quartz Mandiri Syariah -->
+	<bean name="receiverFtpJobMandiriSyariah" class="org.springframework.scheduling.quartz.JobDetailBean"> 
+		<property name="jobClass" value="id.co.sigma.mx.project.ftpreconcile.scheduler.ReceiverFtpJobMandiriSyariah" />
+ 		<property name="jobDataAsMap">
+		  <map>
+			<entry key="receiverFTP" value-ref="receiverFTPMandiriSyariah" />
+			<entry key="exportToXls" value-ref="exportToXlsMandiriSyariah" />
+			<entry key="dataSource" value-ref="dataSourceMandiriSyariah" /> 
+		  </map>
+		</property>
+ 	</bean>
+ 	
  	<!-- Spring Quartz BNI-->
 	<bean name="receiverFtpJobBni" class="org.springframework.scheduling.quartz.JobDetailBean"> 
 		<property name="jobClass" value="id.co.sigma.mx.project.ftpreconcile.scheduler.ReceiverFtpJobBni" />
@@ -171,6 +293,18 @@
 		  <map>
 			<entry key="receiverFTP" value-ref="receiverFTPBni" />
 			<entry key="exportToXls" value-ref="exportToXlsBni" />
+			<entry key="dataSource" value-ref="dataSource" /> 
+		  </map>
+		</property>
+ 	</bean>
+ 	
+ 	<!-- Spring Quartz BNI Syariah-->
+	<bean name="receiverFtpJobBniSyariah" class="org.springframework.scheduling.quartz.JobDetailBean"> 
+		<property name="jobClass" value="id.co.sigma.mx.project.ftpreconcile.scheduler.ReceiverFtpJobBniSyariah" />
+ 		<property name="jobDataAsMap">
+		  <map>
+			<entry key="receiverFTP" value-ref="receiverFTPBniSyariah" />
+			<entry key="exportToXls" value-ref="exportToXlsBniSyariah" />
 			<entry key="dataSource" value-ref="dataSource" /> 
 		  </map>
 		</property>
@@ -188,12 +322,30 @@
 		</property>
  	</bean>
  	
+ 	<!-- Spring Quartz Bri Syariah-->
+	<bean name="receiverFtpJobBriSyariah" class="org.springframework.scheduling.quartz.JobDetailBean"> 
+		<property name="jobClass" value="id.co.sigma.mx.project.ftpreconcile.scheduler.ReceiverFtpJobBriSyariah" />
+ 		<property name="jobDataAsMap">
+		  <map>
+			<entry key="receiverFTP" value-ref="receiverFTPBriSyariah" />
+			<entry key="exportToXls" value-ref="exportToXlsBriSyariah" />
+			<entry key="dataSource" value-ref="dataSource" /> 
+		  </map>
+		</property>
+ 	</bean>
+ 	
 	<!-- FTP Cron Trigger Mandiri -->
 	<bean id="ftpTrigger" 
                 class="org.springframework.scheduling.quartz.CronTriggerBean">
 		<property name="jobDetail" ref="receiverFtpJob" />
 		<property name="cronExpression" value="${ftp.job_time}" /> 
-	<!--	<property name="cronExpression" value="0/5 * * * * ?" />-->
+	</bean>
+	
+	<!-- FTP Cron Trigger Mandiri Syariah-->
+	<bean id="ftpTriggerMadiriSyariah" 
+                class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="receiverFtpJobMandiriSyariah" />
+		<property name="cronExpression" value="${ftp.job_time_mandiri_syariah}" /> 
 	</bean>
 	
 	<!-- FTP Cron Trigger Bni -->
@@ -203,27 +355,46 @@
 		<property name="cronExpression" value="${ftp.job_time_bni}" /> 
 	</bean>
 	
+	<!-- FTP Cron Trigger Bni Syariah-->
+	<bean id="ftpTriggerBniSyariah" 
+                class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="receiverFtpJobBniSyariah" />
+		<property name="cronExpression" value="${ftp.job_time_bni_syariah}" /> 
+	</bean>
+	
 	<!-- FTP Cron Trigger Bri -->
 	<bean id="ftpTriggerBri" 
                 class="org.springframework.scheduling.quartz.CronTriggerBean">
 		<property name="jobDetail" ref="receiverFtpJobBri" />
 		<property name="cronExpression" value="${ftp.job_time_bri}" /> 
-	<!--	<property name="cronExpression" value="0/5 * * * * ?" />-->
+	</bean>
+	
+		<!-- FTP Cron Trigger Bri Syariah-->
+	<bean id="ftpTriggerBriSyariah" 
+                class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="receiverFtpJobBriSyariah" />
+		<property name="cronExpression" value="${ftp.job_time_bri_syariah}" /> 
 	</bean>
  
 	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
 		<property name="jobDetails">
 			<list>
 				<ref bean="receiverFtpJob" />
+				<ref bean="receiverFtpJobMandiriSyariah" />
 				<ref bean="receiverFtpJobBni" />
+				<ref bean="receiverFtpJobBniSyariah" />
 				<ref bean="receiverFtpJobBri" />
+				<ref bean="receiverFtpJobBriSyariah" />
 			</list>
 		</property>
 		<property name="triggers">
 			<list>
 				<ref bean="ftpTrigger" />
+				<ref bean="ftpTriggerMandiri" />
 				<ref bean="ftpTriggerBni" />
+				<ref bean="ftpTriggerBniSyariah" />
 				<ref bean="ftpTriggerBri" />
+				<ref bean="ftpTriggerBriSyariah" />
 			</list>
 		</property>
 	</bean>

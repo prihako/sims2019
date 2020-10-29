@@ -48,6 +48,7 @@ import com.balicamp.soap.ws.channel.IkrapChannel;
 import com.balicamp.soap.ws.channel.KlbsiChannel;
 import com.balicamp.soap.ws.channel.PengujianChannel;
 import com.balicamp.soap.ws.channel.ReorChannel;
+import com.balicamp.soap.ws.channel.SertifikasiChannel;
 import com.balicamp.soap.ws.channel.UnarChannel;
 import com.balicamp.util.DateUtil;
 import com.balicamp.util.LogHelper;
@@ -93,6 +94,9 @@ public class MissingReconcileEodTask extends HttpServlet {
 	
 	@Autowired
 	public KalibrasiManagerImpl kalibrasiManagerImpl;
+	
+	@Autowired
+	public SertifikasiChannel sertifikasiChannel;
 	
 	@Autowired
 	private ReorChannel reorChannel;
@@ -226,6 +230,7 @@ public class MissingReconcileEodTask extends HttpServlet {
 							klbsiChannel,
 							ikrapChannel,
 							pengujianChannel,
+							sertifikasiChannel,
 							dataSource,
 							externalBillingSystem,
 							sertifikasiManagerImpl,
