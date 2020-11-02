@@ -1,12 +1,5 @@
 package id.co.sigma.mx.project.ftpreconcile.process;
 
-import id.co.sigma.mx.project.ftpreconcile.constant.PostelConstant;
-import id.co.sigma.mx.project.ftpreconcile.model.FileTransactionReceive;
-import id.co.sigma.mx.project.ftpreconcile.model.ListenerLog;
-import id.co.sigma.mx.project.ftpreconcile.util.FileFormatUtil;
-import id.co.sigma.mx.project.ftpreconcile.util.PaymentUtil;
-import id.co.sigma.mx.project.ftpreconcile.util.SequenceUtil;
-
 import java.io.File;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -16,26 +9,33 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import id.co.sigma.mx.project.ftpreconcile.constant.PostelConstant;
+import id.co.sigma.mx.project.ftpreconcile.model.FileTransactionReceive;
+import id.co.sigma.mx.project.ftpreconcile.model.ListenerLog;
+import id.co.sigma.mx.project.ftpreconcile.util.FileFormatUtil;
+import id.co.sigma.mx.project.ftpreconcile.util.PaymentUtilMandiriSyariah;
+import id.co.sigma.mx.project.ftpreconcile.util.SequenceUtil;
+
 public class ReceiverFTPMandiriSyariah {
 
 	protected static transient Logger logger = Logger
 			.getLogger(ReceiverFTPMandiriSyariah.class);
 
-	private FTPManager ftpManager;
+	private FTPManagerMandiriSyariah ftpManager;
 
-	public void setFtpManager(FTPManager ftpManager) {
+	public void setFtpManager(FTPManagerMandiriSyariah ftpManager) {
 		this.ftpManager = ftpManager;
 	}
 
-	private PaymentUtil paymentUtil;
+	private PaymentUtilMandiriSyariah paymentUtil;
 
-	public void setPaymentUtil(PaymentUtil paymentUtil) {
+	public void setPaymentUtil(PaymentUtilMandiriSyariah paymentUtil) {
 		this.paymentUtil = paymentUtil;
 	}
 
-	private ProcessorMessage processorMessage;
+	private ProcessorMessageMandiriSyariah processorMessage;
 
-	public void setProcessorMessage(ProcessorMessage processorMessage) {
+	public void setProcessorMessage(ProcessorMessageMandiriSyariah processorMessage) {
 		this.processorMessage = processorMessage;
 	}
 

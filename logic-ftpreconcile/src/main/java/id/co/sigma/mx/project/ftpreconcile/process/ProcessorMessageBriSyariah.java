@@ -1,35 +1,33 @@
 package id.co.sigma.mx.project.ftpreconcile.process;
 
-import id.co.sigma.mx.project.ftpreconcile.constant.PostelConstant;
-import id.co.sigma.mx.project.ftpreconcile.model.FileTransactionReceive;
-import id.co.sigma.mx.project.ftpreconcile.model.MT940;
-import id.co.sigma.mx.project.ftpreconcile.model.Transaction;
-import id.co.sigma.mx.project.ftpreconcile.util.MT940Parser;
-import id.co.sigma.mx.project.ftpreconcile.util.MT940ParserBri;
-import id.co.sigma.mx.project.ftpreconcile.util.PaymentUtil;
-import id.co.sigma.mx.project.ftpreconcile.util.PaymentUtilBri;
-import id.co.sigma.mx.project.ftpreconcile.util.SequenceUtil;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import id.co.sigma.mx.project.ftpreconcile.constant.PostelConstant;
+import id.co.sigma.mx.project.ftpreconcile.model.FileTransactionReceive;
+import id.co.sigma.mx.project.ftpreconcile.model.MT940;
+import id.co.sigma.mx.project.ftpreconcile.model.Transaction;
+import id.co.sigma.mx.project.ftpreconcile.util.MT940ParserBriSyariah;
+import id.co.sigma.mx.project.ftpreconcile.util.PaymentUtilBriSyariah;
+import id.co.sigma.mx.project.ftpreconcile.util.SequenceUtil;
+
 public class ProcessorMessageBriSyariah {
 	protected static transient Logger logger = Logger.getLogger(ProcessorMessageBriSyariah.class);
 
-	private MT940ParserBri mt940Parser;
+	private MT940ParserBriSyariah mt940Parser;
 	
-	private PaymentUtilBri paymentUtil;
+	private PaymentUtilBriSyariah paymentUtil;
 
 	private SequenceUtil sequenceUtil;
 
-	public void setMt940Parser(MT940ParserBri mt940Parser) {
+	public void setMt940Parser(MT940ParserBriSyariah mt940Parser) {
 		this.mt940Parser = mt940Parser;
 	}
 
-	public void setPaymentUtil(PaymentUtilBri paymentUtil) {
+	public void setPaymentUtil(PaymentUtilBriSyariah paymentUtil) {
 		this.paymentUtil = paymentUtil;
 	}
 

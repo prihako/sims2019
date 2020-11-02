@@ -1,13 +1,5 @@
 package id.co.sigma.mx.project.ftpreconcile.process;
 
-import id.co.sigma.mx.project.ftpreconcile.constant.PostelConstant;
-import id.co.sigma.mx.project.ftpreconcile.model.FileTransactionReceive;
-import id.co.sigma.mx.project.ftpreconcile.model.ListenerLog;
-import id.co.sigma.mx.project.ftpreconcile.util.FileFormatUtilBni;
-import id.co.sigma.mx.project.ftpreconcile.util.FileFormatUtilBri;
-import id.co.sigma.mx.project.ftpreconcile.util.PaymentUtilBri;
-import id.co.sigma.mx.project.ftpreconcile.util.SequenceUtil;
-
 import java.io.File;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -17,28 +9,36 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import id.co.sigma.mx.project.ftpreconcile.constant.PostelConstant;
+import id.co.sigma.mx.project.ftpreconcile.model.FileTransactionReceive;
+import id.co.sigma.mx.project.ftpreconcile.model.ListenerLog;
+import id.co.sigma.mx.project.ftpreconcile.util.FileFormatUtilBni;
+import id.co.sigma.mx.project.ftpreconcile.util.FileFormatUtilBri;
+import id.co.sigma.mx.project.ftpreconcile.util.PaymentUtilBriSyariah;
+import id.co.sigma.mx.project.ftpreconcile.util.SequenceUtil;
+
 public class ReceiverFTPBriSyariah {
 
 	protected static transient Logger logger = Logger
 			.getLogger(ReceiverFTPBriSyariah.class);
 
-	private FTPManagerBri ftpManager;
+	private FTPManagerBriSyariah ftpManager;
 
-	private PaymentUtilBri paymentUtil;
+	private PaymentUtilBriSyariah paymentUtil;
 
-	private ProcessorMessageBri processorMessage;
+	private ProcessorMessageBriSyariah processorMessage;
 
 	private SequenceUtil sequenceUtil;
 	
-	public void setFtpManager(FTPManagerBri ftpManager) {
+	public void setFtpManager(FTPManagerBriSyariah ftpManager) {
 		this.ftpManager = ftpManager;
 	}
 	
-	public void setPaymentUtil(PaymentUtilBri paymentUtil) {
+	public void setPaymentUtil(PaymentUtilBriSyariah paymentUtil) {
 		this.paymentUtil = paymentUtil;
 	}
 
-	public void setProcessorMessage(ProcessorMessageBri processorMessage) {
+	public void setProcessorMessage(ProcessorMessageBriSyariah processorMessage) {
 		this.processorMessage = processorMessage;
 	}
 

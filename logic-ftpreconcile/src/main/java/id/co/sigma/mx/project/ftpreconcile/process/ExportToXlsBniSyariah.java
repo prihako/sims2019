@@ -1,13 +1,5 @@
 package id.co.sigma.mx.project.ftpreconcile.process;
 
-import id.co.sigma.mx.project.ftpreconcile.constant.PostelConstant;
-import id.co.sigma.mx.project.ftpreconcile.model.JobMT940;
-import id.co.sigma.mx.project.ftpreconcile.model.ListenerLog;
-import id.co.sigma.mx.project.ftpreconcile.util.WebadminUtil;
-import id.co.sigma.mx.project.ftpreconcile.util.WebadminUtilBni;
-import id.co.sigma.mx.project.ftpreconcile.util.XlsUtil;
-import id.co.sigma.mx.project.ftpreconcile.util.XlsUtilBni;
-
 import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -25,15 +17,21 @@ import javax.sql.DataSource;
 
 import org.apache.log4j.Logger;
 
+import id.co.sigma.mx.project.ftpreconcile.constant.PostelConstant;
+import id.co.sigma.mx.project.ftpreconcile.model.JobMT940;
+import id.co.sigma.mx.project.ftpreconcile.util.WebadminUtilBniSyariah;
+import id.co.sigma.mx.project.ftpreconcile.util.XlsUtil;
+import id.co.sigma.mx.project.ftpreconcile.util.XlsUtilBni;
+
 public class ExportToXlsBniSyariah {
 
 	private static Logger logger = Logger.getLogger(ExportToXlsBniSyariah.class);
 
 	private DataSource dataSource;
-	private FTPManagerBni ftpManager;
-	private WebadminUtilBni webadminUtil;
+	private FTPManagerBniSyariah ftpManager;
+	private WebadminUtilBniSyariah webadminUtil;
 	
-	public void setWebadminUtil(WebadminUtilBni webadminUtil){
+	public void setWebadminUtil(WebadminUtilBniSyariah webadminUtil){
 		this.webadminUtil = webadminUtil;
 	}
 	
@@ -41,7 +39,7 @@ public class ExportToXlsBniSyariah {
 		this.dataSource = dataSource;
 	}
 
-	public void setFtpManager(FTPManagerBni ftpManager) {
+	public void setFtpManager(FTPManagerBniSyariah ftpManager) {
 		this.ftpManager = ftpManager;
 	}
 

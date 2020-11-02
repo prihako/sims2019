@@ -32,9 +32,9 @@ public class MT940ParserBriSyariah {
 
 	private SequenceUtil sequenceUtil;
 
-	private PaymentUtilBri paymentUtil;
+	private PaymentUtilBriSyariah paymentUtil;
 
-	public void setPaymentUtil(PaymentUtilBri paymentUtil) {
+	public void setPaymentUtil(PaymentUtilBriSyariah paymentUtil) {
 		this.paymentUtil = paymentUtil;
 	}
 

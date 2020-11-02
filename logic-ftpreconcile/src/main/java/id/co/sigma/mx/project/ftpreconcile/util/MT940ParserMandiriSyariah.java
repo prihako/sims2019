@@ -35,9 +35,9 @@ public class MT940ParserMandiriSyariah {
 
     private SequenceUtil sequenceUtil;
     
-    private PaymentUtil paymentUtil;
+    private PaymentUtilMandiriSyariah paymentUtil;
     
-    public void setPaymentUtil(PaymentUtil paymentUtil) {
+    public void setPaymentUtil(PaymentUtilMandiriSyariah paymentUtil) {
 		this.paymentUtil = paymentUtil;
 	}
 

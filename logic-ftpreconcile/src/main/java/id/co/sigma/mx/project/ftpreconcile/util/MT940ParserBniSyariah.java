@@ -35,11 +35,11 @@ public class MT940ParserBniSyariah {
 
     private SequenceUtil sequenceUtil;
     
-    private PaymentUtilBni paymentUtil;
+    private PaymentUtilBniSyariah paymentUtil;
     
     private FTPManager ftpManager;
     
-    public void setPaymentUtil(PaymentUtilBni paymentUtil) {
+    public void setPaymentUtil(PaymentUtilBniSyariah paymentUtil) {
 		this.paymentUtil = paymentUtil;
 	}
 
