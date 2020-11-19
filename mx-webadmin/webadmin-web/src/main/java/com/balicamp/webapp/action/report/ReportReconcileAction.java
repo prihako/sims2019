@@ -441,13 +441,12 @@ public class ReportReconcileAction implements Serializable {
 	public String createReportWithoutContextByDataTypeMonthly(
 			Map<String, String> parameters, List<ReconcileDto> list,
 			String jasperPath, String jrxmlPath, String tempOutputPath,
-			String channelCode, String fileType, String dataType)
+			String channelCode, String fileType, String dataType, Date reconcileDate)
 			throws JRException, IOException, FileNotFoundException {
 
 		DateFormat dateFormat = new SimpleDateFormat("dd_MM_yyyy");
 		Calendar cal = Calendar.getInstance();
-		cal.setTime(DateUtil.substractMonth(new Date(), 1));
-		cal.set(Calendar.MONTH, cal.get(Calendar.MONTH));
+		cal.setTime(reconcileDate);
 		cal.set(Calendar.DAY_OF_MONTH, 1);
 		String dateStart = dateFormat.format(cal.getTime());
 		cal.set(Calendar.DATE, cal.getActualMaximum(Calendar.DAY_OF_MONTH));

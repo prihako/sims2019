@@ -158,6 +158,17 @@
 			</map>
 		</property>
 	</bean>
+	
+	<bean name="runMissingReconcileMonthlyJob"
+		class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass"
+			value="com.balicamp.webapp.scheduler.RunMissingReconcileMonthlyJob" />
+		<property name="jobDataAsMap">
+			<map>
+				<entry key="missingReconcileMonthlyTask" value-ref="missingReconcileMonthlyTask" />
+			</map>
+		</property>
+	</bean>
 
 	<bean id="cronTriggerReconcileEod"
 		class="org.springframework.scheduling.quartz.CronTriggerBean">
@@ -193,6 +204,12 @@
 		<property name="jobDetail" ref="runMissingReconcileEodJob" />
 		<property name="cronExpression" value="0 17 19 * * ?" />
 	</bean>
+	
+	<bean id="cronTriggerMissingReconcileMonthly"
+		class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="runMissingReconcileMonthlyJob" />
+		<property name="cronExpression" value="0 17 19 * * ?" />
+	</bean>
 
 	<bean
 		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
@@ -203,6 +220,7 @@
 				<ref bean="runReconcileWeeklyJob" />
 				<ref bean="runReconcileMonthlyJob" />
 				<ref bean="runMissingReconcileEodJob" />
+				<ref bean="runMissingReconcileMonthlyJob" />
 			</list>
 		</property>
 		<property name="triggers">
@@ -212,6 +230,7 @@
 				<ref bean="cronTriggerReconcileWeekly" />
 				<ref bean="cronTriggerReconcileMonthly" />
 				<ref bean="cronTriggerMissingReconcileEod" />
+				<ref bean="cronTriggerMissingReconcileMonthly" />
 			</list>
 		</property>
 	</bean>

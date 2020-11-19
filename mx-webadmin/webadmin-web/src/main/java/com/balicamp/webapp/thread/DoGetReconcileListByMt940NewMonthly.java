@@ -263,17 +263,17 @@ public class DoGetReconcileListByMt940NewMonthly{
 			searchResultUnsettled.addAll(reconcileUnconfirmed);
 
 			synchronized (this){
-				reportReconcileAction.createReportWithoutContextByDataTypeMonthly(paramsSettled, searchResultSettled, jasperRealPathSettled, jrxmlRealPathSettled, reportDir, channelCode[0], "PDF", "settled");
-				String reportPathSettled = reportReconcileAction.createReportWithoutContextByDataTypeMonthly(paramsSettled, searchResultSettled, jasperRealPathSettled, jrxmlRealPathSettled, reportDir, channelCode[0], "XLS", "settled");
+				reportReconcileAction.createReportWithoutContextByDataTypeMonthly(paramsSettled, searchResultSettled, jasperRealPathSettled, jrxmlRealPathSettled, reportDir, channelCode[0], "PDF", "settled", reconcileCalendar.getTime());
+				String reportPathSettled = reportReconcileAction.createReportWithoutContextByDataTypeMonthly(paramsSettled, searchResultSettled, jasperRealPathSettled, jrxmlRealPathSettled, reportDir, channelCode[0], "XLS", "settled", reconcileCalendar.getTime());
 				saveToLogQuery(new Date(), reportPathSettled, "Settled", billerCode, channelCode[0]);
 	
-				reportReconcileAction.createReportWithoutContextByDataTypeMonthly(paramsUnsettled, searchResultUnsettled, jasperRealPathUnsettled, jrxmlRealPathUnsettled, reportDir, channelCode[0], "PDF", "unsettled");
-				String reportPathUnsettled = reportReconcileAction.createReportWithoutContextByDataTypeMonthly(paramsUnsettled, searchResultUnsettled, jasperRealPathUnsettled, jrxmlRealPathUnsettled, reportDir, channelCode[0], "XLS", "unsettled");
+				reportReconcileAction.createReportWithoutContextByDataTypeMonthly(paramsUnsettled, searchResultUnsettled, jasperRealPathUnsettled, jrxmlRealPathUnsettled, reportDir, channelCode[0], "PDF", "unsettled", reconcileCalendar.getTime());
+				String reportPathUnsettled = reportReconcileAction.createReportWithoutContextByDataTypeMonthly(paramsUnsettled, searchResultUnsettled, jasperRealPathUnsettled, jrxmlRealPathUnsettled, reportDir, channelCode[0], "XLS", "unsettled", reconcileCalendar.getTime());
 				saveToLogQuery(new Date(), reportPathUnsettled, "Unsettled/Need Confirmation", billerCode, channelCode[0]);
 	
 				
-				reportReconcileAction.createReportWithoutContextByDataTypeMonthly(params, searchResultAll, jasperRealPathAll, jrxmlRealPathAll, reportDir, channelCode[0], "PDF", "all");
-				String reportPathAll = reportReconcileAction.createReportWithoutContextByDataTypeMonthly(params, searchResultAll, jasperRealPathAll, jrxmlRealPathAll, reportDir, channelCode[0], "XLS", "all");
+				reportReconcileAction.createReportWithoutContextByDataTypeMonthly(params, searchResultAll, jasperRealPathAll, jrxmlRealPathAll, reportDir, channelCode[0], "PDF", "all", reconcileCalendar.getTime());
+				String reportPathAll = reportReconcileAction.createReportWithoutContextByDataTypeMonthly(params, searchResultAll, jasperRealPathAll, jrxmlRealPathAll, reportDir, channelCode[0], "XLS", "all", reconcileCalendar.getTime());
 				saveToLogQuery(new Date(), reportPathAll, "All", billerCode, channelCode[0]);
 				
 				// for detail in email
