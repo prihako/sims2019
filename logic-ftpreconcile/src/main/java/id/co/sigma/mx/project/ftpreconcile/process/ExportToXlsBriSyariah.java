@@ -1052,6 +1052,7 @@ public class ExportToXlsBriSyariah {
 						rs.getString("raw_transaction_msg"),
 						rs.getString("client_id"), rs.getString("invoice_id"),
 						rs.getString("payment_channel"),
+						rs.getString("branch_code"),
 						rs.getDouble("transaction_amount"),
 						rs.getString("error_desc") });
 			}
@@ -1148,7 +1149,7 @@ public class ExportToXlsBriSyariah {
 		
 		try {
 			c = dataSource.getConnection();
-			String sql = "SELECT * from job_mt940_bri where ACCOUNT_NO = ? AND TYPE_TRX = ?";
+			String sql = "SELECT * from job_mt940_bri_sya where ACCOUNT_NO = ? AND TYPE_TRX = ?";
 			s = c.prepareStatement(sql);
 			s.setString(1, accountNo);
 			s.setInt(2, type);
@@ -1189,7 +1190,7 @@ public class ExportToXlsBriSyariah {
 		
 		try {
 			c = dataSource.getConnection();
-			String sql = "SELECT * from job_mt940_bri where ACCOUNT_NO = ? AND TYPE_TRX = ?";
+			String sql = "SELECT * from job_mt940_bri_sya where ACCOUNT_NO = ? AND TYPE_TRX = ?";
 			s = c.prepareStatement(sql);
 			s.setString(1, accountNo);
 			s.setInt(2, type);
@@ -1230,7 +1231,7 @@ public class ExportToXlsBriSyariah {
 		
 		try {
 			c = dataSource.getConnection();
-			String sql = "SELECT * from job_mt940_bri where ACCOUNT_NO = ? AND TYPE_TRX = ?";
+			String sql = "SELECT * from job_mt940_bri_sya where ACCOUNT_NO = ? AND TYPE_TRX = ?";
 			s = c.prepareStatement(sql);
 			s.setString(1, accountNo);
 			s.setInt(2, type);

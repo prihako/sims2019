@@ -281,7 +281,7 @@
 		  <map>
 			<entry key="receiverFTP" value-ref="receiverFTPMandiriSyariah" />
 			<entry key="exportToXls" value-ref="exportToXlsMandiriSyariah" />
-			<entry key="dataSource" value-ref="dataSourceMandiriSyariah" /> 
+			<entry key="dataSource" value-ref="dataSource" /> 
 		  </map>
 		</property>
  	</bean>
@@ -342,7 +342,7 @@
 	</bean>
 	
 	<!-- FTP Cron Trigger Mandiri Syariah-->
-	<bean id="ftpTriggerMadiriSyariah" 
+	<bean id="ftpTriggerMandiriSyariah" 
                 class="org.springframework.scheduling.quartz.CronTriggerBean">
 		<property name="jobDetail" ref="receiverFtpJobMandiriSyariah" />
 		<property name="cronExpression" value="${ftp.job_time_mandiri_syariah}" /> 
@@ -390,7 +390,7 @@
 		<property name="triggers">
 			<list>
 				<ref bean="ftpTrigger" />
-				<ref bean="ftpTriggerMandiri" />
+				<ref bean="ftpTriggerMandiriSyariah" />
 				<ref bean="ftpTriggerBni" />
 				<ref bean="ftpTriggerBniSyariah" />
 				<ref bean="ftpTriggerBri" />

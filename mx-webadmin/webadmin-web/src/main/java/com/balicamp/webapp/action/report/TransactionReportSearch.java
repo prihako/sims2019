@@ -144,6 +144,9 @@ public abstract class TransactionReportSearch extends AdminBasePage implements P
 		map.put("mandiri", "Bank Mandiri");
 		map.put("bri", "Bank BRI");
 		map.put("bni", "Bank BNI");
+		map.put("mandiri_syariah", "Bank Mandiri Syariah");
+		map.put("bri_syariah", "Bank BRI Syariah");
+		map.put("bni_syariah", "Bank BNI Syariah");
 		return new PropertySelectionModel(getLocale(), map, false, false);
 	}
 

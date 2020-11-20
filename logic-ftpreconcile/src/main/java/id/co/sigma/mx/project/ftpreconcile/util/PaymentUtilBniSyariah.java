@@ -2753,7 +2753,7 @@ public class PaymentUtilBniSyariah {
 		
 		try {
 			c = dataSource.getConnection();
-			String sql = "SELECT * from job_mt940 where ACCOUNT_NO = ? and TRANSACTION_CODE = ? ";
+			String sql = "SELECT * from job_mt940_bni_sya where ACCOUNT_NO = ? and TRANSACTION_CODE = ? ";
 			s = c.prepareStatement(sql);
 			s.setString(1, accountNo);
 			s.setString(2, transactionCode);
@@ -2792,7 +2792,7 @@ public class PaymentUtilBniSyariah {
 		
 		try {
 			c = dataSource.getConnection();
-			String sql = "SELECT * from job_mt940_bni where ACCOUNT_NO = ? and TRANSACTION_CODE = ? ";
+			String sql = "SELECT * from job_mt940_bni_sya where ACCOUNT_NO = ? and TRANSACTION_CODE = ? ";
 			s = c.prepareStatement(sql);
 			s.setString(1, accountNo);
 			s.setString(2, transactionCode);

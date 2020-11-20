@@ -72,7 +72,8 @@ public class ProcessorMessageMandiriSyariah {
             //if not from special folder, then check processed file transaction, else by pass checking
             boolean isProcessed = false;
             if (!isSpecialFolder) {
-                isProcessed = paymentUtil.isProcessedFileTransac(fileTransac.getTransactionDate(), fileName);
+                isProcessed = paymentUtil.isProcessedFileTransac(fileTransac.getTransactionDate(), 
+                		fileName, bankName);
             }
 
             if (!isProcessed) { //not processed yet

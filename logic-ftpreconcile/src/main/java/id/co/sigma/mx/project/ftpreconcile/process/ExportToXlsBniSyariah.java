@@ -923,7 +923,7 @@ public class ExportToXlsBniSyariah {
 		
 		try {
 			c = dataSource.getConnection();
-			String sql = "SELECT * from job_mt940_bni where ACCOUNT_NO = ? AND TYPE_TRX = ?";
+			String sql = "SELECT * from job_mt940_bni_sya where ACCOUNT_NO = ? AND TYPE_TRX = ?";
 			s = c.prepareStatement(sql);
 			s.setString(1, accountNo);
 			s.setInt(2, type);
@@ -964,7 +964,7 @@ public class ExportToXlsBniSyariah {
 		
 		try {
 			c = dataSource.getConnection();
-			String sql = "SELECT * from job_mt940_bni where ACCOUNT_NO = ? AND TYPE_TRX = ?";
+			String sql = "SELECT * from job_mt940_bni_sya where ACCOUNT_NO = ? AND TYPE_TRX = ?";
 			s = c.prepareStatement(sql);
 			s.setString(1, accountNo);
 			s.setInt(2, type);
@@ -1005,7 +1005,7 @@ public class ExportToXlsBniSyariah {
 		
 		try {
 			c = dataSource.getConnection();
-			String sql = "SELECT * from job_mt940_bni where ACCOUNT_NO = ? AND TYPE_TRX = ?";
+			String sql = "SELECT * from job_mt940_bni_sya where ACCOUNT_NO = ? AND TYPE_TRX = ?";
 			s = c.prepareStatement(sql);
 			s.setString(1, accountNo);
 			s.setInt(2, type);

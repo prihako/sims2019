@@ -24,7 +24,7 @@ import id.co.sigma.mx.project.ftpreconcile.util.XlsUtil;
 
 public class ExportToXlsMandiriSyariah {
 
-	private static Logger logger = Logger.getLogger(ExportToXls.class);
+	private static Logger logger = Logger.getLogger(ExportToXlsMandiriSyariah.class);
 
 	private DataSource dataSource;
 	private FTPManagerMandiriSyariah ftpManager;
@@ -1125,7 +1125,7 @@ public class ExportToXlsMandiriSyariah {
 		
 		try {
 			c = dataSource.getConnection();
-			String sql = "SELECT * from job_mt940 where ACCOUNT_NO = ? AND TYPE_TRX = ?";
+			String sql = "SELECT * from job_mt940_bmri_sya where ACCOUNT_NO = ? AND TYPE_TRX = ?";
 			s = c.prepareStatement(sql);
 			s.setString(1, accountNo);
 			s.setInt(2, type);
@@ -1166,7 +1166,7 @@ public class ExportToXlsMandiriSyariah {
 		
 		try {
 			c = dataSource.getConnection();
-			String sql = "SELECT * from job_mt940 where ACCOUNT_NO = ? AND TYPE_TRX = ?";
+			String sql = "SELECT * from job_mt940_bmri_sya where ACCOUNT_NO = ? AND TYPE_TRX = ?";
 			s = c.prepareStatement(sql);
 			s.setString(1, accountNo);
 			s.setInt(2, type);
@@ -1207,7 +1207,7 @@ public class ExportToXlsMandiriSyariah {
 		
 		try {
 			c = dataSource.getConnection();
-			String sql = "SELECT * from job_mt940 where ACCOUNT_NO = ? AND TYPE_TRX = ?";
+			String sql = "SELECT * from job_mt940_bmri_sya where ACCOUNT_NO = ? AND TYPE_TRX = ?";
 			s = c.prepareStatement(sql);
 			s.setString(1, accountNo);
 			s.setInt(2, type);

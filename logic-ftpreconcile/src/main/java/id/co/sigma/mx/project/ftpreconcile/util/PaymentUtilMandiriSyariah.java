@@ -2573,7 +2573,7 @@ public class PaymentUtilMandiriSyariah {
 		}
 	}
 
-	public boolean isProcessedFileTransac(Calendar transactionDate, String filename) throws SQLException {
+	public boolean isProcessedFileTransac(Calendar transactionDate, String filename, String bankName) throws SQLException {
 		
 		java.util.Date transDate = transactionDate.getTime();
 		String listnerStatus = PostelConstant.STATUS_VALID;
@@ -2585,7 +2585,8 @@ public class PaymentUtilMandiriSyariah {
 		
 		String sql = "SELECT COUNT(*) FROM LISTENER_LOG WHERE LISTENER_STATUS = ? " + 
 				 "AND TRANSACTION_DATE = ? " + 
-				 "AND FILENAME_TRANSACTION = ?";
+				 "AND FILENAME_TRANSACTION = ? "
+				 + "AND BANK_NAME = ? ";
 		
 		Connection con = null;
 		PreparedStatement stat = null;
@@ -2598,6 +2599,7 @@ public class PaymentUtilMandiriSyariah {
 			stat.setString(1, listnerStatus);
 			stat.setDate(2, new java.sql.Date(transDate.getTime()));
 			stat.setString(3, filename);
+			stat.setString(4, bankName);
 			rs = stat.executeQuery();
 			if(rs.next()) {
 				long count = rs.getLong(1);
@@ -2752,7 +2754,7 @@ public class PaymentUtilMandiriSyariah {
 		
 		try {
 			c = dataSource.getConnection();
-			String sql = "SELECT * from job_mt940 where ACCOUNT_NO = ? and TRANSACTION_CODE = ? ";
+			String sql = "SELECT * from job_mt940_bmri_sya where ACCOUNT_NO = ? and TRANSACTION_CODE = ? ";
 			s = c.prepareStatement(sql);
 			s.setString(1, accountNo);
 			s.setString(2, transactionCode);
@@ -2791,7 +2793,7 @@ public class PaymentUtilMandiriSyariah {
 		
 		try {
 			c = dataSource.getConnection();
-			String sql = "SELECT * from job_mt940 where ACCOUNT_NO = ? and TRANSACTION_CODE = ? ";
+			String sql = "SELECT * from job_mt940_bmri_sya where ACCOUNT_NO = ? and TRANSACTION_CODE = ? ";
 			s = c.prepareStatement(sql);
 			s.setString(1, accountNo);
 			s.setString(2, transactionCode);

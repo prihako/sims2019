@@ -68,7 +68,7 @@ public class ReceiverFTPMandiriSyariah {
 
 			// diubah sama hako
 			boolean isProcessed = paymentUtil.isProcessedFileTransac(
-					transactionDate, filename);
+					transactionDate, filename, bankName);
 
 			if (isProcessed) {
 
@@ -80,7 +80,7 @@ public class ReceiverFTPMandiriSyariah {
 				List<String> listFileTransac = new ArrayList<String>();
 				listFileTransac.add(filename);
 
-				searchPrevFileTransaction(filename, listFileTransac, filePattern);
+				searchPrevFileTransaction(filename, listFileTransac, filePattern, bankName);
 
 				String file;
 				for (int i = listFileTransac.size() - 1; i >= 0; i--) {
@@ -180,41 +180,22 @@ public class ReceiverFTPMandiriSyariah {
 		
 		return result;
 	}
-
-	private void searchPrevFileTransaction(String fileName,
-			List<String> listFileTransac) throws SQLException,
-			ClassNotFoundException {
-
-		String prevFileName = FileFormatUtil.getPrevFilename(fileName);
-
-		// diubah sama hako
-		boolean isProcessed = paymentUtil.isProcessedFileTransac(
-				FileFormatUtil.getTrasactionDate(prevFileName), prevFileName);
-
-		if (!isProcessed) {
-			if (!paymentUtil.isEmptyTableFileTransac()) {
-				listFileTransac.add(prevFileName);
-				searchPrevFileTransaction(prevFileName, listFileTransac);
-			} else {
-				logger.info("Table file log is empty, so only retrieve current date file transaction");
-			}
-		}
-	}
 	
 	private void searchPrevFileTransaction(String fileName,
-			List<String> listFileTransac, String filePattern) throws SQLException,
+			List<String> listFileTransac, String filePattern, String bankName) throws SQLException,
 			ClassNotFoundException {
 		
 		String prevFileName = FileFormatUtil.getPrevFilename(fileName, filePattern);
 
 		// diubah sama hako
 		boolean isProcessed = paymentUtil.isProcessedFileTransac(
-				FileFormatUtil.getTrasactionDate(prevFileName, filePattern), prevFileName);
+				FileFormatUtil.getTrasactionDate(prevFileName, filePattern), 
+				prevFileName, bankName);
 
 		if (!isProcessed) {
 			if (!paymentUtil.isEmptyTableFileTransac()) {
 				listFileTransac.add(prevFileName);
-				searchPrevFileTransaction(prevFileName, listFileTransac, filePattern);
+				searchPrevFileTransaction(prevFileName, listFileTransac, filePattern, bankName);
 			} else {
 				logger.info("Table file log is empty, so only retrieve current date file transaction");
 			}

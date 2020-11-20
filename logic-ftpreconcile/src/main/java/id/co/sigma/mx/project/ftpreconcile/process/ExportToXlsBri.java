@@ -1052,6 +1052,7 @@ public class ExportToXlsBri {
 						rs.getString("raw_transaction_msg"),
 						rs.getString("client_id"), rs.getString("invoice_id"),
 						rs.getString("payment_channel"),
+						rs.getString("branch_code"),
 						rs.getDouble("transaction_amount"),
 						rs.getString("error_desc") });
 			}
