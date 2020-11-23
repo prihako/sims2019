@@ -69,27 +69,30 @@
     <bean id="reconcileEodTask" class="com.balicamp.webapp.scheduler.ReconcileEodTask">
     	   	<property name="dataSource" ref="mxDataSource" />
     	   	 <property name="dataSourceWebapp" ref="dataSource" />
-    </bean>
+     </bean>
 
      <bean id="reconcileWeeklyTask" class="com.balicamp.webapp.scheduler.ReconcileWeeklyTask">
             <property name="dataSource" ref="mxDataSource" />
              <property name="dataSourceWebapp" ref="dataSource" />
-    </bean>
+     </bean>
 
      <bean id="reconcileMonthlyTask" class="com.balicamp.webapp.scheduler.ReconcileMonthlyTask">
-            <property name="dataSource" ref="mxDataSource" />
-             <property name="dataSourceWebapp" ref="dataSource" />
-    </bean>
+     	<property name="dataSource" ref="mxDataSource" />
+    	<property name="dataSourceWebapp" ref="dataSource" />
+     </bean>
 	
-	<bean id="missingReconcileEodTask" class="com.balicamp.webapp.scheduler.MissingReconcileEodTask">
-            <property name="dataSource" ref="mxDataSource" />
-             <property name="dataSourceWebapp" ref="dataSource" />
-    </bean>
+	 <bean id="missingReconcileEodTask" class="com.balicamp.webapp.scheduler.MissingReconcileEodTask">
+    	<property name="dataSource" ref="mxDataSource" />
+    	<property name="dataSourceWebapp" ref="dataSource" />
+    	<property name="startDate" ref="23/11/2020" /> <!--  format DD/MM/YYYY -->
+    	<property name="numOfReportPerDay" ref="27" />
+     </bean>
     
-    <bean id="missingReconcileMonthlyTask" class="com.balicamp.webapp.scheduler.MissingReconcileMonthlyTask">
-            <property name="dataSource" ref="mxDataSource" />
-             <property name="dataSourceWebapp" ref="dataSource" />
-    </bean>
+     <bean id="missingReconcileMonthlyTask" class="com.balicamp.webapp.scheduler.MissingReconcileMonthlyTask">
+        <property name="dataSource" ref="mxDataSource" />
+    	<property name="dataSourceWebapp" ref="dataSource" />
+    	<property name="listMissingMonths" ref="2,3,4,5,6" />
+     </bean>
 
     <!-- Generic Dao - can be used when doing standard CRUD -->
     <bean id="mxDao" class="com.balicamp.dao.hibernate.BaseDaoHibernate">

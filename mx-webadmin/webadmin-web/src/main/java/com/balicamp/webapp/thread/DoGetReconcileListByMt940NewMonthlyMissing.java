@@ -57,7 +57,7 @@ public class DoGetReconcileListByMt940NewMonthlyMissing{
 	private DataSource dataSource;
 	private String billerCode;
 	private List<String> channelList;
-	
+	private String [] missingMonths;
 	
 	public DoGetReconcileListByMt940NewMonthlyMissing(SystemParameterManager systemParameter,
 			TransactionLogsManager trxLogManager,
@@ -65,7 +65,8 @@ public class DoGetReconcileListByMt940NewMonthlyMissing{
 			DataSource dataSourceWebapp,
 			DataSource dataSource,
 			String billerCode, 
-			List<String> channelList){
+			List<String> channelList, 
+			String [] missingMonths){
 		this.systemParameter = systemParameter;
 		this.trxLogManager = trxLogManager;
 		this.armgmtManagerImpl = armgmtManagerImpl;
@@ -73,6 +74,7 @@ public class DoGetReconcileListByMt940NewMonthlyMissing{
 		this.dataSource=dataSource;
 		this.billerCode = billerCode;
 		this.channelList = channelList;
+		this.missingMonths = missingMonths;
 	}
 	
 	public void doGetReconcileListByMt940EodNew() throws FileNotFoundException, JRException, IOException, SQLException {
@@ -91,7 +93,6 @@ public class DoGetReconcileListByMt940NewMonthlyMissing{
 
 		for (String channelCodeLoop : channelList) {
 
-			String [] missingMonths = systemParameter.findParamValueByParamName("reconcileMonthly.missing.month").split(",");
 			for(String month : missingMonths) {
 				
 				Map<String, String> paramsSettled 	= new HashMap<String, String>();
@@ -230,10 +231,6 @@ public class DoGetReconcileListByMt940NewMonthlyMissing{
 				putToParam(paramsUnsettled, mapCountUnsettled, mapCountAmountUnsettled, startDate, endDate, channelCode[1], channelCode[0], "Unsettled/Need Confirmation", systemParameter.findParamValueByParamName("reconcileMonthly.report.image.path"),"");
 
 				putToParam(params, mapCount, mapCountAmount, startDate, endDate, channelCode[1], channelCode[0], "All", systemParameter.findParamValueByParamName("reconcileMonthly.report.image.path"),"");
-				// result.put("params", params);
-				// result.put("jrxmlPath", jrxmlRealPath);
-				// result.put("jasperPath", jasperRealPath);
-				// result.put("searchResult", searchResult);
 
 				ArrayList<ReconcileDto> reconcileUnsettled = new ArrayList<ReconcileDto>();
 				ArrayList<ReconcileDto> reconcileUnconfirmed = new ArrayList<ReconcileDto>();

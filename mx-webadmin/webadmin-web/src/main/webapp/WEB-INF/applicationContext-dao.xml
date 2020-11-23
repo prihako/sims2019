@@ -219,8 +219,8 @@
 				<ref bean="runReconcileEodJob" />
 				<ref bean="runReconcileWeeklyJob" />
 				<ref bean="runReconcileMonthlyJob" />
-				<ref bean="runMissingReconcileEodJob" />
-				<ref bean="runMissingReconcileMonthlyJob" />
+<!-- 				<ref bean="runMissingReconcileEodJob" /> -->
+<!-- 				<ref bean="runMissingReconcileMonthlyJob" /> -->
 			</list>
 		</property>
 		<property name="triggers">
@@ -229,8 +229,8 @@
 				<ref bean="cronTriggerReconcileEod" />
 				<ref bean="cronTriggerReconcileWeekly" />
 				<ref bean="cronTriggerReconcileMonthly" />
-				<ref bean="cronTriggerMissingReconcileEod" />
-				<ref bean="cronTriggerMissingReconcileMonthly" />
+<!-- 				<ref bean="cronTriggerMissingReconcileEod" /> -->
+<!-- 				<ref bean="cronTriggerMissingReconcileMonthly" /> -->
 			</list>
 		</property>
 	</bean>

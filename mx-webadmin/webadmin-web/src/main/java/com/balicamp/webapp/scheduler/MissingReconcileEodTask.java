@@ -65,6 +65,9 @@ public class MissingReconcileEodTask extends HttpServlet {
 	private FTPManager ftpManager;
 	private DataSource dataSource;
 	private DataSource dataSourceWebapp;
+	private String startDate;
+	private Integer numOfReportPerDay;
+
 	@Autowired
 	public SystemParameterManager systemParameter;
 
@@ -116,13 +119,6 @@ public class MissingReconcileEodTask extends HttpServlet {
 	@Autowired
 	private PengujianChannel pengujianChannel;
 
-	@SuppressWarnings("unused")
-	private XlstoStringConverter xlsFile;
-
-	public MissingReconcileEodTask() {
-		this.xlsFile = new XlstoStringConverter();
-	}
-
 	public void setDataSource(DataSource dataSource) {
 		this.dataSource = dataSource;
 	}
@@ -136,13 +132,12 @@ public class MissingReconcileEodTask extends HttpServlet {
 		this.ftpManager = ftpManager;
 	}
 
-	public void listAllFiles() throws Exception {
-		String[] fileNames = ftpManager.listFileNames(null);
-		log.info("---------List Of Files-----------");
-		for (int i = 0; i < fileNames.length; i++) {
-			log.info("-----------" + fileNames[i] + "---------");
-		}
-		log.info("---------End Of List Of Files-----------");
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+
+	public void setNumOfReportPerDay(Integer numOfReportPerDay) {
+		this.numOfReportPerDay = numOfReportPerDay;
 	}
 
 	public void init() throws ServletException {
@@ -258,19 +253,12 @@ public class MissingReconcileEodTask extends HttpServlet {
 				"SELECT report_time  "
 						+"FROM   generate_series( " 
 						+"       ( "
-						+"              SELECT To_date(param_value, 'DD/MM/YYYY') "         
-						+"              FROM   s_parameter  "   
-						+"              WHERE  param_name = 'webadmin.missing.eod.search.min.date'), CURRENT_DATE , interval '1 day') AS report_time "   
+						+"              SELECT To_date( ? , 'DD/MM/YYYY'), CURRENT_DATE , interval '1 day') AS report_time "   
 						+"WHERE  report_time NOT IN "  
 						+"       (  "
 						+"                SELECT   report_time "    
 						+"                FROM     reconcile_report_log "       
-						+"                WHERE    report_time > "     
-						+"  ( "  
-						+"         SELECT to_date(param_value, 'DD/MM/YYYY') "              
-						+"         FROM   s_parameter "        
-						+"         WHERE  param_name = 'webadmin.missing.eod.search.min.date') "                  
-						+"                ORDER BY report_time) "     
+						+"                WHERE    report_time > to_date( ? , 'DD/MM/YYYY') "         
 						+"UNION "
 						+"SELECT   report_time  "
 						+"FROM     (  "
@@ -278,17 +266,8 @@ public class MissingReconcileEodTask extends HttpServlet {
 						+"                  SELECT   report_time,  "     
 						+"    count(*) "    
 						+"                  FROM     reconcile_report_log "       
-						+"                  WHERE    report_time > "     
-						+"    ( "  
-						+"           SELECT to_date(param_value, 'DD/MM/YYYY') "              
-						+"           FROM   s_parameter "        
-						+"           WHERE  param_name = 'webadmin.missing.eod.search.min.date') "                   
-						+"                  GROUP BY report_time) ) x  "      
-						+"WHERE    count <  "
-						+"         (  "
-						+"                SELECT to_number(param_value, '999')  "        
-						+"                FROM   s_parameter  "    
-						+"                WHERE  param_name = 'webadmin.missing.eod.number.transaction.per.day') "                 
+						+"                  WHERE    report_time > to_date( ? , 'DD/MM/YYYY') "     
+						+"WHERE    count <  ? "                
 						+"ORDER BY report_time ";
 		Connection con = null;
 		PreparedStatement stat = null;
@@ -299,6 +278,10 @@ public class MissingReconcileEodTask extends HttpServlet {
 		try {
 			con = dataSourceWebapp.getConnection();
 			stat = con.prepareStatement(sql);
+			stat.setString(1, startDate);
+			stat.setString(2, startDate);
+			stat.setString(3, startDate);
+			stat.setInt(4, numOfReportPerDay);
 			rs = stat.executeQuery();
 			while (rs.next()) {
 				Date dt = rs.getDate("report_time");
@@ -313,4 +296,5 @@ public class MissingReconcileEodTask extends HttpServlet {
 		
 		return dateList;
 	}
+
 }
