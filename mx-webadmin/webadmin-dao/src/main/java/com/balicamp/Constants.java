@@ -566,6 +566,7 @@ public abstract class Constants {
 			transactionType.put("60", "IKRAP");
 			transactionType.put("70", "PER");
 			transactionType.put("80", "PAP");
+			transactionType.put("90", "KLBSI");
 		}
 	}
 	
